@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Enum;
 
 final class MessageSystemAttributeName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL = 'All';
     public const APPROXIMATE_FIRST_RECEIVE_TIMESTAMP = 'ApproximateFirstReceiveTimestamp';
     public const APPROXIMATE_RECEIVE_COUNT = 'ApproximateReceiveCount';
@@ -15,6 +16,9 @@ final class MessageSystemAttributeName
     public const SENT_TIMESTAMP = 'SentTimestamp';
     public const SEQUENCE_NUMBER = 'SequenceNumber';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

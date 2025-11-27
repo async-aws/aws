@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Enum;
 
 final class LandmarkType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CHIN_BOTTOM = 'chinBottom';
     public const EYE_LEFT = 'eyeLeft';
     public const EYE_RIGHT = 'eyeRight';
@@ -35,6 +36,9 @@ final class LandmarkType
     public const UPPER_JAWLINE_LEFT = 'upperJawlineLeft';
     public const UPPER_JAWLINE_RIGHT = 'upperJawlineRight';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

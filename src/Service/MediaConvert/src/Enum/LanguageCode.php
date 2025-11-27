@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class LanguageCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AAR = 'AAR';
     public const ABK = 'ABK';
     public const AFR = 'AFR';
@@ -201,6 +202,9 @@ final class LanguageCode
     public const ZHO = 'ZHO';
     public const ZUL = 'ZUL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

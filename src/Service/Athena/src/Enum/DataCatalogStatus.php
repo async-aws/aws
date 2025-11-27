@@ -4,6 +4,7 @@ namespace AsyncAws\Athena\Enum;
 
 final class DataCatalogStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CREATE_COMPLETE = 'CREATE_COMPLETE';
     public const CREATE_FAILED = 'CREATE_FAILED';
     public const CREATE_FAILED_CLEANUP_COMPLETE = 'CREATE_FAILED_CLEANUP_COMPLETE';
@@ -14,6 +15,9 @@ final class DataCatalogStatus
     public const DELETE_FAILED = 'DELETE_FAILED';
     public const DELETE_IN_PROGRESS = 'DELETE_IN_PROGRESS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

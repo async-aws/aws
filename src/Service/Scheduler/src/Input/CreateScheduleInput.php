@@ -402,6 +402,7 @@ final class CreateScheduleInput extends Input
         $payload = [];
         if (null !== $v = $this->actionAfterCompletion) {
             if (!ActionAfterCompletion::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ActionAfterCompletion" for "%s". The value "%s" is not a valid "ActionAfterCompletion".', __CLASS__, $v));
             }
             $payload['ActionAfterCompletion'] = $v;
@@ -439,6 +440,7 @@ final class CreateScheduleInput extends Input
         }
         if (null !== $v = $this->state) {
             if (!ScheduleState::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $v));
             }
             $payload['State'] = $v;

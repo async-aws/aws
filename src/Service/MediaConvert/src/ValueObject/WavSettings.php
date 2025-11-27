@@ -107,6 +107,7 @@ final class WavSettings
         }
         if (null !== $v = $this->format) {
             if (!WavFormat::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "format" for "%s". The value "%s" is not a valid "WavFormat".', __CLASS__, $v));
             }
             $payload['format'] = $v;

@@ -7,6 +7,9 @@ final class ContentClassifier
     public const FREE_OF_ADULT_CONTENT = 'FreeOfAdultContent';
     public const FREE_OF_PERSONALLY_IDENTIFIABLE_INFORMATION = 'FreeOfPersonallyIdentifiableInformation';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

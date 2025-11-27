@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class ResourceStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CREATE_COMPLETE = 'CREATE_COMPLETE';
     public const CREATE_FAILED = 'CREATE_FAILED';
     public const CREATE_IN_PROGRESS = 'CREATE_IN_PROGRESS';
@@ -33,6 +34,9 @@ final class ResourceStatus
     public const UPDATE_ROLLBACK_FAILED = 'UPDATE_ROLLBACK_FAILED';
     public const UPDATE_ROLLBACK_IN_PROGRESS = 'UPDATE_ROLLBACK_IN_PROGRESS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

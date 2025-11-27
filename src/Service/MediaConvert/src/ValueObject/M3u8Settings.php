@@ -424,6 +424,7 @@ final class M3u8Settings
         $payload = [];
         if (null !== $v = $this->audioDuration) {
             if (!M3u8AudioDuration::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "M3u8AudioDuration".', __CLASS__, $v));
             }
             $payload['audioDuration'] = $v;
@@ -444,6 +445,7 @@ final class M3u8Settings
         }
         if (null !== $v = $this->dataPtsControl) {
             if (!M3u8DataPtsControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dataPTSControl" for "%s". The value "%s" is not a valid "M3u8DataPtsControl".', __CLASS__, $v));
             }
             $payload['dataPTSControl'] = $v;
@@ -453,6 +455,7 @@ final class M3u8Settings
         }
         if (null !== $v = $this->nielsenId3) {
             if (!M3u8NielsenId3::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "nielsenId3" for "%s". The value "%s" is not a valid "M3u8NielsenId3".', __CLASS__, $v));
             }
             $payload['nielsenId3'] = $v;
@@ -462,6 +465,7 @@ final class M3u8Settings
         }
         if (null !== $v = $this->pcrControl) {
             if (!M3u8PcrControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "pcrControl" for "%s". The value "%s" is not a valid "M3u8PcrControl".', __CLASS__, $v));
             }
             $payload['pcrControl'] = $v;
@@ -486,6 +490,7 @@ final class M3u8Settings
         }
         if (null !== $v = $this->ptsOffsetMode) {
             if (!TsPtsOffset::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ptsOffsetMode" for "%s". The value "%s" is not a valid "TsPtsOffset".', __CLASS__, $v));
             }
             $payload['ptsOffsetMode'] = $v;
@@ -495,12 +500,14 @@ final class M3u8Settings
         }
         if (null !== $v = $this->scte35Source) {
             if (!M3u8Scte35Source::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "M3u8Scte35Source".', __CLASS__, $v));
             }
             $payload['scte35Source'] = $v;
         }
         if (null !== $v = $this->timedMetadata) {
             if (!TimedMetadata::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timedMetadata" for "%s". The value "%s" is not a valid "TimedMetadata".', __CLASS__, $v));
             }
             $payload['timedMetadata'] = $v;

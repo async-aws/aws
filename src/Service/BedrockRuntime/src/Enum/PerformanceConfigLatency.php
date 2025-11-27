@@ -4,9 +4,13 @@ namespace AsyncAws\BedrockRuntime\Enum;
 
 final class PerformanceConfigLatency
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const OPTIMIZED = 'optimized';
     public const STANDARD = 'standard';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

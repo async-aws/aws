@@ -79,6 +79,7 @@ final class AudioChannelTaggingSettings
         $payload = [];
         if (null !== $v = $this->channelTag) {
             if (!AudioChannelTag::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "channelTag" for "%s". The value "%s" is not a valid "AudioChannelTag".', __CLASS__, $v));
             }
             $payload['channelTag'] = $v;
@@ -89,6 +90,7 @@ final class AudioChannelTaggingSettings
             foreach ($v as $listValue) {
                 ++$index;
                 if (!AudioChannelTag::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "channelTags" for "%s". The value "%s" is not a valid "AudioChannelTag".', __CLASS__, $listValue));
                 }
                 $payload['channelTags'][$index] = $listValue;

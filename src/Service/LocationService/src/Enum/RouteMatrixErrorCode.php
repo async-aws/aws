@@ -4,6 +4,7 @@ namespace AsyncAws\LocationService\Enum;
 
 final class RouteMatrixErrorCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEPARTURE_POSITION_NOT_FOUND = 'DeparturePositionNotFound';
     public const DESTINATION_POSITION_NOT_FOUND = 'DestinationPositionNotFound';
     public const OTHER_VALIDATION_ERROR = 'OtherValidationError';
@@ -11,6 +12,9 @@ final class RouteMatrixErrorCode
     public const ROUTE_NOT_FOUND = 'RouteNotFound';
     public const ROUTE_TOO_LONG = 'RouteTooLong';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

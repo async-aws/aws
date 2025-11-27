@@ -8,11 +8,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AacVbrQuality
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HIGH = 'HIGH';
     public const LOW = 'LOW';
     public const MEDIUM_HIGH = 'MEDIUM_HIGH';
     public const MEDIUM_LOW = 'MEDIUM_LOW';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

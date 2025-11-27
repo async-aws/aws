@@ -258,6 +258,7 @@ final class ProjectArtifacts
         $payload = [];
         $v = $this->type;
         if (!ArtifactsType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "ArtifactsType".', __CLASS__, $v));
         }
         $payload['type'] = $v;
@@ -269,6 +270,7 @@ final class ProjectArtifacts
         }
         if (null !== $v = $this->namespaceType) {
             if (!ArtifactNamespace::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "namespaceType" for "%s". The value "%s" is not a valid "ArtifactNamespace".', __CLASS__, $v));
             }
             $payload['namespaceType'] = $v;
@@ -278,6 +280,7 @@ final class ProjectArtifacts
         }
         if (null !== $v = $this->packaging) {
             if (!ArtifactPackaging::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "packaging" for "%s". The value "%s" is not a valid "ArtifactPackaging".', __CLASS__, $v));
             }
             $payload['packaging'] = $v;
@@ -293,6 +296,7 @@ final class ProjectArtifacts
         }
         if (null !== $v = $this->bucketOwnerAccess) {
             if (!BucketOwnerAccess::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "bucketOwnerAccess" for "%s". The value "%s" is not a valid "BucketOwnerAccess".', __CLASS__, $v));
             }
             $payload['bucketOwnerAccess'] = $v;

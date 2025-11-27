@@ -9,9 +9,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H265EndOfStreamMarkers
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INCLUDE = 'INCLUDE';
     public const SUPPRESS = 'SUPPRESS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -4,11 +4,15 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class StackDriftStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DRIFTED = 'DRIFTED';
     public const IN_SYNC = 'IN_SYNC';
     public const NOT_CHECKED = 'NOT_CHECKED';
     public const UNKNOWN = 'UNKNOWN';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

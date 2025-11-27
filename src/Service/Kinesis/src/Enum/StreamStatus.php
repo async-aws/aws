@@ -4,11 +4,15 @@ namespace AsyncAws\Kinesis\Enum;
 
 final class StreamStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'ACTIVE';
     public const CREATING = 'CREATING';
     public const DELETING = 'DELETING';
     public const UPDATING = 'UPDATING';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

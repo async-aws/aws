@@ -16,11 +16,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DvbddsHandling
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const NO_DISPLAY_WINDOW = 'NO_DISPLAY_WINDOW';
     public const SPECIFIED = 'SPECIFIED';
     public const SPECIFIED_OPTIMAL = 'SPECIFIED_OPTIMAL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

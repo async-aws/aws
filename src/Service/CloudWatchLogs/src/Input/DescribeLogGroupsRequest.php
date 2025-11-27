@@ -313,6 +313,7 @@ final class DescribeLogGroupsRequest extends Input
         }
         if (null !== $v = $this->logGroupClass) {
             if (!LogGroupClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "logGroupClass" for "%s". The value "%s" is not a valid "LogGroupClass".', __CLASS__, $v));
             }
             $payload['logGroupClass'] = $v;

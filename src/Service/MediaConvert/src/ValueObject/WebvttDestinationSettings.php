@@ -91,12 +91,14 @@ final class WebvttDestinationSettings
         $payload = [];
         if (null !== $v = $this->accessibility) {
             if (!WebvttAccessibilitySubs::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "accessibility" for "%s". The value "%s" is not a valid "WebvttAccessibilitySubs".', __CLASS__, $v));
             }
             $payload['accessibility'] = $v;
         }
         if (null !== $v = $this->stylePassthrough) {
             if (!WebvttStylePassthrough::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "WebvttStylePassthrough".', __CLASS__, $v));
             }
             $payload['stylePassthrough'] = $v;

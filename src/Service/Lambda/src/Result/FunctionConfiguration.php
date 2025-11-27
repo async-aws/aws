@@ -4,13 +4,20 @@ namespace AsyncAws\Lambda\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\ApplicationLogLevel;
 use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\LastUpdateStatus;
 use AsyncAws\Lambda\Enum\LastUpdateStatusReasonCode;
+use AsyncAws\Lambda\Enum\LogFormat;
 use AsyncAws\Lambda\Enum\PackageType;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\Enum\SnapStartApplyOn;
+use AsyncAws\Lambda\Enum\SnapStartOptimizationStatus;
 use AsyncAws\Lambda\Enum\State;
 use AsyncAws\Lambda\Enum\StateReasonCode;
+use AsyncAws\Lambda\Enum\SystemLogLevel;
+use AsyncAws\Lambda\Enum\TenantIsolationMode;
+use AsyncAws\Lambda\Enum\TracingMode;
 use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
 use AsyncAws\Lambda\ValueObject\DurableConfig;
@@ -675,7 +682,7 @@ class FunctionConfiguration extends Result
 
         $this->functionName = isset($data['FunctionName']) ? (string) $data['FunctionName'] : null;
         $this->functionArn = isset($data['FunctionArn']) ? (string) $data['FunctionArn'] : null;
-        $this->runtime = isset($data['Runtime']) ? (string) $data['Runtime'] : null;
+        $this->runtime = isset($data['Runtime']) ? (!Runtime::exists((string) $data['Runtime']) ? Runtime::UNKNOWN_TO_SDK : (string) $data['Runtime']) : null;
         $this->role = isset($data['Role']) ? (string) $data['Role'] : null;
         $this->handler = isset($data['Handler']) ? (string) $data['Handler'] : null;
         $this->codeSize = isset($data['CodeSize']) ? (int) $data['CodeSize'] : null;
@@ -693,14 +700,14 @@ class FunctionConfiguration extends Result
         $this->masterArn = isset($data['MasterArn']) ? (string) $data['MasterArn'] : null;
         $this->revisionId = isset($data['RevisionId']) ? (string) $data['RevisionId'] : null;
         $this->layers = empty($data['Layers']) ? [] : $this->populateResultLayersReferenceList($data['Layers']);
-        $this->state = isset($data['State']) ? (string) $data['State'] : null;
+        $this->state = isset($data['State']) ? (!State::exists((string) $data['State']) ? State::UNKNOWN_TO_SDK : (string) $data['State']) : null;
         $this->stateReason = isset($data['StateReason']) ? (string) $data['StateReason'] : null;
-        $this->stateReasonCode = isset($data['StateReasonCode']) ? (string) $data['StateReasonCode'] : null;
-        $this->lastUpdateStatus = isset($data['LastUpdateStatus']) ? (string) $data['LastUpdateStatus'] : null;
+        $this->stateReasonCode = isset($data['StateReasonCode']) ? (!StateReasonCode::exists((string) $data['StateReasonCode']) ? StateReasonCode::UNKNOWN_TO_SDK : (string) $data['StateReasonCode']) : null;
+        $this->lastUpdateStatus = isset($data['LastUpdateStatus']) ? (!LastUpdateStatus::exists((string) $data['LastUpdateStatus']) ? LastUpdateStatus::UNKNOWN_TO_SDK : (string) $data['LastUpdateStatus']) : null;
         $this->lastUpdateStatusReason = isset($data['LastUpdateStatusReason']) ? (string) $data['LastUpdateStatusReason'] : null;
-        $this->lastUpdateStatusReasonCode = isset($data['LastUpdateStatusReasonCode']) ? (string) $data['LastUpdateStatusReasonCode'] : null;
+        $this->lastUpdateStatusReasonCode = isset($data['LastUpdateStatusReasonCode']) ? (!LastUpdateStatusReasonCode::exists((string) $data['LastUpdateStatusReasonCode']) ? LastUpdateStatusReasonCode::UNKNOWN_TO_SDK : (string) $data['LastUpdateStatusReasonCode']) : null;
         $this->fileSystemConfigs = empty($data['FileSystemConfigs']) ? [] : $this->populateResultFileSystemConfigList($data['FileSystemConfigs']);
-        $this->packageType = isset($data['PackageType']) ? (string) $data['PackageType'] : null;
+        $this->packageType = isset($data['PackageType']) ? (!PackageType::exists((string) $data['PackageType']) ? PackageType::UNKNOWN_TO_SDK : (string) $data['PackageType']) : null;
         $this->imageConfigResponse = empty($data['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($data['ImageConfigResponse']);
         $this->signingProfileVersionArn = isset($data['SigningProfileVersionArn']) ? (string) $data['SigningProfileVersionArn'] : null;
         $this->signingJobArn = isset($data['SigningJobArn']) ? (string) $data['SigningJobArn'] : null;
@@ -724,6 +731,9 @@ class FunctionConfiguration extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!Architecture::exists($a)) {
+                    $a = Architecture::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -870,9 +880,9 @@ class FunctionConfiguration extends Result
     private function populateResultLoggingConfig(array $json): LoggingConfig
     {
         return new LoggingConfig([
-            'LogFormat' => isset($json['LogFormat']) ? (string) $json['LogFormat'] : null,
-            'ApplicationLogLevel' => isset($json['ApplicationLogLevel']) ? (string) $json['ApplicationLogLevel'] : null,
-            'SystemLogLevel' => isset($json['SystemLogLevel']) ? (string) $json['SystemLogLevel'] : null,
+            'LogFormat' => isset($json['LogFormat']) ? (!LogFormat::exists((string) $json['LogFormat']) ? LogFormat::UNKNOWN_TO_SDK : (string) $json['LogFormat']) : null,
+            'ApplicationLogLevel' => isset($json['ApplicationLogLevel']) ? (!ApplicationLogLevel::exists((string) $json['ApplicationLogLevel']) ? ApplicationLogLevel::UNKNOWN_TO_SDK : (string) $json['ApplicationLogLevel']) : null,
+            'SystemLogLevel' => isset($json['SystemLogLevel']) ? (!SystemLogLevel::exists((string) $json['SystemLogLevel']) ? SystemLogLevel::UNKNOWN_TO_SDK : (string) $json['SystemLogLevel']) : null,
             'LogGroup' => isset($json['LogGroup']) ? (string) $json['LogGroup'] : null,
         ]);
     }
@@ -912,8 +922,8 @@ class FunctionConfiguration extends Result
     private function populateResultSnapStartResponse(array $json): SnapStartResponse
     {
         return new SnapStartResponse([
-            'ApplyOn' => isset($json['ApplyOn']) ? (string) $json['ApplyOn'] : null,
-            'OptimizationStatus' => isset($json['OptimizationStatus']) ? (string) $json['OptimizationStatus'] : null,
+            'ApplyOn' => isset($json['ApplyOn']) ? (!SnapStartApplyOn::exists((string) $json['ApplyOn']) ? SnapStartApplyOn::UNKNOWN_TO_SDK : (string) $json['ApplyOn']) : null,
+            'OptimizationStatus' => isset($json['OptimizationStatus']) ? (!SnapStartOptimizationStatus::exists((string) $json['OptimizationStatus']) ? SnapStartOptimizationStatus::UNKNOWN_TO_SDK : (string) $json['OptimizationStatus']) : null,
         ]);
     }
 
@@ -952,14 +962,14 @@ class FunctionConfiguration extends Result
     private function populateResultTenancyConfig(array $json): TenancyConfig
     {
         return new TenancyConfig([
-            'TenantIsolationMode' => (string) $json['TenantIsolationMode'],
+            'TenantIsolationMode' => !TenantIsolationMode::exists((string) $json['TenantIsolationMode']) ? TenantIsolationMode::UNKNOWN_TO_SDK : (string) $json['TenantIsolationMode'],
         ]);
     }
 
     private function populateResultTracingConfigResponse(array $json): TracingConfigResponse
     {
         return new TracingConfigResponse([
-            'Mode' => isset($json['Mode']) ? (string) $json['Mode'] : null,
+            'Mode' => isset($json['Mode']) ? (!TracingMode::exists((string) $json['Mode']) ? TracingMode::UNKNOWN_TO_SDK : (string) $json['Mode']) : null,
         ]);
     }
 

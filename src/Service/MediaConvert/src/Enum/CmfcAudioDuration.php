@@ -15,9 +15,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmfcAudioDuration
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT_CODEC_DURATION = 'DEFAULT_CODEC_DURATION';
     public const MATCH_VIDEO_DURATION = 'MATCH_VIDEO_DURATION';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

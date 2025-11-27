@@ -14,11 +14,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AccelerationStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACCELERATED = 'ACCELERATED';
     public const IN_PROGRESS = 'IN_PROGRESS';
     public const NOT_ACCELERATED = 'NOT_ACCELERATED';
     public const NOT_APPLICABLE = 'NOT_APPLICABLE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

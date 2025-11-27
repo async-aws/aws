@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Enum;
 
 final class QueueAttributeName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL = 'All';
     public const APPROXIMATE_NUMBER_OF_MESSAGES = 'ApproximateNumberOfMessages';
     public const APPROXIMATE_NUMBER_OF_MESSAGES_DELAYED = 'ApproximateNumberOfMessagesDelayed';
@@ -27,6 +28,9 @@ final class QueueAttributeName
     public const SQS_MANAGED_SSE_ENABLED = 'SqsManagedSseEnabled';
     public const VISIBILITY_TIMEOUT = 'VisibilityTimeout';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

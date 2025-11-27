@@ -153,6 +153,7 @@ final class ListResourceRecordSetsRequest extends Input
         }
         if (null !== $this->startRecordType) {
             if (!RRType::exists($this->startRecordType)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "StartRecordType" for "%s". The value "%s" is not a valid "RRType".', __CLASS__, $this->startRecordType));
             }
             $query['type'] = $this->startRecordType;

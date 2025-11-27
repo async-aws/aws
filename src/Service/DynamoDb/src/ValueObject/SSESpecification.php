@@ -94,6 +94,7 @@ final class SSESpecification
         }
         if (null !== $v = $this->sseType) {
             if (!SSEType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "SSEType" for "%s". The value "%s" is not a valid "SSEType".', __CLASS__, $v));
             }
             $payload['SSEType'] = $v;

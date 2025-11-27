@@ -9,10 +9,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class NielsenActiveWatermarkProcessType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CBET = 'CBET';
     public const NAES2_AND_NW = 'NAES2_AND_NW';
     public const NAES2_AND_NW_AND_CBET = 'NAES2_AND_NW_AND_CBET';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

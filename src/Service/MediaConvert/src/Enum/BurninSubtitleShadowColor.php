@@ -8,11 +8,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class BurninSubtitleShadowColor
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const BLACK = 'BLACK';
     public const NONE = 'NONE';
     public const WHITE = 'WHITE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

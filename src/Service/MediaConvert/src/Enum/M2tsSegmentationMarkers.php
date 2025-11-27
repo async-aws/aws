@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsSegmentationMarkers
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EBP = 'EBP';
     public const EBP_LEGACY = 'EBP_LEGACY';
     public const NONE = 'NONE';
@@ -18,6 +19,9 @@ final class M2tsSegmentationMarkers
     public const RAI_ADAPT = 'RAI_ADAPT';
     public const RAI_SEGSTART = 'RAI_SEGSTART';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

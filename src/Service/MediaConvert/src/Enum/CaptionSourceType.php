@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CaptionSourceType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ANCILLARY = 'ANCILLARY';
     public const DVB_SUB = 'DVB_SUB';
     public const EMBEDDED = 'EMBEDDED';
@@ -23,6 +24,9 @@ final class CaptionSourceType
     public const TT_3GPP = 'TT_3GPP';
     public const WEBVTT = 'WEBVTT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

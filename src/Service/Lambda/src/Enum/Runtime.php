@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class Runtime
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DOTNETCORE_1_0 = 'dotnetcore1.0';
     public const DOTNETCORE_2_0 = 'dotnetcore2.0';
     public const DOTNETCORE_2_1 = 'dotnetcore2.1';
@@ -50,6 +51,9 @@ final class Runtime
     public const RUBY_3_3 = 'ruby3.3';
     public const RUBY_3_4 = 'ruby3.4';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

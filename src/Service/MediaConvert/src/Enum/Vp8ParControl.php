@@ -10,9 +10,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Vp8ParControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INITIALIZE_FROM_SOURCE = 'INITIALIZE_FROM_SOURCE';
     public const SPECIFIED = 'SPECIFIED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

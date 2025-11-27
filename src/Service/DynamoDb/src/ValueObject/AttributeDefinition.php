@@ -74,6 +74,7 @@ final class AttributeDefinition
         $payload['AttributeName'] = $v;
         $v = $this->attributeType;
         if (!ScalarAttributeType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "AttributeType" for "%s". The value "%s" is not a valid "ScalarAttributeType".', __CLASS__, $v));
         }
         $payload['AttributeType'] = $v;

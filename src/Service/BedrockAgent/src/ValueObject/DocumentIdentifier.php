@@ -83,6 +83,7 @@ final class DocumentIdentifier
         $payload = [];
         $v = $this->dataSourceType;
         if (!ContentDataSourceType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "dataSourceType" for "%s". The value "%s" is not a valid "ContentDataSourceType".', __CLASS__, $v));
         }
         $payload['dataSourceType'] = $v;

@@ -8,10 +8,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class NoiseFilterPostTemporalSharpeningStrength
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HIGH = 'HIGH';
     public const LOW = 'LOW';
     public const MEDIUM = 'MEDIUM';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

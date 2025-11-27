@@ -4,12 +4,16 @@ namespace AsyncAws\S3\Enum;
 
 final class ReplicationStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMPLETE = 'COMPLETE';
     public const COMPLETED = 'COMPLETED';
     public const FAILED = 'FAILED';
     public const PENDING = 'PENDING';
     public const REPLICA = 'REPLICA';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

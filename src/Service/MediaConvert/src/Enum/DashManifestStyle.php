@@ -13,11 +13,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashManifestStyle
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BASIC = 'BASIC';
     public const COMPACT = 'COMPACT';
     public const DISTINCT = 'DISTINCT';
     public const FULL = 'FULL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

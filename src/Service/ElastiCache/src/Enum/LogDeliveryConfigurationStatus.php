@@ -4,12 +4,16 @@ namespace AsyncAws\ElastiCache\Enum;
 
 final class LogDeliveryConfigurationStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'active';
     public const DISABLING = 'disabling';
     public const ENABLING = 'enabling';
     public const ERROR = 'error';
     public const MODIFYING = 'modifying';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

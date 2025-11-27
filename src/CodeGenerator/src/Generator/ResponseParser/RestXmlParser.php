@@ -13,6 +13,7 @@ use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
+use AsyncAws\CodeGenerator\Generator\EnumGenerator;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
@@ -114,8 +115,11 @@ class RestXmlParser implements Parser
         return new ParserResult($body, $this->imports, $this->functions);
     }
 
-    public function generateForPath(StructureShape $shape, string $path, string $output): string
+    public function generateForPath(StructureShape $shape, string $path, string $output): ParserResult
     {
+        $this->functions = [];
+        $this->imports = [];
+
         $body = '$data = new \SimpleXMLElement($response->getContent());';
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
@@ -129,10 +133,12 @@ class RestXmlParser implements Parser
             $accesor = $this->getInputAccessor($accesor, $member);
         }
 
-        return $body . strtr('OUTPUT = PATH', [
+        $body .= strtr('OUTPUT = PATH', [
             'PATH' => $this->parseXmlElement($accesor, $shape, true, false),
             'OUTPUT' => $output,
         ]);
+
+        return new ParserResult($body, $this->imports, $this->functions);
     }
 
     private function getInputAccessor(string $currentInput, Member $member): string
@@ -184,6 +190,10 @@ class RestXmlParser implements Parser
 
         switch ($shape->getType()) {
             case 'string':
+                if (!empty($shape->getEnum())) {
+                    return $this->parseXmlResponseEnum($shape, $input, $required);
+                }
+
                 return $this->parseXmlResponseString($input, $required);
             case 'long':
             case 'integer':
@@ -243,6 +253,25 @@ class RestXmlParser implements Parser
         }
 
         return strtr('(null !== $v = INPUT[0]) ? (string) $v : null', ['INPUT' => $input]);
+    }
+
+    private function parseXmlResponseEnum(Shape $shape, string $input, bool $required): string
+    {
+        $className = $this->namespaceRegistry->getEnum($shape);
+        $this->imports[] = $className;
+        if ($required) {
+            return strtr('!ENUM_CLASS::exists((string) INPUT) ? ENUM_CLASS::UNKNOWN_VALUE_CONST : (string) INPUT', [
+                'ENUM_CLASS' => $className->getName(),
+                'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                'INPUT' => $input,
+            ]);
+        }
+
+        return strtr('(null !== $v = INPUT[0]) ? (!ENUM_CLASS::exists((string) INPUT) ? ENUM_CLASS::UNKNOWN_VALUE_CONST : (string) INPUT) : null', [
+            'ENUM_CLASS' => $className->getName(),
+            'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+            'INPUT' => $input,
+        ]);
     }
 
     private function parseXmlResponseInteger(string $input, bool $required): string
@@ -310,33 +339,38 @@ class RestXmlParser implements Parser
             $this->generatedFunctions[$functionName] = true;
 
             $shapeMember = $shape->getMember();
-            if ($shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
-                $listAccessorRequired = false;
-                $body = '
+            $accessCode = null;
+            if (!empty($shapeMember->getShape()->getEnum())) {
+                $className = $this->namespaceRegistry->getEnum($shapeMember->getShape());
+                $listAccessorRequired = true;
+                $body = strtr('
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
                         $a = LIST_ACCESSOR;
-                        if (null !== $a) {
-                            $items[] = $a;
+                        if (!ENUM_CLASS::exists($a)) {
+                            $a = ENUM_CLASS::UNKNOWN_VALUE_CONST;
                         }
+                        $items[] = $a;
                     }
 
-                    return $items;
-                ';
+                    return $items;', [
+                    'ENUM_CLASS' => $className->getName(),
+                    'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                ]);
+                $accessCode = $this->parseXmlResponseString('$item', $listAccessorRequired);
             } else {
                 $listAccessorRequired = true;
                 $body = '
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
-                       $items[] = LIST_ACCESSOR;
+                        $items[] = LIST_ACCESSOR;
                     }
 
                     return $items;
                 ';
             }
-
             $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired, $inObject),
+                'LIST_ACCESSOR' => $accessCode ?? $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired, $inObject),
                 'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
             ]), $shape);
         }
@@ -355,12 +389,26 @@ class RestXmlParser implements Parser
             // prevent recursion
             $this->generatedFunctions[$functionName] = true;
 
+            if (!empty($shape->getKey()->getShape()->getEnum())) {
+                $className = $this->namespaceRegistry->getEnum($shape->getKey()->getShape());
+                $this->imports[] = $className;
+                $keyCode = strtr('!ENUM_CLASS::exists(KEY) ? ENUM_CLASS::UNKNOWN_VALUE_CONST : KEY', [
+                    'ENUM_CLASS' => $className->getName(),
+                    'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                ]);
+            } else {
+                $keyCode = 'KEY';
+            }
+            $keyCode = strtr($keyCode, [
+                'KEY' => strtr('$item->MAP_KEY->__toString()', ['MAP_KEY' => $shape->getKey()->getLocationName() ?? 'key']),
+            ]);
+
             $shapeValue = $shape->getValue();
             $body = '
                 $items = [];
                 foreach (INPUT as $item) {
                     $a = $item->MAP_VALUE;
-                    $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
+                    $items[KEY] = MAP_ACCESSOR;
                 }
 
                 return $items;
@@ -368,7 +416,7 @@ class RestXmlParser implements Parser
 
             $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                 'INPUT' => $shape->isFlattened() ? '$xml' : '$xml->entry',
-                'MAP_KEY' => $shape->getKey()->getLocationName() ?? 'key',
+                'KEY' => $keyCode,
                 'MAP_VALUE' => $shape->getValue()->getLocationName() ?? 'value',
                 'MAP_ACCESSOR' => $this->parseXmlElement('$a', $shapeValue->getShape(), true, $inObject),
             ]), $shape);

@@ -8,10 +8,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class FontScript
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTOMATIC = 'AUTOMATIC';
     public const HANS = 'HANS';
     public const HANT = 'HANT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

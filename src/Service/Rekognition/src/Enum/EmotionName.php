@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Enum;
 
 final class EmotionName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ANGRY = 'ANGRY';
     public const CALM = 'CALM';
     public const CONFUSED = 'CONFUSED';
@@ -14,6 +15,9 @@ final class EmotionName
     public const SURPRISED = 'SURPRISED';
     public const UNKNOWN = 'UNKNOWN';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

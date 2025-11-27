@@ -120,6 +120,7 @@ final class RevisionLocation
         $payload = [];
         if (null !== $v = $this->revisionType) {
             if (!RevisionLocationType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "revisionType" for "%s". The value "%s" is not a valid "RevisionLocationType".', __CLASS__, $v));
             }
             $payload['revisionType'] = $v;

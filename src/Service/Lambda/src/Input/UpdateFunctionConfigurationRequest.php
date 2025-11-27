@@ -648,6 +648,7 @@ final class UpdateFunctionConfigurationRequest extends Input
         }
         if (null !== $v = $this->runtime) {
             if (!Runtime::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Runtime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $v));
             }
             $payload['Runtime'] = $v;

@@ -38,6 +38,9 @@ final class BucketLocationConstraint
     public const US_WEST_1 = 'us-west-1';
     public const US_WEST_2 = 'us-west-2';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

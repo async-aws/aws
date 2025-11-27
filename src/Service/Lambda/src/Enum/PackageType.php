@@ -4,9 +4,13 @@ namespace AsyncAws\Lambda\Enum;
 
 final class PackageType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const IMAGE = 'Image';
     public const ZIP = 'Zip';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

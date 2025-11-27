@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class FrameMetricType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MS_SSIM = 'MS_SSIM';
     public const PSNR = 'PSNR';
     public const PSNR_HVS = 'PSNR_HVS';
@@ -18,6 +19,9 @@ final class FrameMetricType
     public const SSIM = 'SSIM';
     public const VMAF = 'VMAF';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

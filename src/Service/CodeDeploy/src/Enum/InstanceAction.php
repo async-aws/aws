@@ -4,9 +4,13 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class InstanceAction
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KEEP_ALIVE = 'KEEP_ALIVE';
     public const TERMINATE = 'TERMINATE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class ReplicaStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'ACTIVE';
     public const ARCHIVED = 'ARCHIVED';
     public const ARCHIVING = 'ARCHIVING';
@@ -15,6 +16,9 @@ final class ReplicaStatus
     public const REPLICATION_NOT_AUTHORIZED = 'REPLICATION_NOT_AUTHORIZED';
     public const UPDATING = 'UPDATING';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -9,9 +9,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M3u8DataPtsControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALIGN_TO_VIDEO = 'ALIGN_TO_VIDEO';
     public const AUTO = 'AUTO';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

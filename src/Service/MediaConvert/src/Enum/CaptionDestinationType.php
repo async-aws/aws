@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CaptionDestinationType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BURN_IN = 'BURN_IN';
     public const DVB_SUB = 'DVB_SUB';
     public const EMBEDDED = 'EMBEDDED';
@@ -24,6 +25,9 @@ final class CaptionDestinationType
     public const TTML = 'TTML';
     public const WEBVTT = 'WEBVTT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

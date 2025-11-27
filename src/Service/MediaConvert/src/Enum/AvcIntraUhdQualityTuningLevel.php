@@ -10,9 +10,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AvcIntraUhdQualityTuningLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MULTI_PASS = 'MULTI_PASS';
     public const SINGLE_PASS = 'SINGLE_PASS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

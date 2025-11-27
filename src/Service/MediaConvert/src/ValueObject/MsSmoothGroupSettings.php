@@ -188,6 +188,7 @@ final class MsSmoothGroupSettings
         }
         if (null !== $v = $this->audioDeduplication) {
             if (!MsSmoothAudioDeduplication::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDeduplication" for "%s". The value "%s" is not a valid "MsSmoothAudioDeduplication".', __CLASS__, $v));
             }
             $payload['audioDeduplication'] = $v;
@@ -206,12 +207,14 @@ final class MsSmoothGroupSettings
         }
         if (null !== $v = $this->fragmentLengthControl) {
             if (!MsSmoothFragmentLengthControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "fragmentLengthControl" for "%s". The value "%s" is not a valid "MsSmoothFragmentLengthControl".', __CLASS__, $v));
             }
             $payload['fragmentLengthControl'] = $v;
         }
         if (null !== $v = $this->manifestEncoding) {
             if (!MsSmoothManifestEncoding::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "manifestEncoding" for "%s". The value "%s" is not a valid "MsSmoothManifestEncoding".', __CLASS__, $v));
             }
             $payload['manifestEncoding'] = $v;

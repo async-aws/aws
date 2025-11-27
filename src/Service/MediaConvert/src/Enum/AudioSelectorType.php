@@ -22,6 +22,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioSelectorType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL_PCM = 'ALL_PCM';
     public const HLS_RENDITION_GROUP = 'HLS_RENDITION_GROUP';
     public const LANGUAGE_CODE = 'LANGUAGE_CODE';
@@ -29,6 +30,9 @@ final class AudioSelectorType
     public const STREAM = 'STREAM';
     public const TRACK = 'TRACK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -7,12 +7,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class JobStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CANCELED = 'CANCELED';
     public const COMPLETE = 'COMPLETE';
     public const ERROR = 'ERROR';
     public const PROGRESSING = 'PROGRESSING';
     public const SUBMITTED = 'SUBMITTED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

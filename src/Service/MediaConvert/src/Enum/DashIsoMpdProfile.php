@@ -10,9 +10,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashIsoMpdProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MAIN_PROFILE = 'MAIN_PROFILE';
     public const ON_DEMAND_PROFILE = 'ON_DEMAND_PROFILE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

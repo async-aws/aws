@@ -92,6 +92,7 @@ final class S3DestinationSettings
         }
         if (null !== $v = $this->storageClass) {
             if (!S3StorageClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "storageClass" for "%s". The value "%s" is not a valid "S3StorageClass".', __CLASS__, $v));
             }
             $payload['storageClass'] = $v;

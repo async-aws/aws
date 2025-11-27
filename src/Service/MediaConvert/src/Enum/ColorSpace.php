@@ -19,6 +19,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ColorSpace
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW = 'FOLLOW';
     public const HDR10 = 'HDR10';
     public const HLG_2020 = 'HLG_2020';
@@ -28,6 +29,9 @@ final class ColorSpace
     public const REC_601 = 'REC_601';
     public const REC_709 = 'REC_709';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

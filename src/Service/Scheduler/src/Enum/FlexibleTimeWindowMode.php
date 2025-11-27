@@ -4,9 +4,13 @@ namespace AsyncAws\Scheduler\Enum;
 
 final class FlexibleTimeWindowMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FLEXIBLE = 'FLEXIBLE';
     public const OFF = 'OFF';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

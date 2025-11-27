@@ -140,6 +140,7 @@ final class PutPublicAccessBlockRequest extends Input
         }
         if (null !== $this->checksumAlgorithm) {
             if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
             }
             $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;

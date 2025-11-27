@@ -12,9 +12,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioDefaultSelection
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT = 'DEFAULT';
     public const NOT_DEFAULT = 'NOT_DEFAULT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

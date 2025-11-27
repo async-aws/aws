@@ -89,6 +89,7 @@ final class TimecodeBurnin
         }
         if (null !== $v = $this->position) {
             if (!TimecodeBurninPosition::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "position" for "%s". The value "%s" is not a valid "TimecodeBurninPosition".', __CLASS__, $v));
             }
             $payload['position'] = $v;

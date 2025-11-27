@@ -7,11 +7,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class S3ObjectCannedAcl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTHENTICATED_READ = 'AUTHENTICATED_READ';
     public const BUCKET_OWNER_FULL_CONTROL = 'BUCKET_OWNER_FULL_CONTROL';
     public const BUCKET_OWNER_READ = 'BUCKET_OWNER_READ';
     public const PUBLIC_READ = 'PUBLIC_READ';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

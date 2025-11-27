@@ -314,6 +314,7 @@ final class VerifyRequest extends Input
         $payload['Message'] = base64_encode($v);
         if (null !== $v = $this->messageType) {
             if (!MessageType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "MessageType" for "%s". The value "%s" is not a valid "MessageType".', __CLASS__, $v));
             }
             $payload['MessageType'] = $v;
@@ -326,6 +327,7 @@ final class VerifyRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "SigningAlgorithm" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!SigningAlgorithmSpec::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "SigningAlgorithm" for "%s". The value "%s" is not a valid "SigningAlgorithmSpec".', __CLASS__, $v));
         }
         $payload['SigningAlgorithm'] = $v;

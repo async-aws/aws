@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M3u8NielsenId3
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INSERT = 'INSERT';
     public const NONE = 'NONE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -8,10 +8,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Xavc4kProfileBitrateClass
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BITRATE_CLASS_100 = 'BITRATE_CLASS_100';
     public const BITRATE_CLASS_140 = 'BITRATE_CLASS_140';
     public const BITRATE_CLASS_200 = 'BITRATE_CLASS_200';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class StateReasonCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED = 'CapacityProviderScalingLimitExceeded';
     public const CREATING = 'Creating';
     public const DISABLED_KMSKEY = 'DisabledKMSKey';
@@ -43,6 +44,9 @@ final class StateReasonCode
     public const SUBNET_OUT_OF_IPADDRESSES = 'SubnetOutOfIPAddresses';
     public const VCPU_LIMIT_EXCEEDED = 'VcpuLimitExceeded';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

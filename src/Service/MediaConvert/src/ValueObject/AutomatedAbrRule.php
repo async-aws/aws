@@ -172,6 +172,7 @@ final class AutomatedAbrRule
         }
         if (null !== $v = $this->type) {
             if (!RuleType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "RuleType".', __CLASS__, $v));
             }
             $payload['type'] = $v;

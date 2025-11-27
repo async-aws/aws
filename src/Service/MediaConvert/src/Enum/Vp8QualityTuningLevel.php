@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Vp8QualityTuningLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MULTI_PASS = 'MULTI_PASS';
     public const MULTI_PASS_HQ = 'MULTI_PASS_HQ';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

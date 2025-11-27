@@ -7,6 +7,9 @@ final class LogType
     public const NONE = 'None';
     public const TAIL = 'Tail';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

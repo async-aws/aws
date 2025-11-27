@@ -314,6 +314,6 @@ class CompleteMultipartUploadOutput extends Result
         $this->checksumCrc64Nvme = (null !== $v = $data->ChecksumCRC64NVME[0]) ? (string) $v : null;
         $this->checksumSha1 = (null !== $v = $data->ChecksumSHA1[0]) ? (string) $v : null;
         $this->checksumSha256 = (null !== $v = $data->ChecksumSHA256[0]) ? (string) $v : null;
-        $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (string) $v : null;
+        $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (!ChecksumType::exists((string) $data->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $data->ChecksumType) : null;
     }
 }

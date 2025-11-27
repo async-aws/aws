@@ -4,10 +4,14 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class CacheMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const LOCAL_CUSTOM_CACHE = 'LOCAL_CUSTOM_CACHE';
     public const LOCAL_DOCKER_LAYER_CACHE = 'LOCAL_DOCKER_LAYER_CACHE';
     public const LOCAL_SOURCE_CACHE = 'LOCAL_SOURCE_CACHE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

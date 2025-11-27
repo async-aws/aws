@@ -97,12 +97,14 @@ final class SyncConfig
         $payload = [];
         if (null !== $v = $this->conflictHandler) {
             if (!ConflictHandlerType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "conflictHandler" for "%s". The value "%s" is not a valid "ConflictHandlerType".', __CLASS__, $v));
             }
             $payload['conflictHandler'] = $v;
         }
         if (null !== $v = $this->conflictDetection) {
             if (!ConflictDetectionType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "conflictDetection" for "%s". The value "%s" is not a valid "ConflictDetectionType".', __CLASS__, $v));
             }
             $payload['conflictDetection'] = $v;

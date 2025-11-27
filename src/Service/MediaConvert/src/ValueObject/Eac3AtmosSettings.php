@@ -374,42 +374,49 @@ final class Eac3AtmosSettings
         }
         if (null !== $v = $this->bitstreamMode) {
             if (!Eac3AtmosBitstreamMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "bitstreamMode" for "%s". The value "%s" is not a valid "Eac3AtmosBitstreamMode".', __CLASS__, $v));
             }
             $payload['bitstreamMode'] = $v;
         }
         if (null !== $v = $this->codingMode) {
             if (!Eac3AtmosCodingMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codingMode" for "%s". The value "%s" is not a valid "Eac3AtmosCodingMode".', __CLASS__, $v));
             }
             $payload['codingMode'] = $v;
         }
         if (null !== $v = $this->dialogueIntelligence) {
             if (!Eac3AtmosDialogueIntelligence::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dialogueIntelligence" for "%s". The value "%s" is not a valid "Eac3AtmosDialogueIntelligence".', __CLASS__, $v));
             }
             $payload['dialogueIntelligence'] = $v;
         }
         if (null !== $v = $this->downmixControl) {
             if (!Eac3AtmosDownmixControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "downmixControl" for "%s". The value "%s" is not a valid "Eac3AtmosDownmixControl".', __CLASS__, $v));
             }
             $payload['downmixControl'] = $v;
         }
         if (null !== $v = $this->dynamicRangeCompressionLine) {
             if (!Eac3AtmosDynamicRangeCompressionLine::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionLine" for "%s". The value "%s" is not a valid "Eac3AtmosDynamicRangeCompressionLine".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionLine'] = $v;
         }
         if (null !== $v = $this->dynamicRangeCompressionRf) {
             if (!Eac3AtmosDynamicRangeCompressionRf::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionRf" for "%s". The value "%s" is not a valid "Eac3AtmosDynamicRangeCompressionRf".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionRf'] = $v;
         }
         if (null !== $v = $this->dynamicRangeControl) {
             if (!Eac3AtmosDynamicRangeControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeControl" for "%s". The value "%s" is not a valid "Eac3AtmosDynamicRangeControl".', __CLASS__, $v));
             }
             $payload['dynamicRangeControl'] = $v;
@@ -428,6 +435,7 @@ final class Eac3AtmosSettings
         }
         if (null !== $v = $this->meteringMode) {
             if (!Eac3AtmosMeteringMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "meteringMode" for "%s". The value "%s" is not a valid "Eac3AtmosMeteringMode".', __CLASS__, $v));
             }
             $payload['meteringMode'] = $v;
@@ -440,12 +448,14 @@ final class Eac3AtmosSettings
         }
         if (null !== $v = $this->stereoDownmix) {
             if (!Eac3AtmosStereoDownmix::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stereoDownmix" for "%s". The value "%s" is not a valid "Eac3AtmosStereoDownmix".', __CLASS__, $v));
             }
             $payload['stereoDownmix'] = $v;
         }
         if (null !== $v = $this->surroundExMode) {
             if (!Eac3AtmosSurroundExMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "surroundExMode" for "%s". The value "%s" is not a valid "Eac3AtmosSurroundExMode".', __CLASS__, $v));
             }
             $payload['surroundExMode'] = $v;

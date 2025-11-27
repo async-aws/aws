@@ -102,6 +102,7 @@ final class LambdaFunctionConfiguration
         $v = $this->events;
         foreach ($v as $item) {
             if (!Event::exists($item)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Event" for "%s". The value "%s" is not a valid "Event".', __CLASS__, $item));
             }
             $node->appendChild($document->createElement('Event', $item));

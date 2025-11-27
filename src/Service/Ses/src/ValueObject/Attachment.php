@@ -157,6 +157,7 @@ final class Attachment
         $payload['RawContent'] = base64_encode($v);
         if (null !== $v = $this->contentDisposition) {
             if (!AttachmentContentDisposition::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ContentDisposition" for "%s". The value "%s" is not a valid "AttachmentContentDisposition".', __CLASS__, $v));
             }
             $payload['ContentDisposition'] = $v;
@@ -171,6 +172,7 @@ final class Attachment
         }
         if (null !== $v = $this->contentTransferEncoding) {
             if (!AttachmentContentTransferEncoding::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ContentTransferEncoding" for "%s". The value "%s" is not a valid "AttachmentContentTransferEncoding".', __CLASS__, $v));
             }
             $payload['ContentTransferEncoding'] = $v;

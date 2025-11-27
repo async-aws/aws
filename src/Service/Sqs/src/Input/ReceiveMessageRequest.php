@@ -378,6 +378,7 @@ final class ReceiveMessageRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!MessageSystemAttributeName::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['AttributeNames'][$index] = $listValue;
@@ -389,6 +390,7 @@ final class ReceiveMessageRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!MessageSystemAttributeName::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "MessageSystemAttributeNames" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['MessageSystemAttributeNames'][$index] = $listValue;

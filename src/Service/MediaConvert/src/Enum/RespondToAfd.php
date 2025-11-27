@@ -11,10 +11,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class RespondToAfd
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const PASSTHROUGH = 'PASSTHROUGH';
     public const RESPOND = 'RESPOND';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -158,7 +158,7 @@ class InitiateAuthResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->challengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
+        $this->challengeName = isset($data['ChallengeName']) ? (!ChallengeNameType::exists((string) $data['ChallengeName']) ? ChallengeNameType::UNKNOWN_TO_SDK : (string) $data['ChallengeName']) : null;
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
         $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
         $this->authenticationResult = empty($data['AuthenticationResult']) ? null : $this->populateResultAuthenticationResultType($data['AuthenticationResult']);
@@ -186,6 +186,9 @@ class InitiateAuthResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!ChallengeNameType::exists($a)) {
+                    $a = ChallengeNameType::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }

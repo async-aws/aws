@@ -4,11 +4,15 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class StreamViewType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KEYS_ONLY = 'KEYS_ONLY';
     public const NEW_AND_OLD_IMAGES = 'NEW_AND_OLD_IMAGES';
     public const NEW_IMAGE = 'NEW_IMAGE';
     public const OLD_IMAGE = 'OLD_IMAGE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

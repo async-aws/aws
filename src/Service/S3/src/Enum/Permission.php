@@ -4,12 +4,16 @@ namespace AsyncAws\S3\Enum;
 
 final class Permission
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FULL_CONTROL = 'FULL_CONTROL';
     public const READ = 'READ';
     public const READ_ACP = 'READ_ACP';
     public const WRITE = 'WRITE';
     public const WRITE_ACP = 'WRITE_ACP';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

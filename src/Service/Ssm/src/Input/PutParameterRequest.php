@@ -492,6 +492,7 @@ final class PutParameterRequest extends Input
         $payload['Value'] = $v;
         if (null !== $v = $this->type) {
             if (!ParameterType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ParameterType".', __CLASS__, $v));
             }
             $payload['Type'] = $v;
@@ -515,6 +516,7 @@ final class PutParameterRequest extends Input
         }
         if (null !== $v = $this->tier) {
             if (!ParameterTier::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Tier" for "%s". The value "%s" is not a valid "ParameterTier".', __CLASS__, $v));
             }
             $payload['Tier'] = $v;

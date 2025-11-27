@@ -86,12 +86,14 @@ final class EncryptionContractConfiguration
         $payload = [];
         if (null !== $v = $this->spekeAudioPreset) {
             if (!PresetSpeke20Audio::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "spekeAudioPreset" for "%s". The value "%s" is not a valid "PresetSpeke20Audio".', __CLASS__, $v));
             }
             $payload['spekeAudioPreset'] = $v;
         }
         if (null !== $v = $this->spekeVideoPreset) {
             if (!PresetSpeke20Video::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "spekeVideoPreset" for "%s". The value "%s" is not a valid "PresetSpeke20Video".', __CLASS__, $v));
             }
             $payload['spekeVideoPreset'] = $v;

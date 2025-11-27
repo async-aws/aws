@@ -318,6 +318,7 @@ final class GenerateDataKeyRequest extends Input
         }
         if (null !== $v = $this->keySpec) {
             if (!DataKeySpec::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "KeySpec" for "%s". The value "%s" is not a valid "DataKeySpec".', __CLASS__, $v));
             }
             $payload['KeySpec'] = $v;

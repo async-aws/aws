@@ -617,6 +617,7 @@ final class CreateTableInput extends Input
         }
         if (null !== $v = $this->billingMode) {
             if (!BillingMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
             }
             $payload['BillingMode'] = $v;
@@ -640,6 +641,7 @@ final class CreateTableInput extends Input
         }
         if (null !== $v = $this->tableClass) {
             if (!TableClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
             }
             $payload['TableClass'] = $v;

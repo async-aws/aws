@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class KeyState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CREATING = 'Creating';
     public const DISABLED = 'Disabled';
     public const ENABLED = 'Enabled';
@@ -13,6 +14,9 @@ final class KeyState
     public const UNAVAILABLE = 'Unavailable';
     public const UPDATING = 'Updating';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

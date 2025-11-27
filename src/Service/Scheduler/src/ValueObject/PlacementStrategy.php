@@ -78,6 +78,7 @@ final class PlacementStrategy
         }
         if (null !== $v = $this->type) {
             if (!PlacementStrategyType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "PlacementStrategyType".', __CLASS__, $v));
             }
             $payload['type'] = $v;

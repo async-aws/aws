@@ -4,10 +4,14 @@ namespace AsyncAws\Scheduler\Enum;
 
 final class PlacementStrategyType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BINPACK = 'binpack';
     public const RANDOM = 'random';
     public const SPREAD = 'spread';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

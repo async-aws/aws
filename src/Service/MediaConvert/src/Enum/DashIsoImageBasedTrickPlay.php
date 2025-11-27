@@ -12,11 +12,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashIsoImageBasedTrickPlay
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADVANCED = 'ADVANCED';
     public const NONE = 'NONE';
     public const THUMBNAIL = 'THUMBNAIL';
     public const THUMBNAIL_AND_FULLFRAME = 'THUMBNAIL_AND_FULLFRAME';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -5,6 +5,12 @@ namespace AsyncAws\Scheduler\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Scheduler\Enum\ActionAfterCompletion;
+use AsyncAws\Scheduler\Enum\AssignPublicIp;
+use AsyncAws\Scheduler\Enum\FlexibleTimeWindowMode;
+use AsyncAws\Scheduler\Enum\LaunchType;
+use AsyncAws\Scheduler\Enum\PlacementConstraintType;
+use AsyncAws\Scheduler\Enum\PlacementStrategyType;
+use AsyncAws\Scheduler\Enum\PropagateTags;
 use AsyncAws\Scheduler\Enum\ScheduleState;
 use AsyncAws\Scheduler\ValueObject\AwsVpcConfiguration;
 use AsyncAws\Scheduler\ValueObject\CapacityProviderStrategyItem;
@@ -270,7 +276,7 @@ class GetScheduleOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->actionAfterCompletion = isset($data['ActionAfterCompletion']) ? (string) $data['ActionAfterCompletion'] : null;
+        $this->actionAfterCompletion = isset($data['ActionAfterCompletion']) ? (!ActionAfterCompletion::exists((string) $data['ActionAfterCompletion']) ? ActionAfterCompletion::UNKNOWN_TO_SDK : (string) $data['ActionAfterCompletion']) : null;
         $this->arn = isset($data['Arn']) ? (string) $data['Arn'] : null;
         $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreationDate']))) ? $d : null;
         $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
@@ -283,14 +289,14 @@ class GetScheduleOutput extends Result
         $this->scheduleExpression = isset($data['ScheduleExpression']) ? (string) $data['ScheduleExpression'] : null;
         $this->scheduleExpressionTimezone = isset($data['ScheduleExpressionTimezone']) ? (string) $data['ScheduleExpressionTimezone'] : null;
         $this->startDate = isset($data['StartDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['StartDate']))) ? $d : null;
-        $this->state = isset($data['State']) ? (string) $data['State'] : null;
+        $this->state = isset($data['State']) ? (!ScheduleState::exists((string) $data['State']) ? ScheduleState::UNKNOWN_TO_SDK : (string) $data['State']) : null;
         $this->target = empty($data['Target']) ? null : $this->populateResultTarget($data['Target']);
     }
 
     private function populateResultAwsVpcConfiguration(array $json): AwsVpcConfiguration
     {
         return new AwsVpcConfiguration([
-            'AssignPublicIp' => isset($json['AssignPublicIp']) ? (string) $json['AssignPublicIp'] : null,
+            'AssignPublicIp' => isset($json['AssignPublicIp']) ? (!AssignPublicIp::exists((string) $json['AssignPublicIp']) ? AssignPublicIp::UNKNOWN_TO_SDK : (string) $json['AssignPublicIp']) : null,
             'SecurityGroups' => !isset($json['SecurityGroups']) ? null : $this->populateResultSecurityGroups($json['SecurityGroups']),
             'Subnets' => $this->populateResultSubnets($json['Subnets']),
         ]);
@@ -332,12 +338,12 @@ class GetScheduleOutput extends Result
             'EnableECSManagedTags' => isset($json['EnableECSManagedTags']) ? filter_var($json['EnableECSManagedTags'], \FILTER_VALIDATE_BOOLEAN) : null,
             'EnableExecuteCommand' => isset($json['EnableExecuteCommand']) ? filter_var($json['EnableExecuteCommand'], \FILTER_VALIDATE_BOOLEAN) : null,
             'Group' => isset($json['Group']) ? (string) $json['Group'] : null,
-            'LaunchType' => isset($json['LaunchType']) ? (string) $json['LaunchType'] : null,
+            'LaunchType' => isset($json['LaunchType']) ? (!LaunchType::exists((string) $json['LaunchType']) ? LaunchType::UNKNOWN_TO_SDK : (string) $json['LaunchType']) : null,
             'NetworkConfiguration' => empty($json['NetworkConfiguration']) ? null : $this->populateResultNetworkConfiguration($json['NetworkConfiguration']),
             'PlacementConstraints' => !isset($json['PlacementConstraints']) ? null : $this->populateResultPlacementConstraints($json['PlacementConstraints']),
             'PlacementStrategy' => !isset($json['PlacementStrategy']) ? null : $this->populateResultPlacementStrategies($json['PlacementStrategy']),
             'PlatformVersion' => isset($json['PlatformVersion']) ? (string) $json['PlatformVersion'] : null,
-            'PropagateTags' => isset($json['PropagateTags']) ? (string) $json['PropagateTags'] : null,
+            'PropagateTags' => isset($json['PropagateTags']) ? (!PropagateTags::exists((string) $json['PropagateTags']) ? PropagateTags::UNKNOWN_TO_SDK : (string) $json['PropagateTags']) : null,
             'ReferenceId' => isset($json['ReferenceId']) ? (string) $json['ReferenceId'] : null,
             'Tags' => !isset($json['Tags']) ? null : $this->populateResultTags($json['Tags']),
             'TaskCount' => isset($json['TaskCount']) ? (int) $json['TaskCount'] : null,
@@ -357,7 +363,7 @@ class GetScheduleOutput extends Result
     {
         return new FlexibleTimeWindow([
             'MaximumWindowInMinutes' => isset($json['MaximumWindowInMinutes']) ? (int) $json['MaximumWindowInMinutes'] : null,
-            'Mode' => (string) $json['Mode'],
+            'Mode' => !FlexibleTimeWindowMode::exists((string) $json['Mode']) ? FlexibleTimeWindowMode::UNKNOWN_TO_SDK : (string) $json['Mode'],
         ]);
     }
 
@@ -379,7 +385,7 @@ class GetScheduleOutput extends Result
     {
         return new PlacementConstraint([
             'expression' => isset($json['expression']) ? (string) $json['expression'] : null,
-            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'type' => isset($json['type']) ? (!PlacementConstraintType::exists((string) $json['type']) ? PlacementConstraintType::UNKNOWN_TO_SDK : (string) $json['type']) : null,
         ]);
     }
 
@@ -413,7 +419,7 @@ class GetScheduleOutput extends Result
     {
         return new PlacementStrategy([
             'field' => isset($json['field']) ? (string) $json['field'] : null,
-            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'type' => isset($json['type']) ? (!PlacementStrategyType::exists((string) $json['type']) ? PlacementStrategyType::UNKNOWN_TO_SDK : (string) $json['type']) : null,
         ]);
     }
 

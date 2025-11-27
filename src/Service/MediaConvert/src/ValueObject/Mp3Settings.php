@@ -121,6 +121,7 @@ final class Mp3Settings
         }
         if (null !== $v = $this->rateControlMode) {
             if (!Mp3RateControlMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "Mp3RateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;

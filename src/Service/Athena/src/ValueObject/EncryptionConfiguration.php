@@ -73,6 +73,7 @@ final class EncryptionConfiguration
         $payload = [];
         $v = $this->encryptionOption;
         if (!EncryptionOption::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "EncryptionOption" for "%s". The value "%s" is not a valid "EncryptionOption".', __CLASS__, $v));
         }
         $payload['EncryptionOption'] = $v;

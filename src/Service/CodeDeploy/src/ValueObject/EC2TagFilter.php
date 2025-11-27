@@ -93,6 +93,7 @@ final class EC2TagFilter
         }
         if (null !== $v = $this->type) {
             if (!EC2TagFilterType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "EC2TagFilterType".', __CLASS__, $v));
             }
             $payload['Type'] = $v;

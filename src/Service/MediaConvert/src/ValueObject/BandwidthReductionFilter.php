@@ -82,12 +82,14 @@ final class BandwidthReductionFilter
         $payload = [];
         if (null !== $v = $this->sharpening) {
             if (!BandwidthReductionFilterSharpening::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "sharpening" for "%s". The value "%s" is not a valid "BandwidthReductionFilterSharpening".', __CLASS__, $v));
             }
             $payload['sharpening'] = $v;
         }
         if (null !== $v = $this->strength) {
             if (!BandwidthReductionFilterStrength::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "strength" for "%s". The value "%s" is not a valid "BandwidthReductionFilterStrength".', __CLASS__, $v));
             }
             $payload['strength'] = $v;

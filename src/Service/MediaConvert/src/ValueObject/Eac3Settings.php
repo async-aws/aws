@@ -440,6 +440,7 @@ final class Eac3Settings
         $payload = [];
         if (null !== $v = $this->attenuationControl) {
             if (!Eac3AttenuationControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "attenuationControl" for "%s". The value "%s" is not a valid "Eac3AttenuationControl".', __CLASS__, $v));
             }
             $payload['attenuationControl'] = $v;
@@ -449,18 +450,21 @@ final class Eac3Settings
         }
         if (null !== $v = $this->bitstreamMode) {
             if (!Eac3BitstreamMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "bitstreamMode" for "%s". The value "%s" is not a valid "Eac3BitstreamMode".', __CLASS__, $v));
             }
             $payload['bitstreamMode'] = $v;
         }
         if (null !== $v = $this->codingMode) {
             if (!Eac3CodingMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codingMode" for "%s". The value "%s" is not a valid "Eac3CodingMode".', __CLASS__, $v));
             }
             $payload['codingMode'] = $v;
         }
         if (null !== $v = $this->dcFilter) {
             if (!Eac3DcFilter::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dcFilter" for "%s". The value "%s" is not a valid "Eac3DcFilter".', __CLASS__, $v));
             }
             $payload['dcFilter'] = $v;
@@ -470,24 +474,28 @@ final class Eac3Settings
         }
         if (null !== $v = $this->dynamicRangeCompressionLine) {
             if (!Eac3DynamicRangeCompressionLine::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionLine" for "%s". The value "%s" is not a valid "Eac3DynamicRangeCompressionLine".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionLine'] = $v;
         }
         if (null !== $v = $this->dynamicRangeCompressionRf) {
             if (!Eac3DynamicRangeCompressionRf::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionRf" for "%s". The value "%s" is not a valid "Eac3DynamicRangeCompressionRf".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionRf'] = $v;
         }
         if (null !== $v = $this->lfeControl) {
             if (!Eac3LfeControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "lfeControl" for "%s". The value "%s" is not a valid "Eac3LfeControl".', __CLASS__, $v));
             }
             $payload['lfeControl'] = $v;
         }
         if (null !== $v = $this->lfeFilter) {
             if (!Eac3LfeFilter::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "lfeFilter" for "%s". The value "%s" is not a valid "Eac3LfeFilter".', __CLASS__, $v));
             }
             $payload['lfeFilter'] = $v;
@@ -506,18 +514,21 @@ final class Eac3Settings
         }
         if (null !== $v = $this->metadataControl) {
             if (!Eac3MetadataControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "metadataControl" for "%s". The value "%s" is not a valid "Eac3MetadataControl".', __CLASS__, $v));
             }
             $payload['metadataControl'] = $v;
         }
         if (null !== $v = $this->passthroughControl) {
             if (!Eac3PassthroughControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "passthroughControl" for "%s". The value "%s" is not a valid "Eac3PassthroughControl".', __CLASS__, $v));
             }
             $payload['passthroughControl'] = $v;
         }
         if (null !== $v = $this->phaseControl) {
             if (!Eac3PhaseControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "phaseControl" for "%s". The value "%s" is not a valid "Eac3PhaseControl".', __CLASS__, $v));
             }
             $payload['phaseControl'] = $v;
@@ -527,18 +538,21 @@ final class Eac3Settings
         }
         if (null !== $v = $this->stereoDownmix) {
             if (!Eac3StereoDownmix::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stereoDownmix" for "%s". The value "%s" is not a valid "Eac3StereoDownmix".', __CLASS__, $v));
             }
             $payload['stereoDownmix'] = $v;
         }
         if (null !== $v = $this->surroundExMode) {
             if (!Eac3SurroundExMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "surroundExMode" for "%s". The value "%s" is not a valid "Eac3SurroundExMode".', __CLASS__, $v));
             }
             $payload['surroundExMode'] = $v;
         }
         if (null !== $v = $this->surroundMode) {
             if (!Eac3SurroundMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "surroundMode" for "%s". The value "%s" is not a valid "Eac3SurroundMode".', __CLASS__, $v));
             }
             $payload['surroundMode'] = $v;

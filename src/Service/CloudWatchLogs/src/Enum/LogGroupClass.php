@@ -4,10 +4,14 @@ namespace AsyncAws\CloudWatchLogs\Enum;
 
 final class LogGroupClass
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DELIVERY = 'DELIVERY';
     public const INFREQUENT_ACCESS = 'INFREQUENT_ACCESS';
     public const STANDARD = 'STANDARD';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

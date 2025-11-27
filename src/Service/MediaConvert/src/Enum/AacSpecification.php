@@ -7,9 +7,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AacSpecification
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MPEG2 = 'MPEG2';
     public const MPEG4 = 'MPEG4';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -10,9 +10,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class VideoSelectorType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const STREAM = 'STREAM';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -132,6 +132,7 @@ final class GetObjectAclRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;

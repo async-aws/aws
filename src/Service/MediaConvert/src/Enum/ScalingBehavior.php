@@ -8,12 +8,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ScalingBehavior
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT = 'DEFAULT';
     public const FILL = 'FILL';
     public const FIT = 'FIT';
     public const FIT_NO_UPSCALE = 'FIT_NO_UPSCALE';
     public const STRETCH_TO_OUTPUT = 'STRETCH_TO_OUTPUT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264CodecLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const LEVEL_1 = 'LEVEL_1';
     public const LEVEL_1_1 = 'LEVEL_1_1';
@@ -26,6 +27,9 @@ final class H264CodecLevel
     public const LEVEL_5_1 = 'LEVEL_5_1';
     public const LEVEL_5_2 = 'LEVEL_5_2';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

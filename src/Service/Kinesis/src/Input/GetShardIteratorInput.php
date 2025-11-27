@@ -232,6 +232,7 @@ final class GetShardIteratorInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "ShardIteratorType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ShardIteratorType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "ShardIteratorType" for "%s". The value "%s" is not a valid "ShardIteratorType".', __CLASS__, $v));
         }
         $payload['ShardIteratorType'] = $v;

@@ -71,6 +71,7 @@ final class FlexibleTimeWindow
         }
         $v = $this->mode;
         if (!FlexibleTimeWindowMode::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "FlexibleTimeWindowMode".', __CLASS__, $v));
         }
         $payload['Mode'] = $v;

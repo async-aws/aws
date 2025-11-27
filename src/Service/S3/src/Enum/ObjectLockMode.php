@@ -4,9 +4,13 @@ namespace AsyncAws\S3\Enum;
 
 final class ObjectLockMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMPLIANCE = 'COMPLIANCE';
     public const GOVERNANCE = 'GOVERNANCE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

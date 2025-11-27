@@ -164,6 +164,7 @@ final class EnableEnhancedMonitoringInput extends Input
         foreach ($v as $listValue) {
             ++$index;
             if (!MetricsName::exists($listValue)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ShardLevelMetrics" for "%s". The value "%s" is not a valid "MetricsName".', __CLASS__, $listValue));
             }
             $payload['ShardLevelMetrics'][$index] = $listValue;

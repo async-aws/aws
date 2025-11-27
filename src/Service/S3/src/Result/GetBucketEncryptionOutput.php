@@ -5,6 +5,7 @@ namespace AsyncAws\S3\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\EncryptionType;
+use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\ValueObject\BlockedEncryptionTypes;
 use AsyncAws\S3\ValueObject\ServerSideEncryptionByDefault;
 use AsyncAws\S3\ValueObject\ServerSideEncryptionConfiguration;
@@ -44,7 +45,11 @@ class GetBucketEncryptionOutput extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = (string) $item;
+            $a = (string) $item;
+            if (!EncryptionType::exists($a)) {
+                $a = EncryptionType::UNKNOWN_TO_SDK;
+            }
+            $items[] = $a;
         }
 
         return $items;
@@ -53,7 +58,7 @@ class GetBucketEncryptionOutput extends Result
     private function populateResultServerSideEncryptionByDefault(\SimpleXMLElement $xml): ServerSideEncryptionByDefault
     {
         return new ServerSideEncryptionByDefault([
-            'SSEAlgorithm' => (string) $xml->SSEAlgorithm,
+            'SSEAlgorithm' => !ServerSideEncryption::exists((string) $xml->SSEAlgorithm) ? ServerSideEncryption::UNKNOWN_TO_SDK : (string) $xml->SSEAlgorithm,
             'KMSMasterKeyID' => (null !== $v = $xml->KMSMasterKeyID[0]) ? (string) $v : null,
         ]);
     }

@@ -129,6 +129,7 @@ final class AttributeValueUpdate
         }
         if (null !== $v = $this->action) {
             if (!AttributeAction::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Action" for "%s". The value "%s" is not a valid "AttributeAction".', __CLASS__, $v));
             }
             $payload['Action'] = $v;

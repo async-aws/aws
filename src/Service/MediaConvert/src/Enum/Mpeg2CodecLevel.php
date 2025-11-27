@@ -7,12 +7,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2CodecLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const HIGH = 'HIGH';
     public const HIGH1440 = 'HIGH1440';
     public const LOW = 'LOW';
     public const MAIN = 'MAIN';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

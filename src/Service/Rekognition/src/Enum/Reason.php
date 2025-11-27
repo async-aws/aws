@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Enum;
 
 final class Reason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EXCEEDS_MAX_FACES = 'EXCEEDS_MAX_FACES';
     public const EXTREME_POSE = 'EXTREME_POSE';
     public const LOW_BRIGHTNESS = 'LOW_BRIGHTNESS';
@@ -12,6 +13,9 @@ final class Reason
     public const LOW_SHARPNESS = 'LOW_SHARPNESS';
     public const SMALL_BOUNDING_BOX = 'SMALL_BOUNDING_BOX';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

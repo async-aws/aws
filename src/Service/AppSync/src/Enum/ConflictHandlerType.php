@@ -4,11 +4,15 @@ namespace AsyncAws\AppSync\Enum;
 
 final class ConflictHandlerType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTOMERGE = 'AUTOMERGE';
     public const LAMBDA = 'LAMBDA';
     public const NONE = 'NONE';
     public const OPTIMISTIC_CONCURRENCY = 'OPTIMISTIC_CONCURRENCY';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([
