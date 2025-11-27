@@ -3,6 +3,7 @@
 namespace AsyncAws\Athena\Result;
 
 use AsyncAws\Athena\AthenaClient;
+use AsyncAws\Athena\Enum\ColumnNullable;
 use AsyncAws\Athena\Input\GetQueryResultsInput;
 use AsyncAws\Athena\ValueObject\ColumnInfo;
 use AsyncAws\Athena\ValueObject\Datum;
@@ -119,7 +120,7 @@ class GetQueryResultsOutput extends Result implements \IteratorAggregate
             'Type' => (string) $json['Type'],
             'Precision' => isset($json['Precision']) ? (int) $json['Precision'] : null,
             'Scale' => isset($json['Scale']) ? (int) $json['Scale'] : null,
-            'Nullable' => isset($json['Nullable']) ? (string) $json['Nullable'] : null,
+            'Nullable' => isset($json['Nullable']) ? (!ColumnNullable::exists((string) $json['Nullable']) ? ColumnNullable::UNKNOWN_TO_SDK : (string) $json['Nullable']) : null,
             'CaseSensitive' => isset($json['CaseSensitive']) ? filter_var($json['CaseSensitive'], \FILTER_VALIDATE_BOOLEAN) : null,
         ]);
     }

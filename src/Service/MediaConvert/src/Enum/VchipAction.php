@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class VchipAction
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PASSTHROUGH = 'PASSTHROUGH';
     public const STRIP = 'STRIP';
 

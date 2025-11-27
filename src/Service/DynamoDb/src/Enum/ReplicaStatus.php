@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class ReplicaStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'ACTIVE';
     public const ARCHIVED = 'ARCHIVED';
     public const ARCHIVING = 'ARCHIVING';

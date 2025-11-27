@@ -4,6 +4,7 @@ namespace AsyncAws\CloudWatch\Enum;
 
 final class StandardUnit
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BITS = 'Bits';
     public const BITS_SECOND = 'Bits/Second';
     public const BYTES = 'Bytes';

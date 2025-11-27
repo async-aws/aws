@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Ac3MetadataControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW_INPUT = 'FOLLOW_INPUT';
     public const USE_CONFIGURED = 'USE_CONFIGURED';
 

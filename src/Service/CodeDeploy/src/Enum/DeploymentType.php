@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class DeploymentType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BLUE_GREEN = 'BLUE_GREEN';
     public const IN_PLACE = 'IN_PLACE';
 

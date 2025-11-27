@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class DeploymentStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BAKING = 'Baking';
     public const CREATED = 'Created';
     public const FAILED = 'Failed';

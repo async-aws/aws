@@ -4,6 +4,7 @@ namespace AsyncAws\SsoOidc\Enum;
 
 final class InvalidRequestExceptionReason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KMS_DISABLED_EXCEPTION = 'KMS_DisabledException';
     public const KMS_INVALID_KEY_USAGE_EXCEPTION = 'KMS_InvalidKeyUsageException';
     public const KMS_INVALID_STATE_EXCEPTION = 'KMS_InvalidStateException';

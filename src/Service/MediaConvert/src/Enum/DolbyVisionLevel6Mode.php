@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DolbyVisionLevel6Mode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PASSTHROUGH = 'PASSTHROUGH';
     public const RECALCULATE = 'RECALCULATE';
     public const SPECIFY = 'SPECIFY';

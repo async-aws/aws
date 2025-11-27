@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class ResourceStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CREATE_COMPLETE = 'CREATE_COMPLETE';
     public const CREATE_FAILED = 'CREATE_FAILED';
     public const CREATE_IN_PROGRESS = 'CREATE_IN_PROGRESS';

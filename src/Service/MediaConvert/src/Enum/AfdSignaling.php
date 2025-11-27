@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AfdSignaling
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const FIXED = 'FIXED';
     public const NONE = 'NONE';

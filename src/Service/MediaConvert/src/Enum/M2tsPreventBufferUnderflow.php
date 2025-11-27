@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsPreventBufferUnderflow
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const ENABLED = 'ENABLED';
 

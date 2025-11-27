@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M3u8PcrControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CONFIGURED_PCR_PERIOD = 'CONFIGURED_PCR_PERIOD';
     public const PCR_EVERY_PES_PACKET = 'PCR_EVERY_PES_PACKET';
 

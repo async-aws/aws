@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DvbSubtitleShadowColor
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const BLACK = 'BLACK';
     public const NONE = 'NONE';

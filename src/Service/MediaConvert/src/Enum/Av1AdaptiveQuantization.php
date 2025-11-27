@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Av1AdaptiveQuantization
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HIGH = 'HIGH';
     public const HIGHER = 'HIGHER';
     public const LOW = 'LOW';

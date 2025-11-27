@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3StereoDownmix
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DPL2 = 'DPL2';
     public const LO_RO = 'LO_RO';
     public const LT_RT = 'LT_RT';

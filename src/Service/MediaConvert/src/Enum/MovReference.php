@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class MovReference
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EXTERNAL = 'EXTERNAL';
     public const SELF_CONTAINED = 'SELF_CONTAINED';
 

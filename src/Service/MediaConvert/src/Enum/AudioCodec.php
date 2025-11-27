@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioCodec
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AAC = 'AAC';
     public const AC3 = 'AC3';
     public const AIFF = 'AIFF';

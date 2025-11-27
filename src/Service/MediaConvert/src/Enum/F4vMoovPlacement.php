@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class F4vMoovPlacement
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NORMAL = 'NORMAL';
     public const PROGRESSIVE_DOWNLOAD = 'PROGRESSIVE_DOWNLOAD';
 

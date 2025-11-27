@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class JobPhase
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PROBING = 'PROBING';
     public const TRANSCODING = 'TRANSCODING';
     public const UPLOADING = 'UPLOADING';

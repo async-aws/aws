@@ -17,6 +17,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class UncompressedFramerateConversionAlgorithm
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DUPLICATE_DROP = 'DUPLICATE_DROP';
     public const FRAMEFORMER = 'FRAMEFORMER';
     public const INTERPOLATE = 'INTERPOLATE';

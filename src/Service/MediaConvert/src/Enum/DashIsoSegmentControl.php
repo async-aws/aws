@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashIsoSegmentControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SEGMENTED_FILES = 'SEGMENTED_FILES';
     public const SINGLE_FILE = 'SINGLE_FILE';
 

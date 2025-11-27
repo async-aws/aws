@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DeinterlacerMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADAPTIVE = 'ADAPTIVE';
     public const DEINTERLACE = 'DEINTERLACE';
     public const INVERSE_TELECINE = 'INVERSE_TELECINE';

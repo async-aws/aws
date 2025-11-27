@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashIsoIntervalCadence
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW_CUSTOM = 'FOLLOW_CUSTOM';
     public const FOLLOW_IFRAME = 'FOLLOW_IFRAME';
 

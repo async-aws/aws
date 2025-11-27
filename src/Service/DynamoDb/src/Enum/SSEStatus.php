@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class SSEStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const DISABLING = 'DISABLING';
     public const ENABLED = 'ENABLED';

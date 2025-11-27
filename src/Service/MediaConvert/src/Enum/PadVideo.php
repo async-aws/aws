@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class PadVideo
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BLACK = 'BLACK';
     public const DISABLED = 'DISABLED';
 

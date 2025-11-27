@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class ChecksumType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMPOSITE = 'COMPOSITE';
     public const FULL_OBJECT = 'FULL_OBJECT';
 

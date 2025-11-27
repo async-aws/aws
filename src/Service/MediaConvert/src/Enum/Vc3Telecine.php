@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Vc3Telecine
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HARD = 'HARD';
     public const NONE = 'NONE';
 

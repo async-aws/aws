@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsBufferModel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MULTIPLEX = 'MULTIPLEX';
     public const NONE = 'NONE';
 

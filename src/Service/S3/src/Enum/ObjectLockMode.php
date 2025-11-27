@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class ObjectLockMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMPLIANCE = 'COMPLIANCE';
     public const GOVERNANCE = 'GOVERNANCE';
 

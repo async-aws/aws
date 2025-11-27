@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264InterlaceMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BOTTOM_FIELD = 'BOTTOM_FIELD';
     public const FOLLOW_BOTTOM_FIELD = 'FOLLOW_BOTTOM_FIELD';
     public const FOLLOW_TOP_FIELD = 'FOLLOW_TOP_FIELD';

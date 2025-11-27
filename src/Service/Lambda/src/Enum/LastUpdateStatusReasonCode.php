@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class LastUpdateStatusReasonCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED_KMSKEY = 'DisabledKMSKey';
     public const EFSIOERROR = 'EFSIOError';
     public const EFSMOUNT_CONNECTIVITY_ERROR = 'EFSMountConnectivityError';

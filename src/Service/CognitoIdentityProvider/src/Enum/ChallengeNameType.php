@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Enum;
 
 final class ChallengeNameType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADMIN_NO_SRP_AUTH = 'ADMIN_NO_SRP_AUTH';
     public const CUSTOM_CHALLENGE = 'CUSTOM_CHALLENGE';
     public const DEVICE_PASSWORD_VERIFIER = 'DEVICE_PASSWORD_VERIFIER';

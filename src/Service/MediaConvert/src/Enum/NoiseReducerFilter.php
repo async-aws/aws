@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class NoiseReducerFilter
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BILATERAL = 'BILATERAL';
     public const CONSERVE = 'CONSERVE';
     public const GAUSSIAN = 'GAUSSIAN';

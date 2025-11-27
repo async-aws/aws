@@ -349,9 +349,9 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->parts = (0 === ($v = $data->Part)->count()) ? [] : $this->populateResultParts($v);
         $this->initiator = 0 === $data->Initiator->count() ? null : $this->populateResultInitiator($data->Initiator);
         $this->owner = 0 === $data->Owner->count() ? null : $this->populateResultOwner($data->Owner);
-        $this->storageClass = (null !== $v = $data->StorageClass[0]) ? (string) $v : null;
-        $this->checksumAlgorithm = (null !== $v = $data->ChecksumAlgorithm[0]) ? (string) $v : null;
-        $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (string) $v : null;
+        $this->storageClass = (null !== $v = $data->StorageClass[0]) ? (!StorageClass::exists((string) $data->StorageClass) ? StorageClass::UNKNOWN_TO_SDK : (string) $data->StorageClass) : null;
+        $this->checksumAlgorithm = (null !== $v = $data->ChecksumAlgorithm[0]) ? (!ChecksumAlgorithm::exists((string) $data->ChecksumAlgorithm) ? ChecksumAlgorithm::UNKNOWN_TO_SDK : (string) $data->ChecksumAlgorithm) : null;
+        $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (!ChecksumType::exists((string) $data->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $data->ChecksumType) : null;
     }
 
     private function populateResultInitiator(\SimpleXMLElement $xml): Initiator

@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264Telecine
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HARD = 'HARD';
     public const NONE = 'NONE';
     public const SOFT = 'SOFT';

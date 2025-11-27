@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class LastUpdateStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FAILED = 'Failed';
     public const IN_PROGRESS = 'InProgress';
     public const SUCCESSFUL = 'Successful';

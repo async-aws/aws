@@ -4,6 +4,7 @@ namespace AsyncAws\Route53\Enum;
 
 final class RRType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const A = 'A';
     public const AAAA = 'AAAA';
     public const CAA = 'CAA';

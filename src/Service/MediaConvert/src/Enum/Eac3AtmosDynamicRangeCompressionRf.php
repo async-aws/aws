@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3AtmosDynamicRangeCompressionRf
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FILM_LIGHT = 'FILM_LIGHT';
     public const FILM_STANDARD = 'FILM_STANDARD';
     public const MUSIC_LIGHT = 'MUSIC_LIGHT';

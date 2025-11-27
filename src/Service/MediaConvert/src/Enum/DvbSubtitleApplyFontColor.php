@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DvbSubtitleApplyFontColor
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL_TEXT = 'ALL_TEXT';
     public const WHITE_TEXT_ONLY = 'WHITE_TEXT_ONLY';
 

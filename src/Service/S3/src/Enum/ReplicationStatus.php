@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class ReplicationStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMPLETE = 'COMPLETE';
     public const COMPLETED = 'COMPLETED';
     public const FAILED = 'FAILED';

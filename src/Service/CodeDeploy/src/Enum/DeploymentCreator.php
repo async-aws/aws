@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class DeploymentCreator
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTOSCALING = 'autoscaling';
     public const AUTOSCALING_TERMINATION = 'autoscalingTermination';
     public const CLOUD_FORMATION = 'CloudFormation';

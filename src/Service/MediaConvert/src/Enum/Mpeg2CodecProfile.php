@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2CodecProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MAIN = 'MAIN';
     public const PROFILE_422 = 'PROFILE_422';
 

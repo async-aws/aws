@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafManifestCompression
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const GZIP = 'GZIP';
     public const NONE = 'NONE';
 

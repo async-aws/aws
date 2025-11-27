@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class KeyUsageType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ENCRYPT_DECRYPT = 'ENCRYPT_DECRYPT';
     public const GENERATE_VERIFY_MAC = 'GENERATE_VERIFY_MAC';
     public const KEY_AGREEMENT = 'KEY_AGREEMENT';

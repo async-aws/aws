@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class MxfProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const D_10 = 'D_10';
     public const OP1A = 'OP1A';
     public const XAVC = 'XAVC';

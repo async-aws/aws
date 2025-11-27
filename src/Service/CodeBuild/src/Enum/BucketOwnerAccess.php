@@ -33,6 +33,7 @@ namespace AsyncAws\CodeBuild\Enum;
  */
 final class BucketOwnerAccess
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FULL = 'FULL';
     public const NONE = 'NONE';
     public const READ_ONLY = 'READ_ONLY';

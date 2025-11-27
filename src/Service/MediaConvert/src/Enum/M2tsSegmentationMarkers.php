@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsSegmentationMarkers
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EBP = 'EBP';
     public const EBP_LEGACY = 'EBP_LEGACY';
     public const NONE = 'NONE';

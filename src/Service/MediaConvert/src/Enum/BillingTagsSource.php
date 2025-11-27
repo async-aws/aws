@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class BillingTagsSource
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const JOB = 'JOB';
     public const JOB_TEMPLATE = 'JOB_TEMPLATE';
     public const PRESET = 'PRESET';

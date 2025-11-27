@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264SceneChangeDetect
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const ENABLED = 'ENABLED';
     public const TRANSITION_DETECTION = 'TRANSITION_DETECTION';

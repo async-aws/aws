@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class RespondToAfd
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const PASSTHROUGH = 'PASSTHROUGH';
     public const RESPOND = 'RESPOND';

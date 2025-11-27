@@ -4,6 +4,7 @@ namespace AsyncAws\Athena\Enum;
 
 final class WorkGroupState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const ENABLED = 'ENABLED';
 

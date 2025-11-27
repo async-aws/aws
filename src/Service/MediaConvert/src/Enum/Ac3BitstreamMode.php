@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Ac3BitstreamMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMMENTARY = 'COMMENTARY';
     public const COMPLETE_MAIN = 'COMPLETE_MAIN';
     public const DIALOGUE = 'DIALOGUE';

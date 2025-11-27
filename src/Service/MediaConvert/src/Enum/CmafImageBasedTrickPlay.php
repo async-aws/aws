@@ -14,6 +14,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafImageBasedTrickPlay
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADVANCED = 'ADVANCED';
     public const NONE = 'NONE';
     public const THUMBNAIL = 'THUMBNAIL';

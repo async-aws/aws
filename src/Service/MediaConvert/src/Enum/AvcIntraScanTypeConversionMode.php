@@ -14,6 +14,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AvcIntraScanTypeConversionMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INTERLACED = 'INTERLACED';
     public const INTERLACED_OPTIMIZE = 'INTERLACED_OPTIMIZE';
 

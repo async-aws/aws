@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class ComputeType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ATTRIBUTE_BASED_COMPUTE = 'ATTRIBUTE_BASED_COMPUTE';
     public const BUILD_GENERAL1_2XLARGE = 'BUILD_GENERAL1_2XLARGE';
     public const BUILD_GENERAL1_LARGE = 'BUILD_GENERAL1_LARGE';

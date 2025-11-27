@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ColorMetadata
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const IGNORE = 'IGNORE';
     public const INSERT = 'INSERT';
 

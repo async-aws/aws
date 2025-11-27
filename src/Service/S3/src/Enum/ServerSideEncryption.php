@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class ServerSideEncryption
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AES256 = 'AES256';
     public const AWS_FSX = 'aws:fsx';
     public const AWS_KMS = 'aws:kms';

@@ -4,6 +4,7 @@ namespace AsyncAws\CloudWatchLogs\Enum;
 
 final class EntityRejectionErrorType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ENTITY_SIZE_TOO_LARGE = 'EntitySizeTooLarge';
     public const INVALID_ATTRIBUTES = 'InvalidAttributes';
     public const INVALID_ENTITY = 'InvalidEntity';

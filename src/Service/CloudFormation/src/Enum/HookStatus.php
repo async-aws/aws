@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class HookStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HOOK_COMPLETE_FAILED = 'HOOK_COMPLETE_FAILED';
     public const HOOK_COMPLETE_SUCCEEDED = 'HOOK_COMPLETE_SUCCEEDED';
     public const HOOK_FAILED = 'HOOK_FAILED';

@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class InputPsiControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const IGNORE_PSI = 'IGNORE_PSI';
     public const USE_PSI = 'USE_PSI';
 

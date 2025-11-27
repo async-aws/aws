@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena\Result;
 
+use AsyncAws\Athena\Enum\CalculationExecutionState;
 use AsyncAws\Athena\ValueObject\CalculationResult;
 use AsyncAws\Athena\ValueObject\CalculationStatistics;
 use AsyncAws\Athena\ValueObject\CalculationStatus;
@@ -145,7 +146,7 @@ class GetCalculationExecutionResponse extends Result
         return new CalculationStatus([
             'SubmissionDateTime' => (isset($json['SubmissionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['SubmissionDateTime'])))) ? $d : null,
             'CompletionDateTime' => (isset($json['CompletionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CompletionDateTime'])))) ? $d : null,
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'State' => isset($json['State']) ? (!CalculationExecutionState::exists((string) $json['State']) ? CalculationExecutionState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
             'StateChangeReason' => isset($json['StateChangeReason']) ? (string) $json['StateChangeReason'] : null,
         ]);
     }

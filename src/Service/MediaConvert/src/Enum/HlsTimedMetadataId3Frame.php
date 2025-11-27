@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsTimedMetadataId3Frame
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const PRIV = 'PRIV';
     public const TDRL = 'TDRL';

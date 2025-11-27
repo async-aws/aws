@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Enum;
 
 final class GenderType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FEMALE = 'Female';
     public const MALE = 'Male';
 

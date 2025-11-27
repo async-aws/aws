@@ -4,6 +4,7 @@ namespace AsyncAws\ElastiCache\Enum;
 
 final class LogFormat
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const JSON = 'json';
     public const TEXT = 'text';
 

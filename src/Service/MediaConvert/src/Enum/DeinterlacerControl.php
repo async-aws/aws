@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DeinterlacerControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FORCE_ALL_FRAMES = 'FORCE_ALL_FRAMES';
     public const NORMAL = 'NORMAL';
 

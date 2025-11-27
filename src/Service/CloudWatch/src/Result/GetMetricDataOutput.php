@@ -3,6 +3,7 @@
 namespace AsyncAws\CloudWatch\Result;
 
 use AsyncAws\CloudWatch\CloudWatchClient;
+use AsyncAws\CloudWatch\Enum\StatusCode;
 use AsyncAws\CloudWatch\Input\GetMetricDataInput;
 use AsyncAws\CloudWatch\ValueObject\MessageData;
 use AsyncAws\CloudWatch\ValueObject\MetricDataResult;
@@ -212,7 +213,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
             'Label' => (null !== $v = $xml->Label[0]) ? (string) $v : null,
             'Timestamps' => (0 === ($v = $xml->Timestamps)->count()) ? null : $this->populateResultTimestamps($v),
             'Values' => (0 === ($v = $xml->Values)->count()) ? null : $this->populateResultDatapointValues($v),
-            'StatusCode' => (null !== $v = $xml->StatusCode[0]) ? (string) $v : null,
+            'StatusCode' => (null !== $v = $xml->StatusCode[0]) ? (!StatusCode::exists((string) $xml->StatusCode) ? StatusCode::UNKNOWN_TO_SDK : (string) $xml->StatusCode) : null,
             'Messages' => (0 === ($v = $xml->Messages)->count()) ? null : $this->populateResultMetricDataResultMessages($v),
         ]);
     }

@@ -17,6 +17,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioDurationCorrection
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const DISABLED = 'DISABLED';
     public const FORCE = 'FORCE';

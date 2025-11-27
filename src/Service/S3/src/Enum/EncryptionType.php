@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class EncryptionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const SSE_C = 'SSE-C';
 

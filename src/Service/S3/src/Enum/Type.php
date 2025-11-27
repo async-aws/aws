@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class Type
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AMAZON_CUSTOMER_BY_EMAIL = 'AmazonCustomerByEmail';
     public const CANONICAL_USER = 'CanonicalUser';
     public const GROUP = 'Group';

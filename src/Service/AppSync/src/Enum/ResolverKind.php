@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class ResolverKind
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PIPELINE = 'PIPELINE';
     public const UNIT = 'UNIT';
 

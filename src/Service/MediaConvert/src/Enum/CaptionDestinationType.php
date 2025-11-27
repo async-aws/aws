@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CaptionDestinationType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BURN_IN = 'BURN_IN';
     public const DVB_SUB = 'DVB_SUB';
     public const EMBEDDED = 'EMBEDDED';

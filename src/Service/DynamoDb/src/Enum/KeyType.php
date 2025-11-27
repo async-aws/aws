@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class KeyType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HASH = 'HASH';
     public const RANGE = 'RANGE';
 

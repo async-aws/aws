@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class JobStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CANCELED = 'CANCELED';
     public const COMPLETE = 'COMPLETE';
     public const ERROR = 'ERROR';

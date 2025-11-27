@@ -4,6 +4,7 @@ namespace AsyncAws\Scheduler\Enum;
 
 final class LaunchType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EC2 = 'EC2';
     public const EXTERNAL = 'EXTERNAL';
     public const FARGATE = 'FARGATE';

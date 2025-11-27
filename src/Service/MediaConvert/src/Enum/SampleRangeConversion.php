@@ -16,6 +16,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class SampleRangeConversion
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const LIMITED_RANGE_CLIP = 'LIMITED_RANGE_CLIP';
     public const LIMITED_RANGE_SQUEEZE = 'LIMITED_RANGE_SQUEEZE';
     public const NONE = 'NONE';

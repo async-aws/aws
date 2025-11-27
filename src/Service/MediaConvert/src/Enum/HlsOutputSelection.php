@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsOutputSelection
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MANIFESTS_AND_SEGMENTS = 'MANIFESTS_AND_SEGMENTS';
     public const SEGMENTS_ONLY = 'SEGMENTS_ONLY';
 

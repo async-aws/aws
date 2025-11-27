@@ -4,6 +4,7 @@ namespace AsyncAws\LocationService\Enum;
 
 final class ValidationExceptionReason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CANNOT_PARSE = 'CannotParse';
     public const FIELD_VALIDATION_FAILED = 'FieldValidationFailed';
     public const MISSING = 'Missing';

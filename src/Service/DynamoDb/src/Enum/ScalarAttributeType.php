@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class ScalarAttributeType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const B = 'B';
     public const N = 'N';
     public const S = 'S';

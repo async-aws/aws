@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class Permission
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FULL_CONTROL = 'FULL_CONTROL';
     public const READ = 'READ';
     public const READ_ACP = 'READ_ACP';

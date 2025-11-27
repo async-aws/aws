@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class StreamViewType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KEYS_ONLY = 'KEYS_ONLY';
     public const NEW_AND_OLD_IMAGES = 'NEW_AND_OLD_IMAGES';
     public const NEW_IMAGE = 'NEW_IMAGE';

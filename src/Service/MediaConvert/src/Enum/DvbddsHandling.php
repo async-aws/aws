@@ -16,6 +16,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DvbddsHandling
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const NO_DISPLAY_WINDOW = 'NO_DISPLAY_WINDOW';
     public const SPECIFIED = 'SPECIFIED';

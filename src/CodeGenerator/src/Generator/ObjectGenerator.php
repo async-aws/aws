@@ -78,7 +78,7 @@ class ObjectGenerator
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $managedMethods);
         $this->serializer = new SerializerProvider($this->namespaceRegistry, $requirementsRegistry);
         $this->managedMethods = $managedMethods;
     }
@@ -139,6 +139,7 @@ class ObjectGenerator
                 } elseif ($shape instanceof ListShape) {
                     $walk($shape->getMember()->getShape());
                 } elseif ($shape instanceof MapShape) {
+                    $walk($shape->getKey()->getShape());
                     $walk($shape->getValue()->getShape());
                 }
             };

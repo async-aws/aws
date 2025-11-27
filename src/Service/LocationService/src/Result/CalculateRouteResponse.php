@@ -94,7 +94,7 @@ class CalculateRouteResponse extends Result
             'DataSource' => (string) $json['DataSource'],
             'Distance' => (float) $json['Distance'],
             'DurationSeconds' => (float) $json['DurationSeconds'],
-            'DistanceUnit' => (string) $json['DistanceUnit'],
+            'DistanceUnit' => !DistanceUnit::exists((string) $json['DistanceUnit']) ? DistanceUnit::UNKNOWN_TO_SDK : (string) $json['DistanceUnit'],
         ]);
     }
 

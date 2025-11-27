@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class ConflictDetectionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NONE = 'NONE';
     public const VERSION = 'VERSION';
 

@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class XavcProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const XAVC_4K = 'XAVC_4K';
     public const XAVC_4K_INTRA_CBG = 'XAVC_4K_INTRA_CBG';
     public const XAVC_4K_INTRA_VBR = 'XAVC_4K_INTRA_VBR';

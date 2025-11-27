@@ -4,6 +4,7 @@ namespace AsyncAws\Athena\Enum;
 
 final class SessionState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BUSY = 'BUSY';
     public const CREATED = 'CREATED';
     public const CREATING = 'CREATING';

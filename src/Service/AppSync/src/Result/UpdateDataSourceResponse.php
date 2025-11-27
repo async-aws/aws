@@ -2,6 +2,10 @@
 
 namespace AsyncAws\AppSync\Result;
 
+use AsyncAws\AppSync\Enum\AuthorizationType;
+use AsyncAws\AppSync\Enum\DataSourceLevelMetricsConfig;
+use AsyncAws\AppSync\Enum\DataSourceType;
+use AsyncAws\AppSync\Enum\RelationalDatabaseSourceType;
 use AsyncAws\AppSync\ValueObject\AuthorizationConfig;
 use AsyncAws\AppSync\ValueObject\AwsIamConfig;
 use AsyncAws\AppSync\ValueObject\DataSource;
@@ -43,7 +47,7 @@ class UpdateDataSourceResponse extends Result
     private function populateResultAuthorizationConfig(array $json): AuthorizationConfig
     {
         return new AuthorizationConfig([
-            'authorizationType' => (string) $json['authorizationType'],
+            'authorizationType' => !AuthorizationType::exists((string) $json['authorizationType']) ? AuthorizationType::UNKNOWN_TO_SDK : (string) $json['authorizationType'],
             'awsIamConfig' => empty($json['awsIamConfig']) ? null : $this->populateResultAwsIamConfig($json['awsIamConfig']),
         ]);
     }
@@ -62,7 +66,7 @@ class UpdateDataSourceResponse extends Result
             'dataSourceArn' => isset($json['dataSourceArn']) ? (string) $json['dataSourceArn'] : null,
             'name' => isset($json['name']) ? (string) $json['name'] : null,
             'description' => isset($json['description']) ? (string) $json['description'] : null,
-            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'type' => isset($json['type']) ? (!DataSourceType::exists((string) $json['type']) ? DataSourceType::UNKNOWN_TO_SDK : (string) $json['type']) : null,
             'serviceRoleArn' => isset($json['serviceRoleArn']) ? (string) $json['serviceRoleArn'] : null,
             'dynamodbConfig' => empty($json['dynamodbConfig']) ? null : $this->populateResultDynamodbDataSourceConfig($json['dynamodbConfig']),
             'lambdaConfig' => empty($json['lambdaConfig']) ? null : $this->populateResultLambdaDataSourceConfig($json['lambdaConfig']),
@@ -71,7 +75,7 @@ class UpdateDataSourceResponse extends Result
             'httpConfig' => empty($json['httpConfig']) ? null : $this->populateResultHttpDataSourceConfig($json['httpConfig']),
             'relationalDatabaseConfig' => empty($json['relationalDatabaseConfig']) ? null : $this->populateResultRelationalDatabaseDataSourceConfig($json['relationalDatabaseConfig']),
             'eventBridgeConfig' => empty($json['eventBridgeConfig']) ? null : $this->populateResultEventBridgeDataSourceConfig($json['eventBridgeConfig']),
-            'metricsConfig' => isset($json['metricsConfig']) ? (string) $json['metricsConfig'] : null,
+            'metricsConfig' => isset($json['metricsConfig']) ? (!DataSourceLevelMetricsConfig::exists((string) $json['metricsConfig']) ? DataSourceLevelMetricsConfig::UNKNOWN_TO_SDK : (string) $json['metricsConfig']) : null,
         ]);
     }
 
@@ -147,7 +151,7 @@ class UpdateDataSourceResponse extends Result
     private function populateResultRelationalDatabaseDataSourceConfig(array $json): RelationalDatabaseDataSourceConfig
     {
         return new RelationalDatabaseDataSourceConfig([
-            'relationalDatabaseSourceType' => isset($json['relationalDatabaseSourceType']) ? (string) $json['relationalDatabaseSourceType'] : null,
+            'relationalDatabaseSourceType' => isset($json['relationalDatabaseSourceType']) ? (!RelationalDatabaseSourceType::exists((string) $json['relationalDatabaseSourceType']) ? RelationalDatabaseSourceType::UNKNOWN_TO_SDK : (string) $json['relationalDatabaseSourceType']) : null,
             'rdsHttpEndpointConfig' => empty($json['rdsHttpEndpointConfig']) ? null : $this->populateResultRdsHttpEndpointConfig($json['rdsHttpEndpointConfig']),
         ]);
     }

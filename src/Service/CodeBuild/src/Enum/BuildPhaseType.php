@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class BuildPhaseType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BUILD = 'BUILD';
     public const COMPLETED = 'COMPLETED';
     public const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';

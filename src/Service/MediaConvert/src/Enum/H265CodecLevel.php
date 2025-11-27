@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H265CodecLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const LEVEL_1 = 'LEVEL_1';
     public const LEVEL_2 = 'LEVEL_2';

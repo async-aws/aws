@@ -4,6 +4,7 @@ namespace AsyncAws\Comprehend\Enum;
 
 final class InvalidRequestDetailReason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DOCUMENT_SIZE_EXCEEDED = 'DOCUMENT_SIZE_EXCEEDED';
     public const PAGE_LIMIT_EXCEEDED = 'PAGE_LIMIT_EXCEEDED';
     public const TEXTRACT_ACCESS_DENIED = 'TEXTRACT_ACCESS_DENIED';

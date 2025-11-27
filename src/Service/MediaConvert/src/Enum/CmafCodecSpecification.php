@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafCodecSpecification
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const RFC_4281 = 'RFC_4281';
     public const RFC_6381 = 'RFC_6381';
 

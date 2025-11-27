@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsForceTsVideoEbpOrder
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT = 'DEFAULT';
     public const FORCE = 'FORCE';
 

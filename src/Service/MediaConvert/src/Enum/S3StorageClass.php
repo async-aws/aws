@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class S3StorageClass
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
     public const GLACIER = 'GLACIER';
     public const INTELLIGENT_TIERING = 'INTELLIGENT_TIERING';

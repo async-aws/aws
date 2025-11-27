@@ -45,7 +45,7 @@ class VerifySoftwareTokenResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->status = isset($data['Status']) ? (string) $data['Status'] : null;
+        $this->status = isset($data['Status']) ? (!VerifySoftwareTokenResponseType::exists((string) $data['Status']) ? VerifySoftwareTokenResponseType::UNKNOWN_TO_SDK : (string) $data['Status']) : null;
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
     }
 }

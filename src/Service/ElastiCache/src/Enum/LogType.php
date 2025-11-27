@@ -4,6 +4,7 @@ namespace AsyncAws\ElastiCache\Enum;
 
 final class LogType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ENGINE_LOG = 'engine-log';
     public const SLOW_LOG = 'slow-log';
 

@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class IntelligentTieringAccessTier
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ARCHIVE_ACCESS = 'ARCHIVE_ACCESS';
     public const DEEP_ARCHIVE_ACCESS = 'DEEP_ARCHIVE_ACCESS';
 

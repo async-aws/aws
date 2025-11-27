@@ -4,6 +4,7 @@ namespace AsyncAws\SecretsManager\Enum;
 
 final class StatusType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FAILED = 'Failed';
     public const IN_PROGRESS = 'InProgress';
     public const IN_SYNC = 'InSync';

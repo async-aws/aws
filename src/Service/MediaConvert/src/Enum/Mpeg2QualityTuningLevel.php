@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2QualityTuningLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MULTI_PASS = 'MULTI_PASS';
     public const SINGLE_PASS = 'SINGLE_PASS';
 

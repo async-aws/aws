@@ -53,7 +53,7 @@ final class InvalidObjectStateException extends ClientException
         if (0 < $data->Error->count()) {
             $data = $data->Error;
         }
-        $this->storageClass = (null !== $v = $data->StorageClass[0]) ? (string) $v : null;
-        $this->accessTier = (null !== $v = $data->AccessTier[0]) ? (string) $v : null;
+        $this->storageClass = (null !== $v = $data->StorageClass[0]) ? (!StorageClass::exists((string) $data->StorageClass) ? StorageClass::UNKNOWN_TO_SDK : (string) $data->StorageClass) : null;
+        $this->accessTier = (null !== $v = $data->AccessTier[0]) ? (!IntelligentTieringAccessTier::exists((string) $data->AccessTier) ? IntelligentTieringAccessTier::UNKNOWN_TO_SDK : (string) $data->AccessTier) : null;
     }
 }

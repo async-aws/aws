@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ChromaPositionMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const FORCE_CENTER = 'FORCE_CENTER';
     public const FORCE_TOP_LEFT = 'FORCE_TOP_LEFT';

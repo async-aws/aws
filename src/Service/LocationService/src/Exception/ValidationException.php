@@ -46,7 +46,7 @@ final class ValidationException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->reason = (string) $data['reason'];
+        $this->reason = !ValidationExceptionReason::exists((string) $data['reason']) ? ValidationExceptionReason::UNKNOWN_TO_SDK : (string) $data['reason'];
         $this->fieldList = $this->populateResultValidationExceptionFieldList($data['fieldList'] ?? []);
     }
 

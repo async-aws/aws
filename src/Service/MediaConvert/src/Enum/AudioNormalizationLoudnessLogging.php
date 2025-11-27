@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioNormalizationLoudnessLogging
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DONT_LOG = 'DONT_LOG';
     public const LOG = 'LOG';
 

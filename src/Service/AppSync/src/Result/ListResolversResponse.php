@@ -3,6 +3,11 @@
 namespace AsyncAws\AppSync\Result;
 
 use AsyncAws\AppSync\AppSyncClient;
+use AsyncAws\AppSync\Enum\ConflictDetectionType;
+use AsyncAws\AppSync\Enum\ConflictHandlerType;
+use AsyncAws\AppSync\Enum\ResolverKind;
+use AsyncAws\AppSync\Enum\ResolverLevelMetricsConfig;
+use AsyncAws\AppSync\Enum\RuntimeName;
 use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\ValueObject\AppSyncRuntime;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
@@ -105,7 +110,7 @@ class ListResolversResponse extends Result implements \IteratorAggregate
     private function populateResultAppSyncRuntime(array $json): AppSyncRuntime
     {
         return new AppSyncRuntime([
-            'name' => (string) $json['name'],
+            'name' => !RuntimeName::exists((string) $json['name']) ? RuntimeName::UNKNOWN_TO_SDK : (string) $json['name'],
             'runtimeVersion' => (string) $json['runtimeVersion'],
         ]);
     }
@@ -173,14 +178,14 @@ class ListResolversResponse extends Result implements \IteratorAggregate
             'resolverArn' => isset($json['resolverArn']) ? (string) $json['resolverArn'] : null,
             'requestMappingTemplate' => isset($json['requestMappingTemplate']) ? (string) $json['requestMappingTemplate'] : null,
             'responseMappingTemplate' => isset($json['responseMappingTemplate']) ? (string) $json['responseMappingTemplate'] : null,
-            'kind' => isset($json['kind']) ? (string) $json['kind'] : null,
+            'kind' => isset($json['kind']) ? (!ResolverKind::exists((string) $json['kind']) ? ResolverKind::UNKNOWN_TO_SDK : (string) $json['kind']) : null,
             'pipelineConfig' => empty($json['pipelineConfig']) ? null : $this->populateResultPipelineConfig($json['pipelineConfig']),
             'syncConfig' => empty($json['syncConfig']) ? null : $this->populateResultSyncConfig($json['syncConfig']),
             'cachingConfig' => empty($json['cachingConfig']) ? null : $this->populateResultCachingConfig($json['cachingConfig']),
             'maxBatchSize' => isset($json['maxBatchSize']) ? (int) $json['maxBatchSize'] : null,
             'runtime' => empty($json['runtime']) ? null : $this->populateResultAppSyncRuntime($json['runtime']),
             'code' => isset($json['code']) ? (string) $json['code'] : null,
-            'metricsConfig' => isset($json['metricsConfig']) ? (string) $json['metricsConfig'] : null,
+            'metricsConfig' => isset($json['metricsConfig']) ? (!ResolverLevelMetricsConfig::exists((string) $json['metricsConfig']) ? ResolverLevelMetricsConfig::UNKNOWN_TO_SDK : (string) $json['metricsConfig']) : null,
         ]);
     }
 
@@ -200,8 +205,8 @@ class ListResolversResponse extends Result implements \IteratorAggregate
     private function populateResultSyncConfig(array $json): SyncConfig
     {
         return new SyncConfig([
-            'conflictHandler' => isset($json['conflictHandler']) ? (string) $json['conflictHandler'] : null,
-            'conflictDetection' => isset($json['conflictDetection']) ? (string) $json['conflictDetection'] : null,
+            'conflictHandler' => isset($json['conflictHandler']) ? (!ConflictHandlerType::exists((string) $json['conflictHandler']) ? ConflictHandlerType::UNKNOWN_TO_SDK : (string) $json['conflictHandler']) : null,
+            'conflictDetection' => isset($json['conflictDetection']) ? (!ConflictDetectionType::exists((string) $json['conflictDetection']) ? ConflictDetectionType::UNKNOWN_TO_SDK : (string) $json['conflictDetection']) : null,
             'lambdaConflictHandlerConfig' => empty($json['lambdaConflictHandlerConfig']) ? null : $this->populateResultLambdaConflictHandlerConfig($json['lambdaConflictHandlerConfig']),
         ]);
     }

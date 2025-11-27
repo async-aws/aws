@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class MpdCaptionContainerType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FRAGMENTED_MP4 = 'FRAGMENTED_MP4';
     public const RAW = 'RAW';
 

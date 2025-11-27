@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AdvancedInputFilterSharpen
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HIGH = 'HIGH';
     public const LOW = 'LOW';
     public const OFF = 'OFF';

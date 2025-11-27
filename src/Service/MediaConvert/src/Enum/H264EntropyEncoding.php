@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264EntropyEncoding
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CABAC = 'CABAC';
     public const CAVLC = 'CAVLC';
 

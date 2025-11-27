@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class KeyState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CREATING = 'Creating';
     public const DISABLED = 'Disabled';
     public const ENABLED = 'Enabled';

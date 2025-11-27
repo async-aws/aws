@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class StateReasonCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CREATING = 'Creating';
     public const DISABLED_KMSKEY = 'DisabledKMSKey';
     public const EFSIOERROR = 'EFSIOError';

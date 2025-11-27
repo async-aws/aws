@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class MovMpeg2FourCCControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MPEG = 'MPEG';
     public const XDCAM = 'XDCAM';
 

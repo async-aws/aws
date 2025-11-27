@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Enum;
 
 final class UserStatusType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ARCHIVED = 'ARCHIVED';
     public const COMPROMISED = 'COMPROMISED';
     public const CONFIRMED = 'CONFIRMED';

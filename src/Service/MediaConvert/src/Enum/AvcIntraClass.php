@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AvcIntraClass
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CLASS_100 = 'CLASS_100';
     public const CLASS_200 = 'CLASS_200';
     public const CLASS_4K_2K = 'CLASS_4K_2K';

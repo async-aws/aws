@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class DeploymentOption
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const WITHOUT_TRAFFIC_CONTROL = 'WITHOUT_TRAFFIC_CONTROL';
     public const WITH_TRAFFIC_CONTROL = 'WITH_TRAFFIC_CONTROL';
 

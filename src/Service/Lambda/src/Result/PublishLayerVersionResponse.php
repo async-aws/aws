@@ -175,7 +175,7 @@ class PublishLayerVersionResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $a = isset($item) ? (string) $item : null;
+            $a = isset($item) ? (!Architecture::exists((string) $item) ? Architecture::UNKNOWN_TO_SDK : (string) $item) : null;
             if (null !== $a) {
                 $items[] = $a;
             }
@@ -191,7 +191,7 @@ class PublishLayerVersionResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $a = isset($item) ? (string) $item : null;
+            $a = isset($item) ? (!Runtime::exists((string) $item) ? Runtime::UNKNOWN_TO_SDK : (string) $item) : null;
             if (null !== $a) {
                 $items[] = $a;
             }

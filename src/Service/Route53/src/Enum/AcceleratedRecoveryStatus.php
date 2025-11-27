@@ -4,6 +4,7 @@ namespace AsyncAws\Route53\Enum;
 
 final class AcceleratedRecoveryStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const DISABLE_FAILED = 'DISABLE_FAILED';
     public const DISABLING = 'DISABLING';

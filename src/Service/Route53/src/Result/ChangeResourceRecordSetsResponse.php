@@ -4,6 +4,7 @@ namespace AsyncAws\Route53\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Route53\Enum\ChangeStatus;
 use AsyncAws\Route53\ValueObject\ChangeInfo;
 
 /**
@@ -40,7 +41,7 @@ class ChangeResourceRecordSetsResponse extends Result
     {
         return new ChangeInfo([
             'Id' => (string) $xml->Id,
-            'Status' => (string) $xml->Status,
+            'Status' => !ChangeStatus::exists((string) $xml->Status) ? ChangeStatus::UNKNOWN_TO_SDK : (string) $xml->Status,
             'SubmittedAt' => new \DateTimeImmutable((string) $xml->SubmittedAt),
             'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
         ]);

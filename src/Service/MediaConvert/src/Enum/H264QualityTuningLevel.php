@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264QualityTuningLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MULTI_PASS_HQ = 'MULTI_PASS_HQ';
     public const SINGLE_PASS = 'SINGLE_PASS';
     public const SINGLE_PASS_HQ = 'SINGLE_PASS_HQ';

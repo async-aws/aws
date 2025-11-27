@@ -29,6 +29,6 @@ class DeleteProjectResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->status = isset($data['Status']) ? (string) $data['Status'] : null;
+        $this->status = isset($data['Status']) ? (!ProjectStatus::exists((string) $data['Status']) ? ProjectStatus::UNKNOWN_TO_SDK : (string) $data['Status']) : null;
     }
 }

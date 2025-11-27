@@ -4,6 +4,9 @@ namespace AsyncAws\Rekognition\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Rekognition\Enum\EmotionName;
+use AsyncAws\Rekognition\Enum\KnownGenderType;
+use AsyncAws\Rekognition\Enum\LandmarkType;
 use AsyncAws\Rekognition\Enum\OrientationCorrection;
 use AsyncAws\Rekognition\ValueObject\BoundingBox;
 use AsyncAws\Rekognition\ValueObject\Celebrity;
@@ -87,7 +90,7 @@ class RecognizeCelebritiesResponse extends Result
 
         $this->celebrityFaces = empty($data['CelebrityFaces']) ? [] : $this->populateResultCelebrityList($data['CelebrityFaces']);
         $this->unrecognizedFaces = empty($data['UnrecognizedFaces']) ? [] : $this->populateResultComparedFaceList($data['UnrecognizedFaces']);
-        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
+        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (!OrientationCorrection::exists((string) $data['OrientationCorrection']) ? OrientationCorrection::UNKNOWN_TO_SDK : (string) $data['OrientationCorrection']) : null;
     }
 
     private function populateResultBoundingBox(array $json): BoundingBox
@@ -154,7 +157,7 @@ class RecognizeCelebritiesResponse extends Result
     private function populateResultEmotion(array $json): Emotion
     {
         return new Emotion([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!EmotionName::exists((string) $json['Type']) ? EmotionName::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
         ]);
     }
@@ -183,14 +186,14 @@ class RecognizeCelebritiesResponse extends Result
     private function populateResultKnownGender(array $json): KnownGender
     {
         return new KnownGender([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!KnownGenderType::exists((string) $json['Type']) ? KnownGenderType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
         ]);
     }
 
     private function populateResultLandmark(array $json): Landmark
     {
         return new Landmark([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!LandmarkType::exists((string) $json['Type']) ? LandmarkType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'X' => isset($json['X']) ? (float) $json['X'] : null,
             'Y' => isset($json['Y']) ? (float) $json['Y'] : null,
         ]);

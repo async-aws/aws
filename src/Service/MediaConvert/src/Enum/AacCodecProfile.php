@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AacCodecProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HEV1 = 'HEV1';
     public const HEV2 = 'HEV2';
     public const LC = 'LC';

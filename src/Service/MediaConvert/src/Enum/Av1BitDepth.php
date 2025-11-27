@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Av1BitDepth
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BIT_10 = 'BIT_10';
     public const BIT_8 = 'BIT_8';
 

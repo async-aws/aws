@@ -4,6 +4,7 @@ namespace AsyncAws\MediaConvert\Enum;
 
 final class ShareStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INITIATED = 'INITIATED';
     public const NOT_SHARED = 'NOT_SHARED';
     public const SHARED = 'SHARED';

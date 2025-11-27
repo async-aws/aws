@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashIsoPlaybackDeviceCompatibility
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CENC_V1 = 'CENC_V1';
     public const UNENCRYPTED_SEI = 'UNENCRYPTED_SEI';
 

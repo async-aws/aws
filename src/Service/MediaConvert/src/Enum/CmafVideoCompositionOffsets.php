@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafVideoCompositionOffsets
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SIGNED = 'SIGNED';
     public const UNSIGNED = 'UNSIGNED';
 

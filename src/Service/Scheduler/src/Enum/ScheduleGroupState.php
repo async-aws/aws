@@ -4,6 +4,7 @@ namespace AsyncAws\Scheduler\Enum;
 
 final class ScheduleGroupState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'ACTIVE';
     public const DELETING = 'DELETING';
 

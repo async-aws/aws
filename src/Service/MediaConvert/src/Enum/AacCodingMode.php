@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AacCodingMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AD_RECEIVER_MIX = 'AD_RECEIVER_MIX';
     public const CODING_MODE_1_0 = 'CODING_MODE_1_0';
     public const CODING_MODE_1_1 = 'CODING_MODE_1_1';

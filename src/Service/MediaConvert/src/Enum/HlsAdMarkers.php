@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsAdMarkers
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ELEMENTAL = 'ELEMENTAL';
     public const ELEMENTAL_SCTE35 = 'ELEMENTAL_SCTE35';
 

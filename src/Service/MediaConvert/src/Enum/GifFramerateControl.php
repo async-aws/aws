@@ -14,6 +14,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class GifFramerateControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INITIALIZE_FROM_SOURCE = 'INITIALIZE_FROM_SOURCE';
     public const SPECIFIED = 'SPECIFIED';
 
