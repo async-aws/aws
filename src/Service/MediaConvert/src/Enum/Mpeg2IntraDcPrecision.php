@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2IntraDcPrecision
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const INTRA_DC_PRECISION_10 = 'INTRA_DC_PRECISION_10';
     public const INTRA_DC_PRECISION_11 = 'INTRA_DC_PRECISION_11';

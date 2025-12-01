@@ -19,6 +19,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ColorSpace
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW = 'FOLLOW';
     public const HDR10 = 'HDR10';
     public const HLG_2020 = 'HLG_2020';

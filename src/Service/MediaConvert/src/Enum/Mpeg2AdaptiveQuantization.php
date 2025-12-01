@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2AdaptiveQuantization
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HIGH = 'HIGH';
     public const LOW = 'LOW';
     public const MEDIUM = 'MEDIUM';

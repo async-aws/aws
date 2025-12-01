@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class PresetSpeke20Audio
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PRESET_AUDIO_1 = 'PRESET_AUDIO_1';
     public const PRESET_AUDIO_2 = 'PRESET_AUDIO_2';
     public const PRESET_AUDIO_3 = 'PRESET_AUDIO_3';

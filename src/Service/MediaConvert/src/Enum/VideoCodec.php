@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class VideoCodec
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AV1 = 'AV1';
     public const AVC_INTRA = 'AVC_INTRA';
     public const FRAME_CAPTURE = 'FRAME_CAPTURE';

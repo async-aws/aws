@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H265CodecProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MAIN10_HIGH = 'MAIN10_HIGH';
     public const MAIN10_MAIN = 'MAIN10_MAIN';
     public const MAIN_422_10BIT_HIGH = 'MAIN_422_10BIT_HIGH';

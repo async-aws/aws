@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioChannelTag
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const C = 'C';
     public const CS = 'CS';
     public const HI = 'HI';

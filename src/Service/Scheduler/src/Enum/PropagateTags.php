@@ -4,6 +4,7 @@ namespace AsyncAws\Scheduler\Enum;
 
 final class PropagateTags
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const TASK_DEFINITION = 'TASK_DEFINITION';
 
     public static function exists(string $value): bool

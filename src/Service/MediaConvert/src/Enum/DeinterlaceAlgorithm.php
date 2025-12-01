@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DeinterlaceAlgorithm
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BLEND = 'BLEND';
     public const BLEND_TICKER = 'BLEND_TICKER';
     public const INTERPOLATE = 'INTERPOLATE';

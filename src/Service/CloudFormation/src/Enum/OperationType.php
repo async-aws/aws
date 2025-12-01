@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class OperationType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CONTINUE_ROLLBACK = 'CONTINUE_ROLLBACK';
     public const CREATE_CHANGESET = 'CREATE_CHANGESET';
     public const CREATE_STACK = 'CREATE_STACK';

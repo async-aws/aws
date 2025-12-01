@@ -44,7 +44,7 @@ class GetSchemaCreationStatusResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->status = isset($data['status']) ? (string) $data['status'] : null;
+        $this->status = isset($data['status']) ? (!SchemaStatus::exists((string) $data['status']) ? SchemaStatus::UNKNOWN_TO_SDK : (string) $data['status']) : null;
         $this->details = isset($data['details']) ? (string) $data['details'] : null;
     }
 }

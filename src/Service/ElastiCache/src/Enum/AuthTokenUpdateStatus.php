@@ -4,6 +4,7 @@ namespace AsyncAws\ElastiCache\Enum;
 
 final class AuthTokenUpdateStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ROTATING = 'ROTATING';
     public const SETTING = 'SETTING';
 

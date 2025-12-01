@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class OutputSdt
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SDT_FOLLOW = 'SDT_FOLLOW';
     public const SDT_FOLLOW_IF_PRESENT = 'SDT_FOLLOW_IF_PRESENT';
     public const SDT_MANUAL = 'SDT_MANUAL';

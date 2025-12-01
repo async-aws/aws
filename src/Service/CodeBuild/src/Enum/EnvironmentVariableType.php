@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class EnvironmentVariableType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PARAMETER_STORE = 'PARAMETER_STORE';
     public const PLAINTEXT = 'PLAINTEXT';
     public const SECRETS_MANAGER = 'SECRETS_MANAGER';

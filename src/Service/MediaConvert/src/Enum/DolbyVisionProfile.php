@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DolbyVisionProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PROFILE_5 = 'PROFILE_5';
     public const PROFILE_8_1 = 'PROFILE_8_1';
 

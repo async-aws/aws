@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class InputSampleRange
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW = 'FOLLOW';
     public const FULL_RANGE = 'FULL_RANGE';
     public const LIMITED_RANGE = 'LIMITED_RANGE';

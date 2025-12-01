@@ -31,6 +31,6 @@ final class KmsInvalidStateException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->kmsKeyState = isset($data['kmsKeyState']) ? (string) $data['kmsKeyState'] : null;
+        $this->kmsKeyState = isset($data['kmsKeyState']) ? (!KmsKeyState::exists((string) $data['kmsKeyState']) ? KmsKeyState::UNKNOWN_TO_SDK : (string) $data['kmsKeyState']) : null;
     }
 }

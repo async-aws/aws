@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafMpdProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MAIN_PROFILE = 'MAIN_PROFILE';
     public const ON_DEMAND_PROFILE = 'ON_DEMAND_PROFILE';
 

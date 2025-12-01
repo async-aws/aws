@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class SccDestinationFramerate
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FRAMERATE_23_97 = 'FRAMERATE_23_97';
     public const FRAMERATE_24 = 'FRAMERATE_24';
     public const FRAMERATE_25 = 'FRAMERATE_25';

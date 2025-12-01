@@ -4,6 +4,9 @@ namespace AsyncAws\Route53\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Route53\Enum\AcceleratedRecoveryStatus;
+use AsyncAws\Route53\Enum\ChangeStatus;
+use AsyncAws\Route53\Enum\VPCRegion;
 use AsyncAws\Route53\ValueObject\ChangeInfo;
 use AsyncAws\Route53\ValueObject\DelegationSet;
 use AsyncAws\Route53\ValueObject\HostedZone;
@@ -105,7 +108,7 @@ class CreateHostedZoneResponse extends Result
     {
         return new ChangeInfo([
             'Id' => (string) $xml->Id,
-            'Status' => (string) $xml->Status,
+            'Status' => !ChangeStatus::exists((string) $xml->Status) ? ChangeStatus::UNKNOWN_TO_SDK : (string) $xml->Status,
             'SubmittedAt' => new \DateTimeImmutable((string) $xml->SubmittedAt),
             'Comment' => (null !== $v = $xml->Comment[0]) ? (string) $v : null,
         ]);
@@ -164,7 +167,7 @@ class CreateHostedZoneResponse extends Result
     private function populateResultHostedZoneFeatures(\SimpleXMLElement $xml): HostedZoneFeatures
     {
         return new HostedZoneFeatures([
-            'AcceleratedRecoveryStatus' => (null !== $v = $xml->AcceleratedRecoveryStatus[0]) ? (string) $v : null,
+            'AcceleratedRecoveryStatus' => (null !== $v = $xml->AcceleratedRecoveryStatus[0]) ? (!AcceleratedRecoveryStatus::exists((string) $xml->AcceleratedRecoveryStatus) ? AcceleratedRecoveryStatus::UNKNOWN_TO_SDK : (string) $xml->AcceleratedRecoveryStatus) : null,
             'FailureReasons' => 0 === $xml->FailureReasons->count() ? null : $this->populateResultHostedZoneFailureReasons($xml->FailureReasons),
         ]);
     }
@@ -180,7 +183,7 @@ class CreateHostedZoneResponse extends Result
     private function populateResultVPC(\SimpleXMLElement $xml): VPC
     {
         return new VPC([
-            'VPCRegion' => (null !== $v = $xml->VPCRegion[0]) ? (string) $v : null,
+            'VPCRegion' => (null !== $v = $xml->VPCRegion[0]) ? (!VPCRegion::exists((string) $xml->VPCRegion) ? VPCRegion::UNKNOWN_TO_SDK : (string) $xml->VPCRegion) : null,
             'VPCId' => (null !== $v = $xml->VPCId[0]) ? (string) $v : null,
         ]);
     }

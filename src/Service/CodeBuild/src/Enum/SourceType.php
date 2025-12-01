@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class SourceType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BITBUCKET = 'BITBUCKET';
     public const CODECOMMIT = 'CODECOMMIT';
     public const CODEPIPELINE = 'CODEPIPELINE';

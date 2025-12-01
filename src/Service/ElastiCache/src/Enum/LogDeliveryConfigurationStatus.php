@@ -4,6 +4,7 @@ namespace AsyncAws\ElastiCache\Enum;
 
 final class LogDeliveryConfigurationStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'active';
     public const DISABLING = 'disabling';
     public const ENABLING = 'enabling';

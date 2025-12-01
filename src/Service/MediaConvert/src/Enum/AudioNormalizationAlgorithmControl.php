@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioNormalizationAlgorithmControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CORRECT_AUDIO = 'CORRECT_AUDIO';
     public const MEASURE_ONLY = 'MEASURE_ONLY';
 

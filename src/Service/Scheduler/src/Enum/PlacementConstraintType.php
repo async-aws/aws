@@ -4,6 +4,7 @@ namespace AsyncAws\Scheduler\Enum;
 
 final class PlacementConstraintType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISTINCT_INSTANCE = 'distinctInstance';
     public const MEMBER_OF = 'memberOf';
 

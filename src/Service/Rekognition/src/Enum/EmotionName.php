@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Enum;
 
 final class EmotionName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ANGRY = 'ANGRY';
     public const CALM = 'CALM';
     public const CONFUSED = 'CONFUSED';

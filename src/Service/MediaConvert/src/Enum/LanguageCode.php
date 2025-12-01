@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class LanguageCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AAR = 'AAR';
     public const ABK = 'ABK';
     public const AFR = 'AFR';

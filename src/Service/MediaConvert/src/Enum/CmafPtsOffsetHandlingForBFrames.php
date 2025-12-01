@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafPtsOffsetHandlingForBFrames
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MATCH_INITIAL_PTS = 'MATCH_INITIAL_PTS';
     public const ZERO_BASED = 'ZERO_BASED';
 

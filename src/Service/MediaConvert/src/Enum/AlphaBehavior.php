@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AlphaBehavior
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISCARD = 'DISCARD';
     public const REMAP_TO_LUMA = 'REMAP_TO_LUMA';
 

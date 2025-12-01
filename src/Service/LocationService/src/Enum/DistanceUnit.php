@@ -4,6 +4,7 @@ namespace AsyncAws\LocationService\Enum;
 
 final class DistanceUnit
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KILOMETERS = 'Kilometers';
     public const MILES = 'Miles';
 

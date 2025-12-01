@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3AtmosCodingMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CODING_MODE_5_1_4 = 'CODING_MODE_5_1_4';
     public const CODING_MODE_7_1_4 = 'CODING_MODE_7_1_4';
     public const CODING_MODE_9_1_6 = 'CODING_MODE_9_1_6';

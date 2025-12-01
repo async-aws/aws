@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class Runtime
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DOTNETCORE_1_0 = 'dotnetcore1.0';
     public const DOTNETCORE_2_0 = 'dotnetcore2.0';
     public const DOTNETCORE_2_1 = 'dotnetcore2.1';

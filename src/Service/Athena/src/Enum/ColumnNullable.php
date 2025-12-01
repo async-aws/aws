@@ -4,6 +4,7 @@ namespace AsyncAws\Athena\Enum;
 
 final class ColumnNullable
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NOT_NULL = 'NOT_NULL';
     public const NULLABLE = 'NULLABLE';
     public const UNKNOWN = 'UNKNOWN';

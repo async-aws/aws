@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Enum;
 
 final class DeliveryMediumType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EMAIL = 'EMAIL';
     public const SMS = 'SMS';
 

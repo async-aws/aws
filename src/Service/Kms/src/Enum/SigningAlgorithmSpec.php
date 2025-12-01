@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class SigningAlgorithmSpec
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ECDSA_SHA_256 = 'ECDSA_SHA_256';
     public const ECDSA_SHA_384 = 'ECDSA_SHA_384';
     public const ECDSA_SHA_512 = 'ECDSA_SHA_512';

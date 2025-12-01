@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H265WriteMp4PackagingType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HEV1 = 'HEV1';
     public const HVC1 = 'HVC1';
 

@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3AtmosMeteringMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ITU_BS_1770_1 = 'ITU_BS_1770_1';
     public const ITU_BS_1770_2 = 'ITU_BS_1770_2';
     public const ITU_BS_1770_3 = 'ITU_BS_1770_3';

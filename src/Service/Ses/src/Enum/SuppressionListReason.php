@@ -13,6 +13,7 @@ namespace AsyncAws\Ses\Enum;
  */
 final class SuppressionListReason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BOUNCE = 'BOUNCE';
     public const COMPLAINT = 'COMPLAINT';
 

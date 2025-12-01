@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class OutputGroupType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CMAF_GROUP_SETTINGS = 'CMAF_GROUP_SETTINGS';
     public const DASH_ISO_GROUP_SETTINGS = 'DASH_ISO_GROUP_SETTINGS';
     public const FILE_GROUP_SETTINGS = 'FILE_GROUP_SETTINGS';

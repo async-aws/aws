@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264EndOfStreamMarkers
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INCLUDE = 'INCLUDE';
     public const SUPPRESS = 'SUPPRESS';
 

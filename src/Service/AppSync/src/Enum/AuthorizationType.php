@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class AuthorizationType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AWS_IAM = 'AWS_IAM';
 
     public static function exists(string $value): bool

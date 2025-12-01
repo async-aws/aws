@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class StatusUpdateInterval
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SECONDS_10 = 'SECONDS_10';
     public const SECONDS_12 = 'SECONDS_12';
     public const SECONDS_120 = 'SECONDS_120';

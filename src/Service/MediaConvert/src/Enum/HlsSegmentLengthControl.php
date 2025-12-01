@@ -17,6 +17,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsSegmentLengthControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EXACT = 'EXACT';
     public const GOP_MULTIPLE = 'GOP_MULTIPLE';
     public const MATCH = 'MATCH';

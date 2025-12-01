@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class ThrottleReason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CALLER_RATE_LIMIT_EXCEEDED = 'CallerRateLimitExceeded';
     public const CONCURRENT_INVOCATION_LIMIT_EXCEEDED = 'ConcurrentInvocationLimitExceeded';
     public const CONCURRENT_SNAPSHOT_CREATE_LIMIT_EXCEEDED = 'ConcurrentSnapshotCreateLimitExceeded';

@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class StatusType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FAILED = 'FAILED';
     public const FAULT = 'FAULT';
     public const IN_PROGRESS = 'IN_PROGRESS';

@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DynamicAudioSelectorType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL_TRACKS = 'ALL_TRACKS';
     public const LANGUAGE_CODE = 'LANGUAGE_CODE';
 

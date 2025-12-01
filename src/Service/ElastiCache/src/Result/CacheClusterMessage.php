@@ -6,6 +6,14 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\ElastiCache\ElastiCacheClient;
+use AsyncAws\ElastiCache\Enum\AuthTokenUpdateStatus;
+use AsyncAws\ElastiCache\Enum\DestinationType;
+use AsyncAws\ElastiCache\Enum\IpDiscovery;
+use AsyncAws\ElastiCache\Enum\LogDeliveryConfigurationStatus;
+use AsyncAws\ElastiCache\Enum\LogFormat;
+use AsyncAws\ElastiCache\Enum\LogType;
+use AsyncAws\ElastiCache\Enum\NetworkType;
+use AsyncAws\ElastiCache\Enum\TransitEncryptionMode;
 use AsyncAws\ElastiCache\Input\DescribeCacheClustersMessage;
 use AsyncAws\ElastiCache\ValueObject\CacheCluster;
 use AsyncAws\ElastiCache\ValueObject\CacheNode;
@@ -146,9 +154,9 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
             'ARN' => (null !== $v = $xml->ARN[0]) ? (string) $v : null,
             'ReplicationGroupLogDeliveryEnabled' => (null !== $v = $xml->ReplicationGroupLogDeliveryEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'LogDeliveryConfigurations' => (0 === ($v = $xml->LogDeliveryConfigurations)->count()) ? null : $this->populateResultLogDeliveryConfigurationList($v),
-            'NetworkType' => (null !== $v = $xml->NetworkType[0]) ? (string) $v : null,
-            'IpDiscovery' => (null !== $v = $xml->IpDiscovery[0]) ? (string) $v : null,
-            'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (string) $v : null,
+            'NetworkType' => (null !== $v = $xml->NetworkType[0]) ? (!NetworkType::exists((string) $xml->NetworkType) ? NetworkType::UNKNOWN_TO_SDK : (string) $xml->NetworkType) : null,
+            'IpDiscovery' => (null !== $v = $xml->IpDiscovery[0]) ? (!IpDiscovery::exists((string) $xml->IpDiscovery) ? IpDiscovery::UNKNOWN_TO_SDK : (string) $xml->IpDiscovery) : null,
+            'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (!TransitEncryptionMode::exists((string) $xml->TransitEncryptionMode) ? TransitEncryptionMode::UNKNOWN_TO_SDK : (string) $xml->TransitEncryptionMode) : null,
         ]);
     }
 
@@ -268,11 +276,11 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     private function populateResultLogDeliveryConfiguration(\SimpleXMLElement $xml): LogDeliveryConfiguration
     {
         return new LogDeliveryConfiguration([
-            'LogType' => (null !== $v = $xml->LogType[0]) ? (string) $v : null,
-            'DestinationType' => (null !== $v = $xml->DestinationType[0]) ? (string) $v : null,
+            'LogType' => (null !== $v = $xml->LogType[0]) ? (!LogType::exists((string) $xml->LogType) ? LogType::UNKNOWN_TO_SDK : (string) $xml->LogType) : null,
+            'DestinationType' => (null !== $v = $xml->DestinationType[0]) ? (!DestinationType::exists((string) $xml->DestinationType) ? DestinationType::UNKNOWN_TO_SDK : (string) $xml->DestinationType) : null,
             'DestinationDetails' => 0 === $xml->DestinationDetails->count() ? null : $this->populateResultDestinationDetails($xml->DestinationDetails),
-            'LogFormat' => (null !== $v = $xml->LogFormat[0]) ? (string) $v : null,
-            'Status' => (null !== $v = $xml->Status[0]) ? (string) $v : null,
+            'LogFormat' => (null !== $v = $xml->LogFormat[0]) ? (!LogFormat::exists((string) $xml->LogFormat) ? LogFormat::UNKNOWN_TO_SDK : (string) $xml->LogFormat) : null,
+            'Status' => (null !== $v = $xml->Status[0]) ? (!LogDeliveryConfigurationStatus::exists((string) $xml->Status) ? LogDeliveryConfigurationStatus::UNKNOWN_TO_SDK : (string) $xml->Status) : null,
             'Message' => (null !== $v = $xml->Message[0]) ? (string) $v : null,
         ]);
     }
@@ -301,10 +309,10 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
     private function populateResultPendingLogDeliveryConfiguration(\SimpleXMLElement $xml): PendingLogDeliveryConfiguration
     {
         return new PendingLogDeliveryConfiguration([
-            'LogType' => (null !== $v = $xml->LogType[0]) ? (string) $v : null,
-            'DestinationType' => (null !== $v = $xml->DestinationType[0]) ? (string) $v : null,
+            'LogType' => (null !== $v = $xml->LogType[0]) ? (!LogType::exists((string) $xml->LogType) ? LogType::UNKNOWN_TO_SDK : (string) $xml->LogType) : null,
+            'DestinationType' => (null !== $v = $xml->DestinationType[0]) ? (!DestinationType::exists((string) $xml->DestinationType) ? DestinationType::UNKNOWN_TO_SDK : (string) $xml->DestinationType) : null,
             'DestinationDetails' => 0 === $xml->DestinationDetails->count() ? null : $this->populateResultDestinationDetails($xml->DestinationDetails),
-            'LogFormat' => (null !== $v = $xml->LogFormat[0]) ? (string) $v : null,
+            'LogFormat' => (null !== $v = $xml->LogFormat[0]) ? (!LogFormat::exists((string) $xml->LogFormat) ? LogFormat::UNKNOWN_TO_SDK : (string) $xml->LogFormat) : null,
         ]);
     }
 
@@ -328,10 +336,10 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
             'CacheNodeIdsToRemove' => (0 === ($v = $xml->CacheNodeIdsToRemove)->count()) ? null : $this->populateResultCacheNodeIdsList($v),
             'EngineVersion' => (null !== $v = $xml->EngineVersion[0]) ? (string) $v : null,
             'CacheNodeType' => (null !== $v = $xml->CacheNodeType[0]) ? (string) $v : null,
-            'AuthTokenStatus' => (null !== $v = $xml->AuthTokenStatus[0]) ? (string) $v : null,
+            'AuthTokenStatus' => (null !== $v = $xml->AuthTokenStatus[0]) ? (!AuthTokenUpdateStatus::exists((string) $xml->AuthTokenStatus) ? AuthTokenUpdateStatus::UNKNOWN_TO_SDK : (string) $xml->AuthTokenStatus) : null,
             'LogDeliveryConfigurations' => (0 === ($v = $xml->LogDeliveryConfigurations)->count()) ? null : $this->populateResultPendingLogDeliveryConfigurationList($v),
             'TransitEncryptionEnabled' => (null !== $v = $xml->TransitEncryptionEnabled[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-            'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (string) $v : null,
+            'TransitEncryptionMode' => (null !== $v = $xml->TransitEncryptionMode[0]) ? (!TransitEncryptionMode::exists((string) $xml->TransitEncryptionMode) ? TransitEncryptionMode::UNKNOWN_TO_SDK : (string) $xml->TransitEncryptionMode) : null,
             'ScaleConfig' => 0 === $xml->ScaleConfig->count() ? null : $this->populateResultScaleConfig($xml->ScaleConfig),
         ]);
     }

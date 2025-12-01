@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashIsoMpdManifestBandwidthType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AVERAGE = 'AVERAGE';
     public const MAX = 'MAX';
 

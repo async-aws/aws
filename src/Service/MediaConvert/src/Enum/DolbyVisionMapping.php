@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DolbyVisionMapping
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HDR10_1000 = 'HDR10_1000';
     public const HDR10_NOMAP = 'HDR10_NOMAP';
 

@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ProresCodecProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const APPLE_PRORES_422 = 'APPLE_PRORES_422';
     public const APPLE_PRORES_422_HQ = 'APPLE_PRORES_422_HQ';
     public const APPLE_PRORES_422_LT = 'APPLE_PRORES_422_LT';

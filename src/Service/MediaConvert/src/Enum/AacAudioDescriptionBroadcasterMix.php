@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AacAudioDescriptionBroadcasterMix
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BROADCASTER_MIXED_AD = 'BROADCASTER_MIXED_AD';
     public const NORMAL = 'NORMAL';
 

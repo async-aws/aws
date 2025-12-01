@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class BurninSubtitleTeletextSpacing
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const FIXED_GRID = 'FIXED_GRID';
     public const PROPORTIONAL = 'PROPORTIONAL';

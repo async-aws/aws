@@ -4,6 +4,7 @@ namespace AsyncAws\Ssm\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\ValueObject\Parameter;
 
 class GetParameterResult extends Result
@@ -33,7 +34,7 @@ class GetParameterResult extends Result
     {
         return new Parameter([
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!ParameterType::exists((string) $json['Type']) ? ParameterType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
             'Version' => isset($json['Version']) ? (int) $json['Version'] : null,
             'Selector' => isset($json['Selector']) ? (string) $json['Selector'] : null,

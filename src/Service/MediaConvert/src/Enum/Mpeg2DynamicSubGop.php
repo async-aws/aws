@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2DynamicSubGop
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADAPTIVE = 'ADAPTIVE';
     public const STATIC = 'STATIC';
 

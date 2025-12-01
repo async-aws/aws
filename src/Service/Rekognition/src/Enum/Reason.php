@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Enum;
 
 final class Reason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EXCEEDS_MAX_FACES = 'EXCEEDS_MAX_FACES';
     public const EXTREME_POSE = 'EXTREME_POSE';
     public const LOW_BRIGHTNESS = 'LOW_BRIGHTNESS';

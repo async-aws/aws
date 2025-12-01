@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class OriginType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AWS_CLOUDHSM = 'AWS_CLOUDHSM';
     public const AWS_KMS = 'AWS_KMS';
     public const EXTERNAL = 'EXTERNAL';

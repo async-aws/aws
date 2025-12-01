@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DvbSubSubtitleFallbackFont
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BEST_MATCH = 'BEST_MATCH';
     public const MONOSPACED_SANSSERIF = 'MONOSPACED_SANSSERIF';
     public const MONOSPACED_SERIF = 'MONOSPACED_SERIF';

@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsDescriptiveVideoServiceFlag
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DONT_FLAG = 'DONT_FLAG';
     public const FLAG = 'FLAG';
 

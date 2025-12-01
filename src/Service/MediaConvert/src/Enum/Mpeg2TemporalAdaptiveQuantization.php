@@ -14,6 +14,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Mpeg2TemporalAdaptiveQuantization
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const ENABLED = 'ENABLED';
 

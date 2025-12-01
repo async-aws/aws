@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class VideoOverlayPlayBackMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ONCE = 'ONCE';
     public const REPEAT = 'REPEAT';
 

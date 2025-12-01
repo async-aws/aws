@@ -5,6 +5,7 @@ namespace AsyncAws\Scheduler\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Scheduler\Enum\ScheduleGroupState;
 use AsyncAws\Scheduler\Input\ListScheduleGroupsInput;
 use AsyncAws\Scheduler\SchedulerClient;
 use AsyncAws\Scheduler\ValueObject\ScheduleGroupSummary;
@@ -117,7 +118,7 @@ class ListScheduleGroupsOutput extends Result implements \IteratorAggregate
             'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate']))) ? $d : null,
             'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'State' => isset($json['State']) ? (!ScheduleGroupState::exists((string) $json['State']) ? ScheduleGroupState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
         ]);
     }
 }

@@ -15,6 +15,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsAudioDuration
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT_CODEC_DURATION = 'DEFAULT_CODEC_DURATION';
     public const MATCH_VIDEO_DURATION = 'MATCH_VIDEO_DURATION';
 

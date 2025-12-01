@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class RelationalDatabaseSourceType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const RDS_HTTP_ENDPOINT = 'RDS_HTTP_ENDPOINT';
 
     public static function exists(string $value): bool

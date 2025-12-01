@@ -14,6 +14,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HDRToSDRToneMapper
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PRESERVE_DETAILS = 'PRESERVE_DETAILS';
     public const VIBRANT = 'VIBRANT';
 

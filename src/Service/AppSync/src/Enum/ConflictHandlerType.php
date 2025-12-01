@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class ConflictHandlerType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTOMERGE = 'AUTOMERGE';
     public const LAMBDA = 'LAMBDA';
     public const NONE = 'NONE';

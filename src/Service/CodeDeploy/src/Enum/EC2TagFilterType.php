@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class EC2TagFilterType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KEY_AND_VALUE = 'KEY_AND_VALUE';
     public const KEY_ONLY = 'KEY_ONLY';
     public const VALUE_ONLY = 'VALUE_ONLY';

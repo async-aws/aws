@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\Enum;
 
 final class MetricsName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL = 'ALL';
     public const INCOMING_BYTES = 'IncomingBytes';
     public const INCOMING_RECORDS = 'IncomingRecords';

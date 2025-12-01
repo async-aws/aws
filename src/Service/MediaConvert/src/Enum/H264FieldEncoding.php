@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264FieldEncoding
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FORCE_FIELD = 'FORCE_FIELD';
     public const MBAFF = 'MBAFF';
     public const PAFF = 'PAFF';

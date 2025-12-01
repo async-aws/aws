@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\Enum;
 
 final class EncryptionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const KMS = 'KMS';
     public const NONE = 'NONE';
 

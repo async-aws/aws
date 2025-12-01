@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DashManifestStyle
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BASIC = 'BASIC';
     public const COMPACT = 'COMPACT';
     public const DISTINCT = 'DISTINCT';

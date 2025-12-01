@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Enum;
 
 final class MessageSystemAttributeName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL = 'All';
     public const APPROXIMATE_FIRST_RECEIVE_TIMESTAMP = 'ApproximateFirstReceiveTimestamp';
     public const APPROXIMATE_RECEIVE_COUNT = 'ApproximateReceiveCount';

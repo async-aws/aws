@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Enum;
 
 final class ChecksumAlgorithm
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CRC32 = 'CRC32';
     public const CRC32C = 'CRC32C';
     public const CRC64NVME = 'CRC64NVME';

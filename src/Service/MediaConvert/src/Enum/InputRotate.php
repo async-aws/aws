@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class InputRotate
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const DEGREES_180 = 'DEGREES_180';
     public const DEGREES_270 = 'DEGREES_270';

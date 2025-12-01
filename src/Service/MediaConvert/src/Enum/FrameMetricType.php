@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class FrameMetricType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const MS_SSIM = 'MS_SSIM';
     public const PSNR = 'PSNR';
     public const PSNR_HVS = 'PSNR_HVS';

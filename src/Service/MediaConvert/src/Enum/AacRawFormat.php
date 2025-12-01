@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AacRawFormat
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const LATM_LOAS = 'LATM_LOAS';
     public const NONE = 'NONE';
 

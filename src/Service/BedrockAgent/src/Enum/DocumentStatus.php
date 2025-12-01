@@ -4,6 +4,7 @@ namespace AsyncAws\BedrockAgent\Enum;
 
 final class DocumentStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DELETE_IN_PROGRESS = 'DELETE_IN_PROGRESS';
     public const DELETING = 'DELETING';
     public const FAILED = 'FAILED';

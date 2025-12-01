@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class SchemaStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'ACTIVE';
     public const DELETING = 'DELETING';
     public const FAILED = 'FAILED';

@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ProresChromaSampling
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PRESERVE_444_SAMPLING = 'PRESERVE_444_SAMPLING';
     public const SUBSAMPLE_TO_422 = 'SUBSAMPLE_TO_422';
 

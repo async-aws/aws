@@ -17,5 +17,5 @@ interface Parser
 {
     public function generate(StructureShape $shape, bool $throwOnError = true): ParserResult;
 
-    public function generateForPath(StructureShape $shape, string $path, string $output): string;
+    public function generateForPath(StructureShape $shape, string $path, string $output): ParserResult;
 }

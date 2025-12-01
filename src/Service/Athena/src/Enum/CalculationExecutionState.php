@@ -4,6 +4,7 @@ namespace AsyncAws\Athena\Enum;
 
 final class CalculationExecutionState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CANCELED = 'CANCELED';
     public const CANCELING = 'CANCELING';
     public const COMPLETED = 'COMPLETED';

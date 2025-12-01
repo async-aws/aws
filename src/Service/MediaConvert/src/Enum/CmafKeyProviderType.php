@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafKeyProviderType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SPEKE = 'SPEKE';
     public const STATIC_KEY = 'STATIC_KEY';
 

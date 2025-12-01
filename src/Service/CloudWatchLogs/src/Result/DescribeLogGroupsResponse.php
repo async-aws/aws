@@ -3,7 +3,9 @@
 namespace AsyncAws\CloudWatchLogs\Result;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
+use AsyncAws\CloudWatchLogs\Enum\DataProtectionStatus;
 use AsyncAws\CloudWatchLogs\Enum\InheritedProperty;
+use AsyncAws\CloudWatchLogs\Enum\LogGroupClass;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogGroupsRequest;
 use AsyncAws\CloudWatchLogs\ValueObject\LogGroup;
 use AsyncAws\Core\Exception\InvalidArgument;
@@ -103,7 +105,7 @@ class DescribeLogGroupsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $a = isset($item) ? (string) $item : null;
+            $a = isset($item) ? (!InheritedProperty::exists((string) $item) ? InheritedProperty::UNKNOWN_TO_SDK : (string) $item) : null;
             if (null !== $a) {
                 $items[] = $a;
             }
@@ -122,9 +124,9 @@ class DescribeLogGroupsResponse extends Result implements \IteratorAggregate
             'arn' => isset($json['arn']) ? (string) $json['arn'] : null,
             'storedBytes' => isset($json['storedBytes']) ? (int) $json['storedBytes'] : null,
             'kmsKeyId' => isset($json['kmsKeyId']) ? (string) $json['kmsKeyId'] : null,
-            'dataProtectionStatus' => isset($json['dataProtectionStatus']) ? (string) $json['dataProtectionStatus'] : null,
+            'dataProtectionStatus' => isset($json['dataProtectionStatus']) ? (!DataProtectionStatus::exists((string) $json['dataProtectionStatus']) ? DataProtectionStatus::UNKNOWN_TO_SDK : (string) $json['dataProtectionStatus']) : null,
             'inheritedProperties' => !isset($json['inheritedProperties']) ? null : $this->populateResultInheritedProperties($json['inheritedProperties']),
-            'logGroupClass' => isset($json['logGroupClass']) ? (string) $json['logGroupClass'] : null,
+            'logGroupClass' => isset($json['logGroupClass']) ? (!LogGroupClass::exists((string) $json['logGroupClass']) ? LogGroupClass::UNKNOWN_TO_SDK : (string) $json['logGroupClass']) : null,
             'logGroupArn' => isset($json['logGroupArn']) ? (string) $json['logGroupArn'] : null,
             'deletionProtectionEnabled' => isset($json['deletionProtectionEnabled']) ? filter_var($json['deletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
         ]);

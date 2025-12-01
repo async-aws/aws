@@ -4,6 +4,19 @@ namespace AsyncAws\DynamoDb\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\IndexStatus;
+use AsyncAws\DynamoDb\Enum\KeyType;
+use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
+use AsyncAws\DynamoDb\Enum\ProjectionType;
+use AsyncAws\DynamoDb\Enum\ReplicaStatus;
+use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
+use AsyncAws\DynamoDb\Enum\SSEStatus;
+use AsyncAws\DynamoDb\Enum\SSEType;
+use AsyncAws\DynamoDb\Enum\StreamViewType;
+use AsyncAws\DynamoDb\Enum\TableClass;
+use AsyncAws\DynamoDb\Enum\TableStatus;
+use AsyncAws\DynamoDb\Enum\WitnessStatus;
 use AsyncAws\DynamoDb\ValueObject\ArchivalSummary;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\BillingModeSummary;
@@ -65,7 +78,7 @@ class DescribeTableOutput extends Result
     {
         return new AttributeDefinition([
             'AttributeName' => (string) $json['AttributeName'],
-            'AttributeType' => (string) $json['AttributeType'],
+            'AttributeType' => !ScalarAttributeType::exists((string) $json['AttributeType']) ? ScalarAttributeType::UNKNOWN_TO_SDK : (string) $json['AttributeType'],
         ]);
     }
 
@@ -85,7 +98,7 @@ class DescribeTableOutput extends Result
     private function populateResultBillingModeSummary(array $json): BillingModeSummary
     {
         return new BillingModeSummary([
-            'BillingMode' => isset($json['BillingMode']) ? (string) $json['BillingMode'] : null,
+            'BillingMode' => isset($json['BillingMode']) ? (!BillingMode::exists((string) $json['BillingMode']) ? BillingMode::UNKNOWN_TO_SDK : (string) $json['BillingMode']) : null,
             'LastUpdateToPayPerRequestDateTime' => (isset($json['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
         ]);
     }
@@ -96,7 +109,7 @@ class DescribeTableOutput extends Result
             'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
             'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
             'Projection' => empty($json['Projection']) ? null : $this->populateResultProjection($json['Projection']),
-            'IndexStatus' => isset($json['IndexStatus']) ? (string) $json['IndexStatus'] : null,
+            'IndexStatus' => isset($json['IndexStatus']) ? (!IndexStatus::exists((string) $json['IndexStatus']) ? IndexStatus::UNKNOWN_TO_SDK : (string) $json['IndexStatus']) : null,
             'Backfilling' => isset($json['Backfilling']) ? filter_var($json['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
             'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
             'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (int) $json['IndexSizeBytes'] : null,
@@ -125,7 +138,7 @@ class DescribeTableOutput extends Result
         return new GlobalSecondaryIndexWarmThroughputDescription([
             'ReadUnitsPerSecond' => isset($json['ReadUnitsPerSecond']) ? (int) $json['ReadUnitsPerSecond'] : null,
             'WriteUnitsPerSecond' => isset($json['WriteUnitsPerSecond']) ? (int) $json['WriteUnitsPerSecond'] : null,
-            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+            'Status' => isset($json['Status']) ? (!IndexStatus::exists((string) $json['Status']) ? IndexStatus::UNKNOWN_TO_SDK : (string) $json['Status']) : null,
         ]);
     }
 
@@ -133,7 +146,7 @@ class DescribeTableOutput extends Result
     {
         return new GlobalTableWitnessDescription([
             'RegionName' => isset($json['RegionName']) ? (string) $json['RegionName'] : null,
-            'WitnessStatus' => isset($json['WitnessStatus']) ? (string) $json['WitnessStatus'] : null,
+            'WitnessStatus' => isset($json['WitnessStatus']) ? (!WitnessStatus::exists((string) $json['WitnessStatus']) ? WitnessStatus::UNKNOWN_TO_SDK : (string) $json['WitnessStatus']) : null,
         ]);
     }
 
@@ -167,7 +180,7 @@ class DescribeTableOutput extends Result
     {
         return new KeySchemaElement([
             'AttributeName' => (string) $json['AttributeName'],
-            'KeyType' => (string) $json['KeyType'],
+            'KeyType' => !KeyType::exists((string) $json['KeyType']) ? KeyType::UNKNOWN_TO_SDK : (string) $json['KeyType'],
         ]);
     }
 
@@ -230,7 +243,7 @@ class DescribeTableOutput extends Result
     private function populateResultProjection(array $json): Projection
     {
         return new Projection([
-            'ProjectionType' => isset($json['ProjectionType']) ? (string) $json['ProjectionType'] : null,
+            'ProjectionType' => isset($json['ProjectionType']) ? (!ProjectionType::exists((string) $json['ProjectionType']) ? ProjectionType::UNKNOWN_TO_SDK : (string) $json['ProjectionType']) : null,
             'NonKeyAttributes' => !isset($json['NonKeyAttributes']) ? null : $this->populateResultNonKeyAttributeNameList($json['NonKeyAttributes']),
         ]);
     }
@@ -257,7 +270,7 @@ class DescribeTableOutput extends Result
     {
         return new ReplicaDescription([
             'RegionName' => isset($json['RegionName']) ? (string) $json['RegionName'] : null,
-            'ReplicaStatus' => isset($json['ReplicaStatus']) ? (string) $json['ReplicaStatus'] : null,
+            'ReplicaStatus' => isset($json['ReplicaStatus']) ? (!ReplicaStatus::exists((string) $json['ReplicaStatus']) ? ReplicaStatus::UNKNOWN_TO_SDK : (string) $json['ReplicaStatus']) : null,
             'ReplicaStatusDescription' => isset($json['ReplicaStatusDescription']) ? (string) $json['ReplicaStatusDescription'] : null,
             'ReplicaStatusPercentProgress' => isset($json['ReplicaStatusPercentProgress']) ? (string) $json['ReplicaStatusPercentProgress'] : null,
             'KMSMasterKeyId' => isset($json['KMSMasterKeyId']) ? (string) $json['KMSMasterKeyId'] : null,
@@ -319,8 +332,8 @@ class DescribeTableOutput extends Result
     private function populateResultSSEDescription(array $json): SSEDescription
     {
         return new SSEDescription([
-            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
-            'SSEType' => isset($json['SSEType']) ? (string) $json['SSEType'] : null,
+            'Status' => isset($json['Status']) ? (!SSEStatus::exists((string) $json['Status']) ? SSEStatus::UNKNOWN_TO_SDK : (string) $json['Status']) : null,
+            'SSEType' => isset($json['SSEType']) ? (!SSEType::exists((string) $json['SSEType']) ? SSEType::UNKNOWN_TO_SDK : (string) $json['SSEType']) : null,
             'KMSMasterKeyArn' => isset($json['KMSMasterKeyArn']) ? (string) $json['KMSMasterKeyArn'] : null,
             'InaccessibleEncryptionDateTime' => (isset($json['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['InaccessibleEncryptionDateTime'])))) ? $d : null,
         ]);
@@ -330,14 +343,14 @@ class DescribeTableOutput extends Result
     {
         return new StreamSpecification([
             'StreamEnabled' => filter_var($json['StreamEnabled'], \FILTER_VALIDATE_BOOLEAN),
-            'StreamViewType' => isset($json['StreamViewType']) ? (string) $json['StreamViewType'] : null,
+            'StreamViewType' => isset($json['StreamViewType']) ? (!StreamViewType::exists((string) $json['StreamViewType']) ? StreamViewType::UNKNOWN_TO_SDK : (string) $json['StreamViewType']) : null,
         ]);
     }
 
     private function populateResultTableClassSummary(array $json): TableClassSummary
     {
         return new TableClassSummary([
-            'TableClass' => isset($json['TableClass']) ? (string) $json['TableClass'] : null,
+            'TableClass' => isset($json['TableClass']) ? (!TableClass::exists((string) $json['TableClass']) ? TableClass::UNKNOWN_TO_SDK : (string) $json['TableClass']) : null,
             'LastUpdateDateTime' => (isset($json['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateDateTime'])))) ? $d : null,
         ]);
     }
@@ -348,7 +361,7 @@ class DescribeTableOutput extends Result
             'AttributeDefinitions' => !isset($json['AttributeDefinitions']) ? null : $this->populateResultAttributeDefinitions($json['AttributeDefinitions']),
             'TableName' => isset($json['TableName']) ? (string) $json['TableName'] : null,
             'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
-            'TableStatus' => isset($json['TableStatus']) ? (string) $json['TableStatus'] : null,
+            'TableStatus' => isset($json['TableStatus']) ? (!TableStatus::exists((string) $json['TableStatus']) ? TableStatus::UNKNOWN_TO_SDK : (string) $json['TableStatus']) : null,
             'CreationDateTime' => (isset($json['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDateTime'])))) ? $d : null,
             'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
             'TableSizeBytes' => isset($json['TableSizeBytes']) ? (int) $json['TableSizeBytes'] : null,
@@ -371,7 +384,7 @@ class DescribeTableOutput extends Result
             'DeletionProtectionEnabled' => isset($json['DeletionProtectionEnabled']) ? filter_var($json['DeletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
             'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultTableWarmThroughputDescription($json['WarmThroughput']),
-            'MultiRegionConsistency' => isset($json['MultiRegionConsistency']) ? (string) $json['MultiRegionConsistency'] : null,
+            'MultiRegionConsistency' => isset($json['MultiRegionConsistency']) ? (!MultiRegionConsistency::exists((string) $json['MultiRegionConsistency']) ? MultiRegionConsistency::UNKNOWN_TO_SDK : (string) $json['MultiRegionConsistency']) : null,
         ]);
     }
 
@@ -380,7 +393,7 @@ class DescribeTableOutput extends Result
         return new TableWarmThroughputDescription([
             'ReadUnitsPerSecond' => isset($json['ReadUnitsPerSecond']) ? (int) $json['ReadUnitsPerSecond'] : null,
             'WriteUnitsPerSecond' => isset($json['WriteUnitsPerSecond']) ? (int) $json['WriteUnitsPerSecond'] : null,
-            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+            'Status' => isset($json['Status']) ? (!TableStatus::exists((string) $json['Status']) ? TableStatus::UNKNOWN_TO_SDK : (string) $json['Status']) : null,
         ]);
     }
 }

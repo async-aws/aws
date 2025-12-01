@@ -7,6 +7,7 @@ namespace AsyncAws\Athena\Enum;
  */
 final class ThrottleReason
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CONCURRENT_QUERY_LIMIT_EXCEEDED = 'CONCURRENT_QUERY_LIMIT_EXCEEDED';
 
     public static function exists(string $value): bool

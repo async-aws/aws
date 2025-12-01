@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsCaptionSegmentLengthControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const LARGE_SEGMENTS = 'LARGE_SEGMENTS';
     public const MATCH_VIDEO = 'MATCH_VIDEO';
 

@@ -4,6 +4,7 @@ namespace AsyncAws\BedrockRuntime\Enum;
 
 final class PerformanceConfigLatency
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const OPTIMIZED = 'optimized';
     public const STANDARD = 'standard';
 

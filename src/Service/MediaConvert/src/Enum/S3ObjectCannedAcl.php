@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class S3ObjectCannedAcl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTHENTICATED_READ = 'AUTHENTICATED_READ';
     public const BUCKET_OWNER_FULL_CONTROL = 'BUCKET_OWNER_FULL_CONTROL';
     public const BUCKET_OWNER_READ = 'BUCKET_OWNER_READ';

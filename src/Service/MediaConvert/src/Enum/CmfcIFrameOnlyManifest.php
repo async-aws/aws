@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmfcIFrameOnlyManifest
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EXCLUDE = 'EXCLUDE';
     public const INCLUDE = 'INCLUDE';
 

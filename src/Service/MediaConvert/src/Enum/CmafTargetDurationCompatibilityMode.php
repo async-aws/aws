@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafTargetDurationCompatibilityMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const LEGACY = 'LEGACY';
     public const SPEC_COMPLIANT = 'SPEC_COMPLIANT';
 

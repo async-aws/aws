@@ -2,6 +2,11 @@
 
 namespace AsyncAws\Athena\Result;
 
+use AsyncAws\Athena\Enum\AuthenticationType;
+use AsyncAws\Athena\Enum\EncryptionOption;
+use AsyncAws\Athena\Enum\QueryExecutionState;
+use AsyncAws\Athena\Enum\S3AclOption;
+use AsyncAws\Athena\Enum\StatementType;
 use AsyncAws\Athena\ValueObject\AclConfiguration;
 use AsyncAws\Athena\ValueObject\AthenaError;
 use AsyncAws\Athena\ValueObject\EncryptionConfiguration;
@@ -46,7 +51,7 @@ class GetQueryExecutionOutput extends Result
     private function populateResultAclConfiguration(array $json): AclConfiguration
     {
         return new AclConfiguration([
-            'S3AclOption' => (string) $json['S3AclOption'],
+            'S3AclOption' => !S3AclOption::exists((string) $json['S3AclOption']) ? S3AclOption::UNKNOWN_TO_SDK : (string) $json['S3AclOption'],
         ]);
     }
 
@@ -63,7 +68,7 @@ class GetQueryExecutionOutput extends Result
     private function populateResultEncryptionConfiguration(array $json): EncryptionConfiguration
     {
         return new EncryptionConfiguration([
-            'EncryptionOption' => (string) $json['EncryptionOption'],
+            'EncryptionOption' => !EncryptionOption::exists((string) $json['EncryptionOption']) ? EncryptionOption::UNKNOWN_TO_SDK : (string) $json['EncryptionOption'],
             'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
         ]);
     }
@@ -112,7 +117,7 @@ class GetQueryExecutionOutput extends Result
         return new QueryExecution([
             'QueryExecutionId' => isset($json['QueryExecutionId']) ? (string) $json['QueryExecutionId'] : null,
             'Query' => isset($json['Query']) ? (string) $json['Query'] : null,
-            'StatementType' => isset($json['StatementType']) ? (string) $json['StatementType'] : null,
+            'StatementType' => isset($json['StatementType']) ? (!StatementType::exists((string) $json['StatementType']) ? StatementType::UNKNOWN_TO_SDK : (string) $json['StatementType']) : null,
             'ManagedQueryResultsConfiguration' => empty($json['ManagedQueryResultsConfiguration']) ? null : $this->populateResultManagedQueryResultsConfiguration($json['ManagedQueryResultsConfiguration']),
             'ResultConfiguration' => empty($json['ResultConfiguration']) ? null : $this->populateResultResultConfiguration($json['ResultConfiguration']),
             'ResultReuseConfiguration' => empty($json['ResultReuseConfiguration']) ? null : $this->populateResultResultReuseConfiguration($json['ResultReuseConfiguration']),
@@ -154,7 +159,7 @@ class GetQueryExecutionOutput extends Result
     private function populateResultQueryExecutionStatus(array $json): QueryExecutionStatus
     {
         return new QueryExecutionStatus([
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'State' => isset($json['State']) ? (!QueryExecutionState::exists((string) $json['State']) ? QueryExecutionState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
             'StateChangeReason' => isset($json['StateChangeReason']) ? (string) $json['StateChangeReason'] : null,
             'SubmissionDateTime' => (isset($json['SubmissionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['SubmissionDateTime'])))) ? $d : null,
             'CompletionDateTime' => (isset($json['CompletionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CompletionDateTime'])))) ? $d : null,
@@ -167,7 +172,7 @@ class GetQueryExecutionOutput extends Result
         return new QueryResultsS3AccessGrantsConfiguration([
             'EnableS3AccessGrants' => filter_var($json['EnableS3AccessGrants'], \FILTER_VALIDATE_BOOLEAN),
             'CreateUserLevelPrefix' => isset($json['CreateUserLevelPrefix']) ? filter_var($json['CreateUserLevelPrefix'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'AuthenticationType' => (string) $json['AuthenticationType'],
+            'AuthenticationType' => !AuthenticationType::exists((string) $json['AuthenticationType']) ? AuthenticationType::UNKNOWN_TO_SDK : (string) $json['AuthenticationType'],
         ]);
     }
 

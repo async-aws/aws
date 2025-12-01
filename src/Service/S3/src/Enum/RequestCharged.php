@@ -12,6 +12,7 @@ namespace AsyncAws\S3\Enum;
  */
 final class RequestCharged
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const REQUESTER = 'requester';
 
     public static function exists(string $value): bool

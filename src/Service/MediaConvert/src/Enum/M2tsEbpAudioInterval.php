@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsEbpAudioInterval
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const VIDEO_AND_FIXED_INTERVALS = 'VIDEO_AND_FIXED_INTERVALS';
     public const VIDEO_INTERVAL = 'VIDEO_INTERVAL';
 

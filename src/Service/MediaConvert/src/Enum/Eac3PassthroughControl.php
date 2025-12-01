@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3PassthroughControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const NO_PASSTHROUGH = 'NO_PASSTHROUGH';
     public const WHEN_POSSIBLE = 'WHEN_POSSIBLE';
 

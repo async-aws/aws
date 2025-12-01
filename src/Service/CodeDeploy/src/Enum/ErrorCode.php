@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class ErrorCode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AGENT_ISSUE = 'AGENT_ISSUE';
     public const ALARM_ACTIVE = 'ALARM_ACTIVE';
     public const APPLICATION_MISSING = 'APPLICATION_MISSING';

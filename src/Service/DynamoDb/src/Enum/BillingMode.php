@@ -4,6 +4,7 @@ namespace AsyncAws\DynamoDb\Enum;
 
 final class BillingMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PAY_PER_REQUEST = 'PAY_PER_REQUEST';
     public const PROVISIONED = 'PROVISIONED';
 

@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\Enum;
 
 final class ConsumerStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ACTIVE = 'ACTIVE';
     public const CREATING = 'CREATING';
     public const DELETING = 'DELETING';

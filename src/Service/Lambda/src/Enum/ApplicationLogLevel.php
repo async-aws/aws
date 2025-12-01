@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Enum;
 
 final class ApplicationLogLevel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEBUG = 'DEBUG';
     public const ERROR = 'ERROR';
     public const FATAL = 'FATAL';

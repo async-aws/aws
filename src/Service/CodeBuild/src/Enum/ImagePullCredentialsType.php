@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class ImagePullCredentialsType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CODEBUILD = 'CODEBUILD';
     public const SERVICE_ROLE = 'SERVICE_ROLE';
 

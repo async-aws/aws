@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class EnvironmentType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ARM_CONTAINER = 'ARM_CONTAINER';
     public const ARM_EC2 = 'ARM_EC2';
     public const ARM_LAMBDA_CONTAINER = 'ARM_LAMBDA_CONTAINER';

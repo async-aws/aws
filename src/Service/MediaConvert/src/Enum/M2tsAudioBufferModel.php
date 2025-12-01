@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsAudioBufferModel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ATSC = 'ATSC';
     public const DVB = 'DVB';
 

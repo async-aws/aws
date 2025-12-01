@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\ValueObject\CopyObjectResult;
@@ -210,7 +211,7 @@ class CopyObjectOutput extends Result
         return new CopyObjectResult([
             'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
             'LastModified' => (null !== $v = $xml->LastModified[0]) ? new \DateTimeImmutable((string) $v) : null,
-            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (string) $v : null,
+            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (!ChecksumType::exists((string) $xml->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $xml->ChecksumType) : null,
             'ChecksumCRC32' => (null !== $v = $xml->ChecksumCRC32[0]) ? (string) $v : null,
             'ChecksumCRC32C' => (null !== $v = $xml->ChecksumCRC32C[0]) ? (string) $v : null,
             'ChecksumCRC64NVME' => (null !== $v = $xml->ChecksumCRC64NVME[0]) ? (string) $v : null,

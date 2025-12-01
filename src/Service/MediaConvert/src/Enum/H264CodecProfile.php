@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264CodecProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BASELINE = 'BASELINE';
     public const HIGH = 'HIGH';
     public const HIGH_10BIT = 'HIGH_10BIT';

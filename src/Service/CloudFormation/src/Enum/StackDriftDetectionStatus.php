@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class StackDriftDetectionStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DETECTION_COMPLETE = 'DETECTION_COMPLETE';
     public const DETECTION_FAILED = 'DETECTION_FAILED';
     public const DETECTION_IN_PROGRESS = 'DETECTION_IN_PROGRESS';

@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class HlsEncryptionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AES128 = 'AES128';
     public const SAMPLE_AES = 'SAMPLE_AES';
 

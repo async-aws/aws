@@ -167,7 +167,7 @@ class AdminInitiateAuthResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->challengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
+        $this->challengeName = isset($data['ChallengeName']) ? (!ChallengeNameType::exists((string) $data['ChallengeName']) ? ChallengeNameType::UNKNOWN_TO_SDK : (string) $data['ChallengeName']) : null;
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
         $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
         $this->authenticationResult = empty($data['AuthenticationResult']) ? null : $this->populateResultAuthenticationResultType($data['AuthenticationResult']);
@@ -193,7 +193,7 @@ class AdminInitiateAuthResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $a = isset($item) ? (string) $item : null;
+            $a = isset($item) ? (!ChallengeNameType::exists((string) $item) ? ChallengeNameType::UNKNOWN_TO_SDK : (string) $item) : null;
             if (null !== $a) {
                 $items[] = $a;
             }

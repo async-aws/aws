@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3AtmosBitstreamMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMPLETE_MAIN = 'COMPLETE_MAIN';
 
     public static function exists(string $value): bool

@@ -12,6 +12,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class TamsGapHandling
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FILL_WITH_BLACK = 'FILL_WITH_BLACK';
     public const HOLD_LAST_FRAME = 'HOLD_LAST_FRAME';
     public const SKIP_GAPS = 'SKIP_GAPS';

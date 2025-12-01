@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ContainerType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CMFC = 'CMFC';
     public const F4V = 'F4V';
     public const GIF = 'GIF';

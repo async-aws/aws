@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class BandwidthReductionFilterSharpening
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HIGH = 'HIGH';
     public const LOW = 'LOW';
     public const MEDIUM = 'MEDIUM';
