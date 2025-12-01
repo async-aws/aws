@@ -14,6 +14,7 @@
 
 - Apply new CodingStandard from latest php-cs-fixer.
 - Add support for `async-aws` 3.0 in the testsuite
+- Minor improvement on return typehint of Configuration::getConfigTreeBuilder method
 
 ## 1.15.0
 
