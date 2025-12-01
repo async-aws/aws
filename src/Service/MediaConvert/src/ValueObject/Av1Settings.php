@@ -112,7 +112,7 @@ final class Av1Settings
      *
      * @var int|null
      */
-    private $numberBframesBetweenReferenceFrames;
+    private $numberBFramesBetweenReferenceFrames;
 
     /**
      * Optionally choose one or more per frame metric reports to generate along with your output. You can use these metrics
@@ -203,7 +203,7 @@ final class Av1Settings
         $this->framerateNumerator = $input['FramerateNumerator'] ?? null;
         $this->gopSize = $input['GopSize'] ?? null;
         $this->maxBitrate = $input['MaxBitrate'] ?? null;
-        $this->numberBframesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
+        $this->numberBFramesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
         $this->perFrameMetrics = $input['PerFrameMetrics'] ?? null;
         $this->qvbrSettings = isset($input['QvbrSettings']) ? Av1QvbrSettings::create($input['QvbrSettings']) : null;
         $this->rateControlMode = $input['RateControlMode'] ?? null;
@@ -295,9 +295,9 @@ final class Av1Settings
         return $this->maxBitrate;
     }
 
-    public function getNumberBframesBetweenReferenceFrames(): ?int
+    public function getNumberBFramesBetweenReferenceFrames(): ?int
     {
-        return $this->numberBframesBetweenReferenceFrames;
+        return $this->numberBFramesBetweenReferenceFrames;
     }
 
     /**
@@ -382,7 +382,7 @@ final class Av1Settings
         if (null !== $v = $this->maxBitrate) {
             $payload['maxBitrate'] = $v;
         }
-        if (null !== $v = $this->numberBframesBetweenReferenceFrames) {
+        if (null !== $v = $this->numberBFramesBetweenReferenceFrames) {
             $payload['numberBFramesBetweenReferenceFrames'] = $v;
         }
         if (null !== $v = $this->perFrameMetrics) {

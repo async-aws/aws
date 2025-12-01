@@ -45,7 +45,7 @@ final class XavcHdProfileSettings
      *
      * @var XavcGopBReference::*|null
      */
-    private $gopBreference;
+    private $gopBReference;
 
     /**
      * Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining
@@ -119,7 +119,7 @@ final class XavcHdProfileSettings
     {
         $this->bitrateClass = $input['BitrateClass'] ?? null;
         $this->flickerAdaptiveQuantization = $input['FlickerAdaptiveQuantization'] ?? null;
-        $this->gopBreference = $input['GopBReference'] ?? null;
+        $this->gopBReference = $input['GopBReference'] ?? null;
         $this->gopClosedCadence = $input['GopClosedCadence'] ?? null;
         $this->hrdBufferSize = $input['HrdBufferSize'] ?? null;
         $this->interlaceMode = $input['InterlaceMode'] ?? null;
@@ -165,9 +165,9 @@ final class XavcHdProfileSettings
     /**
      * @return XavcGopBReference::*|null
      */
-    public function getGopBreference(): ?string
+    public function getGopBReference(): ?string
     {
-        return $this->gopBreference;
+        return $this->gopBReference;
     }
 
     public function getGopClosedCadence(): ?int
@@ -227,7 +227,7 @@ final class XavcHdProfileSettings
             }
             $payload['flickerAdaptiveQuantization'] = $v;
         }
-        if (null !== $v = $this->gopBreference) {
+        if (null !== $v = $this->gopBReference) {
             if (!XavcGopBReference::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "XavcGopBReference".', __CLASS__, $v));
             }

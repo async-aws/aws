@@ -33,7 +33,7 @@ final class SearchPlaceIndexForTextSummary
      *
      * @var float[]|null
      */
-    private $filterBbox;
+    private $filterBBox;
 
     /**
      * Contains the optional country filter specified in the request.
@@ -56,7 +56,7 @@ final class SearchPlaceIndexForTextSummary
      *
      * @var float[]|null
      */
-    private $resultBbox;
+    private $resultBBox;
 
     /**
      * The geospatial data provider attached to the place index resource specified in the request. Values can be one of the
@@ -108,10 +108,10 @@ final class SearchPlaceIndexForTextSummary
     {
         $this->text = $input['Text'] ?? $this->throwException(new InvalidArgument('Missing required field "Text".'));
         $this->biasPosition = $input['BiasPosition'] ?? null;
-        $this->filterBbox = $input['FilterBBox'] ?? null;
+        $this->filterBBox = $input['FilterBBox'] ?? null;
         $this->filterCountries = $input['FilterCountries'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
-        $this->resultBbox = $input['ResultBBox'] ?? null;
+        $this->resultBBox = $input['ResultBBox'] ?? null;
         $this->dataSource = $input['DataSource'] ?? $this->throwException(new InvalidArgument('Missing required field "DataSource".'));
         $this->language = $input['Language'] ?? null;
         $this->filterCategories = $input['FilterCategories'] ?? null;
@@ -151,9 +151,9 @@ final class SearchPlaceIndexForTextSummary
     /**
      * @return float[]
      */
-    public function getFilterBbox(): array
+    public function getFilterBBox(): array
     {
-        return $this->filterBbox ?? [];
+        return $this->filterBBox ?? [];
     }
 
     /**
@@ -185,9 +185,9 @@ final class SearchPlaceIndexForTextSummary
     /**
      * @return float[]
      */
-    public function getResultBbox(): array
+    public function getResultBBox(): array
     {
-        return $this->resultBbox ?? [];
+        return $this->resultBBox ?? [];
     }
 
     public function getText(): string
