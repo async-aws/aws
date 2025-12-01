@@ -186,7 +186,7 @@ final class H265Settings
      *
      * @var H265GopBReference::*|null
      */
-    private $gopBreference;
+    private $gopBReference;
 
     /**
      * Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow four open
@@ -281,7 +281,7 @@ final class H265Settings
      *
      * @var int|null
      */
-    private $minIinterval;
+    private $minIInterval;
 
     /**
      * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
@@ -290,7 +290,7 @@ final class H265Settings
      *
      * @var int|null
      */
-    private $numberBframesBetweenReferenceFrames;
+    private $numberBFramesBetweenReferenceFrames;
 
     /**
      * Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced
@@ -565,7 +565,7 @@ final class H265Settings
         $this->framerateConversionAlgorithm = $input['FramerateConversionAlgorithm'] ?? null;
         $this->framerateDenominator = $input['FramerateDenominator'] ?? null;
         $this->framerateNumerator = $input['FramerateNumerator'] ?? null;
-        $this->gopBreference = $input['GopBReference'] ?? null;
+        $this->gopBReference = $input['GopBReference'] ?? null;
         $this->gopClosedCadence = $input['GopClosedCadence'] ?? null;
         $this->gopSize = $input['GopSize'] ?? null;
         $this->gopSizeUnits = $input['GopSizeUnits'] ?? null;
@@ -574,8 +574,8 @@ final class H265Settings
         $this->hrdBufferSize = $input['HrdBufferSize'] ?? null;
         $this->interlaceMode = $input['InterlaceMode'] ?? null;
         $this->maxBitrate = $input['MaxBitrate'] ?? null;
-        $this->minIinterval = $input['MinIInterval'] ?? null;
-        $this->numberBframesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
+        $this->minIInterval = $input['MinIInterval'] ?? null;
+        $this->numberBFramesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
         $this->numberReferenceFrames = $input['NumberReferenceFrames'] ?? null;
         $this->parControl = $input['ParControl'] ?? null;
         $this->parDenominator = $input['ParDenominator'] ?? null;
@@ -755,9 +755,9 @@ final class H265Settings
     /**
      * @return H265GopBReference::*|null
      */
-    public function getGopBreference(): ?string
+    public function getGopBReference(): ?string
     {
-        return $this->gopBreference;
+        return $this->gopBReference;
     }
 
     public function getGopClosedCadence(): ?int
@@ -806,14 +806,14 @@ final class H265Settings
         return $this->maxBitrate;
     }
 
-    public function getMinIinterval(): ?int
+    public function getMinIInterval(): ?int
     {
-        return $this->minIinterval;
+        return $this->minIInterval;
     }
 
-    public function getNumberBframesBetweenReferenceFrames(): ?int
+    public function getNumberBFramesBetweenReferenceFrames(): ?int
     {
-        return $this->numberBframesBetweenReferenceFrames;
+        return $this->numberBFramesBetweenReferenceFrames;
     }
 
     public function getNumberReferenceFrames(): ?int
@@ -1039,7 +1039,7 @@ final class H265Settings
         if (null !== $v = $this->framerateNumerator) {
             $payload['framerateNumerator'] = $v;
         }
-        if (null !== $v = $this->gopBreference) {
+        if (null !== $v = $this->gopBReference) {
             if (!H265GopBReference::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "H265GopBReference".', __CLASS__, $v));
             }
@@ -1075,10 +1075,10 @@ final class H265Settings
         if (null !== $v = $this->maxBitrate) {
             $payload['maxBitrate'] = $v;
         }
-        if (null !== $v = $this->minIinterval) {
+        if (null !== $v = $this->minIInterval) {
             $payload['minIInterval'] = $v;
         }
-        if (null !== $v = $this->numberBframesBetweenReferenceFrames) {
+        if (null !== $v = $this->numberBFramesBetweenReferenceFrames) {
             $payload['numberBFramesBetweenReferenceFrames'] = $v;
         }
         if (null !== $v = $this->numberReferenceFrames) {

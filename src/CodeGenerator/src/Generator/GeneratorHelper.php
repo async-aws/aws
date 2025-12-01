@@ -59,26 +59,26 @@ class GeneratorHelper
             'SS' => 'Ss',
         ];
         static $ignored = [
-            'GB' => 'Gb',
-            'BFrame' => 'Bframe',
-            'BReference' => 'Breference',
-            'BBox' => 'Bbox',
-            'IInterval' => 'Iinterval',
-            'IFrame' => 'Iframe',
-            'XCoordinate' => 'Xcoordinate',
-            'YCoordinate' => 'Ycoordinate',
-            'XOffset' => 'Xoffset',
-            'YOffset' => 'Yoffset',
-            'XPosition' => 'Xposition',
-            'YPosition' => 'Yposition',
+            'GB',
+            'BFrame',
+            'BReference',
+            'BBox',
+            'IInterval',
+            'IFrame',
+            'XCoordinate',
+            'YCoordinate',
+            'XOffset',
+            'YOffset',
+            'XPosition',
+            'YPosition',
         ];
 
         $originalPropertyName = $propertyName;
         $propertyName = strtr($propertyName, $replacements);
 
         if (preg_match('/[A-Z]{2,}/', $propertyName)) {
-            $propertyName = strtr($propertyName, $ignored);
-            if (preg_match('/[A-Z]{2,}/', $propertyName)) {
+            $propertyNameWithoutIgnored = strtr($propertyName, array_fill_keys($ignored, ''));
+            if (preg_match('/[A-Z]{2,}/', $propertyNameWithoutIgnored)) {
                 throw new \RuntimeException(\sprintf('No camel case property "%s" is not yet implemented', $originalPropertyName));
             }
         }

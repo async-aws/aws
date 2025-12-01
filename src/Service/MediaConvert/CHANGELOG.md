@@ -15,6 +15,7 @@
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
+- Change case of of various properties.
 
 ## 1.11.0
 

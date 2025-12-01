@@ -14,6 +14,7 @@
 
 - Apply new CodingStandard from latest php-cs-fixer.
 - AWS enhancement: Documentation updates.
+- change case of `getSizeEstimateRangeGb` method to `getSizeEstimateRangeGb`
 
 ## 3.8.0
 

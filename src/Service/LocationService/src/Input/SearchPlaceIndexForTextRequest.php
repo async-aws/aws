@@ -58,7 +58,7 @@ final class SearchPlaceIndexForTextRequest extends Input
      *
      * @var float[]|null
      */
-    private $filterBbox;
+    private $filterBBox;
 
     /**
      * An optional parameter that limits the search results by returning only places that are in a specified list of
@@ -145,7 +145,7 @@ final class SearchPlaceIndexForTextRequest extends Input
         $this->indexName = $input['IndexName'] ?? null;
         $this->text = $input['Text'] ?? null;
         $this->biasPosition = $input['BiasPosition'] ?? null;
-        $this->filterBbox = $input['FilterBBox'] ?? null;
+        $this->filterBBox = $input['FilterBBox'] ?? null;
         $this->filterCountries = $input['FilterCountries'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->language = $input['Language'] ?? null;
@@ -184,9 +184,9 @@ final class SearchPlaceIndexForTextRequest extends Input
     /**
      * @return float[]
      */
-    public function getFilterBbox(): array
+    public function getFilterBBox(): array
     {
-        return $this->filterBbox ?? [];
+        return $this->filterBBox ?? [];
     }
 
     /**
@@ -276,9 +276,9 @@ final class SearchPlaceIndexForTextRequest extends Input
     /**
      * @param float[] $value
      */
-    public function setFilterBbox(array $value): self
+    public function setFilterBBox(array $value): self
     {
-        $this->filterBbox = $value;
+        $this->filterBBox = $value;
 
         return $this;
     }
@@ -354,7 +354,7 @@ final class SearchPlaceIndexForTextRequest extends Input
                 $payload['BiasPosition'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->filterBbox) {
+        if (null !== $v = $this->filterBBox) {
             $index = -1;
             $payload['FilterBBox'] = [];
             foreach ($v as $listValue) {

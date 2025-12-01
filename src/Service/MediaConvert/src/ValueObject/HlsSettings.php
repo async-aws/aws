@@ -70,7 +70,7 @@ final class HlsSettings
      *
      * @var HlsIFrameOnlyManifest::*|null
      */
-    private $iframeOnlyManifest;
+    private $iFrameOnlyManifest;
 
     /**
      * Use this setting to add an identifying string to the filename of each segment. The service adds this string between
@@ -99,7 +99,7 @@ final class HlsSettings
         $this->audioRenditionSets = $input['AudioRenditionSets'] ?? null;
         $this->audioTrackType = $input['AudioTrackType'] ?? null;
         $this->descriptiveVideoServiceFlag = $input['DescriptiveVideoServiceFlag'] ?? null;
-        $this->iframeOnlyManifest = $input['IFrameOnlyManifest'] ?? null;
+        $this->iFrameOnlyManifest = $input['IFrameOnlyManifest'] ?? null;
         $this->segmentModifier = $input['SegmentModifier'] ?? null;
     }
 
@@ -156,9 +156,9 @@ final class HlsSettings
     /**
      * @return HlsIFrameOnlyManifest::*|null
      */
-    public function getIframeOnlyManifest(): ?string
+    public function getIFrameOnlyManifest(): ?string
     {
-        return $this->iframeOnlyManifest;
+        return $this->iFrameOnlyManifest;
     }
 
     public function getSegmentModifier(): ?string
@@ -196,7 +196,7 @@ final class HlsSettings
             }
             $payload['descriptiveVideoServiceFlag'] = $v;
         }
-        if (null !== $v = $this->iframeOnlyManifest) {
+        if (null !== $v = $this->iFrameOnlyManifest) {
             if (!HlsIFrameOnlyManifest::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "iFrameOnlyManifest" for "%s". The value "%s" is not a valid "HlsIFrameOnlyManifest".', __CLASS__, $v));
             }
