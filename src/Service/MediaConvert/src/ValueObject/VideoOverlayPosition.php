@@ -60,7 +60,7 @@ final class VideoOverlayPosition
      *
      * @var int|null
      */
-    private $xposition;
+    private $xPosition;
 
     /**
      * To position the top edge of your video overlay along the top edge of the base input video's frame: Keep blank, or
@@ -72,7 +72,7 @@ final class VideoOverlayPosition
      *
      * @var int|null
      */
-    private $yposition;
+    private $yPosition;
 
     /**
      * @param array{
@@ -90,8 +90,8 @@ final class VideoOverlayPosition
         $this->opacity = $input['Opacity'] ?? null;
         $this->unit = $input['Unit'] ?? null;
         $this->width = $input['Width'] ?? null;
-        $this->xposition = $input['XPosition'] ?? null;
-        $this->yposition = $input['YPosition'] ?? null;
+        $this->xPosition = $input['XPosition'] ?? null;
+        $this->yPosition = $input['YPosition'] ?? null;
     }
 
     /**
@@ -132,14 +132,14 @@ final class VideoOverlayPosition
         return $this->width;
     }
 
-    public function getXposition(): ?int
+    public function getXPosition(): ?int
     {
-        return $this->xposition;
+        return $this->xPosition;
     }
 
-    public function getYposition(): ?int
+    public function getYPosition(): ?int
     {
-        return $this->yposition;
+        return $this->yPosition;
     }
 
     /**
@@ -163,10 +163,10 @@ final class VideoOverlayPosition
         if (null !== $v = $this->width) {
             $payload['width'] = $v;
         }
-        if (null !== $v = $this->xposition) {
+        if (null !== $v = $this->xPosition) {
             $payload['xPosition'] = $v;
         }
-        if (null !== $v = $this->yposition) {
+        if (null !== $v = $this->yPosition) {
             $payload['yPosition'] = $v;
         }
 

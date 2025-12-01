@@ -10,6 +10,7 @@
 
 - Apply new CodingStandard from latest php-cs-fixer.
 - AWS enhancement: Documentation updates.
+- change case of `getFilterBbox` method to `getFilterBBox` and `getRouteBbox` method to `getRouteBBox`
 
 ## 1.1.2
 

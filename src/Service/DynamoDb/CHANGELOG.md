@@ -16,6 +16,7 @@
 - Apply new CodingStandard from latest php-cs-fixer.
 - AWS enhancement: Documentation updates.
 - Use a more stable sorting for the list of generated region metadata
+- change case of `getSizeEstimateRangeGb` method to `getSizeEstimateRangeGb`
 
 ## 3.8.0
 

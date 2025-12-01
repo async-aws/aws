@@ -120,7 +120,7 @@ final class CmfcSettings
      *
      * @var CmfcIFrameOnlyManifest::*|null
      */
-    private $iframeOnlyManifest;
+    private $iFrameOnlyManifest;
 
     /**
      * To include key-length-value metadata in this output: Set KLV metadata insertion to Passthrough. MediaConvert reads
@@ -235,7 +235,7 @@ final class CmfcSettings
         $this->c2paManifest = $input['C2paManifest'] ?? null;
         $this->certificateSecret = $input['CertificateSecret'] ?? null;
         $this->descriptiveVideoServiceFlag = $input['DescriptiveVideoServiceFlag'] ?? null;
-        $this->iframeOnlyManifest = $input['IFrameOnlyManifest'] ?? null;
+        $this->iFrameOnlyManifest = $input['IFrameOnlyManifest'] ?? null;
         $this->klvMetadata = $input['KlvMetadata'] ?? null;
         $this->manifestMetadataSignaling = $input['ManifestMetadataSignaling'] ?? null;
         $this->scte35Esam = $input['Scte35Esam'] ?? null;
@@ -323,9 +323,9 @@ final class CmfcSettings
     /**
      * @return CmfcIFrameOnlyManifest::*|null
      */
-    public function getIframeOnlyManifest(): ?string
+    public function getIFrameOnlyManifest(): ?string
     {
-        return $this->iframeOnlyManifest;
+        return $this->iFrameOnlyManifest;
     }
 
     /**
@@ -430,7 +430,7 @@ final class CmfcSettings
             }
             $payload['descriptiveVideoServiceFlag'] = $v;
         }
-        if (null !== $v = $this->iframeOnlyManifest) {
+        if (null !== $v = $this->iFrameOnlyManifest) {
             if (!CmfcIFrameOnlyManifest::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "iFrameOnlyManifest" for "%s". The value "%s" is not a valid "CmfcIFrameOnlyManifest".', __CLASS__, $v));
             }
