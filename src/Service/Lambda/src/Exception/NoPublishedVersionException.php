@@ -6,12 +6,12 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request payload exceeded the maximum allowed size for serialized request entities.
+ * The function has no published versions available.
  */
-final class SerializedRequestEntityTooLargeException extends ClientException
+final class NoPublishedVersionException extends ClientException
 {
     /**
-     * The error type.
+     * The exception type.
      *
      * @var string|null
      */

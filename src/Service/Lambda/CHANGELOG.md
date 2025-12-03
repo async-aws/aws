@@ -9,6 +9,8 @@
 - AWS api-change: Added SerializedRequestEntityTooLargeException to Lambda Invoke API
 - AWS api-change: Add Python3.14 (python3.14) and Java 25 (java25) support to AWS Lambda
 - AWS api-change: Added support for creating and invoking Tenant Isolated functions in AWS Lambda APIs.
+- AWS api-change: Launching Lambda durable functions - a new feature to build reliable multi-step applications and AI workflows natively within the Lambda developer experience.
+- AWS api-change: Launching Lambda Managed Instances - a new feature to run Lambda on EC2.
 
 ### Dependency bumped
 

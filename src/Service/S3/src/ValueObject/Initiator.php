@@ -19,8 +19,6 @@ final class Initiator
     private $id;
 
     /**
-     * Name of the Principal.
-     *
      * > This functionality is not supported for directory buckets.
      *
      * @var string|null

@@ -109,7 +109,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     /**
      * Container element that identifies who initiated the multipart upload. If the initiator is an Amazon Web Services
      * account, this element provides the same information as the `Owner` element. If the initiator is an IAM User, this
-     * element provides the user ARN and display name.
+     * element provides the user ARN.
      *
      * @var Initiator|null
      */
@@ -117,7 +117,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
 
     /**
      * Container element that identifies the object owner, after the object is created. If multipart upload is initiated by
-     * an IAM user, this element provides the parent account ID and display name.
+     * an IAM user, this element provides the parent account ID.
      *
      * > **Directory buckets** - The bucket owner is returned as the object owner for all the parts.
      *

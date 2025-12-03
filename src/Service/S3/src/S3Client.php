@@ -392,8 +392,8 @@ class S3Client extends AbstractApi
      * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
      * ! America (São Paulo).
      *
-     * > You can store individual objects of up to 5 TB in Amazon S3. You create a copy of your object up to 5 GB in size in
-     * > a single atomic action using this API. However, to copy an object greater than 5 GB, you must use the multipart
+     * > You can store individual objects of up to 50 TB in Amazon S3. You create a copy of your object up to 5 GB in size
+     * > in a single atomic action using this API. However, to copy an object greater than 5 GB, you must use the multipart
      * > upload Upload Part - Copy (UploadPartCopy) API. For more information, see Copy Object Using the REST Multipart
      * > Upload API [^1].
      *
@@ -586,14 +586,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: As of October 1, 2025, Amazon S3 has discontinued support for Email Grantee Access Control
-     * ! Lists (ACLs). If you attempt to use an Email Grantee ACL in a request after October 1, 2025, the request will
-     * ! receive an `HTTP 405` (Method Not Allowed) error.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia), US West (N. California), US
-     * ! West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), Europe (Ireland), and South
-     * ! America (São Paulo).
-     *
      * > This action creates an Amazon S3 bucket. To create an Amazon S3 on Outposts bucket, see `CreateBucket` [^1].
      *
      * Creates a new S3 bucket. To create a bucket, you must set up Amazon S3 and have a valid Amazon Web Services Access
@@ -1411,8 +1403,8 @@ class S3Client extends AbstractApi
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_BucketKeyEnabled.html
-     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_BlockedEncryptionTypes.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ServerSideEncryptionRule.html#AmazonS3-Type-ServerSideEncryptionRule-BucketKeyEnabled
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ServerSideEncryptionRule.html#AmazonS3-Type-ServerSideEncryptionRule-BlockedEncryptionTypes
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html
      * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-bucket-encryption.html
      * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
@@ -1609,14 +1601,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * > This operation is not supported for directory buckets.
      *
      * Returns the access control list (ACL) of an object. To use this operation, you must have `s3:GetObjectAcl`
@@ -1877,14 +1861,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * > This operation is not supported for directory buckets.
      *
      * Returns a list of all buckets owned by the authenticated sender of the request. To grant IAM permission to use this
@@ -1923,14 +1899,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * This operation lists in-progress multipart uploads in a bucket. An in-progress multipart upload is a multipart upload
      * that has been initiated by the `CreateMultipartUpload` request, but has not yet been completed or aborted.
      *
@@ -2041,14 +2009,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * > This operation is not supported for directory buckets.
      *
      * Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection
@@ -2103,14 +2063,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * Returns some or all (up to 1,000) of the objects in a bucket with each request. You can use the request parameters as
      * selection criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid
      * XML. Make sure to design your application to parse the contents of the response and handle it appropriately. For more
@@ -2213,14 +2165,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
-     * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
-     * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
-     * !
-     * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
-     * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
-     * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
-     *
      * Lists the parts that have been uploaded for a specific multipart upload.
      *
      * To use this operation, you must provide the `upload ID` in the request. You obtain this uploadID by sending the
@@ -2535,28 +2479,25 @@ class S3Client extends AbstractApi
      * When you enable ABAC for a general purpose bucket [^1], you can no longer use this operation for that bucket and must
      * use the TagResource [^2] or UntagResource [^3] operations instead.
      *
-     * if ABAC is not enabled for the bucket. When you enable ABAC for a general purpose bucket [^4], you can no longer use
-     * this operation for that bucket and must use TagResource [^5] instead.
-     *
      * Use tags to organize your Amazon Web Services bill to reflect your own cost structure. To do this, sign up to get
      * your Amazon Web Services account bill with tag key values included. Then, to see the cost of combined resources,
      * organize your billing information according to resources with the same tag key values. For example, you can tag
      * several resources with a specific application name, and then organize your billing information to see the total cost
-     * of that application across several services. For more information, see Cost Allocation and Tagging [^6] and Using
-     * Cost Allocation in Amazon S3 Bucket Tags [^7].
+     * of that application across several services. For more information, see Cost Allocation and Tagging [^4] and Using
+     * Cost Allocation in Amazon S3 Bucket Tags [^5].
      *
      * > When this operation sets the tags for a bucket, it will overwrite any current tags the bucket already has. You
      * > cannot use this operation to add tags to an existing list of tags.
      *
      * To use this operation, you must have permissions to perform the `s3:PutBucketTagging` action. The bucket owner has
      * this permission by default and can grant this permission to others. For more information about permissions, see
-     * Permissions Related to Bucket Subresource Operations [^8] and Managing Access Permissions to Your Amazon S3 Resources
-     * [^9].
+     * Permissions Related to Bucket Subresource Operations [^6] and Managing Access Permissions to Your Amazon S3 Resources
+     * [^7].
      *
-     * `PutBucketTagging` has the following special errors. For more Amazon S3 errors see, Error Responses [^10].
+     * `PutBucketTagging` has the following special errors. For more Amazon S3 errors see, Error Responses [^8].
      *
      * - `InvalidTag` - The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.
-     *   For more information, see Using Cost Allocation in Amazon S3 Bucket Tags [^11].
+     *   For more information, see Using Cost Allocation in Amazon S3 Bucket Tags [^9].
      * - `MalformedXML` - The XML provided does not match the schema.
      * - `OperationAborted` - A conflicting conditional action is currently in progress against this resource. Please try
      *   again.
@@ -2564,8 +2505,8 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `PutBucketTagging`:
      *
-     * - GetBucketTagging [^12]
-     * - DeleteBucketTagging [^13]
+     * - GetBucketTagging [^10]
+     * - DeleteBucketTagging [^11]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
@@ -2573,16 +2514,14 @@ class S3Client extends AbstractApi
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging-enable-abac.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_TagResource.html
      * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_UntagResource.html
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging-enable-abac.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_TagResource.html
-     * [^6]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
-     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
-     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
-     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
-     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
+     * [^4]: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CostAllocTagging.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbuckettagging
@@ -3021,8 +2960,9 @@ class S3Client extends AbstractApi
      *
      * ! When Amazon S3 evaluates the `PublicAccessBlock` configuration for a bucket or an object, it checks the
      * ! `PublicAccessBlock` configuration for both the bucket (or the bucket that contains the object) and the bucket
-     * ! owner's account. If the `PublicAccessBlock` configurations are different between the bucket and the account, Amazon
-     * ! S3 uses the most restrictive combination of the bucket-level and account-level settings.
+     * ! owner's account. Account-level settings automatically inherit from organization-level policies when present. If the
+     * ! `PublicAccessBlock` configurations are different between the bucket and the account, Amazon S3 uses the most
+     * ! restrictive combination of the bucket-level and account-level settings.
      *
      * For more information about when Amazon S3 considers a bucket or an object public, see The Meaning of "Public" [^2].
      *

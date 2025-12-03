@@ -6,12 +6,13 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request payload exceeded the maximum allowed size for serialized request entities.
+ * The durable execution with the specified name has already been started. Each durable execution name must be unique
+ * within the function. Use a different name or check the status of the existing execution.
  */
-final class SerializedRequestEntityTooLargeException extends ClientException
+final class DurableExecutionAlreadyStartedException extends ClientException
 {
     /**
-     * The error type.
+     * The exception type.
      *
      * @var string|null
      */

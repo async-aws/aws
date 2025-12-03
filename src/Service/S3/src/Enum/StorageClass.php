@@ -6,6 +6,7 @@ final class StorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
     public const EXPRESS_ONEZONE = 'EXPRESS_ONEZONE';
+    public const FSX_ONTAP = 'FSX_ONTAP';
     public const FSX_OPENZFS = 'FSX_OPENZFS';
     public const GLACIER = 'GLACIER';
     public const GLACIER_IR = 'GLACIER_IR';
@@ -22,6 +23,7 @@ final class StorageClass
         return isset([
             self::DEEP_ARCHIVE => true,
             self::EXPRESS_ONEZONE => true,
+            self::FSX_ONTAP => true,
             self::FSX_OPENZFS => true,
             self::GLACIER => true,
             self::GLACIER_IR => true,

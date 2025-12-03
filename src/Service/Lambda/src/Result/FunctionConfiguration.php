@@ -11,7 +11,9 @@ use AsyncAws\Lambda\Enum\PackageType;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\Enum\State;
 use AsyncAws\Lambda\Enum\StateReasonCode;
+use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
+use AsyncAws\Lambda\ValueObject\DurableConfig;
 use AsyncAws\Lambda\ValueObject\EnvironmentError;
 use AsyncAws\Lambda\ValueObject\EnvironmentResponse;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
@@ -19,6 +21,7 @@ use AsyncAws\Lambda\ValueObject\FileSystemConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
+use AsyncAws\Lambda\ValueObject\LambdaManagedInstancesCapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\Layer;
 use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
@@ -331,6 +334,27 @@ class FunctionConfiguration extends Result
     private $loggingConfig;
 
     /**
+     * Configuration for the capacity provider that manages compute resources for Lambda functions.
+     *
+     * @var CapacityProviderConfig|null
+     */
+    private $capacityProviderConfig;
+
+    /**
+     * The SHA256 hash of the function configuration.
+     *
+     * @var string|null
+     */
+    private $configSha256;
+
+    /**
+     * The function's durable execution configuration settings, if the function is configured for durability.
+     *
+     * @var DurableConfig|null
+     */
+    private $durableConfig;
+
+    /**
      * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
      * dedicated infrastructure per unique tenant.
      *
@@ -348,6 +372,13 @@ class FunctionConfiguration extends Result
         return $this->architectures;
     }
 
+    public function getCapacityProviderConfig(): ?CapacityProviderConfig
+    {
+        $this->initialize();
+
+        return $this->capacityProviderConfig;
+    }
+
     public function getCodeSha256(): ?string
     {
         $this->initialize();
@@ -362,6 +393,13 @@ class FunctionConfiguration extends Result
         return $this->codeSize;
     }
 
+    public function getConfigSha256(): ?string
+    {
+        $this->initialize();
+
+        return $this->configSha256;
+    }
+
     public function getDeadLetterConfig(): ?DeadLetterConfig
     {
         $this->initialize();
@@ -374,6 +412,13 @@ class FunctionConfiguration extends Result
         $this->initialize();
 
         return $this->description;
+    }
+
+    public function getDurableConfig(): ?DurableConfig
+    {
+        $this->initialize();
+
+        return $this->durableConfig;
     }
 
     public function getEnvironment(): ?EnvironmentResponse
@@ -664,6 +709,9 @@ class FunctionConfiguration extends Result
         $this->snapStart = empty($data['SnapStart']) ? null : $this->populateResultSnapStartResponse($data['SnapStart']);
         $this->runtimeVersionConfig = empty($data['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($data['RuntimeVersionConfig']);
         $this->loggingConfig = empty($data['LoggingConfig']) ? null : $this->populateResultLoggingConfig($data['LoggingConfig']);
+        $this->capacityProviderConfig = empty($data['CapacityProviderConfig']) ? null : $this->populateResultCapacityProviderConfig($data['CapacityProviderConfig']);
+        $this->configSha256 = isset($data['ConfigSha256']) ? (string) $data['ConfigSha256'] : null;
+        $this->durableConfig = empty($data['DurableConfig']) ? null : $this->populateResultDurableConfig($data['DurableConfig']);
         $this->tenancyConfig = empty($data['TenancyConfig']) ? null : $this->populateResultTenancyConfig($data['TenancyConfig']);
     }
 
@@ -683,10 +731,25 @@ class FunctionConfiguration extends Result
         return $items;
     }
 
+    private function populateResultCapacityProviderConfig(array $json): CapacityProviderConfig
+    {
+        return new CapacityProviderConfig([
+            'LambdaManagedInstancesCapacityProviderConfig' => $this->populateResultLambdaManagedInstancesCapacityProviderConfig($json['LambdaManagedInstancesCapacityProviderConfig']),
+        ]);
+    }
+
     private function populateResultDeadLetterConfig(array $json): DeadLetterConfig
     {
         return new DeadLetterConfig([
             'TargetArn' => isset($json['TargetArn']) ? (string) $json['TargetArn'] : null,
+        ]);
+    }
+
+    private function populateResultDurableConfig(array $json): DurableConfig
+    {
+        return new DurableConfig([
+            'RetentionPeriodInDays' => isset($json['RetentionPeriodInDays']) ? (int) $json['RetentionPeriodInDays'] : null,
+            'ExecutionTimeout' => isset($json['ExecutionTimeout']) ? (int) $json['ExecutionTimeout'] : null,
         ]);
     }
 
@@ -769,6 +832,15 @@ class FunctionConfiguration extends Result
         return new ImageConfigResponse([
             'ImageConfig' => empty($json['ImageConfig']) ? null : $this->populateResultImageConfig($json['ImageConfig']),
             'Error' => empty($json['Error']) ? null : $this->populateResultImageConfigError($json['Error']),
+        ]);
+    }
+
+    private function populateResultLambdaManagedInstancesCapacityProviderConfig(array $json): LambdaManagedInstancesCapacityProviderConfig
+    {
+        return new LambdaManagedInstancesCapacityProviderConfig([
+            'CapacityProviderArn' => (string) $json['CapacityProviderArn'],
+            'PerExecutionEnvironmentMaxConcurrency' => isset($json['PerExecutionEnvironmentMaxConcurrency']) ? (int) $json['PerExecutionEnvironmentMaxConcurrency'] : null,
+            'ExecutionEnvironmentMemoryGiBPerVCpu' => isset($json['ExecutionEnvironmentMemoryGiBPerVCpu']) ? (float) $json['ExecutionEnvironmentMemoryGiBPerVCpu'] : null,
         ]);
     }
 

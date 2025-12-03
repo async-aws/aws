@@ -46,6 +46,21 @@ class InvocationResponse extends Result
      */
     private $executedVersion;
 
+    /**
+     * The ARN of the durable execution that was started. This is returned when invoking a durable function and provides a
+     * unique identifier for tracking the execution.
+     *
+     * @var string|null
+     */
+    private $durableExecutionArn;
+
+    public function getDurableExecutionArn(): ?string
+    {
+        $this->initialize();
+
+        return $this->durableExecutionArn;
+    }
+
     public function getExecutedVersion(): ?string
     {
         $this->initialize();
@@ -89,6 +104,7 @@ class InvocationResponse extends Result
         $this->functionError = $headers['x-amz-function-error'][0] ?? null;
         $this->logResult = $headers['x-amz-log-result'][0] ?? null;
         $this->executedVersion = $headers['x-amz-executed-version'][0] ?? null;
+        $this->durableExecutionArn = $headers['x-amz-durable-execution-arn'][0] ?? null;
 
         $this->payload = $response->getContent();
     }

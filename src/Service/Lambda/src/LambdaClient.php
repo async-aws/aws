@@ -7,7 +7,6 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
-use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\FunctionVersion;
 use AsyncAws\Lambda\Enum\InvocationType;
@@ -16,6 +15,7 @@ use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\Exception\CodeSigningConfigNotFoundException;
 use AsyncAws\Lambda\Exception\CodeStorageExceededException;
 use AsyncAws\Lambda\Exception\CodeVerificationFailedException;
+use AsyncAws\Lambda\Exception\DurableExecutionAlreadyStartedException;
 use AsyncAws\Lambda\Exception\EC2AccessDeniedException;
 use AsyncAws\Lambda\Exception\EC2ThrottledException;
 use AsyncAws\Lambda\Exception\EC2UnexpectedException;
@@ -35,6 +35,7 @@ use AsyncAws\Lambda\Exception\KMSAccessDeniedException;
 use AsyncAws\Lambda\Exception\KMSDisabledException;
 use AsyncAws\Lambda\Exception\KMSInvalidStateException;
 use AsyncAws\Lambda\Exception\KMSNotFoundException;
+use AsyncAws\Lambda\Exception\NoPublishedVersionException;
 use AsyncAws\Lambda\Exception\PolicyLengthExceededException;
 use AsyncAws\Lambda\Exception\PreconditionFailedException;
 use AsyncAws\Lambda\Exception\RecursiveInvocationException;
@@ -60,13 +61,16 @@ use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\DeleteFunctionResponse;
 use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
+use AsyncAws\Lambda\ValueObject\DurableConfig;
 use AsyncAws\Lambda\ValueObject\Environment;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
@@ -152,7 +156,7 @@ class LambdaClient extends AbstractApi
      * @throws ServiceException
      * @throws TooManyRequestsException
      */
-    public function deleteFunction($input): Result
+    public function deleteFunction($input): DeleteFunctionResponse
     {
         $input = DeleteFunctionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteFunction', 'region' => $input->getRegion(), 'exceptionMapping' => [
@@ -163,7 +167,7 @@ class LambdaClient extends AbstractApi
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
 
-        return new Result($response);
+        return new DeleteFunctionResponse($response);
     }
 
     /**
@@ -252,12 +256,14 @@ class LambdaClient extends AbstractApi
      *   InvocationType?: InvocationType::*|null,
      *   LogType?: LogType::*|null,
      *   ClientContext?: string|null,
+     *   DurableExecutionName?: string|null,
      *   Payload?: string|null,
      *   Qualifier?: string|null,
      *   TenantId?: string|null,
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      *
+     * @throws DurableExecutionAlreadyStartedException
      * @throws EC2AccessDeniedException
      * @throws EC2ThrottledException
      * @throws EC2UnexpectedException
@@ -276,6 +282,7 @@ class LambdaClient extends AbstractApi
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
      * @throws KMSNotFoundException
+     * @throws NoPublishedVersionException
      * @throws RecursiveInvocationException
      * @throws RequestTooLargeException
      * @throws ResourceConflictException
@@ -294,6 +301,7 @@ class LambdaClient extends AbstractApi
     {
         $input = InvocationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Invoke', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DurableExecutionAlreadyStartedException' => DurableExecutionAlreadyStartedException::class,
             'EC2AccessDeniedException' => EC2AccessDeniedException::class,
             'EC2ThrottledException' => EC2ThrottledException::class,
             'EC2UnexpectedException' => EC2UnexpectedException::class,
@@ -312,6 +320,7 @@ class LambdaClient extends AbstractApi
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
+            'NoPublishedVersionException' => NoPublishedVersionException::class,
             'RecursiveInvocationException' => RecursiveInvocationException::class,
             'RequestTooLargeException' => RequestTooLargeException::class,
             'ResourceConflictException' => ResourceConflictException::class,
@@ -521,6 +530,8 @@ class LambdaClient extends AbstractApi
      *   EphemeralStorage?: EphemeralStorage|array|null,
      *   SnapStart?: SnapStart|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
+     *   DurableConfig?: DurableConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      *

@@ -8,7 +8,9 @@ use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
+use AsyncAws\Lambda\ValueObject\DurableConfig;
 use AsyncAws\Lambda\ValueObject\EnvironmentError;
 use AsyncAws\Lambda\ValueObject\EnvironmentResponse;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
@@ -17,6 +19,7 @@ use AsyncAws\Lambda\ValueObject\FunctionConfiguration;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
+use AsyncAws\Lambda\ValueObject\LambdaManagedInstancesCapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\Layer;
 use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
@@ -130,10 +133,25 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         return $items;
     }
 
+    private function populateResultCapacityProviderConfig(array $json): CapacityProviderConfig
+    {
+        return new CapacityProviderConfig([
+            'LambdaManagedInstancesCapacityProviderConfig' => $this->populateResultLambdaManagedInstancesCapacityProviderConfig($json['LambdaManagedInstancesCapacityProviderConfig']),
+        ]);
+    }
+
     private function populateResultDeadLetterConfig(array $json): DeadLetterConfig
     {
         return new DeadLetterConfig([
             'TargetArn' => isset($json['TargetArn']) ? (string) $json['TargetArn'] : null,
+        ]);
+    }
+
+    private function populateResultDurableConfig(array $json): DurableConfig
+    {
+        return new DurableConfig([
+            'RetentionPeriodInDays' => isset($json['RetentionPeriodInDays']) ? (int) $json['RetentionPeriodInDays'] : null,
+            'ExecutionTimeout' => isset($json['ExecutionTimeout']) ? (int) $json['ExecutionTimeout'] : null,
         ]);
     }
 
@@ -233,6 +251,9 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
             'SnapStart' => empty($json['SnapStart']) ? null : $this->populateResultSnapStartResponse($json['SnapStart']),
             'RuntimeVersionConfig' => empty($json['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($json['RuntimeVersionConfig']),
             'LoggingConfig' => empty($json['LoggingConfig']) ? null : $this->populateResultLoggingConfig($json['LoggingConfig']),
+            'CapacityProviderConfig' => empty($json['CapacityProviderConfig']) ? null : $this->populateResultCapacityProviderConfig($json['CapacityProviderConfig']),
+            'ConfigSha256' => isset($json['ConfigSha256']) ? (string) $json['ConfigSha256'] : null,
+            'DurableConfig' => empty($json['DurableConfig']) ? null : $this->populateResultDurableConfig($json['DurableConfig']),
             'TenancyConfig' => empty($json['TenancyConfig']) ? null : $this->populateResultTenancyConfig($json['TenancyConfig']),
         ]);
     }
@@ -272,6 +293,15 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         return new ImageConfigResponse([
             'ImageConfig' => empty($json['ImageConfig']) ? null : $this->populateResultImageConfig($json['ImageConfig']),
             'Error' => empty($json['Error']) ? null : $this->populateResultImageConfigError($json['Error']),
+        ]);
+    }
+
+    private function populateResultLambdaManagedInstancesCapacityProviderConfig(array $json): LambdaManagedInstancesCapacityProviderConfig
+    {
+        return new LambdaManagedInstancesCapacityProviderConfig([
+            'CapacityProviderArn' => (string) $json['CapacityProviderArn'],
+            'PerExecutionEnvironmentMaxConcurrency' => isset($json['PerExecutionEnvironmentMaxConcurrency']) ? (int) $json['PerExecutionEnvironmentMaxConcurrency'] : null,
+            'ExecutionEnvironmentMemoryGiBPerVCpu' => isset($json['ExecutionEnvironmentMemoryGiBPerVCpu']) ? (float) $json['ExecutionEnvironmentMemoryGiBPerVCpu'] : null,
         ]);
     }
 

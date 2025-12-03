@@ -12,7 +12,7 @@ use AsyncAws\S3\ValueObject\Owner;
 class GetObjectAclOutput extends Result
 {
     /**
-     * Container for the bucket owner's display name and ID.
+     * Container for the bucket owner's ID.
      *
      * @var Owner|null
      */
