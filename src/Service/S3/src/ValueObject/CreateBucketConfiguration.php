@@ -56,12 +56,14 @@ final class CreateBucketConfiguration
      * An array of tags that you can apply to the bucket that you're creating. Tags are key-value pairs of metadata used to
      * categorize and organize your buckets, track costs, and control access.
      *
-     * > This parameter is only supported for S3 directory buckets. For more information, see Using tags with directory
-     * > buckets [^1].
-     * >
-     * > You must have the `s3express:TagResource` permission to create a directory bucket with tags.
+     * You must have the `s3:TagResource` permission to create a general purpose bucket with tags or the
+     * `s3express:TagResource` permission to create a directory bucket with tags.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+     * When creating buckets with tags, note that tag-based conditions using `aws:ResourceTag` and `s3:BucketTag` condition
+     * keys are applicable only after ABAC is enabled on the bucket. To learn more, see Enabling ABAC in general purpose
+     * buckets [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging-enable-abac.html
      *
      * @var Tag[]|null
      */

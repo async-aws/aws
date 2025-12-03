@@ -58,6 +58,14 @@ final class InvocationRequest extends Input
     private $clientContext;
 
     /**
+     * Optional unique name for the durable execution. When you start your special function, you can give it a unique name
+     * to identify this specific execution. It's like giving a nickname to a task.
+     *
+     * @var string|null
+     */
+    private $durableExecutionName;
+
+    /**
      * The JSON that you want to provide to your Lambda function as input. The maximum payload size is 6 MB for synchronous
      * invocations and 1 MB for asynchronous invocations.
      *
@@ -88,6 +96,7 @@ final class InvocationRequest extends Input
      *   InvocationType?: InvocationType::*|null,
      *   LogType?: LogType::*|null,
      *   ClientContext?: string|null,
+     *   DurableExecutionName?: string|null,
      *   Payload?: string|null,
      *   Qualifier?: string|null,
      *   TenantId?: string|null,
@@ -100,6 +109,7 @@ final class InvocationRequest extends Input
         $this->invocationType = $input['InvocationType'] ?? null;
         $this->logType = $input['LogType'] ?? null;
         $this->clientContext = $input['ClientContext'] ?? null;
+        $this->durableExecutionName = $input['DurableExecutionName'] ?? null;
         $this->payload = $input['Payload'] ?? null;
         $this->qualifier = $input['Qualifier'] ?? null;
         $this->tenantId = $input['TenantId'] ?? null;
@@ -112,6 +122,7 @@ final class InvocationRequest extends Input
      *   InvocationType?: InvocationType::*|null,
      *   LogType?: LogType::*|null,
      *   ClientContext?: string|null,
+     *   DurableExecutionName?: string|null,
      *   Payload?: string|null,
      *   Qualifier?: string|null,
      *   TenantId?: string|null,
@@ -126,6 +137,11 @@ final class InvocationRequest extends Input
     public function getClientContext(): ?string
     {
         return $this->clientContext;
+    }
+
+    public function getDurableExecutionName(): ?string
+    {
+        return $this->durableExecutionName;
     }
 
     public function getFunctionName(): ?string
@@ -189,6 +205,9 @@ final class InvocationRequest extends Input
         if (null !== $this->clientContext) {
             $headers['X-Amz-Client-Context'] = $this->clientContext;
         }
+        if (null !== $this->durableExecutionName) {
+            $headers['X-Amz-Durable-Execution-Name'] = $this->durableExecutionName;
+        }
         if (null !== $this->tenantId) {
             $headers['X-Amz-Tenant-Id'] = $this->tenantId;
         }
@@ -217,6 +236,13 @@ final class InvocationRequest extends Input
     public function setClientContext(?string $value): self
     {
         $this->clientContext = $value;
+
+        return $this;
+    }
+
+    public function setDurableExecutionName(?string $value): self
+    {
+        $this->durableExecutionName = $value;
 
         return $this;
     }

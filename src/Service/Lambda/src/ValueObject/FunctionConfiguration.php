@@ -313,6 +313,27 @@ final class FunctionConfiguration
     private $loggingConfig;
 
     /**
+     * Configuration for the capacity provider that manages compute resources for Lambda functions.
+     *
+     * @var CapacityProviderConfig|null
+     */
+    private $capacityProviderConfig;
+
+    /**
+     * The SHA256 hash of the function configuration.
+     *
+     * @var string|null
+     */
+    private $configSha256;
+
+    /**
+     * The function's durable execution configuration settings, if the function is configured for durability.
+     *
+     * @var DurableConfig|null
+     */
+    private $durableConfig;
+
+    /**
      * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
      * dedicated infrastructure per unique tenant.
      *
@@ -358,6 +379,9 @@ final class FunctionConfiguration
      *   SnapStart?: SnapStartResponse|array|null,
      *   RuntimeVersionConfig?: RuntimeVersionConfig|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
+     *   ConfigSha256?: string|null,
+     *   DurableConfig?: DurableConfig|array|null,
      *   TenancyConfig?: TenancyConfig|array|null,
      * } $input
      */
@@ -399,6 +423,9 @@ final class FunctionConfiguration
         $this->snapStart = isset($input['SnapStart']) ? SnapStartResponse::create($input['SnapStart']) : null;
         $this->runtimeVersionConfig = isset($input['RuntimeVersionConfig']) ? RuntimeVersionConfig::create($input['RuntimeVersionConfig']) : null;
         $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
+        $this->capacityProviderConfig = isset($input['CapacityProviderConfig']) ? CapacityProviderConfig::create($input['CapacityProviderConfig']) : null;
+        $this->configSha256 = $input['ConfigSha256'] ?? null;
+        $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
         $this->tenancyConfig = isset($input['TenancyConfig']) ? TenancyConfig::create($input['TenancyConfig']) : null;
     }
 
@@ -440,6 +467,9 @@ final class FunctionConfiguration
      *   SnapStart?: SnapStartResponse|array|null,
      *   RuntimeVersionConfig?: RuntimeVersionConfig|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
+     *   ConfigSha256?: string|null,
+     *   DurableConfig?: DurableConfig|array|null,
      *   TenancyConfig?: TenancyConfig|array|null,
      * }|FunctionConfiguration $input
      */
@@ -456,6 +486,11 @@ final class FunctionConfiguration
         return $this->architectures ?? [];
     }
 
+    public function getCapacityProviderConfig(): ?CapacityProviderConfig
+    {
+        return $this->capacityProviderConfig;
+    }
+
     public function getCodeSha256(): ?string
     {
         return $this->codeSha256;
@@ -466,6 +501,11 @@ final class FunctionConfiguration
         return $this->codeSize;
     }
 
+    public function getConfigSha256(): ?string
+    {
+        return $this->configSha256;
+    }
+
     public function getDeadLetterConfig(): ?DeadLetterConfig
     {
         return $this->deadLetterConfig;
@@ -474,6 +514,11 @@ final class FunctionConfiguration
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getDurableConfig(): ?DurableConfig
+    {
+        return $this->durableConfig;
     }
 
     public function getEnvironment(): ?EnvironmentResponse

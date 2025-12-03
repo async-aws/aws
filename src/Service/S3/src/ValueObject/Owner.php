@@ -3,33 +3,11 @@
 namespace AsyncAws\S3\ValueObject;
 
 /**
- * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
- * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
- * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
- * !
- * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
- * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
- * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
- *
  * Container for the owner's display name and ID.
  */
 final class Owner
 {
     /**
-     * Container for the display name of the owner. This value is only supported in the following Amazon Web Services
-     * Regions:
-     *
-     * - US East (N. Virginia)
-     * - US West (N. California)
-     * - US West (Oregon)
-     * - Asia Pacific (Singapore)
-     * - Asia Pacific (Sydney)
-     * - Asia Pacific (Tokyo)
-     * - Europe (Ireland)
-     * - South America (São Paulo)
-     *
-     * > This functionality is not supported for directory buckets.
-     *
      * @var string|null
      */
     private $displayName;

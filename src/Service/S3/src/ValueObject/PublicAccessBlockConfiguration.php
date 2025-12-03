@@ -4,7 +4,8 @@ namespace AsyncAws\S3\ValueObject;
 
 /**
  * The PublicAccessBlock configuration that you want to apply to this Amazon S3 bucket. You can enable the configuration
- * options in any combination. For more information about when Amazon S3 considers a bucket or object public, see The
+ * options in any combination. Bucket-level settings work alongside account-level settings (which may inherit from
+ * organization-level policies). For more information about when Amazon S3 considers a bucket or object public, see The
  * Meaning of "Public" [^1] in the *Amazon S3 User Guide*.
  *
  * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status

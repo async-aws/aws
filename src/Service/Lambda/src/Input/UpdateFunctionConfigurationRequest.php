@@ -7,7 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
+use AsyncAws\Lambda\ValueObject\DurableConfig;
 use AsyncAws\Lambda\ValueObject\Environment;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
@@ -222,6 +224,21 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $loggingConfig;
 
     /**
+     * Configuration for the capacity provider that manages compute resources for Lambda functions.
+     *
+     * @var CapacityProviderConfig|null
+     */
+    private $capacityProviderConfig;
+
+    /**
+     * Configuration settings for durable functions. Allows updating execution timeout and retention period for functions
+     * with durability enabled.
+     *
+     * @var DurableConfig|null
+     */
+    private $durableConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string,
      *   Role?: string|null,
@@ -242,6 +259,8 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   EphemeralStorage?: EphemeralStorage|array|null,
      *   SnapStart?: SnapStart|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
+     *   DurableConfig?: DurableConfig|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -266,6 +285,8 @@ final class UpdateFunctionConfigurationRequest extends Input
         $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
         $this->snapStart = isset($input['SnapStart']) ? SnapStart::create($input['SnapStart']) : null;
         $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
+        $this->capacityProviderConfig = isset($input['CapacityProviderConfig']) ? CapacityProviderConfig::create($input['CapacityProviderConfig']) : null;
+        $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
         parent::__construct($input);
     }
 
@@ -290,12 +311,19 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   EphemeralStorage?: EphemeralStorage|array|null,
      *   SnapStart?: SnapStart|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
+     *   DurableConfig?: DurableConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getCapacityProviderConfig(): ?CapacityProviderConfig
+    {
+        return $this->capacityProviderConfig;
     }
 
     public function getDeadLetterConfig(): ?DeadLetterConfig
@@ -306,6 +334,11 @@ final class UpdateFunctionConfigurationRequest extends Input
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getDurableConfig(): ?DurableConfig
+    {
+        return $this->durableConfig;
     }
 
     public function getEnvironment(): ?Environment
@@ -432,6 +465,13 @@ final class UpdateFunctionConfigurationRequest extends Input
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setCapacityProviderConfig(?CapacityProviderConfig $value): self
+    {
+        $this->capacityProviderConfig = $value;
+
+        return $this;
+    }
+
     public function setDeadLetterConfig(?DeadLetterConfig $value): self
     {
         $this->deadLetterConfig = $value;
@@ -442,6 +482,13 @@ final class UpdateFunctionConfigurationRequest extends Input
     public function setDescription(?string $value): self
     {
         $this->description = $value;
+
+        return $this;
+    }
+
+    public function setDurableConfig(?DurableConfig $value): self
+    {
+        $this->durableConfig = $value;
 
         return $this;
     }
@@ -644,6 +691,12 @@ final class UpdateFunctionConfigurationRequest extends Input
         }
         if (null !== $v = $this->loggingConfig) {
             $payload['LoggingConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->capacityProviderConfig) {
+            $payload['CapacityProviderConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->durableConfig) {
+            $payload['DurableConfig'] = $v->requestBody();
         }
 
         return $payload;

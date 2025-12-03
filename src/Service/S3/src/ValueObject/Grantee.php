@@ -6,44 +6,16 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Type;
 
 /**
- * ! End of support notice: Beginning November 21, 2025, Amazon S3 will stop returning `DisplayName`. Update your
- * ! applications to use canonical IDs (unique identifier for Amazon Web Services accounts), Amazon Web Services account
- * ! ID (12 digit identifier) or IAM ARNs (full resource naming) as a direct replacement of `DisplayName`.
- * !
- * ! This change affects the following Amazon Web Services Regions: US East (N. Virginia) Region, US West (N.
- * ! California) Region, US West (Oregon) Region, Asia Pacific (Singapore) Region, Asia Pacific (Sydney) Region, Asia
- * ! Pacific (Tokyo) Region, Europe (Ireland) Region, and South America (São Paulo) Region.
- *
  * Container for the person being granted permissions.
  */
 final class Grantee
 {
     /**
-     * Screen name of the grantee.
-     *
      * @var string|null
      */
     private $displayName;
 
     /**
-     * Email address of the grantee.
-     *
-     * > Using email addresses to specify a grantee is only supported in the following Amazon Web Services Regions:
-     * >
-     * > - US East (N. Virginia)
-     * > - US West (N. California)
-     * > - US West (Oregon)
-     * > - Asia Pacific (Singapore)
-     * > - Asia Pacific (Sydney)
-     * > - Asia Pacific (Tokyo)
-     * > - Europe (Ireland)
-     * > - South America (São Paulo)
-     * >
-     * > For a list of all the Amazon S3 supported Regions and endpoints, see Regions and Endpoints [^1] in the Amazon Web
-     * > Services General Reference.
-     *
-     * [^1]: https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-     *
      * @var string|null
      */
     private $emailAddress;

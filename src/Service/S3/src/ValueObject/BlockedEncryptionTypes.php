@@ -9,7 +9,7 @@ use AsyncAws\S3\Enum\EncryptionType;
  * the specified server-side encryption type. For example, blocking an encryption type will block `PutObject`,
  * `CopyObject`, `PostObject`, multipart upload, and replication requests to the bucket for objects with the specified
  * encryption type. However, you can continue to read and list any pre-existing objects already encrypted with the
- * specified encryption type. For more information, see Blocking an encryption type for a general purpose bucket [^1].
+ * specified encryption type. For more information, see Blocking or unblocking SSE-C for a general purpose bucket [^1].
  *
  * This data type is used with the following actions:
  *
@@ -23,7 +23,7 @@ use AsyncAws\S3\Enum\EncryptionType;
  *
  *   You must have the `s3:GetEncryptionConfiguration` permission to view a bucket's encryption type.
  *
- * [^1]: https://docs.aws.amazon.com/AmazonS3/userguide/block-encryption-type.html
+ * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/blocking-unblocking-s3-c-encryption-gpb.html
  * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html
  * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html
  * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html

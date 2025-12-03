@@ -55,13 +55,13 @@ final class ServerSideEncryptionRule
      * the specified server-side encryption type. For example, blocking an encryption type will block `PutObject`,
      * `CopyObject`, `PostObject`, multipart upload, and replication requests to the bucket for objects with the specified
      * encryption type. However, you can continue to read and list any pre-existing objects already encrypted with the
-     * specified encryption type. For more information, see Blocking an encryption type for a general purpose bucket [^1].
+     * specified encryption type. For more information, see Blocking or unblocking SSE-C for a general purpose bucket [^1].
      *
-     * > Currently, this parameter only supports blocking or unblocking Server Side Encryption with Customer Provided Keys
+     * > Currently, this parameter only supports blocking or unblocking server-side encryption with customer-provided keys
      * > (SSE-C). For more information about SSE-C, see Using server-side encryption with customer-provided keys (SSE-C)
      * > [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/userguide/block-encryption-type.html
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/blocking-unblocking-s3-c-encryption-gpb.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html
      *
      * @var BlockedEncryptionTypes|null

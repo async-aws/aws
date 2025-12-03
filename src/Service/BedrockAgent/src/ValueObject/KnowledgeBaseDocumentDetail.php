@@ -28,7 +28,7 @@ final class KnowledgeBaseDocumentDetail
     /**
      * The ingestion status of the document. The following statuses are possible:
      *
-     * - STARTED – You submitted the ingestion job containing the document.
+     * - STARTING – You submitted the ingestion job containing the document.
      * - PENDING – The document is waiting to be ingested.
      * - IN_PROGRESS – The document is being ingested.
      * - INDEXED – The document was successfully indexed.
