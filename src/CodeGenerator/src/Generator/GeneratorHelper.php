@@ -60,9 +60,11 @@ class GeneratorHelper
         ];
         static $ignored = [
             'GB' => 'Gb',
+            'GiB' => 'Gib',
             'BFrame' => 'Bframe',
             'BReference' => 'Breference',
             'BBox' => 'Bbox',
+            'VCpu' => 'Vcpu',
             'IInterval' => 'Iinterval',
             'IFrame' => 'Iframe',
             'XCoordinate' => 'Xcoordinate',
