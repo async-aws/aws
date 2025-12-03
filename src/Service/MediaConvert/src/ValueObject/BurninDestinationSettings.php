@@ -203,7 +203,7 @@ final class BurninDestinationSettings
      *
      * @var int|null
      */
-    private $shadowXoffset;
+    private $shadowXOffset;
 
     /**
      * Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a shadow
@@ -212,7 +212,7 @@ final class BurninDestinationSettings
      *
      * @var int|null
      */
-    private $shadowYoffset;
+    private $shadowYOffset;
 
     /**
      * To use the available style, color, and position information from your input captions: Set Style passthrough to
@@ -243,7 +243,7 @@ final class BurninDestinationSettings
      *
      * @var int|null
      */
-    private $xposition;
+    private $xPosition;
 
     /**
      * Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10 would
@@ -252,7 +252,7 @@ final class BurninDestinationSettings
      *
      * @var int|null
      */
-    private $yposition;
+    private $yPosition;
 
     /**
      * @param array{
@@ -306,12 +306,12 @@ final class BurninDestinationSettings
         $this->removeRubyReserveAttributes = $input['RemoveRubyReserveAttributes'] ?? null;
         $this->shadowColor = $input['ShadowColor'] ?? null;
         $this->shadowOpacity = $input['ShadowOpacity'] ?? null;
-        $this->shadowXoffset = $input['ShadowXOffset'] ?? null;
-        $this->shadowYoffset = $input['ShadowYOffset'] ?? null;
+        $this->shadowXOffset = $input['ShadowXOffset'] ?? null;
+        $this->shadowYOffset = $input['ShadowYOffset'] ?? null;
         $this->stylePassthrough = $input['StylePassthrough'] ?? null;
         $this->teletextSpacing = $input['TeletextSpacing'] ?? null;
-        $this->xposition = $input['XPosition'] ?? null;
-        $this->yposition = $input['YPosition'] ?? null;
+        $this->xPosition = $input['XPosition'] ?? null;
+        $this->yPosition = $input['YPosition'] ?? null;
     }
 
     /**
@@ -476,14 +476,14 @@ final class BurninDestinationSettings
         return $this->shadowOpacity;
     }
 
-    public function getShadowXoffset(): ?int
+    public function getShadowXOffset(): ?int
     {
-        return $this->shadowXoffset;
+        return $this->shadowXOffset;
     }
 
-    public function getShadowYoffset(): ?int
+    public function getShadowYOffset(): ?int
     {
-        return $this->shadowYoffset;
+        return $this->shadowYOffset;
     }
 
     /**
@@ -502,14 +502,14 @@ final class BurninDestinationSettings
         return $this->teletextSpacing;
     }
 
-    public function getXposition(): ?int
+    public function getXPosition(): ?int
     {
-        return $this->xposition;
+        return $this->xPosition;
     }
 
-    public function getYposition(): ?int
+    public function getYPosition(): ?int
     {
-        return $this->yposition;
+        return $this->yPosition;
     }
 
     /**
@@ -605,10 +605,10 @@ final class BurninDestinationSettings
         if (null !== $v = $this->shadowOpacity) {
             $payload['shadowOpacity'] = $v;
         }
-        if (null !== $v = $this->shadowXoffset) {
+        if (null !== $v = $this->shadowXOffset) {
             $payload['shadowXOffset'] = $v;
         }
-        if (null !== $v = $this->shadowYoffset) {
+        if (null !== $v = $this->shadowYOffset) {
             $payload['shadowYOffset'] = $v;
         }
         if (null !== $v = $this->stylePassthrough) {
@@ -623,10 +623,10 @@ final class BurninDestinationSettings
             }
             $payload['teletextSpacing'] = $v;
         }
-        if (null !== $v = $this->xposition) {
+        if (null !== $v = $this->xPosition) {
             $payload['xPosition'] = $v;
         }
-        if (null !== $v = $this->yposition) {
+        if (null !== $v = $this->yPosition) {
             $payload['yPosition'] = $v;
         }
 

@@ -71,7 +71,7 @@ final class CmafGroupSettings
      *
      * @var string|null
      */
-    private $dashIframeTrickPlayNameModifier;
+    private $dashIFrameTrickPlayNameModifier;
 
     /**
      * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline for outputs
@@ -202,7 +202,7 @@ final class CmafGroupSettings
      *
      * @var CmafPtsOffsetHandlingForBFrames::*|null
      */
-    private $ptsOffsetHandlingForBframes;
+    private $ptsOffsetHandlingForBFrames;
 
     /**
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length
@@ -331,7 +331,7 @@ final class CmafGroupSettings
         $this->baseUrl = $input['BaseUrl'] ?? null;
         $this->clientCache = $input['ClientCache'] ?? null;
         $this->codecSpecification = $input['CodecSpecification'] ?? null;
-        $this->dashIframeTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
+        $this->dashIFrameTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
         $this->dashManifestStyle = $input['DashManifestStyle'] ?? null;
         $this->destination = $input['Destination'] ?? null;
         $this->destinationSettings = isset($input['DestinationSettings']) ? DestinationSettings::create($input['DestinationSettings']) : null;
@@ -345,7 +345,7 @@ final class CmafGroupSettings
         $this->minFinalSegmentLength = $input['MinFinalSegmentLength'] ?? null;
         $this->mpdManifestBandwidthType = $input['MpdManifestBandwidthType'] ?? null;
         $this->mpdProfile = $input['MpdProfile'] ?? null;
-        $this->ptsOffsetHandlingForBframes = $input['PtsOffsetHandlingForBFrames'] ?? null;
+        $this->ptsOffsetHandlingForBFrames = $input['PtsOffsetHandlingForBFrames'] ?? null;
         $this->segmentControl = $input['SegmentControl'] ?? null;
         $this->segmentLength = $input['SegmentLength'] ?? null;
         $this->segmentLengthControl = $input['SegmentLengthControl'] ?? null;
@@ -423,9 +423,9 @@ final class CmafGroupSettings
         return $this->codecSpecification;
     }
 
-    public function getDashIframeTrickPlayNameModifier(): ?string
+    public function getDashIFrameTrickPlayNameModifier(): ?string
     {
-        return $this->dashIframeTrickPlayNameModifier;
+        return $this->dashIFrameTrickPlayNameModifier;
     }
 
     /**
@@ -514,9 +514,9 @@ final class CmafGroupSettings
     /**
      * @return CmafPtsOffsetHandlingForBFrames::*|null
      */
-    public function getPtsOffsetHandlingForBframes(): ?string
+    public function getPtsOffsetHandlingForBFrames(): ?string
     {
-        return $this->ptsOffsetHandlingForBframes;
+        return $this->ptsOffsetHandlingForBFrames;
     }
 
     /**
@@ -617,7 +617,7 @@ final class CmafGroupSettings
             }
             $payload['codecSpecification'] = $v;
         }
-        if (null !== $v = $this->dashIframeTrickPlayNameModifier) {
+        if (null !== $v = $this->dashIFrameTrickPlayNameModifier) {
             $payload['dashIFrameTrickPlayNameModifier'] = $v;
         }
         if (null !== $v = $this->dashManifestStyle) {
@@ -677,7 +677,7 @@ final class CmafGroupSettings
             }
             $payload['mpdProfile'] = $v;
         }
-        if (null !== $v = $this->ptsOffsetHandlingForBframes) {
+        if (null !== $v = $this->ptsOffsetHandlingForBFrames) {
             if (!CmafPtsOffsetHandlingForBFrames::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "ptsOffsetHandlingForBFrames" for "%s". The value "%s" is not a valid "CmafPtsOffsetHandlingForBFrames".', __CLASS__, $v));
             }
