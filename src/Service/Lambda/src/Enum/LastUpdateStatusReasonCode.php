@@ -6,6 +6,7 @@ final class LastUpdateStatusReasonCode
 {
     public const CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED = 'CapacityProviderScalingLimitExceeded';
     public const DISABLED_KMSKEY = 'DisabledKMSKey';
+    public const DISALLOWED_BY_VPC_ENCRYPTION_CONTROL = 'DisallowedByVpcEncryptionControl';
     public const EC2REQUEST_LIMIT_EXCEEDED = 'EC2RequestLimitExceeded';
     public const EFSIOERROR = 'EFSIOError';
     public const EFSMOUNT_CONNECTIVITY_ERROR = 'EFSMountConnectivityError';
@@ -43,6 +44,7 @@ final class LastUpdateStatusReasonCode
         return isset([
             self::CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED => true,
             self::DISABLED_KMSKEY => true,
+            self::DISALLOWED_BY_VPC_ENCRYPTION_CONTROL => true,
             self::EC2REQUEST_LIMIT_EXCEEDED => true,
             self::EFSIOERROR => true,
             self::EFSMOUNT_CONNECTIVITY_ERROR => true,

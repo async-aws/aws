@@ -7,6 +7,7 @@ final class StateReasonCode
     public const CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED = 'CapacityProviderScalingLimitExceeded';
     public const CREATING = 'Creating';
     public const DISABLED_KMSKEY = 'DisabledKMSKey';
+    public const DISALLOWED_BY_VPC_ENCRYPTION_CONTROL = 'DisallowedByVpcEncryptionControl';
     public const DRAINING_DURABLE_EXECUTIONS = 'DrainingDurableExecutions';
     public const EC2REQUEST_LIMIT_EXCEEDED = 'EC2RequestLimitExceeded';
     public const EFSIOERROR = 'EFSIOError';
@@ -48,6 +49,7 @@ final class StateReasonCode
             self::CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED => true,
             self::CREATING => true,
             self::DISABLED_KMSKEY => true,
+            self::DISALLOWED_BY_VPC_ENCRYPTION_CONTROL => true,
             self::DRAINING_DURABLE_EXECUTIONS => true,
             self::EC2REQUEST_LIMIT_EXCEEDED => true,
             self::EFSIOERROR => true,
