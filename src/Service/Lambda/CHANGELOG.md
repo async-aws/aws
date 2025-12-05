@@ -11,6 +11,7 @@
 - AWS api-change: Added support for creating and invoking Tenant Isolated functions in AWS Lambda APIs.
 - AWS api-change: Launching Lambda durable functions - a new feature to build reliable multi-step applications and AI workflows natively within the Lambda developer experience.
 - AWS api-change: Launching Lambda Managed Instances - a new feature to run Lambda on EC2.
+- AWS api-change: Add DisallowedByVpcEncryptionControl to the LastUpdateStatusReasonCode and StateReasonCode enums to represent failures caused by VPC Encryption Controls.
 
 ### Dependency bumped
 
