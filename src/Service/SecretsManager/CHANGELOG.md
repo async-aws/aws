@@ -6,7 +6,7 @@
 
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Adds support to create, update, retrieve, rotate, and delete managed external secrets.
-- AWS api-change: TODO
+- AWS api-change: Added `eusc-de-east-1` region
 
 ### Dependency bumped
 

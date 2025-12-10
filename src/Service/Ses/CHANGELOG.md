@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Update Mail Manager Archive ARN validation
-- AWS api-change: Updating the desired url for `PutEmailIdentityDkimSigningAttributes` from v1 to v2
+- AWS api-change: Added `eusc-de-east-1` region
 
 ### Dependency bumped
 

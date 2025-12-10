@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `eusc-de-east-1` region
 
 ### Dependency bumped
 

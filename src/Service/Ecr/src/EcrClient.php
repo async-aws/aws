@@ -95,7 +95,7 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'eusc-de-east-1':
+- AWS api-change: Added `eusc-de-east-1` region
                 return [
                     'endpoint' => 'https://api.ecr.eusc-de-east-1.amazonaws.eu',
                     'signRegion' => 'eusc-de-east-1',
