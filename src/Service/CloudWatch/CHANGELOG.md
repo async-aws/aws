@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-isob-west-1` region
+- AWS api-change: TODO
 
 ### Dependency bumped
 

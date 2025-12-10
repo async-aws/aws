@@ -559,6 +559,13 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://sns.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-ca-west-1':
                 return [
                     'endpoint' => 'https://sns-fips.ca-west-1.amazonaws.com',

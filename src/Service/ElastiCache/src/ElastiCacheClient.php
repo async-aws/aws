@@ -83,6 +83,13 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://elasticache.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips':
             case 'us-gov-west-1-fips':
                 return [

@@ -295,6 +295,13 @@ class SsmClient extends AbstractApi
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://ssm.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-ca-central-1':
                 return [
                     'endpoint' => 'https://ssm-fips.ca-central-1.amazonaws.com',

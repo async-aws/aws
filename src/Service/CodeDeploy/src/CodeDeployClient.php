@@ -234,6 +234,13 @@ class CodeDeployClient extends AbstractApi
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://codedeploy.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'codedeploy',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://codedeploy-fips.us-east-1.amazonaws.com',

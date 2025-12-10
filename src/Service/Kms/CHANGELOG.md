@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Added support for new ECC_NIST_EDWARDS25519 AWS KMS key spec
+- AWS api-change: TODO
 
 ### Dependency bumped
 

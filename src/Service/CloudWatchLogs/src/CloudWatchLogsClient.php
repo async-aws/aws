@@ -378,6 +378,13 @@ class CloudWatchLogsClient extends AbstractApi
                     'signService' => 'logs',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://logs.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'logs',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-ca-central-1':
                 return [
                     'endpoint' => 'https://logs-fips.ca-central-1.amazonaws.com',

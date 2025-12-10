@@ -150,6 +150,13 @@ class SesClient extends AbstractApi
         }
 
         switch ($region) {
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://email.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'ses',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-ca-central-1':
                 return [
                     'endpoint' => 'https://email-fips.ca-central-1.amazonaws.com',

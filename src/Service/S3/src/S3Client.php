@@ -3418,6 +3418,13 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://s3.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['v4'],
+                ];
             case 's3-external-1':
                 return [
                     'endpoint' => 'https://s3-external-1.amazonaws.com',

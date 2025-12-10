@@ -205,6 +205,13 @@ class FirehoseClient extends AbstractApi
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://firehose.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'firehose',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://firehose-fips.us-east-1.amazonaws.com',

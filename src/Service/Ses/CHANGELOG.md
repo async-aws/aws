@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Update Mail Manager Archive ARN validation
+- AWS api-change: Updating the desired url for `PutEmailIdentityDkimSigningAttributes` from v1 to v2
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2
