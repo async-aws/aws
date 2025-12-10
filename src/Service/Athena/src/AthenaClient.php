@@ -719,6 +719,13 @@ class AthenaClient extends AbstractApi
                     'signService' => 'athena',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://athena.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'athena',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-ca-central-1':
                 return [
                     'endpoint' => 'https://athena-fips.ca-central-1.amazonaws.com',

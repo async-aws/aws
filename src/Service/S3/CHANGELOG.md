@@ -13,6 +13,7 @@
 - AWS api-change: Amazon Simple Storage Service / Features: Add conditional writes in CopyObject on destination key to prevent unintended object modifications.
 - AWS api-change: Adds support for blocking SSE-C writes to general purpose buckets.
 - AWS api-change: New S3 Storage Class FSX_ONTAP
+- AWS api-change: Added `eusc-de-east-1` region
 
 ### Dependency bumped
 

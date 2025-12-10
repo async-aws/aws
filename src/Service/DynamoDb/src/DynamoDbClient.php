@@ -1131,6 +1131,13 @@ class DynamoDbClient extends AbstractApi
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://dynamodb.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'dynamodb',
+                    'signVersions' => ['v4'],
+                ];
             case 'local':
                 return [
                     'endpoint' => 'http://localhost:8000',

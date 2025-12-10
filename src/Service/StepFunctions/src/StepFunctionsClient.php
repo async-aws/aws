@@ -311,6 +311,13 @@ class StepFunctionsClient extends AbstractApi
                     'signService' => 'states',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://states.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'states',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-ca-central-1':
                 return [
                     'endpoint' => 'https://states-fips.ca-central-1.amazonaws.com',

@@ -7,6 +7,7 @@
 - AWS api-change: Amazon Route 53 now supports the ISOB West Region for private DNS for Amazon VPCs and cloudwatch healthchecks.
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Adds support for new route53 feature: accelerated recovery.
+- AWS api-change: Amazon Route 53 now supports the EU (Germany) Region (eusc-de-east-1) for latency records, geoproximity records, and private DNS for Amazon VPCs in that region
 
 ### Dependency bumped
 

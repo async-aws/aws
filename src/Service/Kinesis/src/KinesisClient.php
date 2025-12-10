@@ -1605,6 +1605,13 @@ class KinesisClient extends AbstractApi
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://kinesis.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'kinesis',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://kinesis-fips.us-east-1.amazonaws.com',

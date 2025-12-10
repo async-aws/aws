@@ -6,6 +6,7 @@
 
 - AWS api-change: Update endpoint ruleset parameters casing
 - AWS api-change: Added `us-isob-west-1` region
+- AWS api-change: Added `eusc-de-east-1` region
 
 ### Dependency bumped
 
