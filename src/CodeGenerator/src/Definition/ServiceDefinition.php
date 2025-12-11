@@ -15,6 +15,8 @@ use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
  */
 class ServiceDefinition
 {
+    private const SUPPORTED_PROTOCOLS = ['json', 'rest-json', 'query', 'rest-xml'];
+
     /**
      * @var string
      */
@@ -150,7 +152,19 @@ class ServiceDefinition
 
     public function getProtocol(): string
     {
-        return $this->definition['metadata']['protocol'];
+        $protocol = $this->definition['metadata']['protocol'];
+        if (\in_array($protocol, self::SUPPORTED_PROTOCOLS, true)) {
+            return $protocol;
+        }
+
+        $protocols = $this->definition['metadata']['protocols'] ?? [];
+        foreach (self::SUPPORTED_PROTOCOLS as $supportedProtocol) {
+            if (\in_array($supportedProtocol, $protocols, true)) {
+                return $supportedProtocol;
+            }
+        }
+
+        return $protocol;
     }
 
     public function getApiReferenceUrl(): string
