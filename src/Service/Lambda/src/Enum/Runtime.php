@@ -8,6 +8,7 @@ final class Runtime
     public const DOTNETCORE_2_0 = 'dotnetcore2.0';
     public const DOTNETCORE_2_1 = 'dotnetcore2.1';
     public const DOTNETCORE_3_1 = 'dotnetcore3.1';
+    public const DOTNET_10 = 'dotnet10';
     public const DOTNET_6 = 'dotnet6';
     public const DOTNET_8 = 'dotnet8';
     public const GO_1_X = 'go1.x';
@@ -56,6 +57,7 @@ final class Runtime
             self::DOTNETCORE_2_0 => true,
             self::DOTNETCORE_2_1 => true,
             self::DOTNETCORE_3_1 => true,
+            self::DOTNET_10 => true,
             self::DOTNET_6 => true,
             self::DOTNET_8 => true,
             self::GO_1_X => true,

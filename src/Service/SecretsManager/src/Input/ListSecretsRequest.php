@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\SecretsManager\Enum\SortByType;
 use AsyncAws\SecretsManager\Enum\SortOrderType;
 use AsyncAws\SecretsManager\ValueObject\Filter;
 
@@ -52,12 +53,20 @@ final class ListSecretsRequest extends Input
     private $sortOrder;
 
     /**
+     * If not specified, secrets are listed by `CreatedDate`.
+     *
+     * @var SortByType::*|null
+     */
+    private $sortBy;
+
+    /**
      * @param array{
      *   IncludePlannedDeletion?: bool|null,
      *   MaxResults?: int|null,
      *   NextToken?: string|null,
      *   Filters?: array<Filter|array>|null,
      *   SortOrder?: SortOrderType::*|null,
+     *   SortBy?: SortByType::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -68,6 +77,7 @@ final class ListSecretsRequest extends Input
         $this->nextToken = $input['NextToken'] ?? null;
         $this->filters = isset($input['Filters']) ? array_map([Filter::class, 'create'], $input['Filters']) : null;
         $this->sortOrder = $input['SortOrder'] ?? null;
+        $this->sortBy = $input['SortBy'] ?? null;
         parent::__construct($input);
     }
 
@@ -78,6 +88,7 @@ final class ListSecretsRequest extends Input
      *   NextToken?: string|null,
      *   Filters?: array<Filter|array>|null,
      *   SortOrder?: SortOrderType::*|null,
+     *   SortBy?: SortByType::*|null,
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input
      */
@@ -107,6 +118,14 @@ final class ListSecretsRequest extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    /**
+     * @return SortByType::*|null
+     */
+    public function getSortBy(): ?string
+    {
+        return $this->sortBy;
     }
 
     /**
@@ -175,6 +194,16 @@ final class ListSecretsRequest extends Input
     }
 
     /**
+     * @param SortByType::*|null $value
+     */
+    public function setSortBy(?string $value): self
+    {
+        $this->sortBy = $value;
+
+        return $this;
+    }
+
+    /**
      * @param SortOrderType::*|null $value
      */
     public function setSortOrder(?string $value): self
@@ -209,6 +238,12 @@ final class ListSecretsRequest extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "SortOrder" for "%s". The value "%s" is not a valid "SortOrderType".', __CLASS__, $v));
             }
             $payload['SortOrder'] = $v;
+        }
+        if (null !== $v = $this->sortBy) {
+            if (!SortByType::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "SortBy" for "%s". The value "%s" is not a valid "SortByType".', __CLASS__, $v));
+            }
+            $payload['SortBy'] = $v;
         }
 
         return $payload;

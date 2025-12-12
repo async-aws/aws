@@ -7,6 +7,7 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\SecretsManager\Enum\SortByType;
 use AsyncAws\SecretsManager\Enum\SortOrderType;
 use AsyncAws\SecretsManager\Exception\DecryptionFailureException;
 use AsyncAws\SecretsManager\Exception\EncryptionFailureException;
@@ -293,6 +294,7 @@ class SecretsManagerClient extends AbstractApi
      *   NextToken?: string|null,
      *   Filters?: array<Filter|array>|null,
      *   SortOrder?: SortOrderType::*|null,
+     *   SortBy?: SortByType::*|null,
      *   '@region'?: string|null,
      * }|ListSecretsRequest $input
      *

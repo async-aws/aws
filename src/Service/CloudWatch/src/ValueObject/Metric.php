@@ -85,12 +85,11 @@ final class Metric
             $payload['MetricName'] = $v;
         }
         if (null !== $v = $this->dimensions) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Dimensions'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["Dimensions.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['Dimensions'][$index] = $listValue->requestBody();
             }
         }
 

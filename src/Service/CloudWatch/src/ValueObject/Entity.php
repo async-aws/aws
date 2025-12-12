@@ -84,19 +84,23 @@ final class Entity
     {
         $payload = [];
         if (null !== $v = $this->keyAttributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                ++$index;
-                $payload["KeyAttributes.entry.$index.key"] = $mapKey;
-                $payload["KeyAttributes.entry.$index.value"] = $mapValue;
+            if (empty($v)) {
+                $payload['KeyAttributes'] = new \stdClass();
+            } else {
+                $payload['KeyAttributes'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['KeyAttributes'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->attributes) {
-            $index = 0;
-            foreach ($v as $mapKey => $mapValue) {
-                ++$index;
-                $payload["Attributes.entry.$index.key"] = $mapKey;
-                $payload["Attributes.entry.$index.value"] = $mapValue;
+            if (empty($v)) {
+                $payload['Attributes'] = new \stdClass();
+            } else {
+                $payload['Attributes'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['Attributes'][$name] = $mv;
+                }
             }
         }
 

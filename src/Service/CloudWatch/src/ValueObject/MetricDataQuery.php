@@ -200,9 +200,7 @@ final class MetricDataQuery
         $v = $this->id;
         $payload['Id'] = $v;
         if (null !== $v = $this->metricStat) {
-            foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MetricStat.$bodyKey"] = $bodyValue;
-            }
+            $payload['MetricStat'] = $v->requestBody();
         }
         if (null !== $v = $this->expression) {
             $payload['Expression'] = $v;
@@ -211,7 +209,7 @@ final class MetricDataQuery
             $payload['Label'] = $v;
         }
         if (null !== $v = $this->returnData) {
-            $payload['ReturnData'] = $v ? 'true' : 'false';
+            $payload['ReturnData'] = (bool) $v;
         }
         if (null !== $v = $this->period) {
             $payload['Period'] = $v;

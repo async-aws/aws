@@ -65,17 +65,14 @@ final class EntityMetricData
     {
         $payload = [];
         if (null !== $v = $this->entity) {
-            foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Entity.$bodyKey"] = $bodyValue;
-            }
+            $payload['Entity'] = $v->requestBody();
         }
         if (null !== $v = $this->metricData) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['MetricData'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MetricData.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['MetricData'][$index] = $listValue->requestBody();
             }
         }
 

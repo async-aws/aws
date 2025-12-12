@@ -209,37 +209,36 @@ final class MetricDatum
         $v = $this->metricName;
         $payload['MetricName'] = $v;
         if (null !== $v = $this->dimensions) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Dimensions'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["Dimensions.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['Dimensions'][$index] = $listValue->requestBody();
             }
         }
         if (null !== $v = $this->timestamp) {
-            $payload['Timestamp'] = $v->format(\DateTimeInterface::ATOM);
+            $payload['Timestamp'] = $v->getTimestamp();
         }
         if (null !== $v = $this->value) {
             $payload['Value'] = $v;
         }
         if (null !== $v = $this->statisticValues) {
-            foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                $payload["StatisticValues.$bodyKey"] = $bodyValue;
-            }
+            $payload['StatisticValues'] = $v->requestBody();
         }
         if (null !== $v = $this->values) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Values'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                $payload["Values.member.$index"] = $mapValue;
+                $payload['Values'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->counts) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Counts'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                $payload["Counts.member.$index"] = $mapValue;
+                $payload['Counts'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->unit) {

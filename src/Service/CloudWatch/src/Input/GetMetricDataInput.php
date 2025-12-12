@@ -192,7 +192,11 @@ final class GetMetricDataInput extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'GraniteServiceVersion20100801.GetMetricData',
+            'Accept' => 'application/json',
+        ];
 
         // Prepare query
         $query = [];
@@ -201,7 +205,8 @@ final class GetMetricDataInput extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'GetMetricData', 'Version' => '2010-08-01'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -269,22 +274,21 @@ final class GetMetricDataInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "MetricDataQueries" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        $index = 0;
-        foreach ($v as $mapValue) {
+        $index = -1;
+        $payload['MetricDataQueries'] = [];
+        foreach ($v as $listValue) {
             ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MetricDataQueries.member.$index.$bodyKey"] = $bodyValue;
-            }
+            $payload['MetricDataQueries'][$index] = $listValue->requestBody();
         }
 
         if (null === $v = $this->startTime) {
             throw new InvalidArgument(\sprintf('Missing parameter "StartTime" for "%s". The value cannot be null.', __CLASS__));
         }
-        $payload['StartTime'] = $v->format(\DateTimeInterface::ATOM);
+        $payload['StartTime'] = $v->getTimestamp();
         if (null === $v = $this->endTime) {
             throw new InvalidArgument(\sprintf('Missing parameter "EndTime" for "%s". The value cannot be null.', __CLASS__));
         }
-        $payload['EndTime'] = $v->format(\DateTimeInterface::ATOM);
+        $payload['EndTime'] = $v->getTimestamp();
         if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }
@@ -298,9 +302,7 @@ final class GetMetricDataInput extends Input
             $payload['MaxDatapoints'] = $v;
         }
         if (null !== $v = $this->labelOptions) {
-            foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                $payload["LabelOptions.$bodyKey"] = $bodyValue;
-            }
+            $payload['LabelOptions'] = $v->requestBody();
         }
 
         return $payload;

@@ -41,36 +41,35 @@ class GetMetricStatisticsOutput extends Result
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->GetMetricStatisticsResult;
+        $data = $response->toArray();
+        $data = $data['GetMetricStatisticsResult'];
 
-        $this->label = (null !== $v = $data->Label[0]) ? (string) $v : null;
-        $this->datapoints = (0 === ($v = $data->Datapoints)->count()) ? [] : $this->populateResultDatapoints($v);
+        $this->label = isset($data['Label']) ? (string) $data['Label'] : null;
+        $this->datapoints = empty($data['Datapoints']) ? [] : $this->populateResultDatapoints($data['Datapoints']);
     }
 
-    private function populateResultDatapoint(\SimpleXMLElement $xml): Datapoint
+    private function populateResultDatapoint(array $json): Datapoint
     {
         return new Datapoint([
-            'Timestamp' => (null !== $v = $xml->Timestamp[0]) ? new \DateTimeImmutable((string) $v) : null,
-            'SampleCount' => (null !== $v = $xml->SampleCount[0]) ? (float) (string) $v : null,
-            'Average' => (null !== $v = $xml->Average[0]) ? (float) (string) $v : null,
-            'Sum' => (null !== $v = $xml->Sum[0]) ? (float) (string) $v : null,
-            'Minimum' => (null !== $v = $xml->Minimum[0]) ? (float) (string) $v : null,
-            'Maximum' => (null !== $v = $xml->Maximum[0]) ? (float) (string) $v : null,
-            'Unit' => (null !== $v = $xml->Unit[0]) ? (string) $v : null,
-            'ExtendedStatistics' => (0 === ($v = $xml->ExtendedStatistics)->count()) ? null : $this->populateResultDatapointValueMap($v),
+            'Timestamp' => (isset($json['Timestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['Timestamp'])))) ? $d : null,
+            'SampleCount' => isset($json['SampleCount']) ? (float) $json['SampleCount'] : null,
+            'Average' => isset($json['Average']) ? (float) $json['Average'] : null,
+            'Sum' => isset($json['Sum']) ? (float) $json['Sum'] : null,
+            'Minimum' => isset($json['Minimum']) ? (float) $json['Minimum'] : null,
+            'Maximum' => isset($json['Maximum']) ? (float) $json['Maximum'] : null,
+            'Unit' => isset($json['Unit']) ? (string) $json['Unit'] : null,
+            'ExtendedStatistics' => !isset($json['ExtendedStatistics']) ? null : $this->populateResultDatapointValueMap($json['ExtendedStatistics']),
         ]);
     }
 
     /**
      * @return array<string, float>
      */
-    private function populateResultDatapointValueMap(\SimpleXMLElement $xml): array
+    private function populateResultDatapointValueMap(array $json): array
     {
         $items = [];
-        foreach ($xml->entry as $item) {
-            $a = $item->value;
-            $items[$item->key->__toString()] = (float) (string) $a;
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = (float) $value;
         }
 
         return $items;
@@ -79,10 +78,10 @@ class GetMetricStatisticsOutput extends Result
     /**
      * @return Datapoint[]
      */
-    private function populateResultDatapoints(\SimpleXMLElement $xml): array
+    private function populateResultDatapoints(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
+        foreach ($json as $item) {
             $items[] = $this->populateResultDatapoint($item);
         }
 

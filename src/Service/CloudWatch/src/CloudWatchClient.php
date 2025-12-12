@@ -26,7 +26,7 @@ use AsyncAws\CloudWatch\ValueObject\MetricDataQuery;
 use AsyncAws\CloudWatch\ValueObject\MetricDatum;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
-use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
+use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -314,7 +314,7 @@ class CloudWatchClient extends AbstractApi
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
     {
-        return new XmlAwsErrorFactory();
+        return new JsonRpcAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array
