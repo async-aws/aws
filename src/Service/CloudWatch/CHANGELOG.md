@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Added `eusc-de-east-1` region
+- AWS api-change: This release switch to the AWS JSON 1.1 Procol, replacing the currently utilized one, AWSQuery.
 
 ### Dependency bumped
 

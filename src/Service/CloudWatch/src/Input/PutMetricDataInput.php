@@ -140,7 +140,11 @@ final class PutMetricDataInput extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'GraniteServiceVersion20100801.PutMetricData',
+            'Accept' => 'application/json',
+        ];
 
         // Prepare query
         $query = [];
@@ -149,7 +153,8 @@ final class PutMetricDataInput extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'PutMetricData', 'Version' => '2010-08-01'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -197,25 +202,23 @@ final class PutMetricDataInput extends Input
         }
         $payload['Namespace'] = $v;
         if (null !== $v = $this->metricData) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['MetricData'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MetricData.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['MetricData'][$index] = $listValue->requestBody();
             }
         }
         if (null !== $v = $this->entityMetricData) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['EntityMetricData'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["EntityMetricData.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['EntityMetricData'][$index] = $listValue->requestBody();
             }
         }
         if (null !== $v = $this->strictEntityValidation) {
-            $payload['StrictEntityValidation'] = $v ? 'true' : 'false';
+            $payload['StrictEntityValidation'] = (bool) $v;
         }
 
         return $payload;

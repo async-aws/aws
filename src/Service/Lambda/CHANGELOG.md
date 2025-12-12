@@ -13,6 +13,7 @@
 - AWS api-change: Launching Lambda Managed Instances - a new feature to run Lambda on EC2.
 - AWS api-change: Add DisallowedByVpcEncryptionControl to the LastUpdateStatusReasonCode and StateReasonCode enums to represent failures caused by VPC Encryption Controls.
 - AWS api-change: Added `eusc-de-east-1` region
+- AWS api-change: Add Dotnet 10 (dotnet10) support to AWS Lambda.
 
 ### Dependency bumped
 

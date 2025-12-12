@@ -174,51 +174,50 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->ListMetricsResult;
+        $data = $response->toArray();
 
-        $this->metrics = (0 === ($v = $data->Metrics)->count()) ? [] : $this->populateResultMetrics($v);
-        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
-        $this->owningAccounts = (0 === ($v = $data->OwningAccounts)->count()) ? [] : $this->populateResultOwningAccounts($v);
+        $this->metrics = empty($data['Metrics']) ? [] : $this->populateResultMetrics($data['Metrics']);
+        $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
+        $this->owningAccounts = empty($data['OwningAccounts']) ? [] : $this->populateResultOwningAccounts($data['OwningAccounts']);
     }
 
-    private function populateResultDimension(\SimpleXMLElement $xml): Dimension
+    private function populateResultDimension(array $json): Dimension
     {
         return new Dimension([
-            'Name' => (string) $xml->Name,
-            'Value' => (string) $xml->Value,
+            'Name' => (string) $json['Name'],
+            'Value' => (string) $json['Value'],
         ]);
     }
 
     /**
      * @return Dimension[]
      */
-    private function populateResultDimensions(\SimpleXMLElement $xml): array
+    private function populateResultDimensions(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
+        foreach ($json as $item) {
             $items[] = $this->populateResultDimension($item);
         }
 
         return $items;
     }
 
-    private function populateResultMetric(\SimpleXMLElement $xml): Metric
+    private function populateResultMetric(array $json): Metric
     {
         return new Metric([
-            'Namespace' => (null !== $v = $xml->Namespace[0]) ? (string) $v : null,
-            'MetricName' => (null !== $v = $xml->MetricName[0]) ? (string) $v : null,
-            'Dimensions' => (0 === ($v = $xml->Dimensions)->count()) ? null : $this->populateResultDimensions($v),
+            'Namespace' => isset($json['Namespace']) ? (string) $json['Namespace'] : null,
+            'MetricName' => isset($json['MetricName']) ? (string) $json['MetricName'] : null,
+            'Dimensions' => !isset($json['Dimensions']) ? null : $this->populateResultDimensions($json['Dimensions']),
         ]);
     }
 
     /**
      * @return Metric[]
      */
-    private function populateResultMetrics(\SimpleXMLElement $xml): array
+    private function populateResultMetrics(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
+        foreach ($json as $item) {
             $items[] = $this->populateResultMetric($item);
         }
 
@@ -228,11 +227,14 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     /**
      * @return string[]
      */
-    private function populateResultOwningAccounts(\SimpleXMLElement $xml): array
+    private function populateResultOwningAccounts(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
-            $items[] = (string) $item;
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;

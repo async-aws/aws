@@ -16,7 +16,9 @@ class ListMetricsOutputTest extends TestCase
     public function testListMetricsOutput(): void
     {
         // see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html
-        $response = new SimpleMockedResponse('<Result><ListMetricsResult><NextToken>foobar</NextToken></ListMetricsResult></Result>');
+        $response = new SimpleMockedResponse('{
+                "NextToken": "foobar"
+        }');
 
         $client = new MockHttpClient($response);
         $result = new ListMetricsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new CloudWatchClient(), new ListMetricsInput([]));

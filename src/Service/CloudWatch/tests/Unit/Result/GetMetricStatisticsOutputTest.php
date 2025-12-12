@@ -14,11 +14,12 @@ class GetMetricStatisticsOutputTest extends TestCase
     public function testGetMetricStatisticsOutput(): void
     {
         // see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
-        $response = new SimpleMockedResponse('<Result><GetMetricStatisticsResult><Label>foobar</Label></GetMetricStatisticsResult></Result>');
+        $response = new SimpleMockedResponse('{
+            "Label": "foobar"
+        }');
 
         $client = new MockHttpClient($response);
         $result = new GetMetricStatisticsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
-
         self::assertSame('foobar', $result->getLabel());
     }
 }

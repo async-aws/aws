@@ -112,10 +112,7 @@ final class MetricStat
     {
         $payload = [];
         $v = $this->metric;
-        foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-            $payload["Metric.$bodyKey"] = $bodyValue;
-        }
-
+        $payload['Metric'] = $v->requestBody();
         $v = $this->period;
         $payload['Period'] = $v;
         $v = $this->stat;

@@ -240,7 +240,11 @@ final class GetMetricStatisticsInput extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'GraniteServiceVersion20100801.GetMetricStatistics',
+            'Accept' => 'application/json',
+        ];
 
         // Prepare query
         $query = [];
@@ -249,7 +253,8 @@ final class GetMetricStatisticsInput extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'GetMetricStatistics', 'Version' => '2010-08-01'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -342,41 +347,42 @@ final class GetMetricStatisticsInput extends Input
         }
         $payload['MetricName'] = $v;
         if (null !== $v = $this->dimensions) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Dimensions'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["Dimensions.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['Dimensions'][$index] = $listValue->requestBody();
             }
         }
         if (null === $v = $this->startTime) {
             throw new InvalidArgument(\sprintf('Missing parameter "StartTime" for "%s". The value cannot be null.', __CLASS__));
         }
-        $payload['StartTime'] = $v->format(\DateTimeInterface::ATOM);
+        $payload['StartTime'] = $v->getTimestamp();
         if (null === $v = $this->endTime) {
             throw new InvalidArgument(\sprintf('Missing parameter "EndTime" for "%s". The value cannot be null.', __CLASS__));
         }
-        $payload['EndTime'] = $v->format(\DateTimeInterface::ATOM);
+        $payload['EndTime'] = $v->getTimestamp();
         if (null === $v = $this->period) {
             throw new InvalidArgument(\sprintf('Missing parameter "Period" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Period'] = $v;
         if (null !== $v = $this->statistics) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Statistics'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                if (!Statistic::exists($mapValue)) {
-                    throw new InvalidArgument(\sprintf('Invalid parameter "Statistics.member" for "%s". The value "%s" is not a valid "Statistic".', __CLASS__, $mapValue));
+                if (!Statistic::exists($listValue)) {
+                    throw new InvalidArgument(\sprintf('Invalid parameter "Statistics" for "%s". The value "%s" is not a valid "Statistic".', __CLASS__, $listValue));
                 }
-                $payload["Statistics.member.$index"] = $mapValue;
+                $payload['Statistics'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->extendedStatistics) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['ExtendedStatistics'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                $payload["ExtendedStatistics.member.$index"] = $mapValue;
+                $payload['ExtendedStatistics'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->unit) {

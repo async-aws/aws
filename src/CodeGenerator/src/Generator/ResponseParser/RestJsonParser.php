@@ -105,9 +105,6 @@ class RestJsonParser implements Parser
         }
 
         $body = '$data = $response->toArray(' . ($throwOnError ? '' : 'false') . ');' . "\n";
-        if (null !== $wrapper = $shape->getResultWrapper()) {
-            $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
-        }
         $body .= "\n" . implode("\n", $properties);
 
         return new ParserResult($body, $this->imports, $this->functions);

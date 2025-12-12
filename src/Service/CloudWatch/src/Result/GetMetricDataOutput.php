@@ -176,54 +176,56 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->GetMetricDataResult;
+        $data = $response->toArray();
 
-        $this->metricDataResults = (0 === ($v = $data->MetricDataResults)->count()) ? [] : $this->populateResultMetricDataResults($v);
-        $this->nextToken = (null !== $v = $data->NextToken[0]) ? (string) $v : null;
-        $this->messages = (0 === ($v = $data->Messages)->count()) ? [] : $this->populateResultMetricDataResultMessages($v);
+        $this->metricDataResults = empty($data['MetricDataResults']) ? [] : $this->populateResultMetricDataResults($data['MetricDataResults']);
+        $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
+        $this->messages = empty($data['Messages']) ? [] : $this->populateResultMetricDataResultMessages($data['Messages']);
     }
 
     /**
      * @return float[]
      */
-    private function populateResultDatapointValues(\SimpleXMLElement $xml): array
+    private function populateResultDatapointValues(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
-            $items[] = (float) (string) $item;
+        foreach ($json as $item) {
+            $a = isset($item) ? (float) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;
     }
 
-    private function populateResultMessageData(\SimpleXMLElement $xml): MessageData
+    private function populateResultMessageData(array $json): MessageData
     {
         return new MessageData([
-            'Code' => (null !== $v = $xml->Code[0]) ? (string) $v : null,
-            'Value' => (null !== $v = $xml->Value[0]) ? (string) $v : null,
+            'Code' => isset($json['Code']) ? (string) $json['Code'] : null,
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
         ]);
     }
 
-    private function populateResultMetricDataResult(\SimpleXMLElement $xml): MetricDataResult
+    private function populateResultMetricDataResult(array $json): MetricDataResult
     {
         return new MetricDataResult([
-            'Id' => (null !== $v = $xml->Id[0]) ? (string) $v : null,
-            'Label' => (null !== $v = $xml->Label[0]) ? (string) $v : null,
-            'Timestamps' => (0 === ($v = $xml->Timestamps)->count()) ? null : $this->populateResultTimestamps($v),
-            'Values' => (0 === ($v = $xml->Values)->count()) ? null : $this->populateResultDatapointValues($v),
-            'StatusCode' => (null !== $v = $xml->StatusCode[0]) ? (string) $v : null,
-            'Messages' => (0 === ($v = $xml->Messages)->count()) ? null : $this->populateResultMetricDataResultMessages($v),
+            'Id' => isset($json['Id']) ? (string) $json['Id'] : null,
+            'Label' => isset($json['Label']) ? (string) $json['Label'] : null,
+            'Timestamps' => !isset($json['Timestamps']) ? null : $this->populateResultTimestamps($json['Timestamps']),
+            'Values' => !isset($json['Values']) ? null : $this->populateResultDatapointValues($json['Values']),
+            'StatusCode' => isset($json['StatusCode']) ? (string) $json['StatusCode'] : null,
+            'Messages' => !isset($json['Messages']) ? null : $this->populateResultMetricDataResultMessages($json['Messages']),
         ]);
     }
 
     /**
      * @return MessageData[]
      */
-    private function populateResultMetricDataResultMessages(\SimpleXMLElement $xml): array
+    private function populateResultMetricDataResultMessages(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
+        foreach ($json as $item) {
             $items[] = $this->populateResultMessageData($item);
         }
 
@@ -233,10 +235,10 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     /**
      * @return MetricDataResult[]
      */
-    private function populateResultMetricDataResults(\SimpleXMLElement $xml): array
+    private function populateResultMetricDataResults(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
+        foreach ($json as $item) {
             $items[] = $this->populateResultMetricDataResult($item);
         }
 
@@ -246,11 +248,14 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     /**
      * @return \DateTimeImmutable[]
      */
-    private function populateResultTimestamps(\SimpleXMLElement $xml): array
+    private function populateResultTimestamps(array $json): array
     {
         $items = [];
-        foreach ($xml->member as $item) {
-            $items[] = new \DateTimeImmutable((string) $item);
+        foreach ($json as $item) {
+            $a = (isset($item) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item)))) ? $d : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;

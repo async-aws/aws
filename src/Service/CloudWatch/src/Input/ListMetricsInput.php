@@ -158,7 +158,11 @@ final class ListMetricsInput extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = [
+            'Content-Type' => 'application/x-amz-json-1.0',
+            'X-Amz-Target' => 'GraniteServiceVersion20100801.ListMetrics',
+            'Accept' => 'application/json',
+        ];
 
         // Prepare query
         $query = [];
@@ -167,7 +171,8 @@ final class ListMetricsInput extends Input
         $uriString = '/';
 
         // Prepare Body
-        $body = http_build_query(['Action' => 'ListMetrics', 'Version' => '2010-08-01'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -238,12 +243,11 @@ final class ListMetricsInput extends Input
             $payload['MetricName'] = $v;
         }
         if (null !== $v = $this->dimensions) {
-            $index = 0;
-            foreach ($v as $mapValue) {
+            $index = -1;
+            $payload['Dimensions'] = [];
+            foreach ($v as $listValue) {
                 ++$index;
-                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["Dimensions.member.$index.$bodyKey"] = $bodyValue;
-                }
+                $payload['Dimensions'][$index] = $listValue->requestBody();
             }
         }
         if (null !== $v = $this->nextToken) {
@@ -256,7 +260,7 @@ final class ListMetricsInput extends Input
             $payload['RecentlyActive'] = $v;
         }
         if (null !== $v = $this->includeLinkedAccounts) {
-            $payload['IncludeLinkedAccounts'] = $v ? 'true' : 'false';
+            $payload['IncludeLinkedAccounts'] = (bool) $v;
         }
         if (null !== $v = $this->owningAccount) {
             $payload['OwningAccount'] = $v;

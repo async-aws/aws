@@ -37,24 +37,39 @@ class PutMetricDataInputTest extends TestCase
         // see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: GraniteServiceVersion20100801.PutMetricData
+            accept: application/json
 
-            Action=PutMetricData&
-            Version=2010-08-01&
-            Namespace=foo&
-            MetricData.member.1.MetricName=bar&
-            MetricData.member.1.Dimensions.member.1.Name=bar&
-            MetricData.member.1.Dimensions.member.1.Value=123&
-            MetricData.member.1.Timestamp=2021-08-28T06%3A05%3A55%2B00%3A00&
-            MetricData.member.1.Value=1337&
-            MetricData.member.1.StatisticValues.SampleCount=1337&
-            MetricData.member.1.StatisticValues.Sum=1337&
-            MetricData.member.1.StatisticValues.Minimum=1337&
-            MetricData.member.1.StatisticValues.Maximum=1337&
-            MetricData.member.1.Values.member.1=1337&
-            MetricData.member.1.Counts.member.1=1337&
-            MetricData.member.1.StorageResolution=1337
-                ';
+            {
+                "MetricData": [
+                    {
+                        "Counts": [
+                            1337
+                        ],
+                        "Dimensions": [
+                            {
+                                "Name": "bar",
+                                "Value": "123"
+                            }
+                        ],
+                        "MetricName": "bar",
+                        "StatisticValues": {
+                            "Maximum": 1337,
+                            "Minimum": 1337,
+                            "SampleCount": 1337,
+                            "Sum": 1337
+                        },
+                        "StorageResolution": 1337,
+                        "Timestamp": 1630130755,
+                        "Value": 1337,
+                        "Values": [
+                            1337
+                        ]
+                    }
+                ],
+                "Namespace": "foo"
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
