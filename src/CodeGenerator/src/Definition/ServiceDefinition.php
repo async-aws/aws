@@ -158,9 +158,9 @@ class ServiceDefinition
         }
 
         $protocols = $this->definition['metadata']['protocols'] ?? [];
-        foreach (self::SUPPORTED_PROTOCOLS as $supportedProtocol) {
-            if (\in_array($supportedProtocol, $protocols, true)) {
-                return $supportedProtocol;
+        foreach ($protocols as $protocol) {
+            if (\in_array($protocol, self::SUPPORTED_PROTOCOLS, true)) {
+                return $protocol;
             }
         }
 
