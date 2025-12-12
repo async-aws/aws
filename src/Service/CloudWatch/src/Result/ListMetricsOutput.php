@@ -175,7 +175,6 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $data = $data['ListMetricsResult'];
 
         $this->metrics = empty($data['Metrics']) ? [] : $this->populateResultMetrics($data['Metrics']);
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;

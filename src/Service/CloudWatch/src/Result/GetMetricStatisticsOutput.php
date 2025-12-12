@@ -42,7 +42,6 @@ class GetMetricStatisticsOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $data = $data['GetMetricStatisticsResult'];
 
         $this->label = isset($data['Label']) ? (string) $data['Label'] : null;
         $this->datapoints = empty($data['Datapoints']) ? [] : $this->populateResultDatapoints($data['Datapoints']);

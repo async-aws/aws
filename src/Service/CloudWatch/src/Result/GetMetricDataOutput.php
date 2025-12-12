@@ -177,7 +177,6 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $data = $data['GetMetricDataResult'];
 
         $this->metricDataResults = empty($data['MetricDataResults']) ? [] : $this->populateResultMetricDataResults($data['MetricDataResults']);
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
