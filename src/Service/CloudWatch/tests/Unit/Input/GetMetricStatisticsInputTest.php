@@ -27,19 +27,26 @@ class GetMetricStatisticsInputTest extends TestCase
         // see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: GraniteServiceVersion20100801.GetMetricStatistics
+            accept: application/json
 
-            Action=GetMetricStatistics&
-            Version=2010-08-01&
-            Namespace=foo&
-            MetricName=bar&
-            Dimensions.member.1.Name=bar&
-            Dimensions.member.1.Value=123&
-            StartTime=2021-08-28T06%3A10%3A58%2B00%3A00&
-            EndTime=2021-08-29T06%3A10%3A58%2B00%3A00&
-            Period=1337&
-            Statistics.member.1=Minimum
-                ';
+            {
+                "Dimensions": [
+                    {
+                        "Name": "bar",
+                        "Value": "123"
+                    }
+                ],
+                "EndTime": 1630217458,
+                "MetricName": "bar",
+                "Namespace": "foo",
+                "Period": 1337,
+                "StartTime": 1630131058,
+                "Statistics": [
+                    "Minimum"
+                ]
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

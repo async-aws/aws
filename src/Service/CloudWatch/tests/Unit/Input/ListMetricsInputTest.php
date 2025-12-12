@@ -25,17 +25,22 @@ class ListMetricsInputTest extends TestCase
         // see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html
         $expected = '
             POST / HTTP/1.0
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/x-amz-json-1.0
+            x-amz-target: GraniteServiceVersion20100801.ListMetrics
+            accept: application/json
 
-            Action=ListMetrics&
-            Version=2010-08-01&
-            Namespace=foo&
-            MetricName=bar&
-            Dimensions.member.1.Name=bar&
-            Dimensions.member.1.Value=123&
-            NextToken=change+me&
-            RecentlyActive=PT3H
-                ';
+            {
+                "Dimensions": [
+                    {
+                        "Name": "bar",
+                        "Value": "123"
+                    }
+                ],
+                "MetricName": "bar",
+                "Namespace": "foo",
+                "NextToken": "change me",
+                "RecentlyActive": "PT3H"
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
