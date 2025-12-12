@@ -6,7 +6,7 @@
 
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: Added `eusc-de-east-1` region
-- AWS api-change: This release introduces two additional protocols AWS JSON 1.1 and Smithy RPC v2 CBOR, replacing the currently utilized one, AWSQuery. AWS SDKs will prioritize the protocol that is the most performant for each language.
+- AWS api-change: This release switch to the AWS JSON 1.1 Procol, replacing the currently utilized one, AWSQuery.
 
 ### Dependency bumped
 
