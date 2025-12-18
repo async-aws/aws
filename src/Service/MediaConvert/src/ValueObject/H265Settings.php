@@ -17,6 +17,8 @@ use AsyncAws\MediaConvert\Enum\H265FramerateConversionAlgorithm;
 use AsyncAws\MediaConvert\Enum\H265GopBReference;
 use AsyncAws\MediaConvert\Enum\H265GopSizeUnits;
 use AsyncAws\MediaConvert\Enum\H265InterlaceMode;
+use AsyncAws\MediaConvert\Enum\H265MvOverPictureBoundaries;
+use AsyncAws\MediaConvert\Enum\H265MvTemporalPredictor;
 use AsyncAws\MediaConvert\Enum\H265ParControl;
 use AsyncAws\MediaConvert\Enum\H265QualityTuningLevel;
 use AsyncAws\MediaConvert\Enum\H265RateControlMode;
@@ -28,7 +30,9 @@ use AsyncAws\MediaConvert\Enum\H265SpatialAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H265Telecine;
 use AsyncAws\MediaConvert\Enum\H265TemporalAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H265TemporalIds;
+use AsyncAws\MediaConvert\Enum\H265TilePadding;
 use AsyncAws\MediaConvert\Enum\H265Tiles;
+use AsyncAws\MediaConvert\Enum\H265TreeBlockSize;
 use AsyncAws\MediaConvert\Enum\H265UnregisteredSeiTimecode;
 use AsyncAws\MediaConvert\Enum\H265WriteMp4PackagingType;
 
@@ -284,6 +288,22 @@ final class H265Settings
     private $minIinterval;
 
     /**
+     * If you are setting up the picture as a tile, you must set this to "disabled". In all other configurations, you
+     * typically enter "enabled".
+     *
+     * @var H265MvOverPictureBoundaries::*|null
+     */
+    private $mvOverPictureBoundaries;
+
+    /**
+     * If you are setting up the picture as a tile, you must set this to "disabled". In other configurations, you typically
+     * enter "enabled".
+     *
+     * @var H265MvTemporalPredictor::*|null
+     */
+    private $mvTemporalPredictor;
+
+    /**
      * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
      * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input video.
      * To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
@@ -474,11 +494,46 @@ final class H265Settings
     private $temporalIds;
 
     /**
+     * Set this field to set up the picture as a tile. You must also set TileWidth. The tile height must result in 22 or
+     * fewer rows in the frame. The tile width must result in 20 or fewer columns in the frame. And finally, the product of
+     * the column count and row count must be 64 or less. If the tile width and height are specified, MediaConvert will
+     * override the video codec slices field with a value that MediaConvert calculates.
+     *
+     * @var int|null
+     */
+    private $tileHeight;
+
+    /**
+     * Set to "padded" to force MediaConvert to add padding to the frame, to obtain a frame that is a whole multiple of the
+     * tile size. If you are setting up the picture as a tile, you must enter "padded". In all other configurations, you
+     * typically enter "none".
+     *
+     * @var H265TilePadding::*|null
+     */
+    private $tilePadding;
+
+    /**
+     * Set this field to set up the picture as a tile. See TileHeight for more information.
+     *
+     * @var int|null
+     */
+    private $tileWidth;
+
+    /**
      * Enable use of tiles, allowing horizontal as well as vertical subdivision of the encoded pictures.
      *
      * @var H265Tiles::*|null
      */
     private $tiles;
+
+    /**
+     * Select the tree block size used for encoding. If you enter "auto", the encoder will pick the best size. If you are
+     * setting up the picture as a tile, you must set this to 32x32. In all other configurations, you typically enter
+     * "auto".
+     *
+     * @var H265TreeBlockSize::*|null
+     */
+    private $treeBlockSize;
 
     /**
      * Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
@@ -526,6 +581,8 @@ final class H265Settings
      *   InterlaceMode?: H265InterlaceMode::*|null,
      *   MaxBitrate?: int|null,
      *   MinIInterval?: int|null,
+     *   MvOverPictureBoundaries?: H265MvOverPictureBoundaries::*|null,
+     *   MvTemporalPredictor?: H265MvTemporalPredictor::*|null,
      *   NumberBFramesBetweenReferenceFrames?: int|null,
      *   NumberReferenceFrames?: int|null,
      *   ParControl?: H265ParControl::*|null,
@@ -544,7 +601,11 @@ final class H265Settings
      *   Telecine?: H265Telecine::*|null,
      *   TemporalAdaptiveQuantization?: H265TemporalAdaptiveQuantization::*|null,
      *   TemporalIds?: H265TemporalIds::*|null,
+     *   TileHeight?: int|null,
+     *   TilePadding?: H265TilePadding::*|null,
+     *   TileWidth?: int|null,
      *   Tiles?: H265Tiles::*|null,
+     *   TreeBlockSize?: H265TreeBlockSize::*|null,
      *   UnregisteredSeiTimecode?: H265UnregisteredSeiTimecode::*|null,
      *   WriteMp4PackagingType?: H265WriteMp4PackagingType::*|null,
      * } $input
@@ -575,6 +636,8 @@ final class H265Settings
         $this->interlaceMode = $input['InterlaceMode'] ?? null;
         $this->maxBitrate = $input['MaxBitrate'] ?? null;
         $this->minIinterval = $input['MinIInterval'] ?? null;
+        $this->mvOverPictureBoundaries = $input['MvOverPictureBoundaries'] ?? null;
+        $this->mvTemporalPredictor = $input['MvTemporalPredictor'] ?? null;
         $this->numberBframesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
         $this->numberReferenceFrames = $input['NumberReferenceFrames'] ?? null;
         $this->parControl = $input['ParControl'] ?? null;
@@ -593,7 +656,11 @@ final class H265Settings
         $this->telecine = $input['Telecine'] ?? null;
         $this->temporalAdaptiveQuantization = $input['TemporalAdaptiveQuantization'] ?? null;
         $this->temporalIds = $input['TemporalIds'] ?? null;
+        $this->tileHeight = $input['TileHeight'] ?? null;
+        $this->tilePadding = $input['TilePadding'] ?? null;
+        $this->tileWidth = $input['TileWidth'] ?? null;
         $this->tiles = $input['Tiles'] ?? null;
+        $this->treeBlockSize = $input['TreeBlockSize'] ?? null;
         $this->unregisteredSeiTimecode = $input['UnregisteredSeiTimecode'] ?? null;
         $this->writeMp4PackagingType = $input['WriteMp4PackagingType'] ?? null;
     }
@@ -624,6 +691,8 @@ final class H265Settings
      *   InterlaceMode?: H265InterlaceMode::*|null,
      *   MaxBitrate?: int|null,
      *   MinIInterval?: int|null,
+     *   MvOverPictureBoundaries?: H265MvOverPictureBoundaries::*|null,
+     *   MvTemporalPredictor?: H265MvTemporalPredictor::*|null,
      *   NumberBFramesBetweenReferenceFrames?: int|null,
      *   NumberReferenceFrames?: int|null,
      *   ParControl?: H265ParControl::*|null,
@@ -642,7 +711,11 @@ final class H265Settings
      *   Telecine?: H265Telecine::*|null,
      *   TemporalAdaptiveQuantization?: H265TemporalAdaptiveQuantization::*|null,
      *   TemporalIds?: H265TemporalIds::*|null,
+     *   TileHeight?: int|null,
+     *   TilePadding?: H265TilePadding::*|null,
+     *   TileWidth?: int|null,
      *   Tiles?: H265Tiles::*|null,
+     *   TreeBlockSize?: H265TreeBlockSize::*|null,
      *   UnregisteredSeiTimecode?: H265UnregisteredSeiTimecode::*|null,
      *   WriteMp4PackagingType?: H265WriteMp4PackagingType::*|null,
      * }|H265Settings $input
@@ -811,6 +884,22 @@ final class H265Settings
         return $this->minIinterval;
     }
 
+    /**
+     * @return H265MvOverPictureBoundaries::*|null
+     */
+    public function getMvOverPictureBoundaries(): ?string
+    {
+        return $this->mvOverPictureBoundaries;
+    }
+
+    /**
+     * @return H265MvTemporalPredictor::*|null
+     */
+    public function getMvTemporalPredictor(): ?string
+    {
+        return $this->mvTemporalPredictor;
+    }
+
     public function getNumberBframesBetweenReferenceFrames(): ?int
     {
         return $this->numberBframesBetweenReferenceFrames;
@@ -937,12 +1026,38 @@ final class H265Settings
         return $this->temporalIds;
     }
 
+    public function getTileHeight(): ?int
+    {
+        return $this->tileHeight;
+    }
+
+    /**
+     * @return H265TilePadding::*|null
+     */
+    public function getTilePadding(): ?string
+    {
+        return $this->tilePadding;
+    }
+
+    public function getTileWidth(): ?int
+    {
+        return $this->tileWidth;
+    }
+
     /**
      * @return H265Tiles::*|null
      */
     public function getTiles(): ?string
     {
         return $this->tiles;
+    }
+
+    /**
+     * @return H265TreeBlockSize::*|null
+     */
+    public function getTreeBlockSize(): ?string
+    {
+        return $this->treeBlockSize;
     }
 
     /**
@@ -1078,6 +1193,18 @@ final class H265Settings
         if (null !== $v = $this->minIinterval) {
             $payload['minIInterval'] = $v;
         }
+        if (null !== $v = $this->mvOverPictureBoundaries) {
+            if (!H265MvOverPictureBoundaries::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "mvOverPictureBoundaries" for "%s". The value "%s" is not a valid "H265MvOverPictureBoundaries".', __CLASS__, $v));
+            }
+            $payload['mvOverPictureBoundaries'] = $v;
+        }
+        if (null !== $v = $this->mvTemporalPredictor) {
+            if (!H265MvTemporalPredictor::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "mvTemporalPredictor" for "%s". The value "%s" is not a valid "H265MvTemporalPredictor".', __CLASS__, $v));
+            }
+            $payload['mvTemporalPredictor'] = $v;
+        }
         if (null !== $v = $this->numberBframesBetweenReferenceFrames) {
             $payload['numberBFramesBetweenReferenceFrames'] = $v;
         }
@@ -1173,11 +1300,29 @@ final class H265Settings
             }
             $payload['temporalIds'] = $v;
         }
+        if (null !== $v = $this->tileHeight) {
+            $payload['tileHeight'] = $v;
+        }
+        if (null !== $v = $this->tilePadding) {
+            if (!H265TilePadding::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "tilePadding" for "%s". The value "%s" is not a valid "H265TilePadding".', __CLASS__, $v));
+            }
+            $payload['tilePadding'] = $v;
+        }
+        if (null !== $v = $this->tileWidth) {
+            $payload['tileWidth'] = $v;
+        }
         if (null !== $v = $this->tiles) {
             if (!H265Tiles::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "tiles" for "%s". The value "%s" is not a valid "H265Tiles".', __CLASS__, $v));
             }
             $payload['tiles'] = $v;
+        }
+        if (null !== $v = $this->treeBlockSize) {
+            if (!H265TreeBlockSize::exists($v)) {
+                throw new InvalidArgument(\sprintf('Invalid parameter "treeBlockSize" for "%s". The value "%s" is not a valid "H265TreeBlockSize".', __CLASS__, $v));
+            }
+            $payload['treeBlockSize'] = $v;
         }
         if (null !== $v = $this->unregisteredSeiTimecode) {
             if (!H265UnregisteredSeiTimecode::exists($v)) {

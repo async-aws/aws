@@ -1157,6 +1157,8 @@ class CreateJobResponse extends Result
             'InterlaceMode' => isset($json['interlaceMode']) ? (string) $json['interlaceMode'] : null,
             'MaxBitrate' => isset($json['maxBitrate']) ? (int) $json['maxBitrate'] : null,
             'MinIInterval' => isset($json['minIInterval']) ? (int) $json['minIInterval'] : null,
+            'MvOverPictureBoundaries' => isset($json['mvOverPictureBoundaries']) ? (string) $json['mvOverPictureBoundaries'] : null,
+            'MvTemporalPredictor' => isset($json['mvTemporalPredictor']) ? (string) $json['mvTemporalPredictor'] : null,
             'NumberBFramesBetweenReferenceFrames' => isset($json['numberBFramesBetweenReferenceFrames']) ? (int) $json['numberBFramesBetweenReferenceFrames'] : null,
             'NumberReferenceFrames' => isset($json['numberReferenceFrames']) ? (int) $json['numberReferenceFrames'] : null,
             'ParControl' => isset($json['parControl']) ? (string) $json['parControl'] : null,
@@ -1175,7 +1177,11 @@ class CreateJobResponse extends Result
             'Telecine' => isset($json['telecine']) ? (string) $json['telecine'] : null,
             'TemporalAdaptiveQuantization' => isset($json['temporalAdaptiveQuantization']) ? (string) $json['temporalAdaptiveQuantization'] : null,
             'TemporalIds' => isset($json['temporalIds']) ? (string) $json['temporalIds'] : null,
+            'TileHeight' => isset($json['tileHeight']) ? (int) $json['tileHeight'] : null,
+            'TilePadding' => isset($json['tilePadding']) ? (string) $json['tilePadding'] : null,
+            'TileWidth' => isset($json['tileWidth']) ? (int) $json['tileWidth'] : null,
             'Tiles' => isset($json['tiles']) ? (string) $json['tiles'] : null,
+            'TreeBlockSize' => isset($json['treeBlockSize']) ? (string) $json['treeBlockSize'] : null,
             'UnregisteredSeiTimecode' => isset($json['unregisteredSeiTimecode']) ? (string) $json['unregisteredSeiTimecode'] : null,
             'WriteMp4PackagingType' => isset($json['writeMp4PackagingType']) ? (string) $json['writeMp4PackagingType'] : null,
         ]);
@@ -1412,6 +1418,7 @@ class CreateJobResponse extends Result
             'FramerateDenominator' => isset($json['framerateDenominator']) ? (int) $json['framerateDenominator'] : null,
             'FramerateNumerator' => isset($json['framerateNumerator']) ? (int) $json['framerateNumerator'] : null,
             'Height' => isset($json['height']) ? (int) $json['height'] : null,
+            'ImageInput' => isset($json['imageInput']) ? (string) $json['imageInput'] : null,
             'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
             'Width' => isset($json['width']) ? (int) $json['width'] : null,
         ]);
@@ -2259,6 +2266,7 @@ class CreateJobResponse extends Result
     private function populateResultVideoOverlayInput(array $json): VideoOverlayInput
     {
         return new VideoOverlayInput([
+            'AudioSelectors' => !isset($json['audioSelectors']) ? null : $this->populateResult__mapOfAudioSelector($json['audioSelectors']),
             'FileInput' => isset($json['fileInput']) ? (string) $json['fileInput'] : null,
             'InputClippings' => !isset($json['inputClippings']) ? null : $this->populateResult__listOfVideoOverlayInputClipping($json['inputClippings']),
             'TimecodeSource' => isset($json['timecodeSource']) ? (string) $json['timecodeSource'] : null,
