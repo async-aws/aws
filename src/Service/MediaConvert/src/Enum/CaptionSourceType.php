@@ -20,6 +20,7 @@ final class CaptionSourceType
     public const STL = 'STL';
     public const TELETEXT = 'TELETEXT';
     public const TTML = 'TTML';
+    public const TT_3GPP = 'TT_3GPP';
     public const WEBVTT = 'WEBVTT';
 
     public static function exists(string $value): bool
@@ -38,6 +39,7 @@ final class CaptionSourceType
             self::STL => true,
             self::TELETEXT => true,
             self::TTML => true,
+            self::TT_3GPP => true,
             self::WEBVTT => true,
         ][$value]);
     }

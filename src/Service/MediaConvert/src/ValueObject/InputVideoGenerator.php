@@ -54,6 +54,14 @@ final class InputVideoGenerator
     private $height;
 
     /**
+     * Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA
+     * file.
+     *
+     * @var string|null
+     */
+    private $imageInput;
+
+    /**
      * Specify the audio sample rate, in Hz, for the silent audio in your video generator input.
      * Enter an integer from 32000 to 48000.
      *
@@ -77,6 +85,7 @@ final class InputVideoGenerator
      *   FramerateDenominator?: int|null,
      *   FramerateNumerator?: int|null,
      *   Height?: int|null,
+     *   ImageInput?: string|null,
      *   SampleRate?: int|null,
      *   Width?: int|null,
      * } $input
@@ -88,6 +97,7 @@ final class InputVideoGenerator
         $this->framerateDenominator = $input['FramerateDenominator'] ?? null;
         $this->framerateNumerator = $input['FramerateNumerator'] ?? null;
         $this->height = $input['Height'] ?? null;
+        $this->imageInput = $input['ImageInput'] ?? null;
         $this->sampleRate = $input['SampleRate'] ?? null;
         $this->width = $input['Width'] ?? null;
     }
@@ -99,6 +109,7 @@ final class InputVideoGenerator
      *   FramerateDenominator?: int|null,
      *   FramerateNumerator?: int|null,
      *   Height?: int|null,
+     *   ImageInput?: string|null,
      *   SampleRate?: int|null,
      *   Width?: int|null,
      * }|InputVideoGenerator $input
@@ -133,6 +144,11 @@ final class InputVideoGenerator
         return $this->height;
     }
 
+    public function getImageInput(): ?string
+    {
+        return $this->imageInput;
+    }
+
     public function getSampleRate(): ?int
     {
         return $this->sampleRate;
@@ -163,6 +179,9 @@ final class InputVideoGenerator
         }
         if (null !== $v = $this->height) {
             $payload['height'] = $v;
+        }
+        if (null !== $v = $this->imageInput) {
+            $payload['imageInput'] = $v;
         }
         if (null !== $v = $this->sampleRate) {
             $payload['sampleRate'] = $v;
