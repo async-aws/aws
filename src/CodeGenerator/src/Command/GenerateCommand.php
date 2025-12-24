@@ -495,7 +495,7 @@ class GenerateCommand extends Command
         $needsCaching = false !== strpos($path, '://');
 
         $data = $needsCaching ? $this->cache->get(__CLASS__ . ':' . $cacheKey) : null;
-        if (null === $data || $path !== ($data['path'] ?? null)) {
+        if (null === $data || $path !== ($data['path'] ?? null) || $patch !== ($data['patch'] ?? [])) {
             if (empty($patch)) {
                 $content = json_decode(file_get_contents($path), true);
             } else {
@@ -510,6 +510,7 @@ class GenerateCommand extends Command
             $data = [
                 'path' => $path,
                 'content' => $content,
+                'patch' => $patch,
             ];
 
             if ($needsCaching) {
