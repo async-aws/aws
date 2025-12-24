@@ -3488,6 +3488,13 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://s3.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -3509,13 +3516,6 @@ class S3Client extends AbstractApi
                 return [
                     'endpoint' => "https://s3.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 's3',
-                    'signVersions' => ['s3v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://s3.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];

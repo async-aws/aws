@@ -381,6 +381,13 @@ class CloudWatchClient extends AbstractApi
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://monitoring.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -402,13 +409,6 @@ class CloudWatchClient extends AbstractApi
                 return [
                     'endpoint' => "https://monitoring.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'monitoring',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://monitoring.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];

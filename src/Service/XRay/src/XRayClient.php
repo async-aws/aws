@@ -146,6 +146,13 @@ class XRayClient extends AbstractApi
                     'signService' => 'xray',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://xray.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -167,13 +174,6 @@ class XRayClient extends AbstractApi
                 return [
                     'endpoint' => "https://xray.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'xray',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://xray.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'xray',
                     'signVersions' => ['v4'],
                 ];

@@ -384,6 +384,13 @@ class SchedulerClient extends AbstractApi
                     'signService' => 'scheduler',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://scheduler.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'scheduler',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -405,13 +412,6 @@ class SchedulerClient extends AbstractApi
                 return [
                     'endpoint' => "https://scheduler.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'scheduler',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://scheduler.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'scheduler',
                     'signVersions' => ['v4'],
                 ];

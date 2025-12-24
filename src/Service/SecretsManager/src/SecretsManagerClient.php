@@ -508,6 +508,13 @@ class SecretsManagerClient extends AbstractApi
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://secretsmanager.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-east-1-fips':
             case 'us-iso-west-1':
@@ -532,13 +539,6 @@ class SecretsManagerClient extends AbstractApi
                 return [
                     'endpoint' => "https://secretsmanager.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'secretsmanager',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://secretsmanager.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];

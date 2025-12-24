@@ -538,6 +538,13 @@ class Route53Client extends AbstractApi
                     'signService' => 'route53',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://route53.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'route53',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -559,13 +566,6 @@ class Route53Client extends AbstractApi
                 return [
                     'endpoint' => 'https://route53.csp.hci.ic.gov',
                     'signRegion' => 'us-isof-south-1',
-                    'signService' => 'route53',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://route53.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'route53',
                     'signVersions' => ['v4'],
                 ];

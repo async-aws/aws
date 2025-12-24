@@ -396,6 +396,13 @@ class StsClient extends AbstractApi
                     'signService' => 'sts',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://sts.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'sts',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -417,13 +424,6 @@ class StsClient extends AbstractApi
                 return [
                     'endpoint' => "https://sts.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://sts.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'sts',
                     'signVersions' => ['v4'],
                 ];

@@ -126,6 +126,13 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://elasticache.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -147,13 +154,6 @@ class ElastiCacheClient extends AbstractApi
                 return [
                     'endpoint' => "https://elasticache.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'elasticache',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://elasticache.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
