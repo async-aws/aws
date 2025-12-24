@@ -218,13 +218,11 @@ class ClientGenerator
                     false !== strpos($a['regions'][0], 'iso'),
                     false !== strpos($a['regions'][0], 'fips'),
                     false !== strpos($a['regions'][0], 'gov'),
-                    \count($b['regions']),
                     $a['regions'][0],
                 ] <=> [
                     false !== strpos($b['regions'][0], 'iso'),
                     false !== strpos($b['regions'][0], 'fips'),
                     false !== strpos($b['regions'][0], 'gov'),
-                    \count($a['regions']),
                     $b['regions'][0],
                 ];
             });

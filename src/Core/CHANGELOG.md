@@ -19,6 +19,7 @@
 - Fix PHP 8.5 deprecation by avoiding using `null` as an array offset.
 - Harden code against error cases
 - AWS enhancement: Documentation updates.
+- Use a more stable sorting for the list of generated region metadata
 
 ### Fixed
 

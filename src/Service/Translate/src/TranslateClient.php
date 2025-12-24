@@ -136,18 +136,18 @@ class TranslateClient extends AbstractApi
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-iso-east-1':
+                return [
+                    'endpoint' => 'https://translate.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 'translate',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
                     'endpoint' => "https://translate.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'translate',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://translate.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];

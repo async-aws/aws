@@ -118,6 +118,13 @@ class EventBridgeClient extends AbstractApi
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://events.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -139,13 +146,6 @@ class EventBridgeClient extends AbstractApi
                 return [
                     'endpoint' => "https://events.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'events',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://events.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];

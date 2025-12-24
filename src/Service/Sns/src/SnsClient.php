@@ -615,6 +615,13 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://sns.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -636,13 +643,6 @@ class SnsClient extends AbstractApi
                 return [
                     'endpoint' => "https://sns.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'sns',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://sns.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];

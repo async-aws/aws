@@ -1654,6 +1654,13 @@ class KinesisClient extends AbstractApi
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://kinesis.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'kinesis',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -1675,13 +1682,6 @@ class KinesisClient extends AbstractApi
                 return [
                     'endpoint' => "https://kinesis.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://kinesis.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];

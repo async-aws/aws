@@ -568,19 +568,19 @@ class IamClient extends AbstractApi
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];
+            case 'iam-govcloud':
+                return [
+                    'endpoint' => 'https://iam.iam-govcloud.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
             case 'aws-us-gov-global-fips':
             case 'iam-govcloud-fips':
                 return [
                     'endpoint' => 'https://iam.us-gov.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'iam-govcloud':
-                return [
-                    'endpoint' => 'https://iam.iam-govcloud.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'iam',
                     'signVersions' => ['v4'],

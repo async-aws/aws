@@ -358,6 +358,13 @@ class SsmClient extends AbstractApi
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://ssm.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -379,13 +386,6 @@ class SsmClient extends AbstractApi
                 return [
                     'endpoint' => "https://ssm.$region.csp.hci.ic.gov",
                     'signRegion' => $region,
-                    'signService' => 'ssm',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-isoe-west-1':
-                return [
-                    'endpoint' => 'https://ssm.eu-isoe-west-1.cloud.adc-e.uk',
-                    'signRegion' => 'eu-isoe-west-1',
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];

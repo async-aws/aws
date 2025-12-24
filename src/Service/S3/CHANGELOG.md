@@ -24,6 +24,7 @@
 - Apply new CodingStandard from latest php-cs-fixer.
 - Harden code against error cases
 - AWS enhancement: Documentation updates.
+- Use a more stable sorting for the list of generated region metadata
 
 ## 2.10.0
 
