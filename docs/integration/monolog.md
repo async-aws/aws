@@ -4,7 +4,7 @@ category: integration
 
 # Monolog integration
 
-The Monolog integration supports both Monolog version 1 and version 2.
+The Monolog integration supports Monolog version 1, version 2 and version 3.
 
 ## Install
 
@@ -56,7 +56,7 @@ The bundle will automatically configure CloudWatchLogsClient with the given cred
 # config/services.yaml
 
 services:
-    monolog.handler.cloud_watch:
+    app.monolog_handler.cloud_watch:
         class: AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler
         arguments:
             - '@async_aws.client.cloud_watch_logs'
@@ -76,7 +76,7 @@ monolog:
             handler: cloud_watch
         cloud_watch:
             type: service
-            id: monolog.handler.cloud_watch
+            id: app.monolog_handler.cloud_watch
 ```
 
 ## Limitations
