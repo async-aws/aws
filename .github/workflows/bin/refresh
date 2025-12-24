@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+use AsyncAws\CodeGenerator\ChangeLogUpdater;
+
 $rootDir = __DIR__ . '/../../..';
 if (!file_exists($rootDir . '/manifest.json')) {
     echo "Unable to find the `manifest.json` script in `../../..`.\n";
@@ -143,9 +145,12 @@ if ($hasChange) {
     }
 }
 
-/**
+/*
  * Generating ChangeLog and Composer.json
  */
+
+$changeLogUpdater = new ChangeLogUpdater();
+
 foreach ($services as $service => $hasChange) {
     $awsServiceNames = array_merge([$service], $manifest['services'][$service]['alternative-names'] ?? []);
     $newLines = [];
@@ -170,74 +175,18 @@ foreach ($services as $service => $hasChange) {
 
     $newLines = array_unique($newLines);
 
-    console_log('Generating CHANGELOG for '. $service);
+    console_log('Generating CHANGELOG for ' .  $service);
     if ($service === 'Sts') {
-        $changeLogPath = $rootDir.'/src/Core/CHANGELOG.md';
+        $changeLogPath = $rootDir . '/src/Core/CHANGELOG.md';
     } else {
-        $changeLogPath = $rootDir.'/src/Service/'.$service.'/CHANGELOG.md';
+        $changeLogPath = $rootDir . '/src/Service/' . $service . '/CHANGELOG.md';
     }
-    $changeLog = explode("\n", file_get_contents($changeLogPath));
-    $nrSection = false;
-    $fixSection = false;
     $fixSectionLabel = $hasChange ? '### Added' : '### Changed';
-    $fixSectionOrder = [
-        '### BC-BREAK', '### Removed', // Major
-        '### Added', '### Deprecated', '### Dependency bumped', // Minor
-        '### Changed', '### Fixed', '### Security', // Patch
-    ];
-    $fixSectionIndex = array_search($fixSectionLabel, $fixSectionOrder);
-    foreach ($changeLog as $index => $line) {
-        if ($line === '## NOT RELEASED') {
-            $nrSection = true;
-            continue;
-        }
-        if (!$nrSection) {
-            continue;
-        }
-        if (strpos($line, '## ') === 0) {
-            break;
-        }
-        if (strpos($line, '### ') === 0 && array_search($line, $fixSectionOrder) > $fixSectionIndex) {
-            break;
-        }
-
-        if ($line === $fixSectionLabel) {
-            $fixSection = true;
-            continue;
-        }
-        if (!$fixSection) {
-            continue;
-        }
-
-        if ($line !== '' && false !== $index = array_search($line, $newLines, true)) {
-            array_splice($newLines, $index, 1);
-        }
-    }
-
-    if (empty($newLines)) {
-        console_log('duplicate entry in CHANGELOG '.$service);
-        continue;
-    }
-
-    if (!$nrSection) {
-        array_splice($changeLog, 2, 0, array_merge([
-            '## NOT RELEASED',
-            '',
-            $fixSectionLabel,
-            '',
-        ], $newLines, ['']));
-    } elseif (!$fixSection) {
-        array_splice($changeLog, $index, 0, array_merge([
-            $fixSectionLabel,
-            '',
-        ], $newLines, ['']));
-    } else {
-        array_splice($changeLog, $index - 1, 0, $newLines);
-    }
-    file_put_contents($changeLogPath, implode("\n", $changeLog));
+    $changeLogUpdater->addNewChangeLogLines($changeLogPath, $service, $fixSectionLabel, $newLines, console_log(...));
 
     // Fix branch-alias in composer.json
     if ($hasChange) {
+        $changeLog = explode("\n", file_get_contents($changeLogPath));
         $lastPackageVersion = null;
         $level = 1;
         switch ($changeLog[4]) {
