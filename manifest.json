@@ -473,7 +473,19 @@
                 "CommitTransaction",
                 "ExecuteStatement",
                 "RollbackTransaction"
-            ]
+            ],
+            "patches": {
+                "source": [
+                    {
+                        "op": "remove",
+                        "path": "/shapes/ArrayValue/union"
+                    },
+                    {
+                        "op": "remove",
+                        "path": "/shapes/Field/union"
+                    }
+                ]
+            }
         },
         "Rekognition": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rekognition/2016-06-27/api-2.json",
