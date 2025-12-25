@@ -138,6 +138,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\SimpleS3\SimpleS3Client::class,
                 'package' => 'async-aws/simple-s3',
             ],
+            's3_vectors' => [
+                'class' => \AsyncAws\S3Vectors\S3VectorsClient::class,
+                'package' => 'async-aws/s3-vectors',
+            ],
             'scheduler' => [
                 'class' => \AsyncAws\Scheduler\SchedulerClient::class,
                 'package' => 'async-aws/scheduler',
