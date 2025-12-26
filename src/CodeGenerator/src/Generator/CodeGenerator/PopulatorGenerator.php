@@ -7,6 +7,7 @@ namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
@@ -18,6 +19,7 @@ use AsyncAws\CodeGenerator\Generator\ObjectGenerator;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
+use AsyncAws\CodeGenerator\Generator\ShapeUsageHelper;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
@@ -58,12 +60,12 @@ class PopulatorGenerator
      */
     private $parserProvider;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?ParserProvider $parserProvider = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ShapeUsageHelper $shapeUsageHelper, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?ParserProvider $parserProvider = null)
     {
         $this->objectGenerator = $objectGenerator;
         $this->requirementsRegistry = $requirementsRegistry;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($classRegistry, $namespaceRegistry, $managedMethods);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($classRegistry, $namespaceRegistry, $shapeUsageHelper);
         $this->parserProvider = $parserProvider ?? new ParserProvider($namespaceRegistry, $requirementsRegistry, $this->typeGenerator);
     }
 
@@ -100,7 +102,7 @@ class PopulatorGenerator
                 $this->enumGenerator->generate($memberShape);
             }
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $this->objectGenerator->generate($memberShape);
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
@@ -111,7 +113,7 @@ class PopulatorGenerator
                     $this->enumGenerator->generate($mapKeyShape);
                 }
 
-                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof ObjectShape) {
                     $this->objectGenerator->generate($valueShape);
                 }
                 if (!empty($valueShape->getEnum())) {
@@ -300,7 +302,7 @@ class PopulatorGenerator
 
     private function generateListShapeMemberShape(Shape $memberShape, bool $forEndpoint): void
     {
-        if ($memberShape instanceof StructureShape) {
+        if ($memberShape instanceof ObjectShape) {
             $this->objectGenerator->generate($memberShape, $forEndpoint);
         } elseif ($memberShape instanceof ListShape) {
             $this->generateListShapeMemberShape($memberShape->getMember()->getShape(), $forEndpoint);

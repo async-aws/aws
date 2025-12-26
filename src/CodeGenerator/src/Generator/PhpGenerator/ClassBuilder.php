@@ -83,6 +83,14 @@ class ClassBuilder
         return $this;
     }
 
+    public function setAbstract(bool $state = true): self
+    {
+        $this->setFinal(false);
+        $this->class->setAbstract($state);
+
+        return $this;
+    }
+
     /**
      * @param mixed $value
      */

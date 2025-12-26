@@ -8,9 +8,11 @@ use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\EnumGenerator;
@@ -195,6 +197,8 @@ class RestJsonParser implements Parser
                 return $this->parseResponseList($shape, $input, $required, $inObject);
             case $shape instanceof StructureShape:
                 return $this->parseResponseStructure($shape, $input, $required);
+            case $shape instanceof UnionShape:
+                return $this->parseResponseUnion($shape, $input, $required);
             case $shape instanceof MapShape:
                 return $this->parseResponseMap($shape, $input, $required, $inObject);
             case $shape instanceof DocumentShape:
@@ -223,6 +227,54 @@ class RestJsonParser implements Parser
         }
 
         throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
+    }
+
+    private function parseResponseUnion(UnionShape $shape, string $input, bool $required): string
+    {
+        $functionName = 'populateResult' . ucfirst($shape->getName());
+        if (!isset($this->generatedFunctions[$functionName])) {
+            // prevent recursion
+            $this->generatedFunctions[$functionName] = true;
+
+            $body = [];
+            foreach ($shape->getChildren() as $name => $child) {
+                $body[] = strtr('if (isset($json[PROPERTY_NAME])) {
+                        return PROPERTY_ACCESSOR;
+                    }', [
+                    'PROPERTY_NAME' => var_export($name, true),
+                    'PROPERTY_ACCESSOR' => $this->parseElement('$json', $child, true, true),
+                ]);
+                $className = $this->namespaceRegistry->getObject($child);
+                $this->imports[] = $className;
+            }
+
+            // Generate fallback for unknown member
+            $childForUnknown = $shape->getChildForUnknown();
+            $functionNameForUnknown = 'populateResult' . ucfirst($childForUnknown->getName());
+            $className = $this->namespaceRegistry->getObject($childForUnknown);
+            $this->imports[] = $className;
+            $this->functions[$functionNameForUnknown] = $this->createPopulateMethod($functionNameForUnknown, strtr('return new CLASS_NAME($json);', [
+                'INPUT' => $input,
+                'CLASS_NAME' => $className->getName(),
+            ]), $shape);
+
+            $body[] = strtr('return $this->FUNCTION_NAME($json);', [
+                'FUNCTION_NAME' => $functionNameForUnknown,
+            ]);
+
+            $className = $this->namespaceRegistry->getObject($shape);
+            $this->imports[] = $className;
+
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr(implode("\n", $body), [
+                'INPUT' => $input,
+                'CLASS_NAME' => $className->getName(),
+            ]), $shape);
+        }
+
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? null : $this->FUNCTION_NAME(INPUT)', [
+            'INPUT' => $input,
+            'FUNCTION_NAME' => $functionName,
+        ]);
     }
 
     private function parseResponseStructure(StructureShape $shape, string $input, bool $required): string
@@ -341,7 +393,7 @@ class RestJsonParser implements Parser
         if (!isset($this->generatedFunctions[$functionName])) {
             // prevent recursion
             $this->generatedFunctions[$functionName] = true;
-            if ($shapeMember->getShape() instanceof StructureShape || $shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
+            if ($shapeMember->getShape() instanceof ObjectShape || $shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
                 if (!empty($shapeMember->getShape()->getEnum())) {
                     $className = $this->namespaceRegistry->getEnum($shapeMember->getShape());
                     $body = strtr('
@@ -444,40 +496,27 @@ class RestJsonParser implements Parser
                     $keyVar = '(string) $name';
                 }
 
+                $body = '
+                        $items = [];
+                        foreach ($json as $name => $value) {
+                            CLEAN_KEY_CODE
+                            $items[KEY_VAR] = BUILDER_CODE;
+                        }
+
+                        return $items;
+                    ';
+
                 // We need to use array keys
                 if ($shapeValue->getShape() instanceof StructureShape) {
-                    $body = '
-                        $items = [];
-                        foreach ($json as $name => $value) {
-                            CLEAN_KEY_CODE
-                            $items[KEY_VAR] = BUILDER_CODE;
-                        }
-
-                        return $items;
-                    ';
-
-                    $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                        'BUILDER_CODE' => $this->parseResponseStructure($shapeValue->getShape(), '$value', true),
-                        'CLEAN_KEY_CODE' => $cleanKeyCode,
-                        'KEY_VAR' => $keyVar,
-                    ]), $shape);
+                    $code = $this->parseResponseStructure($shapeValue->getShape(), '$value', true);
                 } else {
-                    $body = '
-                        $items = [];
-                        foreach ($json as $name => $value) {
-                            CLEAN_KEY_CODE
-                            $items[KEY_VAR] = BUILDER_CODE;
-                        }
-
-                        return $items;
-                    ';
-
-                    $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                        'BUILDER_CODE' => $this->parseElement('$value', $shapeValue->getShape(), true, $inObject),
-                        'CLEAN_KEY_CODE' => $cleanKeyCode,
-                        'KEY_VAR' => $keyVar,
-                    ]), $shape);
+                    $code = $this->parseElement('$value', $shapeValue->getShape(), true, $inObject);
                 }
+                $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
+                    'BUILDER_CODE' => $code,
+                    'CLEAN_KEY_CODE' => $cleanKeyCode,
+                    'KEY_VAR' => $keyVar,
+                ]), $shape);
             } else {
                 if (!empty($shape->getKey()->getShape()->getEnum())) {
                     $className = $this->namespaceRegistry->getEnum($shape->getKey()->getShape());
@@ -497,7 +536,7 @@ class RestJsonParser implements Parser
                     $keyVar = strtr('$name = $item[MAP_KEY]', ['MAP_KEY' => var_export($locationName, true)]);
                 }
                 $inputAccessorName = $this->getInputAccessorName($shapeValue);
-                if ($shapeValue->getShape() instanceof StructureShape) {
+                if ($shapeValue->getShape() instanceof ObjectShape) {
                     $body = '
                         $items = [];
                         foreach ($json as $item) {

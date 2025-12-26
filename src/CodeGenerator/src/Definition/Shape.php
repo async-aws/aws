@@ -46,7 +46,7 @@ class Shape
                 } elseif ($data['document'] ?? false) {
                     $shape = new DocumentShape();
                 } elseif ($data['union'] ?? false) {
-                    throw new \UnexpectedValueException(\sprintf('Union shapes are not supported yet by the code generator. The shape "%s" is a union shape.', $name));
+                    $shape = new UnionShape();
                 } else {
                     $shape = new StructureShape();
                 }

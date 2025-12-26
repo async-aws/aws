@@ -4,7 +4,7 @@ namespace AsyncAws\S3Vectors\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3Vectors\Input\QueryVectorsInput;
-use AsyncAws\S3Vectors\ValueObject\VectorData;
+use AsyncAws\S3Vectors\ValueObject\VectorDataMemberFloat32;
 
 class QueryVectorsInputTest extends TestCase
 {
@@ -15,7 +15,7 @@ class QueryVectorsInputTest extends TestCase
             'indexName' => 'my-index',
             'indexArn' => 'arn:aws:s3:us-east-1:123456789012:index/my-index',
             'topK' => 5,
-            'queryVector' => new VectorData([
+            'queryVector' => new VectorDataMemberFloat32([
                 'float32' => [1.23, 4.56],
             ]),
             'filter' => ['tag' => 'value'],

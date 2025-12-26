@@ -6,6 +6,8 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3Vectors\ValueObject\GetOutputVector;
 use AsyncAws\S3Vectors\ValueObject\VectorData;
+use AsyncAws\S3Vectors\ValueObject\VectorDataMemberFloat32;
+use AsyncAws\S3Vectors\ValueObject\VectorDataMemberUnknownToSdk;
 
 class GetVectorsOutput extends Result
 {
@@ -73,8 +75,22 @@ class GetVectorsOutput extends Result
 
     private function populateResultVectorData(array $json): VectorData
     {
-        return new VectorData([
-            'float32' => !isset($json['float32']) ? null : $this->populateResultFloat32VectorData($json['float32']),
+        if (isset($json['float32'])) {
+            return $this->populateResultVectorDataMemberFloat32($json);
+        }
+
+        return $this->populateResultVectorDataMemberUnknownToSdk($json);
+    }
+
+    private function populateResultVectorDataMemberFloat32(array $json): VectorDataMemberFloat32
+    {
+        return new VectorDataMemberFloat32([
+            'float32' => $this->populateResultFloat32VectorData($json['float32']),
         ]);
+    }
+
+    private function populateResultVectorDataMemberUnknownToSdk(array $json): VectorData
+    {
+        return new VectorDataMemberUnknownToSdk($json);
     }
 }

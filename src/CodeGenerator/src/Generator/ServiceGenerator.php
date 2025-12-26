@@ -82,6 +82,11 @@ class ServiceGenerator
     private $object;
 
     /**
+     * @var ?ShapeUsageHelper
+     */
+    private $shapeUsage;
+
+    /**
      * @var ?TypeGenerator
      */
     private $type;
@@ -149,7 +154,7 @@ class ServiceGenerator
 
     public function populator(): PopulatorGenerator
     {
-        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->managedOperations, $this->type(), $this->enum(), $this->parserProvider());
+        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->shapeUsage(), $this->type(), $this->enum(), $this->parserProvider());
     }
 
     public function result(): ResultGenerator
@@ -169,7 +174,7 @@ class ServiceGenerator
 
     public function input(): InputGenerator
     {
-        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->managedOperations, $this->type(), $this->enum(), $this->hook());
+        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->shapeUsage(), $this->type(), $this->enum(), $this->hook());
     }
 
     public function type(): TypeGenerator
@@ -179,7 +184,7 @@ class ServiceGenerator
 
     public function enum(): EnumGenerator
     {
-        return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $this->managedOperations);
+        return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $this->shapeUsage());
     }
 
     public function hook(): HookGenerator
@@ -189,7 +194,12 @@ class ServiceGenerator
 
     public function object(): ObjectGenerator
     {
-        return $this->object ?? $this->object = new ObjectGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->managedOperations, $this->type(), $this->enum());
+        return $this->object ?? $this->object = new ObjectGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->shapeUsage(), $this->type(), $this->enum());
+    }
+
+    public function shapeUsage(): ShapeUsageHelper
+    {
+        return $this->shapeUsage ?? $this->shapeUsage = new ShapeUsageHelper($this->managedOperations);
     }
 
     public function getNamespaceRegistry(): NamespaceRegistry

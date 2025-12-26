@@ -7,8 +7,10 @@ namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -39,30 +41,116 @@ class TypeGenerator
      *
      * @return array{string, ClassName[]} [docblock representation, ClassName related]
      */
-    public function generateDocblock(StructureShape $shape, ClassName $shapeClassName, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): array
+    public function generateDocblock(ObjectShape $shape, ClassName $shapeClassName, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): array
     {
-        $classNames = [];
-        if ($alternateClass) {
-            $classNames[] = $shapeClassName;
-        }
-        if (empty($shape->getMembers()) && empty($extra)) {
-            // No input array
-            return ['@param array' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input', $classNames];
+        if ($shape instanceof StructureShape) {
+            [$definitions, $classNames] = $this->getDefinitionForStructure($shape, $allNullable, $isObject, $extra);
+        } elseif ($shape instanceof UnionShape) {
+            [$definitions, $classNames] = $this->getDefinitionForUnion($shape, $allNullable, $isObject, $extra);
+        } else {
+            throw new \RuntimeException('Unsupported shape type: ' . \get_class($shape));
         }
 
-        $body = ['@param array{'];
+        if ($alternateClass) {
+            $classNames[] = $shapeClassName;
+            $definitions[] = $shapeClassName->getName();
+        }
+
+        $body = '@param ' . implode('|', $definitions) . ' $input';
+
+        return [$body, array_unique($classNames, \SORT_REGULAR)];
+    }
+
+    /**
+     * Return php type information for the given shape.
+     *
+     * @return array{string, string, ClassName[]} [typeHint value, docblock representation, ClassName related]
+     */
+    public function getPhpType(Shape $shape): array
+    {
+        $memberClassNames = [];
+        if ($shape instanceof ObjectShape) {
+            $memberClassNames[] = $className = $this->namespaceRegistry->getObject($shape);
+
+            return [$className->getFqdn(), $className->getName(), $memberClassNames];
+        }
+
+        if ($shape instanceof ListShape) {
+            $listMemberShape = $shape->getMember()->getShape();
+            [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape);
+            if (str_ends_with($doc, '::*')) {
+                $doc = "list<$doc>";
+            } else {
+                $doc .= '[]';
+            }
+
+            return ['array', $doc, $memberClassNames];
+        }
+
+        if ($shape instanceof MapShape) {
+            $mapKeyShape = $shape->getKey()->getShape();
+            $mapValueShape = $shape->getValue()->getShape();
+            [$type, $doc, $memberClassNames] = $this->getPhpType($mapValueShape);
+            if (!empty($mapKeyShape->getEnum())) {
+                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
+                $doc = "array<{$memberClassName->getName()}::*, $doc>";
+            } else {
+                $doc = "array<string, $doc>";
+            }
+
+            return ['array', $doc, $memberClassNames];
+        }
+
+        if ($shape instanceof DocumentShape) {
+            return ['bool|string|int|float|array|null', 'bool|string|int|float|list<mixed>|array<string, mixed>|null', []];
+        }
+
+        $type = $doc = $this->getNativePhpType($shape->getType());
+        if (!empty($shape->getEnum())) {
+            $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($shape);
+
+            $doc = $memberClassName->getName() . '::*';
+        }
+
+        return [$type, $doc, $memberClassNames];
+    }
+
+    private function getDefinitionForUnion(UnionShape $shape, bool $allNullable, bool $isObject, array $extra): array
+    {
+        $definitions = [];
+        $classNames = [];
+        foreach ($shape->getChildren() as $child) {
+            [$childDefinitions, $childClassNames] = $this->getDefinitionForStructure($child, $allNullable, $isObject, $extra);
+            $definitions = array_merge($definitions, $childDefinitions);
+            $classNames = array_merge($classNames, $childClassNames);
+        }
+
+        $definitions = array_unique($definitions);
+
+        return [$definitions, $classNames];
+    }
+
+    private function getDefinitionForStructure(StructureShape $shape, bool $allNullable, bool $isObject, array $extra): array
+    {
+        $classNames = [];
+        if (empty($shape->getMembers()) && empty($extra)) {
+            // No input array
+            return [['array'], $classNames];
+        }
+
+        $body = ['array{'];
         foreach ($shape->getMembers() as $member) {
             $nullable = !$member->isRequired();
             $memberShape = $member->getShape();
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $classNames[] = $className = $this->namespaceRegistry->getObject($memberShape);
                 $param = $className->getName() . '|array';
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // is the list item an object?
-                if ($listMemberShape instanceof StructureShape) {
+                if ($listMemberShape instanceof ObjectShape) {
                     $classNames[] = $className = $this->namespaceRegistry->getObject($listMemberShape);
                     $param = 'array<' . $className->getName() . '|array>';
                 } elseif (!empty($listMemberShape->getEnum())) {
@@ -75,7 +163,7 @@ class TypeGenerator
                 $mapValueShape = $memberShape->getValue()->getShape();
 
                 // is the map item an object?
-                if ($mapValueShape instanceof StructureShape) {
+                if ($mapValueShape instanceof ObjectShape) {
                     $classNames[] = $className = $this->namespaceRegistry->getObject($mapValueShape);
                     $param = $className->getName() . '|array';
                 } elseif (!empty($mapValueShape->getEnum())) {
@@ -125,64 +213,11 @@ class TypeGenerator
                 $body[] = \sprintf('  %s: %s,', $phpdocMemberName, $param);
             }
         }
+
         $body = array_merge($body, $extra);
-        $body[] = '}' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input';
+        $body[] = '}';
 
-        return [implode("\n", $body), $classNames];
-    }
-
-    /**
-     * Return php type information for the given shape.
-     *
-     * @return array{string, string, ClassName[]} [typeHint value, docblock representation, ClassName related]
-     */
-    public function getPhpType(Shape $shape): array
-    {
-        $memberClassNames = [];
-        if ($shape instanceof StructureShape) {
-            $memberClassNames[] = $className = $this->namespaceRegistry->getObject($shape);
-
-            return [$className->getFqdn(), $className->getName(), $memberClassNames];
-        }
-
-        if ($shape instanceof ListShape) {
-            $listMemberShape = $shape->getMember()->getShape();
-            [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape);
-            if ('::*' === substr($doc, -3)) {
-                $doc = "list<$doc>";
-            } else {
-                $doc .= '[]';
-            }
-
-            return ['array', $doc, $memberClassNames];
-        }
-
-        if ($shape instanceof MapShape) {
-            $mapKeyShape = $shape->getKey()->getShape();
-            $mapValueShape = $shape->getValue()->getShape();
-            [$type, $doc, $memberClassNames] = $this->getPhpType($mapValueShape);
-            if (!empty($mapKeyShape->getEnum())) {
-                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
-                $doc = "array<{$memberClassName->getName()}::*, $doc>";
-            } else {
-                $doc = "array<string, $doc>";
-            }
-
-            return ['array', $doc, $memberClassNames];
-        }
-
-        if ($shape instanceof DocumentShape) {
-            return ['bool|string|int|float|array|null', 'bool|string|int|float|list<mixed>|array<string, mixed>|null', []];
-        }
-
-        $type = $doc = $this->getNativePhpType($shape->getType());
-        if (!empty($shape->getEnum())) {
-            $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($shape);
-
-            $doc = $memberClassName->getName() . '::*';
-        }
-
-        return [$type, $doc, $memberClassNames];
+        return [[implode("\n", $body)], $classNames];
     }
 
     private function getNativePhpType(string $parameterType): string

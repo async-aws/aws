@@ -18,7 +18,7 @@ class StructureMember extends Member
         return $this->data['_name'];
     }
 
-    public function getOwnerShape(): StructureShape
+    public function getOwnerShape(): ObjectShape
     {
         return $this->data['_owner'];
     }

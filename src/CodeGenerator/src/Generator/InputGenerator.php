@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
@@ -79,13 +80,13 @@ class InputGenerator
      */
     private $requirementsRegistry;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?HookGenerator $hookGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ShapeUsageHelper $shapeUsageHelper, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?HookGenerator $hookGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->objectGenerator = $objectGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $managedMethods);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $shapeUsageHelper);
         $this->hookGenerator = $hookGenerator ?? new HookGenerator();
         $this->serializer = new SerializerProvider($this->namespaceRegistry, $requirementsRegistry);
         $this->requirementsRegistry = $requirementsRegistry;
@@ -123,7 +124,7 @@ class InputGenerator
             $getterSetterNullable = true;
             $typeAlreadyNullable = false;
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $memberClassName = $this->objectGenerator->generate($memberShape);
                 $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
             } elseif ($memberShape instanceof ListShape) {
@@ -133,18 +134,16 @@ class InputGenerator
                 }
                 $getterSetterNullable = false;
 
-                if ($listMemberShape instanceof StructureShape) {
-                    $getterSetterNullable = false;
+                if ($listMemberShape instanceof ObjectShape) {
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
                     $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape) {
-                    $getterSetterNullable = false;
                     $listMemberShapelevel2 = $listMemberShape->getMember()->getShape();
                     if (!empty($listMemberShapelevel2->getEnum())) {
                         $this->enumGenerator->generate($listMemberShapelevel2);
                     }
 
-                    if ($listMemberShapelevel2 instanceof StructureShape) {
+                    if ($listMemberShapelevel2 instanceof ObjectShape) {
                         $memberClassName = $this->objectGenerator->generate($listMemberShapelevel2);
                         $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map(static function(array $array) {
                             return array_map([CLASS::class, "create"], $array);
@@ -171,7 +170,7 @@ class InputGenerator
 
                 $getterSetterNullable = false;
                 // Is this a list of objects?
-                if ($mapValueShape instanceof StructureShape) {
+                if ($mapValueShape instanceof ObjectShape) {
                     $memberClassName = $this->objectGenerator->generate($mapValueShape);
 
                     $constructorBody .= strtr('
@@ -189,7 +188,7 @@ class InputGenerator
                 } elseif ($mapValueShape instanceof ListShape) {
                     $listMember = $mapValueShape->getMember();
                     $listMemberShape = $listMember->getShape();
-                    if (!$listMemberShape instanceof StructureShape) {
+                    if (!$listMemberShape instanceof ObjectShape) {
                         throw new \RuntimeException('Recursive ListShape with non StructureShape member is not implemented.');
                     }
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
@@ -509,8 +508,8 @@ class InputGenerator
                 if ('' === trim($serializerBuilderResult->getBody())) {
                     $body['body'] = '$body = "";';
                 } else {
-                    $method = $classBuilder->addMethod('requestBody')->setReturnType($serializerBuilderResult->getReturnType())->setBody($serializerBuilderResult->getBody())->setPrivate();
-                    foreach ($serializerBodyResult->getExtraMethodArgs() + $serializerBuilderResult->getExtraMethodArgs() as $arg => $type) {
+                    $method = $classBuilder->addMethod('requestBody')->setReturnType($serializer->getRequestBuilderReturnType())->setBody($serializerBuilderResult->getBody())->setPrivate();
+                    foreach ($serializerBodyResult->getExtraMethodArgs() + $serializer->getRequestBuilderExtraArguments() as $arg => $type) {
                         $method->addParameter($arg)->setType($type);
                     }
                 }
@@ -623,14 +622,14 @@ PHP
                 $classBuilder->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
             }
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                 if (!\in_array($fqdn, $addedFqdn)) {
                     $addedFqdn[] = $fqdn;
                     $classBuilder->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof MapShape) {
-                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof ObjectShape) {
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
@@ -641,7 +640,7 @@ PHP
                     $classBuilder->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
-                if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
+                if (($memberShape = $memberShape->getMember()->getShape()) instanceof ObjectShape) {
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
