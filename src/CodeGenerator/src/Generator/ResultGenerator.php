@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\PopulatorGenerator;
@@ -102,14 +103,14 @@ class ResultGenerator
                 $classBuilder->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
             }
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                 if (!\in_array($fqdn, $addedFqdn)) {
                     $addedFqdn[] = $fqdn;
                     $classBuilder->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof MapShape) {
-                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof ObjectShape) {
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
@@ -120,7 +121,7 @@ class ResultGenerator
                     $classBuilder->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
-                if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
+                if (($memberShape = $memberShape->getMember()->getShape()) instanceof ObjectShape) {
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;

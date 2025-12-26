@@ -22,19 +22,12 @@ class SerializerResult
     private $usedClasses;
 
     /**
-     * @var array<string, string>
+     * @param list<string> $usedClasses
      */
-    private $extraMethodArgs;
-
-    /**
-     * @param list<string>          $usedClasses
-     * @param array<string, string> $extraMethodArgs
-     */
-    public function __construct(string $body, array $usedClasses = [], array $extraMethodArgs = [])
+    public function __construct(string $body, array $usedClasses = [])
     {
         $this->body = $body;
         $this->usedClasses = $usedClasses;
-        $this->extraMethodArgs = $extraMethodArgs;
     }
 
     public function getBody(): string
@@ -48,13 +41,5 @@ class SerializerResult
     public function getUsedClasses(): array
     {
         return $this->usedClasses;
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public function getExtraMethodArgs(): array
-    {
-        return $this->extraMethodArgs;
     }
 }
