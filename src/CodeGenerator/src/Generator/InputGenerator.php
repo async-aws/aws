@@ -351,19 +351,27 @@ class InputGenerator
     {
         $memberShape = $member->getShape();
         if ($memberShape instanceof ListShape) {
-            if ('header' !== $requestPart) {
-                throw new \InvalidArgumentException(\sprintf('ListShape in request part "%s" is not yet implemented', $requestPart));
+            if ('header' === $requestPart) {
+                $bodyCode = '
+                APPLY_HOOK
+                $items = [];
+                foreach (INPUT as $value) {
+                    VALIDATE_ENUM
+                    $items[] = VALUE;
+                }
+                OUTPUT = implode(\',\', $items);
+                ';
+            } elseif ('querystring' === $requestPart) {
+                $bodyCode = '
+                APPLY_HOOK
+                foreach (INPUT as $value) {
+                    VALIDATE_ENUM
+                    OUTPUT[] = VALUE;
+                }
+                ';
+            } else {
+                throw new \InvalidArgumentException(\sprintf('ListShape in request part "%s" is not yet implemented.', $requestPart));
             }
-
-            $bodyCode = '
-            APPLY_HOOK
-            $items = [];
-            foreach (INPUT as $value) {
-                VALIDATE_ENUM
-                $items[] = VALUE;
-            }
-            OUTPUT = implode(\',\', $items);
-            ';
 
             return strtr($bodyCode, [
                 'INPUT' => $input,

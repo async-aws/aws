@@ -4,6 +4,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
+use AsyncAws\Core\HttpClient\BuildHttpQueryTrait;
 use AsyncAws\Core\Stream\RequestStream;
 
 /**
@@ -13,6 +14,8 @@ use AsyncAws\Core\Stream\RequestStream;
  */
 final class Request
 {
+    use BuildHttpQueryTrait;
+
     /**
      * @var string
      */
@@ -39,7 +42,7 @@ final class Request
     private $queryString;
 
     /**
-     * @var array<string, string>
+     * @var array<string, string|string[]>
      */
     private $query;
 
@@ -59,8 +62,8 @@ final class Request
     private $parsed;
 
     /**
-     * @param array<string, string> $query
-     * @param array<string, string> $headers
+     * @param array<string, string|string[]> $query
+     * @param array<string, string>          $headers
      */
     public function __construct(string $method, string $uri, array $query, array $headers, RequestStream $body, string $hostPrefix = '')
     {
@@ -141,20 +144,26 @@ final class Request
         $this->endpoint = '';
     }
 
-    public function setQueryAttribute(string $name, string $value): void
+    /**
+     * @param string|string[] $value
+     */
+    public function setQueryAttribute(string $name, string|array $value): void
     {
         $this->query[$name] = $value;
         $this->queryString = null;
         $this->endpoint = '';
     }
 
-    public function getQueryAttribute(string $name): ?string
+    /**
+     * @return string|string[]|null
+     */
+    public function getQueryAttribute(string $name): string|array|null
     {
         return $this->query[$name] ?? null;
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, string|string[]>
      */
     public function getQuery(): array
     {
@@ -207,7 +216,7 @@ final class Request
     private function getQueryString(): string
     {
         if (null === $this->queryString) {
-            $this->queryString = http_build_query($this->query, '', '&', \PHP_QUERY_RFC3986);
+            $this->queryString = $this->buildHttpQuery($this->query);
         }
 
         return $this->queryString;

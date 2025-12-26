@@ -15,6 +15,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\HttpClient\AwsRetryStrategy;
+use AsyncAws\Core\HttpClient\BuildHttpQueryTrait;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
@@ -32,6 +33,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 abstract class AbstractApi
 {
+    use BuildHttpQueryTrait;
+
     /**
      * @var HttpClientInterface
      */
@@ -230,9 +233,9 @@ abstract class AbstractApi
     /**
      * Build the endpoint full uri.
      *
-     * @param string                $uri    or path
-     * @param array<string, string> $query  parameters that should go in the query string
-     * @param ?string               $region region provided by the user in the `@region` parameter of the Input
+     * @param string                         $uri    or path
+     * @param array<string, string|string[]> $query  parameters that should go in the query string
+     * @param ?string                        $region region provided by the user in the `@region` parameter of the Input
      */
     protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
@@ -260,7 +263,7 @@ abstract class AbstractApi
             return $endpoint;
         }
 
-        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . http_build_query($query, '', '&', \PHP_QUERY_RFC3986);
+        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . $this->buildHttpQuery($query);
     }
 
     /**
@@ -272,7 +275,7 @@ abstract class AbstractApi
     }
 
     /**
-     * @param array<string, string> $query
+     * @param array<string, string|string[]> $query
      *
      * @return string
      */
@@ -316,7 +319,7 @@ abstract class AbstractApi
             return $endpoint;
         }
 
-        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
+        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . $this->buildHttpQuery($query);
     }
 
     /**
