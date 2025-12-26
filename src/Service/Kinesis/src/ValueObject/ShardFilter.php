@@ -100,6 +100,7 @@ final class ShardFilter
         $payload = [];
         $v = $this->type;
         if (!ShardFilterType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ShardFilterType".', __CLASS__, $v));
         }
         $payload['Type'] = $v;

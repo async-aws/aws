@@ -9,9 +9,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsEbpPlacement
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const VIDEO_AND_AUDIO_PIDS = 'VIDEO_AND_AUDIO_PIDS';
     public const VIDEO_PID = 'VIDEO_PID';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -9,6 +9,9 @@ final class RepositoryTriggerEventEnum
     public const DELETE_REFERENCE = 'deleteReference';
     public const UPDATE_REFERENCE = 'updateReference';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

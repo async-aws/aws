@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Athena\Result;
 
+use AsyncAws\Athena\Enum\ConnectionType;
+use AsyncAws\Athena\Enum\DataCatalogStatus;
+use AsyncAws\Athena\Enum\DataCatalogType;
 use AsyncAws\Athena\ValueObject\DataCatalog;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
@@ -34,10 +37,10 @@ class GetDataCatalogOutput extends Result
         return new DataCatalog([
             'Name' => (string) $json['Name'],
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
-            'Type' => (string) $json['Type'],
+            'Type' => !DataCatalogType::exists((string) $json['Type']) ? DataCatalogType::UNKNOWN_TO_SDK : (string) $json['Type'],
             'Parameters' => !isset($json['Parameters']) ? null : $this->populateResultParametersMap($json['Parameters']),
-            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
-            'ConnectionType' => isset($json['ConnectionType']) ? (string) $json['ConnectionType'] : null,
+            'Status' => isset($json['Status']) ? (!DataCatalogStatus::exists((string) $json['Status']) ? DataCatalogStatus::UNKNOWN_TO_SDK : (string) $json['Status']) : null,
+            'ConnectionType' => isset($json['ConnectionType']) ? (!ConnectionType::exists((string) $json['ConnectionType']) ? ConnectionType::UNKNOWN_TO_SDK : (string) $json['ConnectionType']) : null,
             'Error' => isset($json['Error']) ? (string) $json['Error'] : null,
         ]);
     }

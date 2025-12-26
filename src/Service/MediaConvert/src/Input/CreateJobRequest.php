@@ -446,6 +446,7 @@ final class CreateJobRequest extends Input1
         }
         if (null !== $v = $this->billingTagsSource) {
             if (!BillingTagsSource::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "billingTagsSource" for "%s". The value "%s" is not a valid "BillingTagsSource".', __CLASS__, $v));
             }
             $payload['billingTagsSource'] = $v;
@@ -484,12 +485,14 @@ final class CreateJobRequest extends Input1
         $payload['settings'] = $v->requestBody();
         if (null !== $v = $this->simulateReservedQueue) {
             if (!SimulateReservedQueue::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "simulateReservedQueue" for "%s". The value "%s" is not a valid "SimulateReservedQueue".', __CLASS__, $v));
             }
             $payload['simulateReservedQueue'] = $v;
         }
         if (null !== $v = $this->statusUpdateInterval) {
             if (!StatusUpdateInterval::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "statusUpdateInterval" for "%s". The value "%s" is not a valid "StatusUpdateInterval".', __CLASS__, $v));
             }
             $payload['statusUpdateInterval'] = $v;

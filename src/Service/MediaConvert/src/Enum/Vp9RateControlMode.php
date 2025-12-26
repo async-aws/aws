@@ -7,8 +7,12 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Vp9RateControlMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const VBR = 'VBR';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

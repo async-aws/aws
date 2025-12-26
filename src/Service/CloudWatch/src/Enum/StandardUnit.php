@@ -4,6 +4,7 @@ namespace AsyncAws\CloudWatch\Enum;
 
 final class StandardUnit
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BITS = 'Bits';
     public const BITS_SECOND = 'Bits/Second';
     public const BYTES = 'Bytes';
@@ -32,6 +33,9 @@ final class StandardUnit
     public const TERABYTES = 'Terabytes';
     public const TERABYTES_SECOND = 'Terabytes/Second';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

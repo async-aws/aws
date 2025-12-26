@@ -12,6 +12,9 @@ final class ObjectCannedACL
     public const PUBLIC_READ = 'public-read';
     public const PUBLIC_READ_WRITE = 'public-read-write';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

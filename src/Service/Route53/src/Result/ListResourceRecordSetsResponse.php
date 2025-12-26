@@ -5,6 +5,8 @@ namespace AsyncAws\Route53\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Route53\Enum\ResourceRecordSetFailover;
+use AsyncAws\Route53\Enum\ResourceRecordSetRegion;
 use AsyncAws\Route53\Enum\RRType;
 use AsyncAws\Route53\Input\ListResourceRecordSetsRequest;
 use AsyncAws\Route53\Route53Client;
@@ -177,7 +179,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
         $this->resourceRecordSets = $this->populateResultResourceRecordSets($data->ResourceRecordSets);
         $this->isTruncated = filter_var((string) $data->IsTruncated, \FILTER_VALIDATE_BOOLEAN);
         $this->nextRecordName = (null !== $v = $data->NextRecordName[0]) ? (string) $v : null;
-        $this->nextRecordType = (null !== $v = $data->NextRecordType[0]) ? (string) $v : null;
+        $this->nextRecordType = (null !== $v = $data->NextRecordType[0]) ? (!RRType::exists((string) $data->NextRecordType) ? RRType::UNKNOWN_TO_SDK : (string) $data->NextRecordType) : null;
         $this->nextRecordIdentifier = (null !== $v = $data->NextRecordIdentifier[0]) ? (string) $v : null;
         $this->maxItems = (string) $data->MaxItems;
     }
@@ -237,12 +239,12 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
     {
         return new ResourceRecordSet([
             'Name' => (string) $xml->Name,
-            'Type' => (string) $xml->Type,
+            'Type' => !RRType::exists((string) $xml->Type) ? RRType::UNKNOWN_TO_SDK : (string) $xml->Type,
             'SetIdentifier' => (null !== $v = $xml->SetIdentifier[0]) ? (string) $v : null,
             'Weight' => (null !== $v = $xml->Weight[0]) ? (int) (string) $v : null,
-            'Region' => (null !== $v = $xml->Region[0]) ? (string) $v : null,
+            'Region' => (null !== $v = $xml->Region[0]) ? (!ResourceRecordSetRegion::exists((string) $xml->Region) ? ResourceRecordSetRegion::UNKNOWN_TO_SDK : (string) $xml->Region) : null,
             'GeoLocation' => 0 === $xml->GeoLocation->count() ? null : $this->populateResultGeoLocation($xml->GeoLocation),
-            'Failover' => (null !== $v = $xml->Failover[0]) ? (string) $v : null,
+            'Failover' => (null !== $v = $xml->Failover[0]) ? (!ResourceRecordSetFailover::exists((string) $xml->Failover) ? ResourceRecordSetFailover::UNKNOWN_TO_SDK : (string) $xml->Failover) : null,
             'MultiValueAnswer' => (null !== $v = $xml->MultiValueAnswer[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'TTL' => (null !== $v = $xml->TTL[0]) ? (int) (string) $v : null,
             'ResourceRecords' => (0 === ($v = $xml->ResourceRecords)->count()) ? null : $this->populateResultResourceRecords($v),

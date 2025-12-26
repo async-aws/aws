@@ -395,6 +395,7 @@ final class UpdateDataSourceRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "type" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!DataSourceType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "DataSourceType".', __CLASS__, $v));
         }
         $payload['type'] = $v;
@@ -424,6 +425,7 @@ final class UpdateDataSourceRequest extends Input
         }
         if (null !== $v = $this->metricsConfig) {
             if (!DataSourceLevelMetricsConfig::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "metricsConfig" for "%s". The value "%s" is not a valid "DataSourceLevelMetricsConfig".', __CLASS__, $v));
             }
             $payload['metricsConfig'] = $v;

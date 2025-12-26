@@ -9,6 +9,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class StatusUpdateInterval
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SECONDS_10 = 'SECONDS_10';
     public const SECONDS_12 = 'SECONDS_12';
     public const SECONDS_120 = 'SECONDS_120';
@@ -25,6 +26,9 @@ final class StatusUpdateInterval
     public const SECONDS_60 = 'SECONDS_60';
     public const SECONDS_600 = 'SECONDS_600';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

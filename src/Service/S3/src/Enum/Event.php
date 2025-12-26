@@ -35,6 +35,9 @@ final class Event
     public const S3_REPLICATION_OPERATION_NOT_TRACKED = 's3:Replication:OperationNotTracked';
     public const S3_REPLICATION_OPERATION_REPLICATED_AFTER_THRESHOLD = 's3:Replication:OperationReplicatedAfterThreshold';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class AudioChannelTag
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const C = 'C';
     public const CS = 'CS';
     public const HI = 'HI';
@@ -39,6 +40,9 @@ final class AudioChannelTag
     public const VHL = 'VHL';
     public const VHR = 'VHR';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

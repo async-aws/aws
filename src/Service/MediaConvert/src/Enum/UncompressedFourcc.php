@@ -7,10 +7,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class UncompressedFourcc
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const I420 = 'I420';
     public const I422 = 'I422';
     public const I444 = 'I444';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

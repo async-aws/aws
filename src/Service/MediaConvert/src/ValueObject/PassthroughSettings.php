@@ -81,12 +81,14 @@ final class PassthroughSettings
         $payload = [];
         if (null !== $v = $this->frameControl) {
             if (!FrameControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "frameControl" for "%s". The value "%s" is not a valid "FrameControl".', __CLASS__, $v));
             }
             $payload['frameControl'] = $v;
         }
         if (null !== $v = $this->videoSelectorMode) {
             if (!VideoSelectorMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "videoSelectorMode" for "%s". The value "%s" is not a valid "VideoSelectorMode".', __CLASS__, $v));
             }
             $payload['videoSelectorMode'] = $v;

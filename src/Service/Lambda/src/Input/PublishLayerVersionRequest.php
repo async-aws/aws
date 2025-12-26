@@ -240,6 +240,7 @@ final class PublishLayerVersionRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Runtime::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleRuntimes" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $listValue));
                 }
                 $payload['CompatibleRuntimes'][$index] = $listValue;
@@ -254,6 +255,7 @@ final class PublishLayerVersionRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Architecture::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitectures" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $listValue));
                 }
                 $payload['CompatibleArchitectures'][$index] = $listValue;

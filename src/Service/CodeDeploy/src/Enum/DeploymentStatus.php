@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class DeploymentStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BAKING = 'Baking';
     public const CREATED = 'Created';
     public const FAILED = 'Failed';
@@ -13,6 +14,9 @@ final class DeploymentStatus
     public const STOPPED = 'Stopped';
     public const SUCCEEDED = 'Succeeded';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

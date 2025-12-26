@@ -2,6 +2,10 @@
 
 namespace AsyncAws\Athena\Result;
 
+use AsyncAws\Athena\Enum\AuthenticationType;
+use AsyncAws\Athena\Enum\EncryptionOption;
+use AsyncAws\Athena\Enum\S3AclOption;
+use AsyncAws\Athena\Enum\WorkGroupState;
 use AsyncAws\Athena\ValueObject\AclConfiguration;
 use AsyncAws\Athena\ValueObject\Classification;
 use AsyncAws\Athena\ValueObject\CloudWatchLoggingConfiguration;
@@ -48,7 +52,7 @@ class GetWorkGroupOutput extends Result
     private function populateResultAclConfiguration(array $json): AclConfiguration
     {
         return new AclConfiguration([
-            'S3AclOption' => (string) $json['S3AclOption'],
+            'S3AclOption' => !S3AclOption::exists((string) $json['S3AclOption']) ? S3AclOption::UNKNOWN_TO_SDK : (string) $json['S3AclOption'],
         ]);
     }
 
@@ -93,7 +97,7 @@ class GetWorkGroupOutput extends Result
     private function populateResultEncryptionConfiguration(array $json): EncryptionConfiguration
     {
         return new EncryptionConfiguration([
-            'EncryptionOption' => (string) $json['EncryptionOption'],
+            'EncryptionOption' => !EncryptionOption::exists((string) $json['EncryptionOption']) ? EncryptionOption::UNKNOWN_TO_SDK : (string) $json['EncryptionOption'],
             'KmsKey' => isset($json['KmsKey']) ? (string) $json['KmsKey'] : null,
         ]);
     }
@@ -205,7 +209,7 @@ class GetWorkGroupOutput extends Result
         return new QueryResultsS3AccessGrantsConfiguration([
             'EnableS3AccessGrants' => filter_var($json['EnableS3AccessGrants'], \FILTER_VALIDATE_BOOLEAN),
             'CreateUserLevelPrefix' => isset($json['CreateUserLevelPrefix']) ? filter_var($json['CreateUserLevelPrefix'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'AuthenticationType' => (string) $json['AuthenticationType'],
+            'AuthenticationType' => !AuthenticationType::exists((string) $json['AuthenticationType']) ? AuthenticationType::UNKNOWN_TO_SDK : (string) $json['AuthenticationType'],
         ]);
     }
 
@@ -232,7 +236,7 @@ class GetWorkGroupOutput extends Result
     {
         return new WorkGroup([
             'Name' => (string) $json['Name'],
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'State' => isset($json['State']) ? (!WorkGroupState::exists((string) $json['State']) ? WorkGroupState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
             'Configuration' => empty($json['Configuration']) ? null : $this->populateResultWorkGroupConfiguration($json['Configuration']),
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'CreationTime' => (isset($json['CreationTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationTime'])))) ? $d : null,

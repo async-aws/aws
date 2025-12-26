@@ -81,6 +81,7 @@ final class QueryInsights
         $payload = [];
         $v = $this->mode;
         if (!QueryInsightsMode::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "QueryInsightsMode".', __CLASS__, $v));
         }
         $payload['Mode'] = $v;

@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class DvbSubtitlingType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const HEARING_IMPAIRED = 'HEARING_IMPAIRED';
     public const STANDARD = 'STANDARD';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

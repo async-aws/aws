@@ -7,6 +7,9 @@ final class ArtifactPackaging
     public const NONE = 'NONE';
     public const ZIP = 'ZIP';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

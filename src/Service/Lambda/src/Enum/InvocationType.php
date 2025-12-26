@@ -8,6 +8,9 @@ final class InvocationType
     public const EVENT = 'Event';
     public const REQUEST_RESPONSE = 'RequestResponse';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -2,7 +2,21 @@
 
 namespace AsyncAws\CodeBuild\Result;
 
+use AsyncAws\CodeBuild\Enum\BucketOwnerAccess;
+use AsyncAws\CodeBuild\Enum\BuildPhaseType;
 use AsyncAws\CodeBuild\Enum\CacheMode;
+use AsyncAws\CodeBuild\Enum\CacheType;
+use AsyncAws\CodeBuild\Enum\ComputeType;
+use AsyncAws\CodeBuild\Enum\CredentialProviderType;
+use AsyncAws\CodeBuild\Enum\EnvironmentType;
+use AsyncAws\CodeBuild\Enum\EnvironmentVariableType;
+use AsyncAws\CodeBuild\Enum\FileSystemType;
+use AsyncAws\CodeBuild\Enum\ImagePullCredentialsType;
+use AsyncAws\CodeBuild\Enum\LogsConfigStatusType;
+use AsyncAws\CodeBuild\Enum\MachineType;
+use AsyncAws\CodeBuild\Enum\SourceAuthType;
+use AsyncAws\CodeBuild\Enum\SourceType;
+use AsyncAws\CodeBuild\Enum\StatusType;
 use AsyncAws\CodeBuild\ValueObject\AutoRetryConfig;
 use AsyncAws\CodeBuild\ValueObject\Build;
 use AsyncAws\CodeBuild\ValueObject\BuildArtifacts;
@@ -95,7 +109,7 @@ class BatchGetBuildsOutput extends Result
             'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['startTime'])))) ? $d : null,
             'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['endTime'])))) ? $d : null,
             'currentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
-            'buildStatus' => isset($json['buildStatus']) ? (string) $json['buildStatus'] : null,
+            'buildStatus' => isset($json['buildStatus']) ? (!StatusType::exists((string) $json['buildStatus']) ? StatusType::UNKNOWN_TO_SDK : (string) $json['buildStatus']) : null,
             'sourceVersion' => isset($json['sourceVersion']) ? (string) $json['sourceVersion'] : null,
             'resolvedSourceVersion' => isset($json['resolvedSourceVersion']) ? (string) $json['resolvedSourceVersion'] : null,
             'projectName' => isset($json['projectName']) ? (string) $json['projectName'] : null,
@@ -134,7 +148,7 @@ class BatchGetBuildsOutput extends Result
             'overrideArtifactName' => isset($json['overrideArtifactName']) ? filter_var($json['overrideArtifactName'], \FILTER_VALIDATE_BOOLEAN) : null,
             'encryptionDisabled' => isset($json['encryptionDisabled']) ? filter_var($json['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'artifactIdentifier' => isset($json['artifactIdentifier']) ? (string) $json['artifactIdentifier'] : null,
-            'bucketOwnerAccess' => isset($json['bucketOwnerAccess']) ? (string) $json['bucketOwnerAccess'] : null,
+            'bucketOwnerAccess' => isset($json['bucketOwnerAccess']) ? (!BucketOwnerAccess::exists((string) $json['bucketOwnerAccess']) ? BucketOwnerAccess::UNKNOWN_TO_SDK : (string) $json['bucketOwnerAccess']) : null,
         ]);
     }
 
@@ -170,8 +184,8 @@ class BatchGetBuildsOutput extends Result
     private function populateResultBuildPhase(array $json): BuildPhase
     {
         return new BuildPhase([
-            'phaseType' => isset($json['phaseType']) ? (string) $json['phaseType'] : null,
-            'phaseStatus' => isset($json['phaseStatus']) ? (string) $json['phaseStatus'] : null,
+            'phaseType' => isset($json['phaseType']) ? (!BuildPhaseType::exists((string) $json['phaseType']) ? BuildPhaseType::UNKNOWN_TO_SDK : (string) $json['phaseType']) : null,
+            'phaseStatus' => isset($json['phaseStatus']) ? (!StatusType::exists((string) $json['phaseStatus']) ? StatusType::UNKNOWN_TO_SDK : (string) $json['phaseStatus']) : null,
             'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['startTime'])))) ? $d : null,
             'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['endTime'])))) ? $d : null,
             'durationInSeconds' => isset($json['durationInSeconds']) ? (int) $json['durationInSeconds'] : null,
@@ -232,7 +246,7 @@ class BatchGetBuildsOutput extends Result
     private function populateResultCloudWatchLogsConfig(array $json): CloudWatchLogsConfig
     {
         return new CloudWatchLogsConfig([
-            'status' => (string) $json['status'],
+            'status' => !LogsConfigStatusType::exists((string) $json['status']) ? LogsConfigStatusType::UNKNOWN_TO_SDK : (string) $json['status'],
             'groupName' => isset($json['groupName']) ? (string) $json['groupName'] : null,
             'streamName' => isset($json['streamName']) ? (string) $json['streamName'] : null,
         ]);
@@ -244,7 +258,7 @@ class BatchGetBuildsOutput extends Result
             'vCpu' => isset($json['vCpu']) ? (int) $json['vCpu'] : null,
             'memory' => isset($json['memory']) ? (int) $json['memory'] : null,
             'disk' => isset($json['disk']) ? (int) $json['disk'] : null,
-            'machineType' => isset($json['machineType']) ? (string) $json['machineType'] : null,
+            'machineType' => isset($json['machineType']) ? (!MachineType::exists((string) $json['machineType']) ? MachineType::UNKNOWN_TO_SDK : (string) $json['machineType']) : null,
             'instanceType' => isset($json['instanceType']) ? (string) $json['instanceType'] : null,
         ]);
     }
@@ -260,7 +274,7 @@ class BatchGetBuildsOutput extends Result
     private function populateResultDockerServer(array $json): DockerServer
     {
         return new DockerServer([
-            'computeType' => (string) $json['computeType'],
+            'computeType' => !ComputeType::exists((string) $json['computeType']) ? ComputeType::UNKNOWN_TO_SDK : (string) $json['computeType'],
             'securityGroupIds' => !isset($json['securityGroupIds']) ? null : $this->populateResultSecurityGroupIds($json['securityGroupIds']),
             'status' => empty($json['status']) ? null : $this->populateResultDockerServerStatus($json['status']),
         ]);
@@ -279,7 +293,7 @@ class BatchGetBuildsOutput extends Result
         return new EnvironmentVariable([
             'name' => (string) $json['name'],
             'value' => (string) $json['value'],
-            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'type' => isset($json['type']) ? (!EnvironmentVariableType::exists((string) $json['type']) ? EnvironmentVariableType::UNKNOWN_TO_SDK : (string) $json['type']) : null,
         ]);
     }
 
@@ -370,7 +384,7 @@ class BatchGetBuildsOutput extends Result
     private function populateResultProjectCache(array $json): ProjectCache
     {
         return new ProjectCache([
-            'type' => (string) $json['type'],
+            'type' => !CacheType::exists((string) $json['type']) ? CacheType::UNKNOWN_TO_SDK : (string) $json['type'],
             'location' => isset($json['location']) ? (string) $json['location'] : null,
             'modes' => !isset($json['modes']) ? null : $this->populateResultProjectCacheModes($json['modes']),
             'cacheNamespace' => isset($json['cacheNamespace']) ? (string) $json['cacheNamespace'] : null,
@@ -386,6 +400,9 @@ class BatchGetBuildsOutput extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!CacheMode::exists($a)) {
+                    $a = CacheMode::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -396,16 +413,16 @@ class BatchGetBuildsOutput extends Result
     private function populateResultProjectEnvironment(array $json): ProjectEnvironment
     {
         return new ProjectEnvironment([
-            'type' => (string) $json['type'],
+            'type' => !EnvironmentType::exists((string) $json['type']) ? EnvironmentType::UNKNOWN_TO_SDK : (string) $json['type'],
             'image' => (string) $json['image'],
-            'computeType' => (string) $json['computeType'],
+            'computeType' => !ComputeType::exists((string) $json['computeType']) ? ComputeType::UNKNOWN_TO_SDK : (string) $json['computeType'],
             'computeConfiguration' => empty($json['computeConfiguration']) ? null : $this->populateResultComputeConfiguration($json['computeConfiguration']),
             'fleet' => empty($json['fleet']) ? null : $this->populateResultProjectFleet($json['fleet']),
             'environmentVariables' => !isset($json['environmentVariables']) ? null : $this->populateResultEnvironmentVariables($json['environmentVariables']),
             'privilegedMode' => isset($json['privilegedMode']) ? filter_var($json['privilegedMode'], \FILTER_VALIDATE_BOOLEAN) : null,
             'certificate' => isset($json['certificate']) ? (string) $json['certificate'] : null,
             'registryCredential' => empty($json['registryCredential']) ? null : $this->populateResultRegistryCredential($json['registryCredential']),
-            'imagePullCredentialsType' => isset($json['imagePullCredentialsType']) ? (string) $json['imagePullCredentialsType'] : null,
+            'imagePullCredentialsType' => isset($json['imagePullCredentialsType']) ? (!ImagePullCredentialsType::exists((string) $json['imagePullCredentialsType']) ? ImagePullCredentialsType::UNKNOWN_TO_SDK : (string) $json['imagePullCredentialsType']) : null,
             'dockerServer' => empty($json['dockerServer']) ? null : $this->populateResultDockerServer($json['dockerServer']),
         ]);
     }
@@ -413,7 +430,7 @@ class BatchGetBuildsOutput extends Result
     private function populateResultProjectFileSystemLocation(array $json): ProjectFileSystemLocation
     {
         return new ProjectFileSystemLocation([
-            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'type' => isset($json['type']) ? (!FileSystemType::exists((string) $json['type']) ? FileSystemType::UNKNOWN_TO_SDK : (string) $json['type']) : null,
             'location' => isset($json['location']) ? (string) $json['location'] : null,
             'mountPoint' => isset($json['mountPoint']) ? (string) $json['mountPoint'] : null,
             'identifier' => isset($json['identifier']) ? (string) $json['identifier'] : null,
@@ -457,7 +474,7 @@ class BatchGetBuildsOutput extends Result
     private function populateResultProjectSource(array $json): ProjectSource
     {
         return new ProjectSource([
-            'type' => (string) $json['type'],
+            'type' => !SourceType::exists((string) $json['type']) ? SourceType::UNKNOWN_TO_SDK : (string) $json['type'],
             'location' => isset($json['location']) ? (string) $json['location'] : null,
             'gitCloneDepth' => isset($json['gitCloneDepth']) ? (int) $json['gitCloneDepth'] : null,
             'gitSubmodulesConfig' => empty($json['gitSubmodulesConfig']) ? null : $this->populateResultGitSubmodulesConfig($json['gitSubmodulesConfig']),
@@ -495,17 +512,17 @@ class BatchGetBuildsOutput extends Result
     {
         return new RegistryCredential([
             'credential' => (string) $json['credential'],
-            'credentialProvider' => (string) $json['credentialProvider'],
+            'credentialProvider' => !CredentialProviderType::exists((string) $json['credentialProvider']) ? CredentialProviderType::UNKNOWN_TO_SDK : (string) $json['credentialProvider'],
         ]);
     }
 
     private function populateResultS3LogsConfig(array $json): S3LogsConfig
     {
         return new S3LogsConfig([
-            'status' => (string) $json['status'],
+            'status' => !LogsConfigStatusType::exists((string) $json['status']) ? LogsConfigStatusType::UNKNOWN_TO_SDK : (string) $json['status'],
             'location' => isset($json['location']) ? (string) $json['location'] : null,
             'encryptionDisabled' => isset($json['encryptionDisabled']) ? filter_var($json['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'bucketOwnerAccess' => isset($json['bucketOwnerAccess']) ? (string) $json['bucketOwnerAccess'] : null,
+            'bucketOwnerAccess' => isset($json['bucketOwnerAccess']) ? (!BucketOwnerAccess::exists((string) $json['bucketOwnerAccess']) ? BucketOwnerAccess::UNKNOWN_TO_SDK : (string) $json['bucketOwnerAccess']) : null,
         ]);
     }
 
@@ -528,7 +545,7 @@ class BatchGetBuildsOutput extends Result
     private function populateResultSourceAuth(array $json): SourceAuth
     {
         return new SourceAuth([
-            'type' => (string) $json['type'],
+            'type' => !SourceAuthType::exists((string) $json['type']) ? SourceAuthType::UNKNOWN_TO_SDK : (string) $json['type'],
             'resource' => isset($json['resource']) ? (string) $json['resource'] : null,
         ]);
     }

@@ -11,12 +11,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class MxfProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const D_10 = 'D_10';
     public const OP1A = 'OP1A';
     public const XAVC = 'XAVC';
     public const XDCAM = 'XDCAM';
     public const XDCAM_RDD9 = 'XDCAM_RDD9';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

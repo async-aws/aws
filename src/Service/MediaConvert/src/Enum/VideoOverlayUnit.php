@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class VideoOverlayUnit
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PERCENTAGE = 'PERCENTAGE';
     public const PIXELS = 'PIXELS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

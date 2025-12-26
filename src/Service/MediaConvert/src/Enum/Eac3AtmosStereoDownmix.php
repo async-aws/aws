@@ -9,11 +9,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3AtmosStereoDownmix
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DPL2 = 'DPL2';
     public const NOT_INDICATED = 'NOT_INDICATED';
     public const STEREO = 'STEREO';
     public const SURROUND = 'SURROUND';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3MetadataControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW_INPUT = 'FOLLOW_INPUT';
     public const USE_CONFIGURED = 'USE_CONFIGURED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

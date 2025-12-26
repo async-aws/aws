@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ProresCodecProfile
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const APPLE_PRORES_422 = 'APPLE_PRORES_422';
     public const APPLE_PRORES_422_HQ = 'APPLE_PRORES_422_HQ';
     public const APPLE_PRORES_422_LT = 'APPLE_PRORES_422_LT';
@@ -14,6 +15,9 @@ final class ProresCodecProfile
     public const APPLE_PRORES_4444 = 'APPLE_PRORES_4444';
     public const APPLE_PRORES_4444_XQ = 'APPLE_PRORES_4444_XQ';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

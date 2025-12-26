@@ -489,6 +489,7 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->audioChannelConfigSchemeIdUri) {
             if (!DashIsoGroupAudioChannelConfigSchemeIdUri::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioChannelConfigSchemeIdUri" for "%s". The value "%s" is not a valid "DashIsoGroupAudioChannelConfigSchemeIdUri".', __CLASS__, $v));
             }
             $payload['audioChannelConfigSchemeIdUri'] = $v;
@@ -501,6 +502,7 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->dashManifestStyle) {
             if (!DashManifestStyle::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dashManifestStyle" for "%s". The value "%s" is not a valid "DashManifestStyle".', __CLASS__, $v));
             }
             $payload['dashManifestStyle'] = $v;
@@ -519,12 +521,14 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->hbbtvCompliance) {
             if (!DashIsoHbbtvCompliance::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "hbbtvCompliance" for "%s". The value "%s" is not a valid "DashIsoHbbtvCompliance".', __CLASS__, $v));
             }
             $payload['hbbtvCompliance'] = $v;
         }
         if (null !== $v = $this->imageBasedTrickPlay) {
             if (!DashIsoImageBasedTrickPlay::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "imageBasedTrickPlay" for "%s". The value "%s" is not a valid "DashIsoImageBasedTrickPlay".', __CLASS__, $v));
             }
             $payload['imageBasedTrickPlay'] = $v;
@@ -540,24 +544,28 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->mpdManifestBandwidthType) {
             if (!DashIsoMpdManifestBandwidthType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mpdManifestBandwidthType" for "%s". The value "%s" is not a valid "DashIsoMpdManifestBandwidthType".', __CLASS__, $v));
             }
             $payload['mpdManifestBandwidthType'] = $v;
         }
         if (null !== $v = $this->mpdProfile) {
             if (!DashIsoMpdProfile::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mpdProfile" for "%s". The value "%s" is not a valid "DashIsoMpdProfile".', __CLASS__, $v));
             }
             $payload['mpdProfile'] = $v;
         }
         if (null !== $v = $this->ptsOffsetHandlingForBFrames) {
             if (!DashIsoPtsOffsetHandlingForBFrames::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ptsOffsetHandlingForBFrames" for "%s". The value "%s" is not a valid "DashIsoPtsOffsetHandlingForBFrames".', __CLASS__, $v));
             }
             $payload['ptsOffsetHandlingForBFrames'] = $v;
         }
         if (null !== $v = $this->segmentControl) {
             if (!DashIsoSegmentControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "segmentControl" for "%s". The value "%s" is not a valid "DashIsoSegmentControl".', __CLASS__, $v));
             }
             $payload['segmentControl'] = $v;
@@ -567,18 +575,21 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->segmentLengthControl) {
             if (!DashIsoSegmentLengthControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "segmentLengthControl" for "%s". The value "%s" is not a valid "DashIsoSegmentLengthControl".', __CLASS__, $v));
             }
             $payload['segmentLengthControl'] = $v;
         }
         if (null !== $v = $this->videoCompositionOffsets) {
             if (!DashIsoVideoCompositionOffsets::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "videoCompositionOffsets" for "%s". The value "%s" is not a valid "DashIsoVideoCompositionOffsets".', __CLASS__, $v));
             }
             $payload['videoCompositionOffsets'] = $v;
         }
         if (null !== $v = $this->writeSegmentTimelineInRepresentation) {
             if (!DashIsoWriteSegmentTimelineInRepresentation::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "writeSegmentTimelineInRepresentation" for "%s". The value "%s" is not a valid "DashIsoWriteSegmentTimelineInRepresentation".', __CLASS__, $v));
             }
             $payload['writeSegmentTimelineInRepresentation'] = $v;

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatch\Result;
 
+use AsyncAws\CloudWatch\Enum\StandardUnit;
 use AsyncAws\CloudWatch\ValueObject\Datapoint;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
@@ -56,7 +57,7 @@ class GetMetricStatisticsOutput extends Result
             'Sum' => isset($json['Sum']) ? (float) $json['Sum'] : null,
             'Minimum' => isset($json['Minimum']) ? (float) $json['Minimum'] : null,
             'Maximum' => isset($json['Maximum']) ? (float) $json['Maximum'] : null,
-            'Unit' => isset($json['Unit']) ? (string) $json['Unit'] : null,
+            'Unit' => isset($json['Unit']) ? (!StandardUnit::exists((string) $json['Unit']) ? StandardUnit::UNKNOWN_TO_SDK : (string) $json['Unit']) : null,
             'ExtendedStatistics' => !isset($json['ExtendedStatistics']) ? null : $this->populateResultDatapointValueMap($json['ExtendedStatistics']),
         ]);
     }

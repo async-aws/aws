@@ -7,9 +7,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3AttenuationControl
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ATTENUATE_3_DB = 'ATTENUATE_3_DB';
     public const NONE = 'NONE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

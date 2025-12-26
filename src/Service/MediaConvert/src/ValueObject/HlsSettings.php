@@ -177,6 +177,7 @@ final class HlsSettings
         }
         if (null !== $v = $this->audioOnlyContainer) {
             if (!HlsAudioOnlyContainer::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioOnlyContainer" for "%s". The value "%s" is not a valid "HlsAudioOnlyContainer".', __CLASS__, $v));
             }
             $payload['audioOnlyContainer'] = $v;
@@ -186,18 +187,21 @@ final class HlsSettings
         }
         if (null !== $v = $this->audioTrackType) {
             if (!HlsAudioTrackType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioTrackType" for "%s". The value "%s" is not a valid "HlsAudioTrackType".', __CLASS__, $v));
             }
             $payload['audioTrackType'] = $v;
         }
         if (null !== $v = $this->descriptiveVideoServiceFlag) {
             if (!HlsDescriptiveVideoServiceFlag::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "descriptiveVideoServiceFlag" for "%s". The value "%s" is not a valid "HlsDescriptiveVideoServiceFlag".', __CLASS__, $v));
             }
             $payload['descriptiveVideoServiceFlag'] = $v;
         }
         if (null !== $v = $this->iFrameOnlyManifest) {
             if (!HlsIFrameOnlyManifest::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "iFrameOnlyManifest" for "%s". The value "%s" is not a valid "HlsIFrameOnlyManifest".', __CLASS__, $v));
             }
             $payload['iFrameOnlyManifest'] = $v;

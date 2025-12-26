@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Enum;
 
 final class UserStatusType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ARCHIVED = 'ARCHIVED';
     public const COMPROMISED = 'COMPROMISED';
     public const CONFIRMED = 'CONFIRMED';
@@ -13,6 +14,9 @@ final class UserStatusType
     public const UNCONFIRMED = 'UNCONFIRMED';
     public const UNKNOWN = 'UNKNOWN';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

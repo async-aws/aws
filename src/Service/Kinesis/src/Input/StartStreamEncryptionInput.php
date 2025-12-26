@@ -173,6 +173,7 @@ final class StartStreamEncryptionInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "EncryptionType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!EncryptionType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "EncryptionType" for "%s". The value "%s" is not a valid "EncryptionType".', __CLASS__, $v));
         }
         $payload['EncryptionType'] = $v;

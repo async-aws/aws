@@ -246,6 +246,7 @@ final class ListMultipartUploadsRequest extends Input
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
@@ -258,6 +259,7 @@ final class ListMultipartUploadsRequest extends Input
         }
         if (null !== $this->encodingType) {
             if (!EncodingType::exists($this->encodingType)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "EncodingType" for "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->encodingType));
             }
             $query['encoding-type'] = $this->encodingType;

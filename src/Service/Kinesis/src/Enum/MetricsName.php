@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\Enum;
 
 final class MetricsName
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ALL = 'ALL';
     public const INCOMING_BYTES = 'IncomingBytes';
     public const INCOMING_RECORDS = 'IncomingRecords';
@@ -13,6 +14,9 @@ final class MetricsName
     public const READ_PROVISIONED_THROUGHPUT_EXCEEDED = 'ReadProvisionedThroughputExceeded';
     public const WRITE_PROVISIONED_THROUGHPUT_EXCEEDED = 'WriteProvisionedThroughputExceeded';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -56,6 +56,7 @@ final class AudioPitchCorrectionSettings
         $payload = [];
         if (null !== $v = $this->slowPalPitchCorrection) {
             if (!SlowPalPitchCorrection::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "slowPalPitchCorrection" for "%s". The value "%s" is not a valid "SlowPalPitchCorrection".', __CLASS__, $v));
             }
             $payload['slowPalPitchCorrection'] = $v;

@@ -50,7 +50,7 @@ class GetDeploymentOutputTest extends TestCase
                 "completeTime": 3,
                 "computePlatform": "Server",
                 "createTime": 4,
-                "creator": "creator",
+                "creator": "CodeDeploy",
                 "deploymentConfigName": "deployment-config-name",
                 "deploymentGroupName": "deployment-group-name",
                 "deploymentId": "123",
@@ -165,7 +165,7 @@ class GetDeploymentOutputTest extends TestCase
                             [
                                 {
                                     "Key": "key",
-                                    "Type": "type",
+                                    "Type": "KEY_ONLY",
                                     "Value": "value"
                                 }
                             ]
@@ -174,7 +174,7 @@ class GetDeploymentOutputTest extends TestCase
                     "tagFilters": [
                         {
                             "Key": "key",
-                            "Type": "type",
+                            "Type": "KEY_ONLY",
                             "Value": "value"
                         }
                     ]
@@ -193,7 +193,7 @@ class GetDeploymentOutputTest extends TestCase
         self::assertEquals(new \DateTimeImmutable('1970-01-01 00:00:03.000000'), $info->getCompleteTime());
         self::assertSame(ComputePlatform::SERVER, $info->getComputePlatform());
         self::assertEquals(new \DateTimeImmutable('1970-01-01 00:00:04.000000'), $info->getCreateTime());
-        self::assertSame('creator', $info->getCreator());
+        self::assertSame('CodeDeploy', $info->getCreator());
         self::assertSame('deployment-config-name', $info->getDeploymentConfigName());
         self::assertSame('deployment-group-name', $info->getDeploymentGroupName());
         self::assertSame('123', $info->getDeploymentId());
@@ -273,11 +273,11 @@ class GetDeploymentOutputTest extends TestCase
 
         self::assertSame(['asg1'], $info->getTargetInstances()->getAutoScalingGroups());
         self::assertSame('key', $info->getTargetInstances()->getEc2TagSet()->getEc2TagSetList()[0][0]->getKey());
-        self::assertSame('type', $info->getTargetInstances()->getEc2TagSet()->getEc2TagSetList()[0][0]->getType());
+        self::assertSame('KEY_ONLY', $info->getTargetInstances()->getEc2TagSet()->getEc2TagSetList()[0][0]->getType());
         self::assertSame('value', $info->getTargetInstances()->getEc2TagSet()->getEc2TagSetList()[0][0]->getValue());
 
         self::assertSame('key', $info->getTargetInstances()->getTagFilters()[0]->getKey());
-        self::assertSame('type', $info->getTargetInstances()->getTagFilters()[0]->getType());
+        self::assertSame('KEY_ONLY', $info->getTargetInstances()->getTagFilters()[0]->getType());
         self::assertSame('value', $info->getTargetInstances()->getTagFilters()[0]->getValue());
     }
 }

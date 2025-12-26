@@ -9,9 +9,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafIntervalCadence
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FOLLOW_CUSTOM = 'FOLLOW_CUSTOM';
     public const FOLLOW_IFRAME = 'FOLLOW_IFRAME';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -175,9 +175,9 @@ class GetPublicKeyResponse extends Result
 
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
         $this->publicKey = isset($data['PublicKey']) ? base64_decode((string) $data['PublicKey']) : null;
-        $this->customerMasterKeySpec = isset($data['CustomerMasterKeySpec']) ? (string) $data['CustomerMasterKeySpec'] : null;
-        $this->keySpec = isset($data['KeySpec']) ? (string) $data['KeySpec'] : null;
-        $this->keyUsage = isset($data['KeyUsage']) ? (string) $data['KeyUsage'] : null;
+        $this->customerMasterKeySpec = isset($data['CustomerMasterKeySpec']) ? (!CustomerMasterKeySpec::exists((string) $data['CustomerMasterKeySpec']) ? CustomerMasterKeySpec::UNKNOWN_TO_SDK : (string) $data['CustomerMasterKeySpec']) : null;
+        $this->keySpec = isset($data['KeySpec']) ? (!KeySpec::exists((string) $data['KeySpec']) ? KeySpec::UNKNOWN_TO_SDK : (string) $data['KeySpec']) : null;
+        $this->keyUsage = isset($data['KeyUsage']) ? (!KeyUsageType::exists((string) $data['KeyUsage']) ? KeyUsageType::UNKNOWN_TO_SDK : (string) $data['KeyUsage']) : null;
         $this->encryptionAlgorithms = empty($data['EncryptionAlgorithms']) ? [] : $this->populateResultEncryptionAlgorithmSpecList($data['EncryptionAlgorithms']);
         $this->signingAlgorithms = empty($data['SigningAlgorithms']) ? [] : $this->populateResultSigningAlgorithmSpecList($data['SigningAlgorithms']);
         $this->keyAgreementAlgorithms = empty($data['KeyAgreementAlgorithms']) ? [] : $this->populateResultKeyAgreementAlgorithmSpecList($data['KeyAgreementAlgorithms']);
@@ -192,6 +192,9 @@ class GetPublicKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!EncryptionAlgorithmSpec::exists($a)) {
+                    $a = EncryptionAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -208,6 +211,9 @@ class GetPublicKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!KeyAgreementAlgorithmSpec::exists($a)) {
+                    $a = KeyAgreementAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -224,6 +230,9 @@ class GetPublicKeyResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!SigningAlgorithmSpec::exists($a)) {
+                    $a = SigningAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }

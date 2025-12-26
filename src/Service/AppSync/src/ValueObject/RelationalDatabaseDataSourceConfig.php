@@ -71,6 +71,7 @@ final class RelationalDatabaseDataSourceConfig
         $payload = [];
         if (null !== $v = $this->relationalDatabaseSourceType) {
             if (!RelationalDatabaseSourceType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "relationalDatabaseSourceType" for "%s". The value "%s" is not a valid "RelationalDatabaseSourceType".', __CLASS__, $v));
             }
             $payload['relationalDatabaseSourceType'] = $v;

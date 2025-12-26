@@ -4,11 +4,15 @@ namespace AsyncAws\Kms\Enum;
 
 final class EncryptionAlgorithmSpec
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const RSAES_OAEP_SHA_1 = 'RSAES_OAEP_SHA_1';
     public const RSAES_OAEP_SHA_256 = 'RSAES_OAEP_SHA_256';
     public const SM2PKE = 'SM2PKE';
     public const SYMMETRIC_DEFAULT = 'SYMMETRIC_DEFAULT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

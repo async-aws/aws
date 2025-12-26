@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class CmafEncryptionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AES_CTR = 'AES_CTR';
     public const SAMPLE_AES = 'SAMPLE_AES';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

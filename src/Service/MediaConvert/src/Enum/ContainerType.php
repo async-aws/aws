@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ContainerType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CMFC = 'CMFC';
     public const F4V = 'F4V';
     public const GIF = 'GIF';
@@ -23,6 +24,9 @@ final class ContainerType
     public const WEBM = 'WEBM';
     public const Y4M = 'Y4M';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

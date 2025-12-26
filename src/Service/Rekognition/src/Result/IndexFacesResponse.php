@@ -4,6 +4,9 @@ namespace AsyncAws\Rekognition\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Rekognition\Enum\EmotionName;
+use AsyncAws\Rekognition\Enum\GenderType;
+use AsyncAws\Rekognition\Enum\LandmarkType;
 use AsyncAws\Rekognition\Enum\OrientationCorrection;
 use AsyncAws\Rekognition\Enum\Reason;
 use AsyncAws\Rekognition\ValueObject\AgeRange;
@@ -118,7 +121,7 @@ class IndexFacesResponse extends Result
         $data = $response->toArray();
 
         $this->faceRecords = empty($data['FaceRecords']) ? [] : $this->populateResultFaceRecordList($data['FaceRecords']);
-        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
+        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (!OrientationCorrection::exists((string) $data['OrientationCorrection']) ? OrientationCorrection::UNKNOWN_TO_SDK : (string) $data['OrientationCorrection']) : null;
         $this->faceModelVersion = isset($data['FaceModelVersion']) ? (string) $data['FaceModelVersion'] : null;
         $this->unindexedFaces = empty($data['UnindexedFaces']) ? [] : $this->populateResultUnindexedFaces($data['UnindexedFaces']);
     }
@@ -152,7 +155,7 @@ class IndexFacesResponse extends Result
     private function populateResultEmotion(array $json): Emotion
     {
         return new Emotion([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!EmotionName::exists((string) $json['Type']) ? EmotionName::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
         ]);
     }
@@ -263,7 +266,7 @@ class IndexFacesResponse extends Result
     private function populateResultGender(array $json): Gender
     {
         return new Gender([
-            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+            'Value' => isset($json['Value']) ? (!GenderType::exists((string) $json['Value']) ? GenderType::UNKNOWN_TO_SDK : (string) $json['Value']) : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
         ]);
     }
@@ -279,7 +282,7 @@ class IndexFacesResponse extends Result
     private function populateResultLandmark(array $json): Landmark
     {
         return new Landmark([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!LandmarkType::exists((string) $json['Type']) ? LandmarkType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'X' => isset($json['X']) ? (float) $json['X'] : null,
             'Y' => isset($json['Y']) ? (float) $json['Y'] : null,
         ]);
@@ -332,6 +335,9 @@ class IndexFacesResponse extends Result
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!Reason::exists($a)) {
+                    $a = Reason::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }

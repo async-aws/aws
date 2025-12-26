@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class CustomerMasterKeySpec
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ECC_NIST_P256 = 'ECC_NIST_P256';
     public const ECC_NIST_P384 = 'ECC_NIST_P384';
     public const ECC_NIST_P521 = 'ECC_NIST_P521';
@@ -18,6 +19,9 @@ final class CustomerMasterKeySpec
     public const SM2 = 'SM2';
     public const SYMMETRIC_DEFAULT = 'SYMMETRIC_DEFAULT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

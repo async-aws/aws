@@ -118,18 +118,21 @@ final class DolbyVision
         }
         if (null !== $v = $this->l6Mode) {
             if (!DolbyVisionLevel6Mode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "l6Mode" for "%s". The value "%s" is not a valid "DolbyVisionLevel6Mode".', __CLASS__, $v));
             }
             $payload['l6Mode'] = $v;
         }
         if (null !== $v = $this->mapping) {
             if (!DolbyVisionMapping::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mapping" for "%s". The value "%s" is not a valid "DolbyVisionMapping".', __CLASS__, $v));
             }
             $payload['mapping'] = $v;
         }
         if (null !== $v = $this->profile) {
             if (!DolbyVisionProfile::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "profile" for "%s". The value "%s" is not a valid "DolbyVisionProfile".', __CLASS__, $v));
             }
             $payload['profile'] = $v;

@@ -72,6 +72,7 @@ final class DashIsoEncryptionSettings
         $payload = [];
         if (null !== $v = $this->playbackDeviceCompatibility) {
             if (!DashIsoPlaybackDeviceCompatibility::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "playbackDeviceCompatibility" for "%s". The value "%s" is not a valid "DashIsoPlaybackDeviceCompatibility".', __CLASS__, $v));
             }
             $payload['playbackDeviceCompatibility'] = $v;

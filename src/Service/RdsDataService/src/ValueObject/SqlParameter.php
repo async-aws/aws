@@ -99,6 +99,7 @@ final class SqlParameter
         }
         if (null !== $v = $this->typeHint) {
             if (!TypeHint::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "typeHint" for "%s". The value "%s" is not a valid "TypeHint".', __CLASS__, $v));
             }
             $payload['typeHint'] = $v;

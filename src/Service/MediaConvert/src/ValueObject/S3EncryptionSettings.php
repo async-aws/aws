@@ -96,6 +96,7 @@ final class S3EncryptionSettings
         $payload = [];
         if (null !== $v = $this->encryptionType) {
             if (!S3ServerSideEncryptionType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "encryptionType" for "%s". The value "%s" is not a valid "S3ServerSideEncryptionType".', __CLASS__, $v));
             }
             $payload['encryptionType'] = $v;

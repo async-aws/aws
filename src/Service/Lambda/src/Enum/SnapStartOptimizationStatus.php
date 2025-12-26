@@ -4,9 +4,13 @@ namespace AsyncAws\Lambda\Enum;
 
 final class SnapStartOptimizationStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const OFF = 'Off';
     public const ON = 'On';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

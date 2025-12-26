@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class BuildPhaseType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BUILD = 'BUILD';
     public const COMPLETED = 'COMPLETED';
     public const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
@@ -16,6 +17,9 @@ final class BuildPhaseType
     public const SUBMITTED = 'SUBMITTED';
     public const UPLOAD_ARTIFACTS = 'UPLOAD_ARTIFACTS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

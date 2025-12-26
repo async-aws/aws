@@ -4,6 +4,7 @@ namespace AsyncAws\Route53\Enum;
 
 final class AcceleratedRecoveryStatus
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const DISABLE_FAILED = 'DISABLE_FAILED';
     public const DISABLING = 'DISABLING';
@@ -13,6 +14,9 @@ final class AcceleratedRecoveryStatus
     public const ENABLING = 'ENABLING';
     public const ENABLING_HOSTED_ZONE_LOCKED = 'ENABLING_HOSTED_ZONE_LOCKED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

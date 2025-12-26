@@ -9,9 +9,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class NielsenSourceWatermarkStatusType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CLEAN = 'CLEAN';
     public const WATERMARKED = 'WATERMARKED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

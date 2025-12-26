@@ -399,6 +399,7 @@ final class CmfcSettings
         $payload = [];
         if (null !== $v = $this->audioDuration) {
             if (!CmfcAudioDuration::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "CmfcAudioDuration".', __CLASS__, $v));
             }
             $payload['audioDuration'] = $v;
@@ -411,12 +412,14 @@ final class CmfcSettings
         }
         if (null !== $v = $this->audioTrackType) {
             if (!CmfcAudioTrackType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioTrackType" for "%s". The value "%s" is not a valid "CmfcAudioTrackType".', __CLASS__, $v));
             }
             $payload['audioTrackType'] = $v;
         }
         if (null !== $v = $this->c2paManifest) {
             if (!CmfcC2paManifest::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "c2paManifest" for "%s". The value "%s" is not a valid "CmfcC2paManifest".', __CLASS__, $v));
             }
             $payload['c2paManifest'] = $v;
@@ -426,36 +429,42 @@ final class CmfcSettings
         }
         if (null !== $v = $this->descriptiveVideoServiceFlag) {
             if (!CmfcDescriptiveVideoServiceFlag::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "descriptiveVideoServiceFlag" for "%s". The value "%s" is not a valid "CmfcDescriptiveVideoServiceFlag".', __CLASS__, $v));
             }
             $payload['descriptiveVideoServiceFlag'] = $v;
         }
         if (null !== $v = $this->iFrameOnlyManifest) {
             if (!CmfcIFrameOnlyManifest::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "iFrameOnlyManifest" for "%s". The value "%s" is not a valid "CmfcIFrameOnlyManifest".', __CLASS__, $v));
             }
             $payload['iFrameOnlyManifest'] = $v;
         }
         if (null !== $v = $this->klvMetadata) {
             if (!CmfcKlvMetadata::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "klvMetadata" for "%s". The value "%s" is not a valid "CmfcKlvMetadata".', __CLASS__, $v));
             }
             $payload['klvMetadata'] = $v;
         }
         if (null !== $v = $this->manifestMetadataSignaling) {
             if (!CmfcManifestMetadataSignaling::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "manifestMetadataSignaling" for "%s". The value "%s" is not a valid "CmfcManifestMetadataSignaling".', __CLASS__, $v));
             }
             $payload['manifestMetadataSignaling'] = $v;
         }
         if (null !== $v = $this->scte35Esam) {
             if (!CmfcScte35Esam::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Esam" for "%s". The value "%s" is not a valid "CmfcScte35Esam".', __CLASS__, $v));
             }
             $payload['scte35Esam'] = $v;
         }
         if (null !== $v = $this->scte35Source) {
             if (!CmfcScte35Source::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scte35Source" for "%s". The value "%s" is not a valid "CmfcScte35Source".', __CLASS__, $v));
             }
             $payload['scte35Source'] = $v;
@@ -465,12 +474,14 @@ final class CmfcSettings
         }
         if (null !== $v = $this->timedMetadata) {
             if (!CmfcTimedMetadata::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timedMetadata" for "%s". The value "%s" is not a valid "CmfcTimedMetadata".', __CLASS__, $v));
             }
             $payload['timedMetadata'] = $v;
         }
         if (null !== $v = $this->timedMetadataBoxVersion) {
             if (!CmfcTimedMetadataBoxVersion::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "timedMetadataBoxVersion" for "%s". The value "%s" is not a valid "CmfcTimedMetadataBoxVersion".', __CLASS__, $v));
             }
             $payload['timedMetadataBoxVersion'] = $v;

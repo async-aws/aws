@@ -13,10 +13,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class InputTimecodeSource
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const EMBEDDED = 'EMBEDDED';
     public const SPECIFIEDSTART = 'SPECIFIEDSTART';
     public const ZEROBASED = 'ZEROBASED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

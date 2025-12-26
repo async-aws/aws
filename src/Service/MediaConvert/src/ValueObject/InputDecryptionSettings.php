@@ -105,6 +105,7 @@ final class InputDecryptionSettings
         $payload = [];
         if (null !== $v = $this->decryptionMode) {
             if (!DecryptionMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "decryptionMode" for "%s". The value "%s" is not a valid "DecryptionMode".', __CLASS__, $v));
             }
             $payload['decryptionMode'] = $v;

@@ -194,12 +194,14 @@ final class BatchWriteItemInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
         if (null !== $v = $this->returnItemCollectionMetrics) {
             if (!ReturnItemCollectionMetrics::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
             }
             $payload['ReturnItemCollectionMetrics'] = $v;

@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class ComputeType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ATTRIBUTE_BASED_COMPUTE = 'ATTRIBUTE_BASED_COMPUTE';
     public const BUILD_GENERAL1_2XLARGE = 'BUILD_GENERAL1_2XLARGE';
     public const BUILD_GENERAL1_LARGE = 'BUILD_GENERAL1_LARGE';
@@ -17,6 +18,9 @@ final class ComputeType
     public const BUILD_LAMBDA_8GB = 'BUILD_LAMBDA_8GB';
     public const CUSTOM_INSTANCE_TYPE = 'CUSTOM_INSTANCE_TYPE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

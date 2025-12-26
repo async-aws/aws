@@ -8,9 +8,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class MsSmoothAudioDeduplication
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMBINE_DUPLICATE_STREAMS = 'COMBINE_DUPLICATE_STREAMS';
     public const NONE = 'NONE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

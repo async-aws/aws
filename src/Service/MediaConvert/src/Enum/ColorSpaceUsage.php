@@ -12,9 +12,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ColorSpaceUsage
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FALLBACK = 'FALLBACK';
     public const FORCE = 'FORCE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

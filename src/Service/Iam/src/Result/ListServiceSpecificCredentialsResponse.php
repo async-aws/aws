@@ -4,6 +4,7 @@ namespace AsyncAws\Iam\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Iam\Enum\StatusType;
 use AsyncAws\Iam\ValueObject\ServiceSpecificCredentialMetadata;
 
 class ListServiceSpecificCredentialsResponse extends Result
@@ -69,7 +70,7 @@ class ListServiceSpecificCredentialsResponse extends Result
     {
         return new ServiceSpecificCredentialMetadata([
             'UserName' => (string) $xml->UserName,
-            'Status' => (string) $xml->Status,
+            'Status' => !StatusType::exists((string) $xml->Status) ? StatusType::UNKNOWN_TO_SDK : (string) $xml->Status,
             'ServiceUserName' => (null !== $v = $xml->ServiceUserName[0]) ? (string) $v : null,
             'ServiceCredentialAlias' => (null !== $v = $xml->ServiceCredentialAlias[0]) ? (string) $v : null,
             'CreateDate' => new \DateTimeImmutable((string) $xml->CreateDate),

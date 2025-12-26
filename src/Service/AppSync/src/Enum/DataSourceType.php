@@ -4,6 +4,7 @@ namespace AsyncAws\AppSync\Enum;
 
 final class DataSourceType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AMAZON_BEDROCK_RUNTIME = 'AMAZON_BEDROCK_RUNTIME';
     public const AMAZON_DYNAMODB = 'AMAZON_DYNAMODB';
     public const AMAZON_ELASTICSEARCH = 'AMAZON_ELASTICSEARCH';
@@ -14,6 +15,9 @@ final class DataSourceType
     public const NONE = 'NONE';
     public const RELATIONAL_DATABASE = 'RELATIONAL_DATABASE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

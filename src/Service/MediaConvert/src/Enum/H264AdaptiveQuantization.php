@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H264AdaptiveQuantization
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AUTO = 'AUTO';
     public const HIGH = 'HIGH';
     public const HIGHER = 'HIGHER';
@@ -21,6 +22,9 @@ final class H264AdaptiveQuantization
     public const MEDIUM = 'MEDIUM';
     public const OFF = 'OFF';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

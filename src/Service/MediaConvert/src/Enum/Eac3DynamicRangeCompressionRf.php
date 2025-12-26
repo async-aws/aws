@@ -11,6 +11,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3DynamicRangeCompressionRf
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FILM_LIGHT = 'FILM_LIGHT';
     public const FILM_STANDARD = 'FILM_STANDARD';
     public const MUSIC_LIGHT = 'MUSIC_LIGHT';
@@ -18,6 +19,9 @@ final class Eac3DynamicRangeCompressionRf
     public const NONE = 'NONE';
     public const SPEECH = 'SPEECH';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

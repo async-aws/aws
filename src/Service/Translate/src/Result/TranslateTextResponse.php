@@ -4,6 +4,9 @@ namespace AsyncAws\Translate\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Translate\Enum\Brevity;
+use AsyncAws\Translate\Enum\Formality;
+use AsyncAws\Translate\Enum\Profanity;
 use AsyncAws\Translate\ValueObject\AppliedTerminology;
 use AsyncAws\Translate\ValueObject\Term;
 use AsyncAws\Translate\ValueObject\TranslationSettings;
@@ -139,9 +142,9 @@ class TranslateTextResponse extends Result
     private function populateResultTranslationSettings(array $json): TranslationSettings
     {
         return new TranslationSettings([
-            'Formality' => isset($json['Formality']) ? (string) $json['Formality'] : null,
-            'Profanity' => isset($json['Profanity']) ? (string) $json['Profanity'] : null,
-            'Brevity' => isset($json['Brevity']) ? (string) $json['Brevity'] : null,
+            'Formality' => isset($json['Formality']) ? (!Formality::exists((string) $json['Formality']) ? Formality::UNKNOWN_TO_SDK : (string) $json['Formality']) : null,
+            'Profanity' => isset($json['Profanity']) ? (!Profanity::exists((string) $json['Profanity']) ? Profanity::UNKNOWN_TO_SDK : (string) $json['Profanity']) : null,
+            'Brevity' => isset($json['Brevity']) ? (!Brevity::exists((string) $json['Brevity']) ? Brevity::UNKNOWN_TO_SDK : (string) $json['Brevity']) : null,
         ]);
     }
 }

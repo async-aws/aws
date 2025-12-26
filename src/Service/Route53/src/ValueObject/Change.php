@@ -80,6 +80,7 @@ final class Change
     {
         $v = $this->action;
         if (!ChangeAction::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "Action" for "%s". The value "%s" is not a valid "ChangeAction".', __CLASS__, $v));
         }
         $node->appendChild($document->createElement('Action', $v));

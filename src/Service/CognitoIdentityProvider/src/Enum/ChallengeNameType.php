@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Enum;
 
 final class ChallengeNameType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADMIN_NO_SRP_AUTH = 'ADMIN_NO_SRP_AUTH';
     public const CUSTOM_CHALLENGE = 'CUSTOM_CHALLENGE';
     public const DEVICE_PASSWORD_VERIFIER = 'DEVICE_PASSWORD_VERIFIER';
@@ -21,6 +22,9 @@ final class ChallengeNameType
     public const SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA';
     public const WEB_AUTHN = 'WEB_AUTHN';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

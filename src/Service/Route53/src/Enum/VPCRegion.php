@@ -4,6 +4,7 @@ namespace AsyncAws\Route53\Enum;
 
 final class VPCRegion
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const AF_SOUTH_1 = 'af-south-1';
     public const AP_EAST_1 = 'ap-east-1';
     public const AP_EAST_2 = 'ap-east-2';
@@ -51,6 +52,9 @@ final class VPCRegion
     public const US_WEST_1 = 'us-west-1';
     public const US_WEST_2 = 'us-west-2';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

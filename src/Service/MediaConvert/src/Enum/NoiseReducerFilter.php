@@ -10,6 +10,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class NoiseReducerFilter
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BILATERAL = 'BILATERAL';
     public const CONSERVE = 'CONSERVE';
     public const GAUSSIAN = 'GAUSSIAN';
@@ -19,6 +20,9 @@ final class NoiseReducerFilter
     public const SPATIAL = 'SPATIAL';
     public const TEMPORAL = 'TEMPORAL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

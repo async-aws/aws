@@ -4,6 +4,7 @@ namespace AsyncAws\CloudWatchLogs\Enum;
 
 final class EntityRejectionErrorType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ENTITY_SIZE_TOO_LARGE = 'EntitySizeTooLarge';
     public const INVALID_ATTRIBUTES = 'InvalidAttributes';
     public const INVALID_ENTITY = 'InvalidEntity';
@@ -12,6 +13,9 @@ final class EntityRejectionErrorType
     public const MISSING_REQUIRED_FIELDS = 'MissingRequiredFields';
     public const UNSUPPORTED_LOG_GROUP_TYPE = 'UnsupportedLogGroupType';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

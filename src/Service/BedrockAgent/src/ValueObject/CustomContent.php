@@ -101,6 +101,7 @@ final class CustomContent
         $payload['customDocumentIdentifier'] = $v->requestBody();
         $v = $this->sourceType;
         if (!CustomSourceType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "sourceType" for "%s". The value "%s" is not a valid "CustomSourceType".', __CLASS__, $v));
         }
         $payload['sourceType'] = $v;

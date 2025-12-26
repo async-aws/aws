@@ -139,6 +139,7 @@ final class ListJobsRequest extends Input
         }
         if (null !== $this->order) {
             if (!Order::exists($this->order)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Order" for "%s". The value "%s" is not a valid "Order".', __CLASS__, $this->order));
             }
             $query['order'] = $this->order;
@@ -148,6 +149,7 @@ final class ListJobsRequest extends Input
         }
         if (null !== $this->status) {
             if (!JobStatus::exists($this->status)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Status" for "%s". The value "%s" is not a valid "JobStatus".', __CLASS__, $this->status));
             }
             $query['status'] = $this->status;

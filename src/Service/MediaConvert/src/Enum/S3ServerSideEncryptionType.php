@@ -13,9 +13,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class S3ServerSideEncryptionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const SERVER_SIDE_ENCRYPTION_KMS = 'SERVER_SIDE_ENCRYPTION_KMS';
     public const SERVER_SIDE_ENCRYPTION_S3 = 'SERVER_SIDE_ENCRYPTION_S3';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

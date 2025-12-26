@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Enum;
 
 final class SourceType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BITBUCKET = 'BITBUCKET';
     public const CODECOMMIT = 'CODECOMMIT';
     public const CODEPIPELINE = 'CODEPIPELINE';
@@ -14,6 +15,9 @@ final class SourceType
     public const NO_SOURCE = 'NO_SOURCE';
     public const S3 = 'S3';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

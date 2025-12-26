@@ -4,12 +4,16 @@ namespace AsyncAws\Athena\Enum;
 
 final class QueryExecutionState
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CANCELLED = 'CANCELLED';
     public const FAILED = 'FAILED';
     public const QUEUED = 'QUEUED';
     public const RUNNING = 'RUNNING';
     public const SUCCEEDED = 'SUCCEEDED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

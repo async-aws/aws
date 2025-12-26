@@ -14,9 +14,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Vc3ScanTypeConversionMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const INTERLACED = 'INTERLACED';
     public const INTERLACED_OPTIMIZE = 'INTERLACED_OPTIMIZE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

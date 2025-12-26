@@ -4,6 +4,7 @@ namespace AsyncAws\TimestreamQuery\Enum;
 
 final class ScalarType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BIGINT = 'BIGINT';
     public const BOOLEAN = 'BOOLEAN';
     public const DATE = 'DATE';
@@ -16,6 +17,9 @@ final class ScalarType
     public const UNKNOWN = 'UNKNOWN';
     public const VARCHAR = 'VARCHAR';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

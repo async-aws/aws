@@ -140,8 +140,8 @@ class DescribeStackDriftDetectionStatusOutput extends Result
 
         $this->stackId = (string) $data->StackId;
         $this->stackDriftDetectionId = (string) $data->StackDriftDetectionId;
-        $this->stackDriftStatus = (null !== $v = $data->StackDriftStatus[0]) ? (string) $v : null;
-        $this->detectionStatus = (string) $data->DetectionStatus;
+        $this->stackDriftStatus = (null !== $v = $data->StackDriftStatus[0]) ? (!StackDriftStatus::exists((string) $data->StackDriftStatus) ? StackDriftStatus::UNKNOWN_TO_SDK : (string) $data->StackDriftStatus) : null;
+        $this->detectionStatus = !StackDriftDetectionStatus::exists((string) $data->DetectionStatus) ? StackDriftDetectionStatus::UNKNOWN_TO_SDK : (string) $data->DetectionStatus;
         $this->detectionStatusReason = (null !== $v = $data->DetectionStatusReason[0]) ? (string) $v : null;
         $this->driftedStackResourceCount = (null !== $v = $data->DriftedStackResourceCount[0]) ? (int) (string) $v : null;
         $this->timestamp = new \DateTimeImmutable((string) $data->Timestamp);

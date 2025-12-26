@@ -492,6 +492,7 @@ final class UpdateTableInput extends Input
         $payload['TableName'] = $v;
         if (null !== $v = $this->billingMode) {
             if (!BillingMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
             }
             $payload['BillingMode'] = $v;
@@ -523,6 +524,7 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->tableClass) {
             if (!TableClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
             }
             $payload['TableClass'] = $v;
@@ -532,6 +534,7 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->multiRegionConsistency) {
             if (!MultiRegionConsistency::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "MultiRegionConsistency" for "%s". The value "%s" is not a valid "MultiRegionConsistency".', __CLASS__, $v));
             }
             $payload['MultiRegionConsistency'] = $v;

@@ -63,6 +63,6 @@ class VerifyResponse extends Result
 
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
         $this->signatureValid = isset($data['SignatureValid']) ? filter_var($data['SignatureValid'], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->signingAlgorithm = isset($data['SigningAlgorithm']) ? (string) $data['SigningAlgorithm'] : null;
+        $this->signingAlgorithm = isset($data['SigningAlgorithm']) ? (!SigningAlgorithmSpec::exists((string) $data['SigningAlgorithm']) ? SigningAlgorithmSpec::UNKNOWN_TO_SDK : (string) $data['SigningAlgorithm']) : null;
     }
 }

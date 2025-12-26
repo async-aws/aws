@@ -68,6 +68,7 @@ final class SourceAuth
         $payload = [];
         $v = $this->type;
         if (!SourceAuthType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "SourceAuthType".', __CLASS__, $v));
         }
         $payload['type'] = $v;

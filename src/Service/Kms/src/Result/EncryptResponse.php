@@ -62,6 +62,6 @@ class EncryptResponse extends Result
 
         $this->ciphertextBlob = isset($data['CiphertextBlob']) ? base64_decode((string) $data['CiphertextBlob']) : null;
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
-        $this->encryptionAlgorithm = isset($data['EncryptionAlgorithm']) ? (string) $data['EncryptionAlgorithm'] : null;
+        $this->encryptionAlgorithm = isset($data['EncryptionAlgorithm']) ? (!EncryptionAlgorithmSpec::exists((string) $data['EncryptionAlgorithm']) ? EncryptionAlgorithmSpec::UNKNOWN_TO_SDK : (string) $data['EncryptionAlgorithm']) : null;
     }
 }

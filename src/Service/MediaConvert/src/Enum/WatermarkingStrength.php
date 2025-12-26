@@ -8,12 +8,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class WatermarkingStrength
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT = 'DEFAULT';
     public const LIGHTER = 'LIGHTER';
     public const LIGHTEST = 'LIGHTEST';
     public const STRONGER = 'STRONGER';
     public const STRONGEST = 'STRONGEST';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

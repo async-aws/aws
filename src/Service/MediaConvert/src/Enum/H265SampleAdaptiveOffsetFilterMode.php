@@ -8,10 +8,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class H265SampleAdaptiveOffsetFilterMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ADAPTIVE = 'ADAPTIVE';
     public const DEFAULT = 'DEFAULT';
     public const OFF = 'OFF';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

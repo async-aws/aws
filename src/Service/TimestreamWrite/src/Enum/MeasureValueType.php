@@ -11,6 +11,9 @@ final class MeasureValueType
     public const TIMESTAMP = 'TIMESTAMP';
     public const VARCHAR = 'VARCHAR';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

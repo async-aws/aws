@@ -14,9 +14,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class VideoTimecodeInsertion
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const PIC_TIMING_SEI = 'PIC_TIMING_SEI';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

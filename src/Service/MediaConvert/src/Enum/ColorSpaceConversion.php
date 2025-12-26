@@ -17,6 +17,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class ColorSpaceConversion
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FORCE_601 = 'FORCE_601';
     public const FORCE_709 = 'FORCE_709';
     public const FORCE_HDR10 = 'FORCE_HDR10';
@@ -26,6 +27,9 @@ final class ColorSpaceConversion
     public const FORCE_P3DCI = 'FORCE_P3DCI';
     public const NONE = 'NONE';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

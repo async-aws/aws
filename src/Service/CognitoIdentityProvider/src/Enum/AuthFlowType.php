@@ -13,6 +13,9 @@ final class AuthFlowType
     public const USER_PASSWORD_AUTH = 'USER_PASSWORD_AUTH';
     public const USER_SRP_AUTH = 'USER_SRP_AUTH';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

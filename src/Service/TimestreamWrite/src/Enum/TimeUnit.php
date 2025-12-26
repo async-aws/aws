@@ -9,6 +9,9 @@ final class TimeUnit
     public const NANOSECONDS = 'NANOSECONDS';
     public const SECONDS = 'SECONDS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

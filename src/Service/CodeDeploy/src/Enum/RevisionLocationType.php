@@ -4,11 +4,15 @@ namespace AsyncAws\CodeDeploy\Enum;
 
 final class RevisionLocationType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const APP_SPEC_CONTENT = 'AppSpecContent';
     public const GIT_HUB = 'GitHub';
     public const S3 = 'S3';
     public const STRING = 'String';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -424,6 +424,7 @@ final class CalculateRouteMatrixRequest extends Input
 
         if (null !== $v = $this->travelMode) {
             if (!TravelMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "TravelMode" for "%s". The value "%s" is not a valid "TravelMode".', __CLASS__, $v));
             }
             $payload['TravelMode'] = $v;
@@ -436,6 +437,7 @@ final class CalculateRouteMatrixRequest extends Input
         }
         if (null !== $v = $this->distanceUnit) {
             if (!DistanceUnit::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "DistanceUnit" for "%s". The value "%s" is not a valid "DistanceUnit".', __CLASS__, $v));
             }
             $payload['DistanceUnit'] = $v;

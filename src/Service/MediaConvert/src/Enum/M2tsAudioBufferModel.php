@@ -7,9 +7,13 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class M2tsAudioBufferModel
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const ATSC = 'ATSC';
     public const DVB = 'DVB';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

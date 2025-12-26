@@ -711,6 +711,7 @@ final class QueryInput extends Input
         }
         if (null !== $v = $this->select) {
             if (!Select::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Select" for "%s". The value "%s" is not a valid "Select".', __CLASS__, $v));
             }
             $payload['Select'] = $v;
@@ -751,6 +752,7 @@ final class QueryInput extends Input
         }
         if (null !== $v = $this->conditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
             }
             $payload['ConditionalOperator'] = $v;
@@ -770,6 +772,7 @@ final class QueryInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;

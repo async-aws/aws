@@ -3,6 +3,11 @@
 namespace AsyncAws\CloudFormation\Result;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudFormation\Enum\DetailedStatus;
+use AsyncAws\CloudFormation\Enum\HookFailureMode;
+use AsyncAws\CloudFormation\Enum\HookInvocationPoint;
+use AsyncAws\CloudFormation\Enum\HookStatus;
+use AsyncAws\CloudFormation\Enum\ResourceStatus;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\Exception\InvalidArgument;
@@ -112,17 +117,17 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             'PhysicalResourceId' => (null !== $v = $xml->PhysicalResourceId[0]) ? (string) $v : null,
             'ResourceType' => (null !== $v = $xml->ResourceType[0]) ? (string) $v : null,
             'Timestamp' => new \DateTimeImmutable((string) $xml->Timestamp),
-            'ResourceStatus' => (null !== $v = $xml->ResourceStatus[0]) ? (string) $v : null,
+            'ResourceStatus' => (null !== $v = $xml->ResourceStatus[0]) ? (!ResourceStatus::exists((string) $xml->ResourceStatus) ? ResourceStatus::UNKNOWN_TO_SDK : (string) $xml->ResourceStatus) : null,
             'ResourceStatusReason' => (null !== $v = $xml->ResourceStatusReason[0]) ? (string) $v : null,
             'ResourceProperties' => (null !== $v = $xml->ResourceProperties[0]) ? (string) $v : null,
             'ClientRequestToken' => (null !== $v = $xml->ClientRequestToken[0]) ? (string) $v : null,
             'HookType' => (null !== $v = $xml->HookType[0]) ? (string) $v : null,
-            'HookStatus' => (null !== $v = $xml->HookStatus[0]) ? (string) $v : null,
+            'HookStatus' => (null !== $v = $xml->HookStatus[0]) ? (!HookStatus::exists((string) $xml->HookStatus) ? HookStatus::UNKNOWN_TO_SDK : (string) $xml->HookStatus) : null,
             'HookStatusReason' => (null !== $v = $xml->HookStatusReason[0]) ? (string) $v : null,
-            'HookInvocationPoint' => (null !== $v = $xml->HookInvocationPoint[0]) ? (string) $v : null,
+            'HookInvocationPoint' => (null !== $v = $xml->HookInvocationPoint[0]) ? (!HookInvocationPoint::exists((string) $xml->HookInvocationPoint) ? HookInvocationPoint::UNKNOWN_TO_SDK : (string) $xml->HookInvocationPoint) : null,
             'HookInvocationId' => (null !== $v = $xml->HookInvocationId[0]) ? (string) $v : null,
-            'HookFailureMode' => (null !== $v = $xml->HookFailureMode[0]) ? (string) $v : null,
-            'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (string) $v : null,
+            'HookFailureMode' => (null !== $v = $xml->HookFailureMode[0]) ? (!HookFailureMode::exists((string) $xml->HookFailureMode) ? HookFailureMode::UNKNOWN_TO_SDK : (string) $xml->HookFailureMode) : null,
+            'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (!DetailedStatus::exists((string) $xml->DetailedStatus) ? DetailedStatus::UNKNOWN_TO_SDK : (string) $xml->DetailedStatus) : null,
         ]);
     }
 

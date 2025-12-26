@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Kinesis\Enum\EncryptionType;
 use AsyncAws\Kinesis\ValueObject\ChildShard;
 use AsyncAws\Kinesis\ValueObject\HashKeyRange;
 use AsyncAws\Kinesis\ValueObject\Record;
@@ -126,7 +127,7 @@ class GetRecordsOutput extends Result
             'ApproximateArrivalTimestamp' => (isset($json['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ApproximateArrivalTimestamp'])))) ? $d : null,
             'Data' => base64_decode((string) $json['Data']),
             'PartitionKey' => (string) $json['PartitionKey'],
-            'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,
+            'EncryptionType' => isset($json['EncryptionType']) ? (!EncryptionType::exists((string) $json['EncryptionType']) ? EncryptionType::UNKNOWN_TO_SDK : (string) $json['EncryptionType']) : null,
         ]);
     }
 

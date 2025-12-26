@@ -4,6 +4,7 @@ namespace AsyncAws\Athena\Enum;
 
 final class ConnectionType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BIGQUERY = 'BIGQUERY';
     public const CMDB = 'CMDB';
     public const DATALAKEGEN2 = 'DATALAKEGEN2';
@@ -25,6 +26,9 @@ final class ConnectionType
     public const TIMESTREAM = 'TIMESTREAM';
     public const TPCDS = 'TPCDS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

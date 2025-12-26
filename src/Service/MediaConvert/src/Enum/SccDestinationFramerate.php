@@ -9,12 +9,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class SccDestinationFramerate
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const FRAMERATE_23_97 = 'FRAMERATE_23_97';
     public const FRAMERATE_24 = 'FRAMERATE_24';
     public const FRAMERATE_25 = 'FRAMERATE_25';
     public const FRAMERATE_29_97_DROPFRAME = 'FRAMERATE_29_97_DROPFRAME';
     public const FRAMERATE_29_97_NON_DROPFRAME = 'FRAMERATE_29_97_NON_DROPFRAME';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

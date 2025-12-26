@@ -11,6 +11,9 @@ final class ShardFilterType
     public const FROM_TIMESTAMP = 'FROM_TIMESTAMP';
     public const FROM_TRIM_HORIZON = 'FROM_TRIM_HORIZON';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

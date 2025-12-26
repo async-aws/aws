@@ -131,6 +131,7 @@ final class CreateBucketConfiguration
     {
         if (null !== $v = $this->locationConstraint) {
             if (!BucketLocationConstraint::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "LocationConstraint" for "%s". The value "%s" is not a valid "BucketLocationConstraint".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('LocationConstraint', $v));

@@ -15,11 +15,15 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class WebvttStylePassthrough
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DISABLED = 'DISABLED';
     public const ENABLED = 'ENABLED';
     public const MERGE = 'MERGE';
     public const STRICT = 'STRICT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

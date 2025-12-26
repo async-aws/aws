@@ -248,6 +248,7 @@ final class GetQueueAttributesRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!QueueAttributeName::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "AttributeNames" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $listValue));
                 }
                 $payload['AttributeNames'][$index] = $listValue;

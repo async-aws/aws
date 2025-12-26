@@ -11,6 +11,9 @@ final class LifecycleEventStatus
     public const SUCCEEDED = 'Succeeded';
     public const UNKNOWN = 'Unknown';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

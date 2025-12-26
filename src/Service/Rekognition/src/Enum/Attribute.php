@@ -19,6 +19,9 @@ final class Attribute
     public const SMILE = 'SMILE';
     public const SUNGLASSES = 'SUNGLASSES';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

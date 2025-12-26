@@ -54,6 +54,7 @@ final class XavcHdIntraCbgProfileSettings
         $payload = [];
         if (null !== $v = $this->xavcClass) {
             if (!XavcHdIntraCbgProfileClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "xavcClass" for "%s". The value "%s" is not a valid "XavcHdIntraCbgProfileClass".', __CLASS__, $v));
             }
             $payload['xavcClass'] = $v;

@@ -189,6 +189,7 @@ final class BatchGetItemInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;

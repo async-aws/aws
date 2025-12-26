@@ -7,10 +7,14 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3CodingMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const CODING_MODE_1_0 = 'CODING_MODE_1_0';
     public const CODING_MODE_2_0 = 'CODING_MODE_2_0';
     public const CODING_MODE_3_2 = 'CODING_MODE_3_2';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

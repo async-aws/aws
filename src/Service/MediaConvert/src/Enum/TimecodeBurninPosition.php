@@ -7,6 +7,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class TimecodeBurninPosition
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const BOTTOM_CENTER = 'BOTTOM_CENTER';
     public const BOTTOM_LEFT = 'BOTTOM_LEFT';
     public const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
@@ -17,6 +18,9 @@ final class TimecodeBurninPosition
     public const TOP_LEFT = 'TOP_LEFT';
     public const TOP_RIGHT = 'TOP_RIGHT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -8,6 +8,9 @@ final class AttachmentContentTransferEncoding
     public const QUOTED_PRINTABLE = 'QUOTED_PRINTABLE';
     public const SEVEN_BIT = 'SEVEN_BIT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -53,6 +53,7 @@ final class AccelerationSettings
         $payload = [];
         $v = $this->mode;
         if (!AccelerationMode::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "mode" for "%s". The value "%s" is not a valid "AccelerationMode".', __CLASS__, $v));
         }
         $payload['mode'] = $v;

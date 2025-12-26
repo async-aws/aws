@@ -4,11 +4,15 @@ namespace AsyncAws\BedrockRuntime\Enum;
 
 final class ServiceTierType
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const DEFAULT = 'default';
     public const FLEX = 'flex';
     public const PRIORITY = 'priority';
     public const RESERVED = 'reserved';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

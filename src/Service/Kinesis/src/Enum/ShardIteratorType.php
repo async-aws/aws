@@ -10,6 +10,9 @@ final class ShardIteratorType
     public const LATEST = 'LATEST';
     public const TRIM_HORIZON = 'TRIM_HORIZON';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

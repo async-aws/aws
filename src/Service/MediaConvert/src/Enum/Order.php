@@ -11,6 +11,9 @@ final class Order
     public const ASCENDING = 'ASCENDING';
     public const DESCENDING = 'DESCENDING';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

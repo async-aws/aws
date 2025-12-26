@@ -13,6 +13,7 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class PresetSpeke20Video
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PRESET_VIDEO_1 = 'PRESET_VIDEO_1';
     public const PRESET_VIDEO_2 = 'PRESET_VIDEO_2';
     public const PRESET_VIDEO_3 = 'PRESET_VIDEO_3';
@@ -24,6 +25,9 @@ final class PresetSpeke20Video
     public const SHARED = 'SHARED';
     public const UNENCRYPTED = 'UNENCRYPTED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

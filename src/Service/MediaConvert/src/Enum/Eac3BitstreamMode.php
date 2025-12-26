@@ -8,12 +8,16 @@ namespace AsyncAws\MediaConvert\Enum;
  */
 final class Eac3BitstreamMode
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const COMMENTARY = 'COMMENTARY';
     public const COMPLETE_MAIN = 'COMPLETE_MAIN';
     public const EMERGENCY = 'EMERGENCY';
     public const HEARING_IMPAIRED = 'HEARING_IMPAIRED';
     public const VISUALLY_IMPAIRED = 'VISUALLY_IMPAIRED';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -77,7 +77,7 @@ class FunctionConfigurationTest extends TestCase
             "LastUpdateStatus": "Successful",
             "LastUpdateStatusReason": "test",
             "LastUpdateStatusReasonCode": null,
-            "PackageType": "zip",
+            "PackageType": "Zip",
             "Architectures": ["x86_64"]
         }');
 
@@ -113,7 +113,7 @@ class FunctionConfigurationTest extends TestCase
         self::assertSame('Successful', $result->getLastUpdateStatus());
         self::assertSame('test', $result->getLastUpdateStatusReason());
         self::assertSame(null, $result->getLastUpdateStatusReasonCode());
-        self::assertSame('zip', $result->getPackageType());
+        self::assertSame('Zip', $result->getPackageType());
         self::assertSame(null, $result->getSigningProfileVersionArn());
         self::assertSame(null, $result->getSigningJobArn());
         self::assertCount(1, $result->getLayers());

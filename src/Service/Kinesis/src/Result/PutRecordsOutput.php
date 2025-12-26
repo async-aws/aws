@@ -71,7 +71,7 @@ class PutRecordsOutput extends Result
 
         $this->failedRecordCount = isset($data['FailedRecordCount']) ? (int) $data['FailedRecordCount'] : null;
         $this->records = $this->populateResultPutRecordsResultEntryList($data['Records'] ?? []);
-        $this->encryptionType = isset($data['EncryptionType']) ? (string) $data['EncryptionType'] : null;
+        $this->encryptionType = isset($data['EncryptionType']) ? (!EncryptionType::exists((string) $data['EncryptionType']) ? EncryptionType::UNKNOWN_TO_SDK : (string) $data['EncryptionType']) : null;
     }
 
     private function populateResultPutRecordsResultEntry(array $json): PutRecordsResultEntry

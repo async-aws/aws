@@ -114,6 +114,7 @@ final class ListFunctionsRequest extends Input
         }
         if (null !== $this->functionVersion) {
             if (!FunctionVersion::exists($this->functionVersion)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "FunctionVersion" for "%s". The value "%s" is not a valid "FunctionVersion".', __CLASS__, $this->functionVersion));
             }
             $query['FunctionVersion'] = $this->functionVersion;

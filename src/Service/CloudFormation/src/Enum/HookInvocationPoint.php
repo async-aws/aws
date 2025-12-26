@@ -4,8 +4,12 @@ namespace AsyncAws\CloudFormation\Enum;
 
 final class HookInvocationPoint
 {
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
     public const PRE_PROVISION = 'PRE_PROVISION';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

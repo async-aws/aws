@@ -8,6 +8,9 @@ final class MessageType
     public const EXTERNAL_MU = 'EXTERNAL_MU';
     public const RAW = 'RAW';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

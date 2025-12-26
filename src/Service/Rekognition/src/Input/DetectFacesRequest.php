@@ -135,6 +135,7 @@ final class DetectFacesRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Attribute::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "Attributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
                 }
                 $payload['Attributes'][$index] = $listValue;

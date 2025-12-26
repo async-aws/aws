@@ -141,6 +141,7 @@ final class ProjectCache
         $payload = [];
         $v = $this->type;
         if (!CacheType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "CacheType".', __CLASS__, $v));
         }
         $payload['type'] = $v;
@@ -153,6 +154,7 @@ final class ProjectCache
             foreach ($v as $listValue) {
                 ++$index;
                 if (!CacheMode::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "modes" for "%s". The value "%s" is not a valid "CacheMode".', __CLASS__, $listValue));
                 }
                 $payload['modes'][$index] = $listValue;
