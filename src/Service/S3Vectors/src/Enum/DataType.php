@@ -1,0 +1,15 @@
+<?php
+
+namespace AsyncAws\S3Vectors\Enum;
+
+final class DataType
+{
+    public const FLOAT_32 = 'float32';
+
+    public static function exists(string $value): bool
+    {
+        return isset([
+            self::FLOAT_32 => true,
+        ][$value]);
+    }
+}
