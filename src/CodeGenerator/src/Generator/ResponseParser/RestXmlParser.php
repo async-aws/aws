@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
@@ -209,25 +210,55 @@ class RestXmlParser implements Parser
             // prevent recursion
             $this->generatedFunctions[$functionName] = true;
 
-            $properties = [];
-            foreach ($shape->getMembers() as $member) {
-                $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
-                    'PROPERTY_NAME' => var_export($member->getName(), true),
-                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$xml', $member), $member->getShape(), $member->isRequired(), true),
-                ]);
+            if (!$shape instanceof UnionShape) {
+                $properties = [];
+                foreach ($shape->getMembers() as $member) {
+                    $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
+                        'PROPERTY_NAME' => var_export($member->getName(), true),
+                        'PROPERTY_ACCESSOR' => $this->parseXmlElement(
+                            $this->getInputAccessor('$xml', $member),
+                            $member->getShape(),
+                            $member->isRequired(),
+                            true
+                        ),
+                    ]);
+                }
+
+                $body = 'return new CLASS_NAME([
+                    PROPERTIES
+                ]);';
+
+                $className = $this->namespaceRegistry->getObject($shape);
+                $this->imports[] = $className;
+
+                $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
+                    'CLASS_NAME' => $className->getName(),
+                    'PROPERTIES' => implode("\n", $properties),
+                ]), $shape);
+            } else {
+                $body = [];
+                foreach ($shape->getChildren() as $name => $child) {
+                    $body[] = strtr('if (isset($json[PROPERTY_NAME])) {
+                        return PROPERTY_ACCESSOR;
+                    }', [
+                        'PROPERTY_NAME' => var_export($name, true),
+                        'PROPERTY_ACCESSOR' => $this->parseXmlElement('$xml', $child, true, true),
+                        'CLASS_NAME' => $this->namespaceRegistry->getObject($child)->getName(),
+                    ]);
+                    $className = $this->namespaceRegistry->getObject($child);
+                    $this->imports[] = $className;
+                }
+                $this->imports[] = ClassName::create('AsyncAws\Core\Exception', 'InvalidArgument');
+                $body[] = 'throw new InvalidArgument(\'Invalid union input\');';
+
+                $className = $this->namespaceRegistry->getObject($shape);
+                $this->imports[] = $className;
+
+                $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr(implode("\n", $body), [
+                    'INPUT' => $input,
+                    'CLASS_NAME' => $className->getName(),
+                ]), $shape);
             }
-
-            $body = 'return new CLASS_NAME([
-                PROPERTIES
-            ]);';
-
-            $className = $this->namespaceRegistry->getObject($shape);
-            $this->imports[] = $className;
-
-            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                'CLASS_NAME' => $className->getName(),
-                'PROPERTIES' => implode("\n", $properties),
-            ]), $shape);
         }
 
         return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '0 === INPUT->count() ? null : $this->FUNCTION_NAME(INPUT)', [

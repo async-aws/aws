@@ -9,6 +9,7 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
@@ -88,6 +89,101 @@ class ObjectGenerator
         if (isset($this->generated[$shape->getName()])) {
             return $this->generated[$shape->getName()];
         }
+
+        if ($shape instanceof UnionShape) {
+            if ($forEndpoint) {
+                throw new \LogicException('Union shapes cannot be used for Endpoint objects.');
+            }
+
+            return $this->generateUnion($shape);
+        }
+
+        return $this->generateStructure($shape, $forEndpoint);
+    }
+
+    private function generateUnion(UnionShape $shape): ClassName
+    {
+        $this->generated[$shape->getName()] = $abstractClassName = $this->namespaceRegistry->getObject($shape);
+
+        // first generates the Abstract class
+        $classBuilder = $this->classRegistry->register($abstractClassName->getFqdn());
+        $classBuilder->setAbstract(true);
+        if (null !== $documentation = $shape->getDocumentationMain()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
+        }
+
+        $this->generateNamedConstructorForUnion($shape, $classBuilder);
+
+        if ($this->isShapeUsedInput($shape)) {
+            $serializer = $this->serializer->get($shape->getService());
+            $serializerBuilderResult = $serializer->generateRequestBuilder($shape, false);
+            foreach ($serializerBuilderResult->getUsedClasses() as $classNameFqdn) {
+                $classBuilder->addUse($classNameFqdn);
+            }
+
+            $method = $classBuilder->addMethod('requestBody')
+                ->setReturnType($serializerBuilderResult->getReturnType())
+                ->setAbstract(true)
+                ->setPublic()
+                ->setComment('@internal');
+            foreach ($serializerBuilderResult->getExtraMethodArgs() as $arg => $type) {
+                $method->addParameter($arg)->setType($type);
+            }
+        }
+
+        // make all properties return null
+        foreach ($shape->getMembers() as $member) {
+            $memberShape = $member->getShape();
+
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            foreach ($memberClassNames as $memberClassName) {
+                $classBuilder->addUse($memberClassName->getFqdn());
+            }
+
+            $method = $classBuilder->addMethod('get' . ucfirst(GeneratorHelper::normalizeName($member->getName())))
+                ->setReturnType($returnType);
+
+            $deprecation = '';
+            if ($member->isDeprecated()) {
+                $method->addComment('@deprecated');
+                $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
+            }
+
+            $method->setBody($deprecation . 'return null;');
+
+            $method->addComment('@return ' . $parameterType . '|null');
+            $method->setReturnNullable();
+        }
+
+        // generate one class per member
+        foreach ($shape->getChildren() as $children) {
+            $this->generated[$children->getName()] = $childrenClassName = $this->namespaceRegistry->getObject($children);
+            $classBuilder = $this->classRegistry->register($childrenClassName->getFqdn());
+            $classBuilder->setExtends($abstractClassName->getFqdn());
+
+            // Named constructor
+            $this->generateConstructor($children, $classBuilder);
+            $this->addProperties($children, $classBuilder, false);
+
+            $serializer = $this->serializer->get($shape->getService());
+            if ($this->isShapeUsedInput($shape)) {
+                $serializerBuilderResult = $serializer->generateRequestBuilder($children, false);
+                foreach ($serializerBuilderResult->getUsedClasses() as $classNameFqdn) {
+                    $classBuilder->addUse($classNameFqdn);
+                }
+
+                $method = $classBuilder->addMethod('requestBody')->setReturnType($serializerBuilderResult->getReturnType())->setBody($serializerBuilderResult->getBody())->setPublic()->setComment('@internal');
+                foreach ($serializerBuilderResult->getExtraMethodArgs() as $arg => $type) {
+                    $method->addParameter($arg)->setType($type);
+                }
+            }
+        }
+
+        return $abstractClassName;
+    }
+
+    private function generateStructure(StructureShape $shape, bool $forEndpoint): ClassName
+    {
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getObject($shape);
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
@@ -97,7 +193,8 @@ class ObjectGenerator
         }
 
         // Named constructor
-        $this->namedConstructor($shape, $classBuilder);
+        $this->generateConstructor($shape, $classBuilder);
+        $this->generateNamedConstructor($shape, $classBuilder);
         $this->addProperties($shape, $classBuilder, $forEndpoint);
 
         if ($forEndpoint) {
@@ -156,7 +253,7 @@ class ObjectGenerator
         return $this->usedShapedInput[$shape->getName()] ?? false;
     }
 
-    private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
+    private function generateNamedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         if (empty($shape->getMembers())) {
             $createMethod = $classBuilder->addMethod('create')
@@ -183,8 +280,13 @@ class ObjectGenerator
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());
         }
+    }
 
-        // We need a constructor
+    private function generateConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
+    {
+        if (empty($shape->getMembers())) {
+            return;
+        }
         $constructor = $classBuilder->addMethod('__construct');
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true);
         $constructor->addComment($doc);
@@ -247,6 +349,37 @@ class ObjectGenerator
             $throwMethod->addComment('@return never');
             $throwMethod->addParameter('exception')->setType(\Throwable::class);
             $throwMethod->setBody('throw $exception;');
+        }
+    }
+
+    private function generateNamedConstructorForUnion(UnionShape $shape, ClassBuilder $classBuilder): void
+    {
+        $body = ['if ($input instanceof self) {
+            return $input;
+        }'];
+        /** @var StructureShape $children */
+        foreach ($shape->getChildren() as $name => $children) {
+            $memberClassName = $this->namespaceRegistry->getObject($children);
+            $classBuilder->addUse($memberClassName->getFqdn());
+            $body[] = strtr('if (isset($input[NAME])) {
+                return new CLASS([NAME => $input[NAME]]);
+            }', [
+                'NAME' => var_export($name, true),
+                'CLASS' => $memberClassName->getName(),
+            ]);
+        }
+        $classBuilder->addUse(InvalidArgument::class);
+        $body[] = 'throw new InvalidArgument(\'Invalid union input\');';
+
+        $createMethod = $classBuilder->addMethod('create')
+            ->setStatic(true)
+            ->setReturnType('self')
+            ->setBody(implode("\n", $body));
+        $createMethod->addParameter('input');
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true);
+        $createMethod->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $classBuilder->addUse($memberClassName->getFqdn());
         }
     }
 
