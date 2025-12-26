@@ -26,7 +26,7 @@ final class CalculateRouteSummary
      *
      * @var float[]
      */
-    private $routeBbox;
+    private $routeBBox;
 
     /**
      * The data provider of traffic and road network data used to calculate the route. Indicates one of the available
@@ -79,7 +79,7 @@ final class CalculateRouteSummary
      */
     public function __construct(array $input)
     {
-        $this->routeBbox = $input['RouteBBox'] ?? $this->throwException(new InvalidArgument('Missing required field "RouteBBox".'));
+        $this->routeBBox = $input['RouteBBox'] ?? $this->throwException(new InvalidArgument('Missing required field "RouteBBox".'));
         $this->dataSource = $input['DataSource'] ?? $this->throwException(new InvalidArgument('Missing required field "DataSource".'));
         $this->distance = $input['Distance'] ?? $this->throwException(new InvalidArgument('Missing required field "Distance".'));
         $this->durationSeconds = $input['DurationSeconds'] ?? $this->throwException(new InvalidArgument('Missing required field "DurationSeconds".'));
@@ -126,9 +126,9 @@ final class CalculateRouteSummary
     /**
      * @return float[]
      */
-    public function getRouteBbox(): array
+    public function getRouteBBox(): array
     {
-        return $this->routeBbox;
+        return $this->routeBBox;
     }
 
     /**

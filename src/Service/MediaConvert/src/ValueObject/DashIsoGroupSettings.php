@@ -61,7 +61,7 @@ final class DashIsoGroupSettings
      *
      * @var string|null
      */
-    private $dashIframeTrickPlayNameModifier;
+    private $dashIFrameTrickPlayNameModifier;
 
     /**
      * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline for outputs
@@ -185,7 +185,7 @@ final class DashIsoGroupSettings
      *
      * @var DashIsoPtsOffsetHandlingForBFrames::*|null
      */
-    private $ptsOffsetHandlingForBframes;
+    private $ptsOffsetHandlingForBFrames;
 
     /**
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length
@@ -275,7 +275,7 @@ final class DashIsoGroupSettings
         $this->additionalManifests = isset($input['AdditionalManifests']) ? array_map([DashAdditionalManifest::class, 'create'], $input['AdditionalManifests']) : null;
         $this->audioChannelConfigSchemeIdUri = $input['AudioChannelConfigSchemeIdUri'] ?? null;
         $this->baseUrl = $input['BaseUrl'] ?? null;
-        $this->dashIframeTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
+        $this->dashIFrameTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
         $this->dashManifestStyle = $input['DashManifestStyle'] ?? null;
         $this->destination = $input['Destination'] ?? null;
         $this->destinationSettings = isset($input['DestinationSettings']) ? DestinationSettings::create($input['DestinationSettings']) : null;
@@ -288,7 +288,7 @@ final class DashIsoGroupSettings
         $this->minFinalSegmentLength = $input['MinFinalSegmentLength'] ?? null;
         $this->mpdManifestBandwidthType = $input['MpdManifestBandwidthType'] ?? null;
         $this->mpdProfile = $input['MpdProfile'] ?? null;
-        $this->ptsOffsetHandlingForBframes = $input['PtsOffsetHandlingForBFrames'] ?? null;
+        $this->ptsOffsetHandlingForBFrames = $input['PtsOffsetHandlingForBFrames'] ?? null;
         $this->segmentControl = $input['SegmentControl'] ?? null;
         $this->segmentLength = $input['SegmentLength'] ?? null;
         $this->segmentLengthControl = $input['SegmentLengthControl'] ?? null;
@@ -348,9 +348,9 @@ final class DashIsoGroupSettings
         return $this->baseUrl;
     }
 
-    public function getDashIframeTrickPlayNameModifier(): ?string
+    public function getDashIFrameTrickPlayNameModifier(): ?string
     {
-        return $this->dashIframeTrickPlayNameModifier;
+        return $this->dashIFrameTrickPlayNameModifier;
     }
 
     /**
@@ -431,9 +431,9 @@ final class DashIsoGroupSettings
     /**
      * @return DashIsoPtsOffsetHandlingForBFrames::*|null
      */
-    public function getPtsOffsetHandlingForBframes(): ?string
+    public function getPtsOffsetHandlingForBFrames(): ?string
     {
-        return $this->ptsOffsetHandlingForBframes;
+        return $this->ptsOffsetHandlingForBFrames;
     }
 
     /**
@@ -496,7 +496,7 @@ final class DashIsoGroupSettings
         if (null !== $v = $this->baseUrl) {
             $payload['baseUrl'] = $v;
         }
-        if (null !== $v = $this->dashIframeTrickPlayNameModifier) {
+        if (null !== $v = $this->dashIFrameTrickPlayNameModifier) {
             $payload['dashIFrameTrickPlayNameModifier'] = $v;
         }
         if (null !== $v = $this->dashManifestStyle) {
@@ -550,7 +550,7 @@ final class DashIsoGroupSettings
             }
             $payload['mpdProfile'] = $v;
         }
-        if (null !== $v = $this->ptsOffsetHandlingForBframes) {
+        if (null !== $v = $this->ptsOffsetHandlingForBFrames) {
             if (!DashIsoPtsOffsetHandlingForBFrames::exists($v)) {
                 throw new InvalidArgument(\sprintf('Invalid parameter "ptsOffsetHandlingForBFrames" for "%s". The value "%s" is not a valid "DashIsoPtsOffsetHandlingForBFrames".', __CLASS__, $v));
             }

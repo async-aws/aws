@@ -207,7 +207,7 @@ final class Mpeg2Settings
      *
      * @var int|null
      */
-    private $minIinterval;
+    private $minIInterval;
 
     /**
      * Specify the number of B-frames that MediaConvert puts between reference frames in this output. Valid values are whole
@@ -215,7 +215,7 @@ final class Mpeg2Settings
      *
      * @var int|null
      */
-    private $numberBframesBetweenReferenceFrames;
+    private $numberBFramesBetweenReferenceFrames;
 
     /**
      * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
@@ -431,8 +431,8 @@ final class Mpeg2Settings
         $this->interlaceMode = $input['InterlaceMode'] ?? null;
         $this->intraDcPrecision = $input['IntraDcPrecision'] ?? null;
         $this->maxBitrate = $input['MaxBitrate'] ?? null;
-        $this->minIinterval = $input['MinIInterval'] ?? null;
-        $this->numberBframesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
+        $this->minIInterval = $input['MinIInterval'] ?? null;
+        $this->numberBFramesBetweenReferenceFrames = $input['NumberBFramesBetweenReferenceFrames'] ?? null;
         $this->parControl = $input['ParControl'] ?? null;
         $this->parDenominator = $input['ParDenominator'] ?? null;
         $this->parNumerator = $input['ParNumerator'] ?? null;
@@ -609,14 +609,14 @@ final class Mpeg2Settings
         return $this->maxBitrate;
     }
 
-    public function getMinIinterval(): ?int
+    public function getMinIInterval(): ?int
     {
-        return $this->minIinterval;
+        return $this->minIInterval;
     }
 
-    public function getNumberBframesBetweenReferenceFrames(): ?int
+    public function getNumberBFramesBetweenReferenceFrames(): ?int
     {
-        return $this->numberBframesBetweenReferenceFrames;
+        return $this->numberBFramesBetweenReferenceFrames;
     }
 
     /**
@@ -809,10 +809,10 @@ final class Mpeg2Settings
         if (null !== $v = $this->maxBitrate) {
             $payload['maxBitrate'] = $v;
         }
-        if (null !== $v = $this->minIinterval) {
+        if (null !== $v = $this->minIInterval) {
             $payload['minIInterval'] = $v;
         }
-        if (null !== $v = $this->numberBframesBetweenReferenceFrames) {
+        if (null !== $v = $this->numberBFramesBetweenReferenceFrames) {
             $payload['numberBFramesBetweenReferenceFrames'] = $v;
         }
         if (null !== $v = $this->parControl) {

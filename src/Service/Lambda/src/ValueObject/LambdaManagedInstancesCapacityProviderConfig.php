@@ -28,7 +28,7 @@ final class LambdaManagedInstancesCapacityProviderConfig
      *
      * @var float|null
      */
-    private $executionEnvironmentMemoryGibPerVcpu;
+    private $executionEnvironmentMemoryGiBPerVCpu;
 
     /**
      * @param array{
@@ -41,7 +41,7 @@ final class LambdaManagedInstancesCapacityProviderConfig
     {
         $this->capacityProviderArn = $input['CapacityProviderArn'] ?? $this->throwException(new InvalidArgument('Missing required field "CapacityProviderArn".'));
         $this->perExecutionEnvironmentMaxConcurrency = $input['PerExecutionEnvironmentMaxConcurrency'] ?? null;
-        $this->executionEnvironmentMemoryGibPerVcpu = $input['ExecutionEnvironmentMemoryGiBPerVCpu'] ?? null;
+        $this->executionEnvironmentMemoryGiBPerVCpu = $input['ExecutionEnvironmentMemoryGiBPerVCpu'] ?? null;
     }
 
     /**
@@ -61,9 +61,9 @@ final class LambdaManagedInstancesCapacityProviderConfig
         return $this->capacityProviderArn;
     }
 
-    public function getExecutionEnvironmentMemoryGibPerVcpu(): ?float
+    public function getExecutionEnvironmentMemoryGiBPerVCpu(): ?float
     {
-        return $this->executionEnvironmentMemoryGibPerVcpu;
+        return $this->executionEnvironmentMemoryGiBPerVCpu;
     }
 
     public function getPerExecutionEnvironmentMaxConcurrency(): ?int
@@ -82,7 +82,7 @@ final class LambdaManagedInstancesCapacityProviderConfig
         if (null !== $v = $this->perExecutionEnvironmentMaxConcurrency) {
             $payload['PerExecutionEnvironmentMaxConcurrency'] = $v;
         }
-        if (null !== $v = $this->executionEnvironmentMemoryGibPerVcpu) {
+        if (null !== $v = $this->executionEnvironmentMemoryGiBPerVCpu) {
             $payload['ExecutionEnvironmentMemoryGiBPerVCpu'] = $v;
         }
 
