@@ -9,6 +9,7 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -50,9 +51,14 @@ class TypeGenerator
             return ['@param array' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input', $classNames];
         }
 
-        $body = ['@param array{'];
+        $body = [];
         foreach ($shape->getMembers() as $member) {
-            $nullable = !$member->isRequired();
+            if ([] === $body) {
+                $body = ['@param array{'];
+            } elseif ($shape instanceof UnionShape) {
+                $body[] = '}|array{';
+            }
+            $nullable = !$shape instanceof UnionShape && !$member->isRequired();
             $memberShape = $member->getShape();
 
             if ($memberShape instanceof StructureShape) {
@@ -124,6 +130,10 @@ class TypeGenerator
             } else {
                 $body[] = \sprintf('  %s: %s,', $phpdocMemberName, $param);
             }
+        }
+
+        if ([] === $body) {
+            $body = ['@param array{'];
         }
         $body = array_merge($body, $extra);
         $body[] = '}' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input';
