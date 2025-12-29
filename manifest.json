@@ -590,6 +590,37 @@
                 "UploadPartCopy"
             ]
         },
+        "S3Vectors": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3vectors/2025-07-15/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3vectors/2025-07-15/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3vectors/2025-07-15/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3vectors/2025-07-15/waiters-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3vectors/2025-07-15/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html",
+            "methods": [
+                "CreateVectorBucket",
+                "ListVectorBuckets",
+                "GetVectorBucket",
+                "DeleteVectorBucket",
+                "CreateIndex",
+                "ListIndexes",
+                "GetIndex",
+                "DeleteIndex",
+                "PutVectors",
+                "ListVectors",
+                "GetVectors",
+                "DeleteVectors",
+                "QueryVectors"
+            ],
+            "patches": {
+                "source": [
+                    {
+                        "op": "remove",
+                        "path": "/shapes/VectorData/union"
+                    }
+                ]
+            }
+        },
         "Scheduler": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/scheduler/2021-06-30/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/scheduler/2021-06-30/docs-2.json",

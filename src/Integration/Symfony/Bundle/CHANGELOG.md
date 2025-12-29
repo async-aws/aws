@@ -4,6 +4,7 @@
 
 ### Added
 
+- Support for s3 vectors
 - Support for BedrockAgent
 
 ### Dependency bumped
