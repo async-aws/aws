@@ -13,14 +13,11 @@ class DeleteVectorBucketOutputTest extends TestCase
 {
     public function testDeleteVectorBucketOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_DeleteVectorBucket.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{}');
 
         $client = new MockHttpClient($response);
         $result = new DeleteVectorBucketOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertInstanceOf(DeleteVectorBucketOutput::class, $result);
     }
 }

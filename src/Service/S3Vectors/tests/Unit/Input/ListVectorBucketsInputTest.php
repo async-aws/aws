@@ -9,23 +9,20 @@ class ListVectorBucketsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListVectorBucketsInput([
-            'maxResults' => 1337,
-            'nextToken' => 'change me',
-            'prefix' => 'change me',
+            'maxResults' => 50,
+            'nextToken' => 'token123',
+            'prefix' => 'prod-',
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_ListVectorBuckets.html
         $expected = '
-            POST / HTTP/1.0
+            POST /ListVectorBuckets HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"maxResults":50,"nextToken":"token123","prefix":"prod-"}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

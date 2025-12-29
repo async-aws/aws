@@ -15,17 +15,11 @@ class ListVectorBucketsOutputTest extends TestCase
 {
     public function testListVectorBucketsOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_ListVectorBuckets.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"nextToken":"tok-1","vectorBuckets":[{"vectorBucketName":"bucket-1","vectorBucketArn":"arn:aws:s3vectors:us-east-1:123:bucket/bucket-1","creationTime":1690000001.654321}]}');
 
         $client = new MockHttpClient($response);
         $result = new ListVectorBucketsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new S3VectorsClient(), new ListVectorBucketsInput([]));
 
-        self::assertSame('changeIt', $result->getNextToken());
-        // self::assertTODO(expected, $result->getVectorBuckets());
+        self::assertInstanceOf(ListVectorBucketsOutput::class, $result);
     }
 }

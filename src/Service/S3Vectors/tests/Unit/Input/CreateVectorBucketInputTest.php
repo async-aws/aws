@@ -10,26 +10,23 @@ class CreateVectorBucketInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CreateVectorBucketInput([
-            'vectorBucketName' => 'change me',
+            'vectorBucketName' => 'my-bucket',
             'encryptionConfiguration' => new EncryptionConfiguration([
-                'sseType' => 'change me',
-                'kmsKeyArn' => 'change me',
+                'sseType' => 'AES256',
+                'kmsKeyArn' => 'arn:aws:kms:us-east-1:123:key/abc',
             ]),
-            'tags' => ['change me' => 'change me'],
+            'tags' => ['env' => 'dev'],
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_CreateVectorBucket.html
         $expected = '
-            POST / HTTP/1.0
+            POST /CreateVectorBucket HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"vectorBucketName":"my-bucket","encryptionConfiguration":{"sseType":"AES256","kmsKeyArn":"arn:aws:kms:us-east-1:123:key/abc"},"tags":{"env":"dev"}}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

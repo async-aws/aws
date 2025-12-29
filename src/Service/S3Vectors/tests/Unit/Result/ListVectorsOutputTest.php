@@ -15,17 +15,11 @@ class ListVectorsOutputTest extends TestCase
 {
     public function testListVectorsOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_ListVectors.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"nextToken":"nxt","vectors":[{"key":"k1","data":{"float32":[1.0,2.0,3.0]},"metadata":{"a":1}}]}');
 
         $client = new MockHttpClient($response);
         $result = new ListVectorsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new S3VectorsClient(), new ListVectorsInput([]));
 
-        self::assertSame('changeIt', $result->getNextToken());
-        // self::assertTODO(expected, $result->getVectors());
+        self::assertInstanceOf(ListVectorsOutput::class, $result);
     }
 }

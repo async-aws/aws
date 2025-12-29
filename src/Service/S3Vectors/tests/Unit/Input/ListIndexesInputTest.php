@@ -9,25 +9,22 @@ class ListIndexesInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListIndexesInput([
-            'vectorBucketName' => 'change me',
-            'vectorBucketArn' => 'change me',
-            'maxResults' => 1337,
-            'nextToken' => 'change me',
-            'prefix' => 'change me',
+            'vectorBucketName' => 'my-bucket',
+            'vectorBucketArn' => 'arn:aws:s3:us-east-1:123456789012:bucket/my-bucket',
+            'maxResults' => 25,
+            'nextToken' => 'token123',
+            'prefix' => 'index-',
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_ListIndexes.html
         $expected = '
-            POST / HTTP/1.0
+            POST /ListIndexes HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"vectorBucketName":"my-bucket","vectorBucketArn":"arn:aws:s3:us-east-1:123456789012:bucket/my-bucket","maxResults":25,"nextToken":"token123","prefix":"index-"}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

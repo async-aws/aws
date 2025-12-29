@@ -9,29 +9,26 @@ class ListVectorsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListVectorsInput([
-            'vectorBucketName' => 'change me',
-            'indexName' => 'change me',
-            'indexArn' => 'change me',
-            'maxResults' => 1337,
-            'nextToken' => 'change me',
-            'segmentCount' => 1337,
-            'segmentIndex' => 1337,
-            'returnData' => false,
-            'returnMetadata' => false,
+            'vectorBucketName' => 'my-bucket',
+            'indexName' => 'my-index',
+            'indexArn' => 'arn:aws:s3:us-east-1:123456789012:index/my-index',
+            'maxResults' => 100,
+            'nextToken' => 'token123',
+            'segmentCount' => 1,
+            'segmentIndex' => 0,
+            'returnData' => true,
+            'returnMetadata' => true,
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_ListVectors.html
         $expected = '
-            POST / HTTP/1.0
+            POST /ListVectors HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"vectorBucketName":"my-bucket","indexName":"my-index","indexArn":"arn:aws:s3:us-east-1:123456789012:index/my-index","maxResults":100,"nextToken":"token123","segmentCount":1,"segmentIndex":0,"returnData":true,"returnMetadata":true}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

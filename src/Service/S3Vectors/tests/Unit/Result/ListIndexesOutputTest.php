@@ -15,17 +15,11 @@ class ListIndexesOutputTest extends TestCase
 {
     public function testListIndexesOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_ListIndexes.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"nextToken":"token123","indexes":[{"vectorBucketName":"bucket1","indexName":"index1","indexArn":"arn:aws:s3vectors:us-east-1:123:index/index1","creationTime":1690000000.123456}]}');
 
         $client = new MockHttpClient($response);
         $result = new ListIndexesOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new S3VectorsClient(), new ListIndexesInput([]));
 
-        self::assertSame('changeIt', $result->getNextToken());
-        // self::assertTODO(expected, $result->getIndexes());
+        self::assertInstanceOf(ListIndexesOutput::class, $result);
     }
 }

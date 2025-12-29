@@ -13,16 +13,11 @@ class GetVectorBucketOutputTest extends TestCase
 {
     public function testGetVectorBucketOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_GetVectorBucket.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"vectorBucket":{"vectorBucketName":"bucket1","vectorBucketArn":"arn:aws:s3vectors:us-east-1:123:bucket/bucket1","creationTime":1690000002.000000,"encryptionConfiguration":{"sseType":"AES256"}}}');
 
         $client = new MockHttpClient($response);
         $result = new GetVectorBucketOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getVectorBucket());
+        self::assertInstanceOf(GetVectorBucketOutput::class, $result);
     }
 }

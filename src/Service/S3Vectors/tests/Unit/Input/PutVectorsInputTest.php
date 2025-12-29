@@ -11,30 +11,27 @@ class PutVectorsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new PutVectorsInput([
-            'vectorBucketName' => 'change me',
-            'indexName' => 'change me',
-            'indexArn' => 'change me',
+            'vectorBucketName' => 'my-bucket',
+            'indexName' => 'my-index',
+            'indexArn' => 'arn:aws:s3:us-east-1:123456789012:index/my-index',
             'vectors' => [new PutInputVector([
-                'key' => 'change me',
+                'key' => 'key1',
                 'data' => new VectorData([
-                    'float32' => [1337],
+                    'float32' => [1.1, 2.2],
                 ]),
-                'metadata' => 'change me',
+                'metadata' => ['tag' => 'value'],
             ])],
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_PutVectors.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/json
+                POST /PutVectors HTTP/1.0
+                Content-Type: application/json
+                Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+                {"vectorBucketName":"my-bucket","indexName":"my-index","indexArn":"arn:aws:s3:us-east-1:123456789012:index/my-index","vectors":[{"data":{"float32":[1.1,2.2]},"key":"key1","metadata":{"tag":"value"}}]}
+            ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

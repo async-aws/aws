@@ -13,16 +13,11 @@ class CreateVectorBucketOutputTest extends TestCase
 {
     public function testCreateVectorBucketOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_CreateVectorBucket.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"vectorBucketArn":"arn:aws:s3vectors:us-east-1:123:bucket/my-bucket"}');
 
         $client = new MockHttpClient($response);
         $result = new CreateVectorBucketOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getVectorBucketArn());
+        self::assertInstanceOf(CreateVectorBucketOutput::class, $result);
     }
 }

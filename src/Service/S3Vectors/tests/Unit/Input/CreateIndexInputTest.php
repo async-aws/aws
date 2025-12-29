@@ -11,34 +11,31 @@ class CreateIndexInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CreateIndexInput([
-            'vectorBucketName' => 'change me',
-            'vectorBucketArn' => 'change me',
-            'indexName' => 'change me',
-            'dataType' => 'change me',
-            'dimension' => 1337,
-            'distanceMetric' => 'change me',
+            'vectorBucketName' => 'my-bucket',
+            'vectorBucketArn' => 'arn:aws:s3:us-east-1:123456789012:bucket/my-bucket',
+            'indexName' => 'my-index',
+            'dataType' => \AsyncAws\S3Vectors\Enum\DataType::FLOAT_32,
+            'dimension' => 128,
+            'distanceMetric' => \AsyncAws\S3Vectors\Enum\DistanceMetric::COSINE,
             'metadataConfiguration' => new MetadataConfiguration([
-                'nonFilterableMetadataKeys' => ['change me'],
+                'nonFilterableMetadataKeys' => [],
             ]),
             'encryptionConfiguration' => new EncryptionConfiguration([
-                'sseType' => 'change me',
-                'kmsKeyArn' => 'change me',
+                'sseType' => 'AES256',
+                'kmsKeyArn' => 'arn:aws:kms:us-east-1:123:key/abc',
             ]),
-            'tags' => ['change me' => 'change me'],
+            'tags' => ['env' => 'dev'],
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_CreateIndex.html
         $expected = '
-            POST / HTTP/1.0
+            POST /CreateIndex HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"vectorBucketName":"my-bucket","vectorBucketArn":"arn:aws:s3:us-east-1:123456789012:bucket/my-bucket","indexName":"my-index","dataType":"float32","dimension":128,"distanceMetric":"cosine","metadataConfiguration":{"nonFilterableMetadataKeys":[]},"encryptionConfiguration":{"sseType":"AES256","kmsKeyArn":"arn:aws:kms:us-east-1:123:key/abc"},"tags":{"env":"dev"}}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

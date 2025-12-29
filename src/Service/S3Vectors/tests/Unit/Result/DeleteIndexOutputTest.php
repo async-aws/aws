@@ -13,14 +13,11 @@ class DeleteIndexOutputTest extends TestCase
 {
     public function testDeleteIndexOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_DeleteIndex.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{}');
 
         $client = new MockHttpClient($response);
         $result = new DeleteIndexOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertInstanceOf(DeleteIndexOutput::class, $result);
     }
 }

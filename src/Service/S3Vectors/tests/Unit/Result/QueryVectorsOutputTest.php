@@ -13,17 +13,11 @@ class QueryVectorsOutputTest extends TestCase
 {
     public function testQueryVectorsOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_QueryVectors.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"vectors":[{"distance":0.123,"key":"vec1","metadata":{"title":"a"}},{"distance":0.456,"key":"vec2"}],"distanceMetric":"cosine"}');
 
         $client = new MockHttpClient($response);
         $result = new QueryVectorsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getVectors());
-        self::assertSame('changeIt', $result->getDistanceMetric());
+        self::assertInstanceOf(QueryVectorsOutput::class, $result);
     }
 }

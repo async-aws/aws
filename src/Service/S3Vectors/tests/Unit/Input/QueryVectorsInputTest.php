@@ -10,30 +10,27 @@ class QueryVectorsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new QueryVectorsInput([
-            'vectorBucketName' => 'change me',
-            'indexName' => 'change me',
-            'indexArn' => 'change me',
-            'topK' => 1337,
+            'vectorBucketName' => 'my-bucket',
+            'indexName' => 'my-index',
+            'indexArn' => 'arn:aws:s3:us-east-1:123456789012:index/my-index',
+            'topK' => 5,
             'queryVector' => new VectorData([
-                'float32' => [1337],
+                'float32' => [1.23, 4.56],
             ]),
-            'filter' => 'change me',
-            'returnMetadata' => false,
-            'returnDistance' => false,
+            'filter' => ['tag' => 'value'],
+            'returnMetadata' => true,
+            'returnDistance' => true,
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_QueryVectors.html
         $expected = '
-            POST / HTTP/1.0
+            POST /QueryVectors HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"vectorBucketName":"my-bucket","indexName":"my-index","indexArn":"arn:aws:s3:us-east-1:123456789012:index/my-index","topK":5,"queryVector":{"float32":[1.23,4.56]},"returnMetadata":true,"returnDistance":true}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

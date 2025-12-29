@@ -9,26 +9,23 @@ class GetVectorsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new GetVectorsInput([
-            'vectorBucketName' => 'change me',
-            'indexName' => 'change me',
-            'indexArn' => 'change me',
-            'keys' => ['change me'],
-            'returnData' => false,
-            'returnMetadata' => false,
+            'vectorBucketName' => 'my-bucket',
+            'indexName' => 'my-index',
+            'indexArn' => 'arn:aws:s3:us-east-1:123456789012:index/my-index',
+            'keys' => ['key1', 'key2'],
+            'returnData' => true,
+            'returnMetadata' => true,
         ]);
 
         // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_GetVectors.html
         $expected = '
-            POST / HTTP/1.0
+            POST /GetVectors HTTP/1.0
             Content-Type: application/json
+            Accept: application/json
 
-            {
-            "change": "it"
-        }
-                ';
+            {"vectorBucketName":"my-bucket","indexName":"my-index","indexArn":"arn:aws:s3:us-east-1:123456789012:index/my-index","keys":["key1","key2"],"returnData":true,"returnMetadata":true}
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

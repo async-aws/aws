@@ -13,14 +13,11 @@ class PutVectorsOutputTest extends TestCase
 {
     public function testPutVectorsOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_PutVectors.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{}');
 
         $client = new MockHttpClient($response);
         $result = new PutVectorsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertInstanceOf(PutVectorsOutput::class, $result);
     }
 }

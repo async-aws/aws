@@ -43,9 +43,9 @@ class S3VectorsClientTest extends TestCase
 
         $input = new CreateIndexInput([
             'indexName' => 'change me',
-            'dataType' => 'change me',
+            'dataType' => \AsyncAws\S3Vectors\Enum\DataType::FLOAT_32,
             'dimension' => 1337,
-            'distanceMetric' => 'change me',
+            'distanceMetric' => \AsyncAws\S3Vectors\Enum\DistanceMetric::COSINE,
         ]);
         $result = $client->createIndex($input);
 

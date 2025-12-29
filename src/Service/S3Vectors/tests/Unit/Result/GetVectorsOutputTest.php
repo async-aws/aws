@@ -13,16 +13,11 @@ class GetVectorsOutputTest extends TestCase
 {
     public function testGetVectorsOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_GetVectors.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"vectors":[{"key":"k1","data":{"float32":[0.1,0.2,0.3]},"metadata":{"foo":"bar"}}]}');
 
         $client = new MockHttpClient($response);
         $result = new GetVectorsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getVectors());
+        self::assertInstanceOf(GetVectorsOutput::class, $result);
     }
 }

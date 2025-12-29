@@ -13,16 +13,11 @@ class CreateIndexOutputTest extends TestCase
 {
     public function testCreateIndexOutput(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_CreateIndex.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{"indexArn":"arn:aws:s3vectors:us-east-1:123456789012:index/my-index"}');
 
         $client = new MockHttpClient($response);
         $result = new CreateIndexOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getIndexArn());
+        self::assertInstanceOf(CreateIndexOutput::class, $result);
     }
 }

@@ -27,6 +27,8 @@ class S3VectorsClientTest extends TestCase
 {
     public function testCreateIndex(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new CreateIndexInput([
@@ -54,6 +56,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testCreateVectorBucket(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new CreateVectorBucketInput([
@@ -73,6 +77,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testDeleteIndex(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new DeleteIndexInput([
@@ -87,6 +93,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testDeleteVectorBucket(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new DeleteVectorBucketInput([
@@ -100,6 +108,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testDeleteVectors(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new DeleteVectorsInput([
@@ -115,6 +125,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testGetIndex(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new GetIndexInput([
@@ -131,6 +143,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testGetVectorBucket(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new GetVectorBucketInput([
@@ -146,6 +160,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testGetVectors(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new GetVectorsInput([
@@ -165,6 +181,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testListIndexes(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new ListIndexesInput([
@@ -184,6 +202,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testListVectorBuckets(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new ListVectorBucketsInput([
@@ -201,6 +221,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testListVectors(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new ListVectorsInput([
@@ -224,6 +246,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testPutVectors(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new PutVectorsInput([
@@ -245,6 +269,8 @@ class S3VectorsClientTest extends TestCase
 
     public function testQueryVectors(): void
     {
+        self::markTestSkipped('localstack doesn\'t support s3 vectors api yet (see https://github.com/localstack/localstack/issues/13498)');
+
         $client = $this->getClient();
 
         $input = new QueryVectorsInput([
