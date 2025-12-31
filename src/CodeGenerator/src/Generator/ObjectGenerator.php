@@ -277,6 +277,7 @@ class ObjectGenerator
                 $classBuilder->addUse($enumClassName->getFqdn());
             }
             $getterSetterNullable = null;
+            $typeAlreadyNullable = false;
 
             if ($memberShape instanceof StructureShape) {
                 $this->generate($memberShape);
@@ -309,7 +310,8 @@ class ObjectGenerator
                     $classBuilder->addUse($enumClassName->getFqdn());
                 }
             } elseif ($memberShape instanceof DocumentShape) {
-                $nullable = false;
+                $nullable = true;
+                $typeAlreadyNullable = true;
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = ResultStream::class;
@@ -344,11 +346,11 @@ class ObjectGenerator
             }
 
             if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {
-                $method->addComment('@return ' . $parameterType . ($getterSetterNullable ? '|null' : ''));
+                $method->addComment('@return ' . $parameterType . ($getterSetterNullable && !$typeAlreadyNullable ? '|null' : ''));
             }
             $method->setReturnNullable($getterSetterNullable);
             if ($parameterType) {
-                $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
+                $property->addComment('@var ' . $parameterType . ($nullable && !$typeAlreadyNullable ? '|null' : ''));
             }
         }
 
