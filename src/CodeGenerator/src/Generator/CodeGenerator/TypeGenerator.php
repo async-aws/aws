@@ -92,7 +92,7 @@ class TypeGenerator
                     $param = 'array<string, ' . $param . '>';
                 }
             } elseif ($memberShape instanceof DocumentShape) {
-                $param = 'bool|string|int|float|null|list<mixed>|array<string, mixed>';
+                $param = 'bool|string|int|float|list<mixed>|array<string, mixed>|null';
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|(callable(int): string)|iterable<string>';
             } elseif ('timestamp' === $param = $memberShape->getType()) {
@@ -172,7 +172,7 @@ class TypeGenerator
         }
 
         if ($shape instanceof DocumentShape) {
-            return ['bool|string|int|float|null|array', 'bool|string|int|float|null|list<mixed>|array<string, mixed>', []];
+            return ['bool|string|int|float|array|null', 'bool|string|int|float|list<mixed>|array<string, mixed>|null', []];
         }
 
         $type = $doc = $this->getNativePhpType($shape->getType());

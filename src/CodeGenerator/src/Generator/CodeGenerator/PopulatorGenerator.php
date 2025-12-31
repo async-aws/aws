@@ -87,6 +87,7 @@ class PopulatorGenerator
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
             $property = $classBuilder->addProperty($propertyName)->setPrivate();
+            $typeAlreadyNullable = false;
             if (null !== $propertyDocumentation = $memberShape->getDocumentationMember()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
@@ -129,7 +130,8 @@ class PopulatorGenerator
 
                 $nullable = false;
             } elseif ($memberShape instanceof DocumentShape) {
-                $nullable = false; // the type is already nullable, not need to add an extra union
+                $nullable = true;
+                $typeAlreadyNullable = true;
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = 'ResultStream';
@@ -158,11 +160,11 @@ class PopulatorGenerator
 
             $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {
-                $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
+                $method->addComment('@return ' . $parameterType . ($nullable && !$typeAlreadyNullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);
             if ($parameterType) {
-                $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
+                $property->addComment('@var ' . $parameterType . ($nullable && !$typeAlreadyNullable ? '|null' : ''));
             }
         }
 

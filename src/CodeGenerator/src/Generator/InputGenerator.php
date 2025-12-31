@@ -121,6 +121,7 @@ class InputGenerator
                 $classBuilder->addUse($memberClassName->getFqdn());
             }
             $getterSetterNullable = true;
+            $typeAlreadyNullable = false;
 
             if ($memberShape instanceof StructureShape) {
                 $memberClassName = $this->objectGenerator->generate($memberShape);
@@ -212,7 +213,7 @@ class InputGenerator
                     $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof DocumentShape) {
-                $getterSetterNullable = false; // The type itself is already nullable
+                $typeAlreadyNullable = true; // The type itself is already nullable
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|(callable(int): string)|iterable<string>';
                 $returnType = null;
@@ -237,7 +238,7 @@ class InputGenerator
             }
 
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
-            $property->addComment("\n@var null|$parameterType");
+            $property->addComment("\n@var $parameterType" . ($typeAlreadyNullable ? '' : '|null'));
 
             $getter = $classBuilder->addMethod('get' . ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType($returnType)
@@ -268,8 +269,8 @@ class InputGenerator
             ;
 
             if ($returnType !== $parameterType) {
-                $setter->addComment('@param ' . $parameterType . ($getterSetterNullable ? '|null' : '') . ' $value');
-                $getter->addComment('@return ' . $parameterType . ($getterSetterNullable ? '|null' : ''));
+                $setter->addComment('@param ' . $parameterType . ($getterSetterNullable && !$typeAlreadyNullable ? '|null' : '') . ' $value');
+                $getter->addComment('@return ' . $parameterType . ($getterSetterNullable && !$typeAlreadyNullable ? '|null' : ''));
             }
         }
 
