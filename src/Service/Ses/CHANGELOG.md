@@ -14,6 +14,7 @@
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
+- Remove unnecessary `use` statements
 
 ## 1.13.0
 

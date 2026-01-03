@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Input as Input1;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\MediaConvert\Enum\BillingTagsSource;
@@ -12,13 +12,12 @@ use AsyncAws\MediaConvert\Enum\StatusUpdateInterval;
 use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
-use AsyncAws\MediaConvert\ValueObject\Output;
 
 /**
  * Send your create job request with your job settings and IAM role. Optionally, include user metadata and the ARN for
  * the queue.
  */
-final class CreateJobRequest extends Input1
+final class CreateJobRequest extends Input
 {
     /**
      * Optional. Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that

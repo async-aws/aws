@@ -8,7 +8,6 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\RequestPayer;
-use AsyncAws\S3\ValueObject\Tag;
 use AsyncAws\S3\ValueObject\Tagging;
 
 final class PutObjectTaggingRequest extends Input

@@ -6,12 +6,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Ses\ValueObject\Body;
-use AsyncAws\Ses\ValueObject\Content;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\ListManagementOptions;
-use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
 
 /**

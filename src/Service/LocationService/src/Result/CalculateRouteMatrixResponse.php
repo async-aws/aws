@@ -4,7 +4,6 @@ namespace AsyncAws\LocationService\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use AsyncAws\LocationService\Enum\DistanceUnit;
 use AsyncAws\LocationService\ValueObject\CalculateRouteMatrixSummary;
 use AsyncAws\LocationService\ValueObject\RouteMatrixEntry;
 use AsyncAws\LocationService\ValueObject\RouteMatrixEntryError;

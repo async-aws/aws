@@ -7,7 +7,6 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\RdsDataService\Enum\RecordsFormatType;
-use AsyncAws\RdsDataService\ValueObject\Field;
 use AsyncAws\RdsDataService\ValueObject\ResultSetOptions;
 use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 

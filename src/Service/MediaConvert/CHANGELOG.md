@@ -17,6 +17,7 @@
 
 - Apply new CodingStandard from latest php-cs-fixer.
 - Change case of of various properties.
+- Remove unnecessary `use` statements
 
 ## 1.11.0
 

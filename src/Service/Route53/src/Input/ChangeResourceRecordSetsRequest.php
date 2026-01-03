@@ -6,7 +6,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Route53\ValueObject\Change;
 use AsyncAws\Route53\ValueObject\ChangeBatch;
 
 /**

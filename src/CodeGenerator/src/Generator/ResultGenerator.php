@@ -106,7 +106,6 @@ class ResultGenerator
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                 if (!\in_array($fqdn, $addedFqdn)) {
                     $addedFqdn[] = $fqdn;
-                    $this->addUse($memberShape, $classBuilder, $addedFqdn);
                     $classBuilder->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof MapShape) {
@@ -114,7 +113,6 @@ class ResultGenerator
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
-                        $this->addUse($valueShape, $classBuilder, $addedFqdn);
                         $classBuilder->addUse($fqdn);
                     }
                 }
@@ -126,7 +124,6 @@ class ResultGenerator
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
-                        $this->addUse($memberShape, $classBuilder, $addedFqdn);
                         $classBuilder->addUse($fqdn);
                     }
                 }

@@ -8,11 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
-use AsyncAws\DynamoDb\ValueObject\ConditionCheck;
-use AsyncAws\DynamoDb\ValueObject\Delete;
-use AsyncAws\DynamoDb\ValueObject\Put;
 use AsyncAws\DynamoDb\ValueObject\TransactWriteItem;
-use AsyncAws\DynamoDb\ValueObject\Update;
 
 final class TransactWriteItemsInput extends Input
 {

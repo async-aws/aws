@@ -25,6 +25,7 @@
 - Harden code against error cases
 - AWS enhancement: Documentation updates.
 - Use a more stable sorting for the list of generated region metadata
+- Remove unnecessary `use` statements
 
 ## 2.10.0
 

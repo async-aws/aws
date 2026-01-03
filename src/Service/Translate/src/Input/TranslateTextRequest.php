@@ -6,9 +6,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Translate\Enum\Brevity;
-use AsyncAws\Translate\Enum\Formality;
-use AsyncAws\Translate\Enum\Profanity;
 use AsyncAws\Translate\ValueObject\TranslationSettings;
 
 final class TranslateTextRequest extends Input
