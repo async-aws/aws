@@ -4,7 +4,6 @@ namespace AsyncAws\CloudWatch\Input;
 
 use AsyncAws\CloudWatch\Enum\ScanBy;
 use AsyncAws\CloudWatch\ValueObject\LabelOptions;
-use AsyncAws\CloudWatch\ValueObject\Metric;
 use AsyncAws\CloudWatch\ValueObject\MetricDataQuery;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;

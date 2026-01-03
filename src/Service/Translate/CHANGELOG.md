@@ -10,6 +10,7 @@
 
 - Apply new CodingStandard from latest php-cs-fixer.
 - Use a more stable sorting for the list of generated region metadata
+- Remove unnecessary `use` statements
 
 ## 1.2.1
 

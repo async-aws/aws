@@ -3,7 +3,6 @@
 namespace AsyncAws\CodeDeploy\Input;
 
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
-use AsyncAws\CodeDeploy\ValueObject\Alarm;
 use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\RevisionLocation;

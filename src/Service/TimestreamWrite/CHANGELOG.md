@@ -9,6 +9,7 @@
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
+- Remove unnecessary `use` statements
 
 ## 2.0.5
 

@@ -618,7 +618,6 @@ PHP
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                 if (!\in_array($fqdn, $addedFqdn)) {
                     $addedFqdn[] = $fqdn;
-                    $this->addUse($memberShape, $classBuilder, $addedFqdn);
                     $classBuilder->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof MapShape) {
@@ -626,7 +625,6 @@ PHP
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
-                        $this->addUse($valueShape, $classBuilder, $addedFqdn);
                         $classBuilder->addUse($fqdn);
                     }
                 }
@@ -638,7 +636,6 @@ PHP
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
-                        $this->addUse($memberShape, $classBuilder, $addedFqdn);
                         $classBuilder->addUse($fqdn);
                     }
                 }

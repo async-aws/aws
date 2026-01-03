@@ -2,7 +2,6 @@
 
 namespace AsyncAws\CloudWatch\Input;
 
-use AsyncAws\CloudWatch\ValueObject\Entity;
 use AsyncAws\CloudWatch\ValueObject\EntityMetricData;
 use AsyncAws\CloudWatch\ValueObject\MetricDatum;
 use AsyncAws\Core\Exception\InvalidArgument;

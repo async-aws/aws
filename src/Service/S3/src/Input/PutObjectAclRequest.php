@@ -10,8 +10,6 @@ use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
-use AsyncAws\S3\ValueObject\Grantee;
-use AsyncAws\S3\ValueObject\Owner;
 
 final class PutObjectAclRequest extends Input
 {

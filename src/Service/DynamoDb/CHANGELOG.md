@@ -17,6 +17,7 @@
 - AWS enhancement: Documentation updates.
 - Use a more stable sorting for the list of generated region metadata
 - change case of `getSizeEstimateRangeGb` method to `getSizeEstimateRangeGb`
+- Remove unnecessary `use` statements
 
 ## 3.8.0
 

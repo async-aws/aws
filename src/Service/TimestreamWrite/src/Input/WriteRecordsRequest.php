@@ -6,7 +6,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\TimestreamWrite\ValueObject\Dimension;
 use AsyncAws\TimestreamWrite\ValueObject\Record;
 
 final class WriteRecordsRequest extends Input
