@@ -3,6 +3,8 @@
 
 use AsyncAws\CodeGenerator\ChangeLogUpdater;
 
+require __DIR__ . '/../../../src/CodeGenerator/src/ChangeLogUpdater.php';
+
 $rootDir = __DIR__ . '/../../..';
 if (!file_exists($rootDir . '/manifest.json')) {
     echo "Unable to find the `manifest.json` script in `../../..`.\n";
