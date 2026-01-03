@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
@@ -81,7 +82,7 @@ class RestJsonSerializer implements Serializer
         return new SerializerResultBody('$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true, $this->usedClassesFlush());
     }
 
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResult
     {
         $this->usedClassesInit();
         $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
@@ -127,7 +128,7 @@ class RestJsonSerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return new SerializerResultBuilder('array', strtr('
+        return new SerializerResult(strtr('
                 $payload = [];
                 CHILDREN_CODE
 
@@ -135,6 +136,16 @@ class RestJsonSerializer implements Serializer
             ', [
             'CHILDREN_CODE' => $body,
         ]), $this->usedClassesFlush());
+    }
+
+    public function getRequestBuilderReturnType(): string
+    {
+        return 'array';
+    }
+
+    public function getRequestBuilderExtraArguments(): array
+    {
+        return [];
     }
 
     protected function dumpArrayBoolean(string $output, string $input, Shape $shape): string
@@ -175,8 +186,8 @@ class RestJsonSerializer implements Serializer
     private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false): string
     {
         switch (true) {
-            case $shape instanceof StructureShape:
-                return $this->dumpArrayStructure($output, $input, $shape);
+            case $shape instanceof ObjectShape:
+                return $this->dumpArrayStructure($output, $input);
             case $shape instanceof ListShape:
                 return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
@@ -203,7 +214,7 @@ class RestJsonSerializer implements Serializer
         throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
-    private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
+    private function dumpArrayStructure(string $output, string $input): string
     {
         return strtr('$payloadOUTPUT = INPUT->requestBody();', [
             'OUTPUT' => $output,

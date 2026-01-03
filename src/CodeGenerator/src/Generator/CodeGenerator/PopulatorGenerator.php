@@ -7,6 +7,7 @@ namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
@@ -100,7 +101,7 @@ class PopulatorGenerator
                 $this->enumGenerator->generate($memberShape);
             }
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $this->objectGenerator->generate($memberShape);
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
@@ -111,7 +112,7 @@ class PopulatorGenerator
                     $this->enumGenerator->generate($mapKeyShape);
                 }
 
-                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof ObjectShape) {
                     $this->objectGenerator->generate($valueShape);
                 }
                 if (!empty($valueShape->getEnum())) {
@@ -300,7 +301,7 @@ class PopulatorGenerator
 
     private function generateListShapeMemberShape(Shape $memberShape, bool $forEndpoint): void
     {
-        if ($memberShape instanceof StructureShape) {
+        if ($memberShape instanceof ObjectShape) {
             $this->objectGenerator->generate($memberShape, $forEndpoint);
         } elseif ($memberShape instanceof ListShape) {
             $this->generateListShapeMemberShape($memberShape->getMember()->getShape(), $forEndpoint);
