@@ -11,7 +11,11 @@ final class FileSourceTimeDeltaUnits
 {
     public const MILLISECONDS = 'MILLISECONDS';
     public const SECONDS = 'SECONDS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

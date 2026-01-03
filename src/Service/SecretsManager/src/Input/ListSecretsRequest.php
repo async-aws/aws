@@ -235,12 +235,14 @@ final class ListSecretsRequest extends Input
         }
         if (null !== $v = $this->sortOrder) {
             if (!SortOrderType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "SortOrder" for "%s". The value "%s" is not a valid "SortOrderType".', __CLASS__, $v));
             }
             $payload['SortOrder'] = $v;
         }
         if (null !== $v = $this->sortBy) {
             if (!SortByType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "SortBy" for "%s". The value "%s" is not a valid "SortByType".', __CLASS__, $v));
             }
             $payload['SortBy'] = $v;

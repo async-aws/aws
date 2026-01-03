@@ -10,7 +10,11 @@ final class AudioNormalizationAlgorithmControl
 {
     public const CORRECT_AUDIO = 'CORRECT_AUDIO';
     public const MEASURE_ONLY = 'MEASURE_ONLY';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

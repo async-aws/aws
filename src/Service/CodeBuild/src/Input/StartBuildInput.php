@@ -982,6 +982,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->sourceTypeOverride) {
             if (!SourceType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "sourceTypeOverride" for "%s". The value "%s" is not a valid "SourceType".', __CLASS__, $v));
             }
             $payload['sourceTypeOverride'] = $v;
@@ -1012,6 +1013,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->environmentTypeOverride) {
             if (!EnvironmentType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "environmentTypeOverride" for "%s". The value "%s" is not a valid "EnvironmentType".', __CLASS__, $v));
             }
             $payload['environmentTypeOverride'] = $v;
@@ -1021,6 +1023,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->computeTypeOverride) {
             if (!ComputeType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "computeTypeOverride" for "%s". The value "%s" is not a valid "ComputeType".', __CLASS__, $v));
             }
             $payload['computeTypeOverride'] = $v;
@@ -1057,6 +1060,7 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->imagePullCredentialsTypeOverride) {
             if (!ImagePullCredentialsType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "imagePullCredentialsTypeOverride" for "%s". The value "%s" is not a valid "ImagePullCredentialsType".', __CLASS__, $v));
             }
             $payload['imagePullCredentialsTypeOverride'] = $v;

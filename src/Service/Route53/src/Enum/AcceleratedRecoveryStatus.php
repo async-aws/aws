@@ -12,7 +12,11 @@ final class AcceleratedRecoveryStatus
     public const ENABLE_FAILED = 'ENABLE_FAILED';
     public const ENABLING = 'ENABLING';
     public const ENABLING_HOSTED_ZONE_LOCKED = 'ENABLING_HOSTED_ZONE_LOCKED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

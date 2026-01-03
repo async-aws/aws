@@ -4,7 +4,9 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\RequestCharged;
+use AsyncAws\S3\Enum\Type;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\Owner;
@@ -72,7 +74,7 @@ class GetObjectAclOutput extends Result
     {
         return new Grant([
             'Grantee' => 0 === $xml->Grantee->count() ? null : $this->populateResultGrantee($xml->Grantee),
-            'Permission' => (null !== $v = $xml->Permission[0]) ? (string) $v : null,
+            'Permission' => (null !== $v = $xml->Permission[0]) ? (!Permission::exists((string) $xml->Permission) ? Permission::UNKNOWN_TO_SDK : (string) $xml->Permission) : null,
         ]);
     }
 
@@ -82,7 +84,7 @@ class GetObjectAclOutput extends Result
             'DisplayName' => (null !== $v = $xml->DisplayName[0]) ? (string) $v : null,
             'EmailAddress' => (null !== $v = $xml->EmailAddress[0]) ? (string) $v : null,
             'ID' => (null !== $v = $xml->ID[0]) ? (string) $v : null,
-            'Type' => (string) ($xml->attributes('xsi', true)['type'][0] ?? null),
+            'Type' => !Type::exists((string) ($xml->attributes('xsi', true)['type'][0] ?? null)) ? Type::UNKNOWN_TO_SDK : (string) ($xml->attributes('xsi', true)['type'][0] ?? null),
             'URI' => (null !== $v = $xml->URI[0]) ? (string) $v : null,
         ]);
     }

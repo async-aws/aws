@@ -8,6 +8,9 @@ final class Trace
     public const ENABLED = 'ENABLED';
     public const ENABLED_FULL = 'ENABLED_FULL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

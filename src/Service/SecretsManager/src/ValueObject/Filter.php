@@ -85,6 +85,7 @@ final class Filter
         $payload = [];
         if (null !== $v = $this->key) {
             if (!FilterNameStringType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Key" for "%s". The value "%s" is not a valid "FilterNameStringType".', __CLASS__, $v));
             }
             $payload['Key'] = $v;

@@ -13,7 +13,11 @@ final class H264CodecProfile
     public const HIGH_422 = 'HIGH_422';
     public const HIGH_422_10BIT = 'HIGH_422_10BIT';
     public const MAIN = 'MAIN';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

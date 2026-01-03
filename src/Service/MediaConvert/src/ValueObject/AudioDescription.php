@@ -273,6 +273,7 @@ final class AudioDescription
         }
         if (null !== $v = $this->audioTypeControl) {
             if (!AudioTypeControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioTypeControl" for "%s". The value "%s" is not a valid "AudioTypeControl".', __CLASS__, $v));
             }
             $payload['audioTypeControl'] = $v;
@@ -285,12 +286,14 @@ final class AudioDescription
         }
         if (null !== $v = $this->languageCode) {
             if (!LanguageCode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "languageCode" for "%s". The value "%s" is not a valid "LanguageCode".', __CLASS__, $v));
             }
             $payload['languageCode'] = $v;
         }
         if (null !== $v = $this->languageCodeControl) {
             if (!AudioLanguageCodeControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "languageCodeControl" for "%s". The value "%s" is not a valid "AudioLanguageCodeControl".', __CLASS__, $v));
             }
             $payload['languageCodeControl'] = $v;

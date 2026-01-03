@@ -280,6 +280,7 @@ final class AacSettings
         $payload = [];
         if (null !== $v = $this->audioDescriptionBroadcasterMix) {
             if (!AacAudioDescriptionBroadcasterMix::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDescriptionBroadcasterMix" for "%s". The value "%s" is not a valid "AacAudioDescriptionBroadcasterMix".', __CLASS__, $v));
             }
             $payload['audioDescriptionBroadcasterMix'] = $v;
@@ -289,18 +290,21 @@ final class AacSettings
         }
         if (null !== $v = $this->codecProfile) {
             if (!AacCodecProfile::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "AacCodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
         }
         if (null !== $v = $this->codingMode) {
             if (!AacCodingMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codingMode" for "%s". The value "%s" is not a valid "AacCodingMode".', __CLASS__, $v));
             }
             $payload['codingMode'] = $v;
         }
         if (null !== $v = $this->loudnessMeasurementMode) {
             if (!AacLoudnessMeasurementMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "loudnessMeasurementMode" for "%s". The value "%s" is not a valid "AacLoudnessMeasurementMode".', __CLASS__, $v));
             }
             $payload['loudnessMeasurementMode'] = $v;
@@ -310,12 +314,14 @@ final class AacSettings
         }
         if (null !== $v = $this->rateControlMode) {
             if (!AacRateControlMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "rateControlMode" for "%s". The value "%s" is not a valid "AacRateControlMode".', __CLASS__, $v));
             }
             $payload['rateControlMode'] = $v;
         }
         if (null !== $v = $this->rawFormat) {
             if (!AacRawFormat::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "rawFormat" for "%s". The value "%s" is not a valid "AacRawFormat".', __CLASS__, $v));
             }
             $payload['rawFormat'] = $v;
@@ -325,6 +331,7 @@ final class AacSettings
         }
         if (null !== $v = $this->specification) {
             if (!AacSpecification::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "specification" for "%s". The value "%s" is not a valid "AacSpecification".', __CLASS__, $v));
             }
             $payload['specification'] = $v;
@@ -334,6 +341,7 @@ final class AacSettings
         }
         if (null !== $v = $this->vbrQuality) {
             if (!AacVbrQuality::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "vbrQuality" for "%s". The value "%s" is not a valid "AacVbrQuality".', __CLASS__, $v));
             }
             $payload['vbrQuality'] = $v;

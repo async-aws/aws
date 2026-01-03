@@ -4,6 +4,7 @@ namespace AsyncAws\TimestreamQuery\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\TimestreamQuery\Enum\ScalarType;
 use AsyncAws\TimestreamQuery\ValueObject\ColumnInfo;
 use AsyncAws\TimestreamQuery\ValueObject\ParameterMapping;
 use AsyncAws\TimestreamQuery\ValueObject\SelectColumn;
@@ -137,7 +138,7 @@ class PrepareQueryResponse extends Result
     private function populateResultType(array $json): Type
     {
         return new Type([
-            'ScalarType' => isset($json['ScalarType']) ? (string) $json['ScalarType'] : null,
+            'ScalarType' => isset($json['ScalarType']) ? (!ScalarType::exists((string) $json['ScalarType']) ? ScalarType::UNKNOWN_TO_SDK : (string) $json['ScalarType']) : null,
             'ArrayColumnInfo' => empty($json['ArrayColumnInfo']) ? null : $this->populateResultColumnInfo($json['ArrayColumnInfo']),
             'TimeSeriesMeasureValueColumnInfo' => empty($json['TimeSeriesMeasureValueColumnInfo']) ? null : $this->populateResultColumnInfo($json['TimeSeriesMeasureValueColumnInfo']),
             'RowColumnInfo' => !isset($json['RowColumnInfo']) ? null : $this->populateResultColumnInfoList($json['RowColumnInfo']),

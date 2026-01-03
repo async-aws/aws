@@ -28,7 +28,11 @@ final class AudioSelectorType
     public const PID = 'PID';
     public const STREAM = 'STREAM';
     public const TRACK = 'TRACK';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

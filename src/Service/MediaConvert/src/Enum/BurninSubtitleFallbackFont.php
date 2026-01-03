@@ -17,7 +17,11 @@ final class BurninSubtitleFallbackFont
     public const MONOSPACED_SERIF = 'MONOSPACED_SERIF';
     public const PROPORTIONAL_SANSSERIF = 'PROPORTIONAL_SANSSERIF';
     public const PROPORTIONAL_SERIF = 'PROPORTIONAL_SERIF';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

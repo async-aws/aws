@@ -21,7 +21,11 @@ final class VideoCodec
     public const VP8 = 'VP8';
     public const VP9 = 'VP9';
     public const XAVC = 'XAVC';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

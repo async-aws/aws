@@ -16,7 +16,11 @@ final class TimecodeBurninPosition
     public const TOP_CENTER = 'TOP_CENTER';
     public const TOP_LEFT = 'TOP_LEFT';
     public const TOP_RIGHT = 'TOP_RIGHT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

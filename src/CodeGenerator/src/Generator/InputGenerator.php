@@ -79,13 +79,13 @@ class InputGenerator
      */
     private $requirementsRegistry;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?HookGenerator $hookGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?HookGenerator $hookGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->objectGenerator = $objectGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $managedMethods);
         $this->hookGenerator = $hookGenerator ?? new HookGenerator();
         $this->serializer = new SerializerProvider($this->namespaceRegistry, $requirementsRegistry);
         $this->requirementsRegistry = $requirementsRegistry;
@@ -317,6 +317,7 @@ class InputGenerator
             $classBuilder->addUse(InvalidArgument::class);
 
             $validateEnum = strtr('if (!ENUM_CLASS::exists(VALUE)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(sprintf(\'Invalid parameter "MEMBER_NAME" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
             }', [
                 'VALUE' => $this->stringify($input, $member, $requestPart),

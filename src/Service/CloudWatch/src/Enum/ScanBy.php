@@ -7,6 +7,9 @@ final class ScanBy
     public const TIMESTAMP_ASCENDING = 'TimestampAscending';
     public const TIMESTAMP_DESCENDING = 'TimestampDescending';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -4,6 +4,7 @@ namespace AsyncAws\SecretsManager\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\SecretsManager\Enum\StatusType;
 use AsyncAws\SecretsManager\ValueObject\ReplicationStatusType;
 
 class CreateSecretResponse extends Result
@@ -101,7 +102,7 @@ class CreateSecretResponse extends Result
         return new ReplicationStatusType([
             'Region' => isset($json['Region']) ? (string) $json['Region'] : null,
             'KmsKeyId' => isset($json['KmsKeyId']) ? (string) $json['KmsKeyId'] : null,
-            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+            'Status' => isset($json['Status']) ? (!StatusType::exists((string) $json['Status']) ? StatusType::UNKNOWN_TO_SDK : (string) $json['Status']) : null,
             'StatusMessage' => isset($json['StatusMessage']) ? (string) $json['StatusMessage'] : null,
             'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,
         ]);

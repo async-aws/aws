@@ -488,6 +488,7 @@ final class HeadObjectRequest extends Input
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
             $headers['x-amz-request-payer'] = $this->requestPayer;
@@ -497,6 +498,7 @@ final class HeadObjectRequest extends Input
         }
         if (null !== $this->checksumMode) {
             if (!ChecksumMode::exists($this->checksumMode)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ChecksumMode" for "%s". The value "%s" is not a valid "ChecksumMode".', __CLASS__, $this->checksumMode));
             }
             $headers['x-amz-checksum-mode'] = $this->checksumMode;

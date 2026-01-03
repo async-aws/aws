@@ -293,6 +293,7 @@ final class GetMetricDataInput extends Input
         }
         if (null !== $v = $this->scanBy) {
             if (!ScanBy::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ScanBy" for "%s". The value "%s" is not a valid "ScanBy".', __CLASS__, $v));
             }
             $payload['ScanBy'] = $v;

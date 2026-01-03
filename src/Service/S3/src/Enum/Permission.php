@@ -9,7 +9,11 @@ final class Permission
     public const READ_ACP = 'READ_ACP';
     public const WRITE = 'WRITE';
     public const WRITE_ACP = 'WRITE_ACP';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

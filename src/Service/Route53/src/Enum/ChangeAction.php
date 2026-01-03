@@ -8,6 +8,9 @@ final class ChangeAction
     public const DELETE = 'DELETE';
     public const UPSERT = 'UPSERT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

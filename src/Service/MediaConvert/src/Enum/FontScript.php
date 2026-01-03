@@ -11,7 +11,11 @@ final class FontScript
     public const AUTOMATIC = 'AUTOMATIC';
     public const HANS = 'HANS';
     public const HANT = 'HANT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

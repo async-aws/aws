@@ -182,6 +182,7 @@ final class OutputGroupSettings
             foreach ($v as $listValue) {
                 ++$index;
                 if (!FrameMetricType::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "perFrameMetrics" for "%s". The value "%s" is not a valid "FrameMetricType".', __CLASS__, $listValue));
                 }
                 $payload['perFrameMetrics'][$index] = $listValue;
@@ -189,6 +190,7 @@ final class OutputGroupSettings
         }
         if (null !== $v = $this->type) {
             if (!OutputGroupType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "OutputGroupType".', __CLASS__, $v));
             }
             $payload['type'] = $v;

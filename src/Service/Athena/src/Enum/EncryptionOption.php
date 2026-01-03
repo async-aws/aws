@@ -7,7 +7,11 @@ final class EncryptionOption
     public const CSE_KMS = 'CSE_KMS';
     public const SSE_KMS = 'SSE_KMS';
     public const SSE_S3 = 'SSE_S3';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

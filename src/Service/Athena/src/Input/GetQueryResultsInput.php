@@ -171,6 +171,7 @@ final class GetQueryResultsInput extends Input
         }
         if (null !== $v = $this->queryResultType) {
             if (!QueryResultType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "QueryResultType" for "%s". The value "%s" is not a valid "QueryResultType".', __CLASS__, $v));
             }
             $payload['QueryResultType'] = $v;

@@ -24,7 +24,11 @@ final class StatusUpdateInterval
     public const SECONDS_540 = 'SECONDS_540';
     public const SECONDS_60 = 'SECONDS_60';
     public const SECONDS_600 = 'SECONDS_600';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

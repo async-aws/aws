@@ -14,7 +14,11 @@ final class AudioDefaultSelection
 {
     public const DEFAULT = 'DEFAULT';
     public const NOT_DEFAULT = 'NOT_DEFAULT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

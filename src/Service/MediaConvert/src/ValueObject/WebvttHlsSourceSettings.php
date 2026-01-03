@@ -92,6 +92,7 @@ final class WebvttHlsSourceSettings
         }
         if (null !== $v = $this->renditionLanguageCode) {
             if (!LanguageCode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "renditionLanguageCode" for "%s". The value "%s" is not a valid "LanguageCode".', __CLASS__, $v));
             }
             $payload['renditionLanguageCode'] = $v;

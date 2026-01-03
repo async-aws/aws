@@ -16,7 +16,11 @@ final class M2tsSegmentationStyle
 {
     public const MAINTAIN_CADENCE = 'MAINTAIN_CADENCE';
     public const RESET_CADENCE = 'RESET_CADENCE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

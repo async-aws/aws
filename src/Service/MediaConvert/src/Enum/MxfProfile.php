@@ -16,7 +16,11 @@ final class MxfProfile
     public const XAVC = 'XAVC';
     public const XDCAM = 'XDCAM';
     public const XDCAM_RDD9 = 'XDCAM_RDD9';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

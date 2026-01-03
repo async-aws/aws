@@ -10,7 +10,11 @@ final class RouteMatrixErrorCode
     public const POSITIONS_NOT_FOUND = 'PositionsNotFound';
     public const ROUTE_NOT_FOUND = 'RouteNotFound';
     public const ROUTE_TOO_LONG = 'RouteTooLong';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

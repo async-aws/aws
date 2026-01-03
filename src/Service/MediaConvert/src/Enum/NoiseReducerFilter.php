@@ -18,7 +18,11 @@ final class NoiseReducerFilter
     public const SHARPEN = 'SHARPEN';
     public const SPATIAL = 'SPATIAL';
     public const TEMPORAL = 'TEMPORAL';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

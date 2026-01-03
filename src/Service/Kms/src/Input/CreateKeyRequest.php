@@ -577,6 +577,7 @@ final class CreateKeyRequest extends Input
         }
         if (null !== $v = $this->keyUsage) {
             if (!KeyUsageType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "KeyUsage" for "%s". The value "%s" is not a valid "KeyUsageType".', __CLASS__, $v));
             }
             $payload['KeyUsage'] = $v;
@@ -584,18 +585,21 @@ final class CreateKeyRequest extends Input
         if (null !== $v = $this->customerMasterKeySpec) {
             @trigger_error(\sprintf('The property "CustomerMasterKeySpec" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
             if (!CustomerMasterKeySpec::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "CustomerMasterKeySpec" for "%s". The value "%s" is not a valid "CustomerMasterKeySpec".', __CLASS__, $v));
             }
             $payload['CustomerMasterKeySpec'] = $v;
         }
         if (null !== $v = $this->keySpec) {
             if (!KeySpec::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "KeySpec" for "%s". The value "%s" is not a valid "KeySpec".', __CLASS__, $v));
             }
             $payload['KeySpec'] = $v;
         }
         if (null !== $v = $this->origin) {
             if (!OriginType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "Origin" for "%s". The value "%s" is not a valid "OriginType".', __CLASS__, $v));
             }
             $payload['Origin'] = $v;

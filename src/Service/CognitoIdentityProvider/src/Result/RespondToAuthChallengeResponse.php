@@ -136,7 +136,7 @@ class RespondToAuthChallengeResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->challengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
+        $this->challengeName = isset($data['ChallengeName']) ? (!ChallengeNameType::exists((string) $data['ChallengeName']) ? ChallengeNameType::UNKNOWN_TO_SDK : (string) $data['ChallengeName']) : null;
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
         $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
         $this->authenticationResult = empty($data['AuthenticationResult']) ? null : $this->populateResultAuthenticationResultType($data['AuthenticationResult']);

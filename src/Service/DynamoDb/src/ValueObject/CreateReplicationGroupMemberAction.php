@@ -153,6 +153,7 @@ final class CreateReplicationGroupMemberAction
         }
         if (null !== $v = $this->tableClassOverride) {
             if (!TableClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "TableClassOverride" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
             }
             $payload['TableClassOverride'] = $v;

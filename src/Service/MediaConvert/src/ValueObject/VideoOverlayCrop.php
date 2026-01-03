@@ -138,6 +138,7 @@ final class VideoOverlayCrop
         }
         if (null !== $v = $this->unit) {
             if (!VideoOverlayUnit::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "unit" for "%s". The value "%s" is not a valid "VideoOverlayUnit".', __CLASS__, $v));
             }
             $payload['unit'] = $v;

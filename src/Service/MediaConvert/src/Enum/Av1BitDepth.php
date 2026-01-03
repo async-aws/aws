@@ -9,7 +9,11 @@ final class Av1BitDepth
 {
     public const BIT_10 = 'BIT_10';
     public const BIT_8 = 'BIT_8';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

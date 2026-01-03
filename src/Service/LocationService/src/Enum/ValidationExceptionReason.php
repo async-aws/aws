@@ -10,7 +10,11 @@ final class ValidationExceptionReason
     public const OTHER = 'Other';
     public const UNKNOWN_FIELD = 'UnknownField';
     public const UNKNOWN_OPERATION = 'UnknownOperation';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -263,6 +263,7 @@ final class ExecuteStatementInput extends Input
         }
         if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
@@ -272,6 +273,7 @@ final class ExecuteStatementInput extends Input
         }
         if (null !== $v = $this->returnValuesOnConditionCheckFailure) {
             if (!ReturnValuesOnConditionCheckFailure::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ReturnValuesOnConditionCheckFailure" for "%s". The value "%s" is not a valid "ReturnValuesOnConditionCheckFailure".', __CLASS__, $v));
             }
             $payload['ReturnValuesOnConditionCheckFailure'] = $v;

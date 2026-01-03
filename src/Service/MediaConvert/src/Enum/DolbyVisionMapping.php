@@ -14,7 +14,11 @@ final class DolbyVisionMapping
 {
     public const HDR10_1000 = 'HDR10_1000';
     public const HDR10_NOMAP = 'HDR10_NOMAP';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -17,7 +17,11 @@ final class M2tsSegmentationMarkers
     public const PSI_SEGSTART = 'PSI_SEGSTART';
     public const RAI_ADAPT = 'RAI_ADAPT';
     public const RAI_SEGSTART = 'RAI_SEGSTART';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

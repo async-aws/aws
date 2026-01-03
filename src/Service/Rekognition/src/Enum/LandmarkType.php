@@ -34,7 +34,11 @@ final class LandmarkType
     public const RIGHT_PUPIL = 'rightPupil';
     public const UPPER_JAWLINE_LEFT = 'upperJawlineLeft';
     public const UPPER_JAWLINE_RIGHT = 'upperJawlineRight';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

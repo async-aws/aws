@@ -9,7 +9,11 @@ final class ChecksumAlgorithm
     public const CRC64NVME = 'CRC64NVME';
     public const SHA1 = 'SHA1';
     public const SHA256 = 'SHA256';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

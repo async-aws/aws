@@ -16,7 +16,11 @@ final class H265CodecProfile
     public const MAIN_422_8BIT_MAIN = 'MAIN_422_8BIT_MAIN';
     public const MAIN_HIGH = 'MAIN_HIGH';
     public const MAIN_MAIN = 'MAIN_MAIN';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

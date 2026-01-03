@@ -110,7 +110,11 @@ class ReceiveMessageResult extends Result
     {
         $items = [];
         foreach ($json as $name => $value) {
-            $items[(string) $name] = (string) $value;
+            $name = (string) $name;
+            if (!MessageSystemAttributeName::exists($name)) {
+                $name = MessageSystemAttributeName::UNKNOWN_TO_SDK;
+            }
+            $items[$name] = (string) $value;
         }
 
         return $items;

@@ -14,7 +14,11 @@ final class MessageSystemAttributeName
     public const SENDER_ID = 'SenderId';
     public const SENT_TIMESTAMP = 'SentTimestamp';
     public const SEQUENCE_NUMBER = 'SequenceNumber';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

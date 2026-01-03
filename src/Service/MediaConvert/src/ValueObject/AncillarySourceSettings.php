@@ -90,6 +90,7 @@ final class AncillarySourceSettings
         $payload = [];
         if (null !== $v = $this->convert608To708) {
             if (!AncillaryConvert608To708::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "convert608To708" for "%s". The value "%s" is not a valid "AncillaryConvert608To708".', __CLASS__, $v));
             }
             $payload['convert608To708'] = $v;
@@ -99,6 +100,7 @@ final class AncillarySourceSettings
         }
         if (null !== $v = $this->terminateCaptions) {
             if (!AncillaryTerminateCaptions::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "terminateCaptions" for "%s". The value "%s" is not a valid "AncillaryTerminateCaptions".', __CLASS__, $v));
             }
             $payload['terminateCaptions'] = $v;

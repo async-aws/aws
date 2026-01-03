@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Kinesis\Enum\ConsumerStatus;
 use AsyncAws\Kinesis\ValueObject\ConsumerDescription;
 
 class DescribeStreamConsumerOutput extends Result
@@ -34,7 +35,7 @@ class DescribeStreamConsumerOutput extends Result
         return new ConsumerDescription([
             'ConsumerName' => (string) $json['ConsumerName'],
             'ConsumerARN' => (string) $json['ConsumerARN'],
-            'ConsumerStatus' => (string) $json['ConsumerStatus'],
+            'ConsumerStatus' => !ConsumerStatus::exists((string) $json['ConsumerStatus']) ? ConsumerStatus::UNKNOWN_TO_SDK : (string) $json['ConsumerStatus'],
             'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ConsumerCreationTimestamp'])),
             'StreamARN' => (string) $json['StreamARN'],
         ]);

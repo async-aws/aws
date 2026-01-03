@@ -212,6 +212,7 @@ final class CaptionDestinationSettings
         }
         if (null !== $v = $this->destinationType) {
             if (!CaptionDestinationType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "destinationType" for "%s". The value "%s" is not a valid "CaptionDestinationType".', __CLASS__, $v));
             }
             $payload['destinationType'] = $v;

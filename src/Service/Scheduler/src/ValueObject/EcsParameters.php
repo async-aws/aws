@@ -301,6 +301,7 @@ final class EcsParameters
         }
         if (null !== $v = $this->launchType) {
             if (!LaunchType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "LaunchType" for "%s". The value "%s" is not a valid "LaunchType".', __CLASS__, $v));
             }
             $payload['LaunchType'] = $v;
@@ -329,6 +330,7 @@ final class EcsParameters
         }
         if (null !== $v = $this->propagateTags) {
             if (!PropagateTags::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "PropagateTags" for "%s". The value "%s" is not a valid "PropagateTags".', __CLASS__, $v));
             }
             $payload['PropagateTags'] = $v;

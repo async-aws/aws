@@ -10,7 +10,11 @@ final class CmafSegmentControl
 {
     public const SEGMENTED_FILES = 'SEGMENTED_FILES';
     public const SINGLE_FILE = 'SINGLE_FILE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -233,12 +233,14 @@ final class Vc3Settings
         $payload = [];
         if (null !== $v = $this->framerateControl) {
             if (!Vc3FramerateControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "Vc3FramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!Vc3FramerateConversionAlgorithm::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "Vc3FramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
@@ -251,30 +253,35 @@ final class Vc3Settings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!Vc3InterlaceMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "Vc3InterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!Vc3ScanTypeConversionMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "Vc3ScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!Vc3SlowPal::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "Vc3SlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!Vc3Telecine::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "Vc3Telecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;
         }
         if (null !== $v = $this->vc3Class) {
             if (!Vc3Class::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "vc3Class" for "%s". The value "%s" is not a valid "Vc3Class".', __CLASS__, $v));
             }
             $payload['vc3Class'] = $v;

@@ -57,7 +57,7 @@ final class InvalidRequestException extends ClientException
         $data = $response->toArray(false);
 
         $this->error = isset($data['error']) ? (string) $data['error'] : null;
-        $this->reason = isset($data['reason']) ? (string) $data['reason'] : null;
+        $this->reason = isset($data['reason']) ? (!InvalidRequestExceptionReason::exists((string) $data['reason']) ? InvalidRequestExceptionReason::UNKNOWN_TO_SDK : (string) $data['reason']) : null;
         $this->error_description = isset($data['error_description']) ? (string) $data['error_description'] : null;
     }
 }

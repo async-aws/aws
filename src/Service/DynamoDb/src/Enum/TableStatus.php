@@ -12,7 +12,11 @@ final class TableStatus
     public const INACCESSIBLE_ENCRYPTION_CREDENTIALS = 'INACCESSIBLE_ENCRYPTION_CREDENTIALS';
     public const REPLICATION_NOT_AUTHORIZED = 'REPLICATION_NOT_AUTHORIZED';
     public const UPDATING = 'UPDATING';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

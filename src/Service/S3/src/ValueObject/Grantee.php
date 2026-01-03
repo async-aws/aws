@@ -117,6 +117,7 @@ final class Grantee
         }
         $v = $this->type;
         if (!Type::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
         }
         $node->setAttribute('xsi:type', $v);

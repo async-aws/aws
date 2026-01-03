@@ -58,12 +58,12 @@ class PopulatorGenerator
      */
     private $parserProvider;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?ParserProvider $parserProvider = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?ParserProvider $parserProvider = null)
     {
         $this->objectGenerator = $objectGenerator;
         $this->requirementsRegistry = $requirementsRegistry;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($classRegistry, $namespaceRegistry);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($classRegistry, $namespaceRegistry, $managedMethods);
         $this->parserProvider = $parserProvider ?? new ParserProvider($namespaceRegistry, $requirementsRegistry, $this->typeGenerator);
     }
 
@@ -279,7 +279,7 @@ class PopulatorGenerator
             foreach ($parserResult->getUsedClasses() as $className) {
                 $classBuilder->addUse($className->getFqdn());
             }
-            $classBuilder->setMethods($parserResult->getExtraMethods());
+            $classBuilder->addMethods($parserResult->getExtraMethods());
         }
         if (empty(trim($body))) {
             return;

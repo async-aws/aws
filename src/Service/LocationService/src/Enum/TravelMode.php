@@ -10,6 +10,9 @@ final class TravelMode
     public const TRUCK = 'Truck';
     public const WALKING = 'Walking';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -8,7 +8,11 @@ final class ServerSideEncryption
     public const AWS_FSX = 'aws:fsx';
     public const AWS_KMS = 'aws:kms';
     public const AWS_KMS_DSSE = 'aws:kms:dsse';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

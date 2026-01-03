@@ -11,7 +11,11 @@ final class XavcHdProfileBitrateClass
     public const BITRATE_CLASS_25 = 'BITRATE_CLASS_25';
     public const BITRATE_CLASS_35 = 'BITRATE_CLASS_35';
     public const BITRATE_CLASS_50 = 'BITRATE_CLASS_50';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

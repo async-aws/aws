@@ -8,7 +8,11 @@ final class StreamStatus
     public const CREATING = 'CREATING';
     public const DELETING = 'DELETING';
     public const UPDATING = 'UPDATING';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

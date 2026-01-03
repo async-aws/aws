@@ -6,6 +6,9 @@ final class MessageSystemAttributeNameForSends
 {
     public const AWSTRACE_HEADER = 'AWSTraceHeader';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

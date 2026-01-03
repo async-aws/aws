@@ -4,6 +4,7 @@ namespace AsyncAws\Iam\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Iam\Enum\StatusType;
 use AsyncAws\Iam\ValueObject\AccessKey;
 
 /**
@@ -40,7 +41,7 @@ class CreateAccessKeyResponse extends Result
         return new AccessKey([
             'UserName' => (string) $xml->UserName,
             'AccessKeyId' => (string) $xml->AccessKeyId,
-            'Status' => (string) $xml->Status,
+            'Status' => !StatusType::exists((string) $xml->Status) ? StatusType::UNKNOWN_TO_SDK : (string) $xml->Status,
             'SecretAccessKey' => (string) $xml->SecretAccessKey,
             'CreateDate' => (null !== $v = $xml->CreateDate[0]) ? new \DateTimeImmutable((string) $v) : null,
         ]);

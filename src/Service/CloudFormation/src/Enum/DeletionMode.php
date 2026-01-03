@@ -6,7 +6,11 @@ final class DeletionMode
 {
     public const FORCE_DELETE_STACK = 'FORCE_DELETE_STACK';
     public const STANDARD = 'STANDARD';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

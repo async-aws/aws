@@ -23,7 +23,11 @@ final class PresetSpeke20Video
     public const PRESET_VIDEO_8 = 'PRESET_VIDEO_8';
     public const SHARED = 'SHARED';
     public const UNENCRYPTED = 'UNENCRYPTED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

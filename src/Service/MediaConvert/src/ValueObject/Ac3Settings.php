@@ -235,12 +235,14 @@ final class Ac3Settings
         }
         if (null !== $v = $this->bitstreamMode) {
             if (!Ac3BitstreamMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "bitstreamMode" for "%s". The value "%s" is not a valid "Ac3BitstreamMode".', __CLASS__, $v));
             }
             $payload['bitstreamMode'] = $v;
         }
         if (null !== $v = $this->codingMode) {
             if (!Ac3CodingMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codingMode" for "%s". The value "%s" is not a valid "Ac3CodingMode".', __CLASS__, $v));
             }
             $payload['codingMode'] = $v;
@@ -250,30 +252,35 @@ final class Ac3Settings
         }
         if (null !== $v = $this->dynamicRangeCompressionLine) {
             if (!Ac3DynamicRangeCompressionLine::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionLine" for "%s". The value "%s" is not a valid "Ac3DynamicRangeCompressionLine".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionLine'] = $v;
         }
         if (null !== $v = $this->dynamicRangeCompressionProfile) {
             if (!Ac3DynamicRangeCompressionProfile::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionProfile" for "%s". The value "%s" is not a valid "Ac3DynamicRangeCompressionProfile".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionProfile'] = $v;
         }
         if (null !== $v = $this->dynamicRangeCompressionRf) {
             if (!Ac3DynamicRangeCompressionRf::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "dynamicRangeCompressionRf" for "%s". The value "%s" is not a valid "Ac3DynamicRangeCompressionRf".', __CLASS__, $v));
             }
             $payload['dynamicRangeCompressionRf'] = $v;
         }
         if (null !== $v = $this->lfeFilter) {
             if (!Ac3LfeFilter::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "lfeFilter" for "%s". The value "%s" is not a valid "Ac3LfeFilter".', __CLASS__, $v));
             }
             $payload['lfeFilter'] = $v;
         }
         if (null !== $v = $this->metadataControl) {
             if (!Ac3MetadataControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "metadataControl" for "%s". The value "%s" is not a valid "Ac3MetadataControl".', __CLASS__, $v));
             }
             $payload['metadataControl'] = $v;

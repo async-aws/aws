@@ -4,6 +4,8 @@ namespace AsyncAws\LocationService\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\LocationService\Enum\DistanceUnit;
+use AsyncAws\LocationService\Enum\RouteMatrixErrorCode;
 use AsyncAws\LocationService\ValueObject\CalculateRouteMatrixSummary;
 use AsyncAws\LocationService\ValueObject\RouteMatrixEntry;
 use AsyncAws\LocationService\ValueObject\RouteMatrixEntryError;
@@ -124,7 +126,7 @@ class CalculateRouteMatrixResponse extends Result
             'DataSource' => (string) $json['DataSource'],
             'RouteCount' => (int) $json['RouteCount'],
             'ErrorCount' => (int) $json['ErrorCount'],
-            'DistanceUnit' => (string) $json['DistanceUnit'],
+            'DistanceUnit' => !DistanceUnit::exists((string) $json['DistanceUnit']) ? DistanceUnit::UNKNOWN_TO_SDK : (string) $json['DistanceUnit'],
         ]);
     }
 
@@ -169,7 +171,7 @@ class CalculateRouteMatrixResponse extends Result
     private function populateResultRouteMatrixEntryError(array $json): RouteMatrixEntryError
     {
         return new RouteMatrixEntryError([
-            'Code' => (string) $json['Code'],
+            'Code' => !RouteMatrixErrorCode::exists((string) $json['Code']) ? RouteMatrixErrorCode::UNKNOWN_TO_SDK : (string) $json['Code'],
             'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
         ]);
     }

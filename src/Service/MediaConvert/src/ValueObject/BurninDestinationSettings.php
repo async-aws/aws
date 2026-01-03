@@ -520,18 +520,21 @@ final class BurninDestinationSettings
         $payload = [];
         if (null !== $v = $this->alignment) {
             if (!BurninSubtitleAlignment::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "alignment" for "%s". The value "%s" is not a valid "BurninSubtitleAlignment".', __CLASS__, $v));
             }
             $payload['alignment'] = $v;
         }
         if (null !== $v = $this->applyFontColor) {
             if (!BurninSubtitleApplyFontColor::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "applyFontColor" for "%s". The value "%s" is not a valid "BurninSubtitleApplyFontColor".', __CLASS__, $v));
             }
             $payload['applyFontColor'] = $v;
         }
         if (null !== $v = $this->backgroundColor) {
             if (!BurninSubtitleBackgroundColor::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "backgroundColor" for "%s". The value "%s" is not a valid "BurninSubtitleBackgroundColor".', __CLASS__, $v));
             }
             $payload['backgroundColor'] = $v;
@@ -541,12 +544,14 @@ final class BurninDestinationSettings
         }
         if (null !== $v = $this->fallbackFont) {
             if (!BurninSubtitleFallbackFont::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "fallbackFont" for "%s". The value "%s" is not a valid "BurninSubtitleFallbackFont".', __CLASS__, $v));
             }
             $payload['fallbackFont'] = $v;
         }
         if (null !== $v = $this->fontColor) {
             if (!BurninSubtitleFontColor::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "fontColor" for "%s". The value "%s" is not a valid "BurninSubtitleFontColor".', __CLASS__, $v));
             }
             $payload['fontColor'] = $v;
@@ -571,6 +576,7 @@ final class BurninDestinationSettings
         }
         if (null !== $v = $this->fontScript) {
             if (!FontScript::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "fontScript" for "%s". The value "%s" is not a valid "FontScript".', __CLASS__, $v));
             }
             $payload['fontScript'] = $v;
@@ -583,6 +589,7 @@ final class BurninDestinationSettings
         }
         if (null !== $v = $this->outlineColor) {
             if (!BurninSubtitleOutlineColor::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "outlineColor" for "%s". The value "%s" is not a valid "BurninSubtitleOutlineColor".', __CLASS__, $v));
             }
             $payload['outlineColor'] = $v;
@@ -592,12 +599,14 @@ final class BurninDestinationSettings
         }
         if (null !== $v = $this->removeRubyReserveAttributes) {
             if (!RemoveRubyReserveAttributes::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "removeRubyReserveAttributes" for "%s". The value "%s" is not a valid "RemoveRubyReserveAttributes".', __CLASS__, $v));
             }
             $payload['removeRubyReserveAttributes'] = $v;
         }
         if (null !== $v = $this->shadowColor) {
             if (!BurninSubtitleShadowColor::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "shadowColor" for "%s". The value "%s" is not a valid "BurninSubtitleShadowColor".', __CLASS__, $v));
             }
             $payload['shadowColor'] = $v;
@@ -613,12 +622,14 @@ final class BurninDestinationSettings
         }
         if (null !== $v = $this->stylePassthrough) {
             if (!BurnInSubtitleStylePassthrough::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "BurnInSubtitleStylePassthrough".', __CLASS__, $v));
             }
             $payload['stylePassthrough'] = $v;
         }
         if (null !== $v = $this->teletextSpacing) {
             if (!BurninSubtitleTeletextSpacing::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "teletextSpacing" for "%s". The value "%s" is not a valid "BurninSubtitleTeletextSpacing".', __CLASS__, $v));
             }
             $payload['teletextSpacing'] = $v;

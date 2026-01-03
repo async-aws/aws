@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add `UNKNOWN_TO_SDK` value to enums that is used when the API returns an value that is not (or not yet) known by the AsyncAws
 - AWS api-change: Added `us-isob-west-1` region
 - AWS api-change: New CloudWatch Logs feature - LogGroup Deletion Protection, a capability that allows customers to safeguard their critical CloudWatch log groups from accidental or unintended deletion.
 - AWS api-change: Added `eusc-de-east-1` region

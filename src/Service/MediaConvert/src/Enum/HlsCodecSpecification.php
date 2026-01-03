@@ -9,7 +9,11 @@ final class HlsCodecSpecification
 {
     public const RFC_4281 = 'RFC_4281';
     public const RFC_6381 = 'RFC_6381';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

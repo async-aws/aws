@@ -149,7 +149,7 @@ class ServiceGenerator
 
     public function populator(): PopulatorGenerator
     {
-        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum(), $this->parserProvider());
+        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->managedOperations, $this->type(), $this->enum(), $this->parserProvider());
     }
 
     public function result(): ResultGenerator
@@ -169,7 +169,7 @@ class ServiceGenerator
 
     public function input(): InputGenerator
     {
-        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum(), $this->hook());
+        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->managedOperations, $this->type(), $this->enum(), $this->hook());
     }
 
     public function type(): TypeGenerator
@@ -179,7 +179,7 @@ class ServiceGenerator
 
     public function enum(): EnumGenerator
     {
-        return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
+        return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $this->managedOperations);
     }
 
     public function hook(): HookGenerator

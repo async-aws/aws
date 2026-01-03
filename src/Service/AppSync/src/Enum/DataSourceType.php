@@ -13,7 +13,11 @@ final class DataSourceType
     public const HTTP = 'HTTP';
     public const NONE = 'NONE';
     public const RELATIONAL_DATABASE = 'RELATIONAL_DATABASE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

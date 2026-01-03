@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Waiter;
+use AsyncAws\Route53\Enum\ChangeStatus;
 use AsyncAws\Route53\Input\GetChangeRequest;
 use AsyncAws\Route53\Route53Client;
 
@@ -18,7 +19,7 @@ class ResourceRecordSetsChangedWaiter extends Waiter
     {
         if (200 === $response->getStatusCode()) {
             $data = new \SimpleXMLElement($response->getContent());
-            $a = (string) $data->ChangeInfo->Status;
+            $a = !ChangeStatus::exists((string) $data->ChangeInfo->Status) ? ChangeStatus::UNKNOWN_TO_SDK : (string) $data->ChangeInfo->Status;
             if ('INSYNC' === $a) {
                 return self::STATE_SUCCESS;
             }

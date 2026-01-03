@@ -15,7 +15,11 @@ final class HlsIFrameOnlyManifest
     public const EXCLUDE = 'EXCLUDE';
     public const INCLUDE = 'INCLUDE';
     public const INCLUDE_AS_TS = 'INCLUDE_AS_TS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

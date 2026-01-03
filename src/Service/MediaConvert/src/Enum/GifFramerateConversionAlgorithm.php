@@ -11,7 +11,11 @@ final class GifFramerateConversionAlgorithm
 {
     public const DUPLICATE_DROP = 'DUPLICATE_DROP';
     public const INTERPOLATE = 'INTERPOLATE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

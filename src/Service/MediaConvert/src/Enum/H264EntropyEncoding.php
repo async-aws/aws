@@ -9,7 +9,11 @@ final class H264EntropyEncoding
 {
     public const CABAC = 'CABAC';
     public const CAVLC = 'CAVLC';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

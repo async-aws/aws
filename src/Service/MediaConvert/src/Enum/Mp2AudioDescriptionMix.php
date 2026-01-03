@@ -14,7 +14,11 @@ final class Mp2AudioDescriptionMix
 {
     public const BROADCASTER_MIXED_AD = 'BROADCASTER_MIXED_AD';
     public const NONE = 'NONE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -26,7 +26,11 @@ final class QueueAttributeName
     public const REDRIVE_POLICY = 'RedrivePolicy';
     public const SQS_MANAGED_SSE_ENABLED = 'SqsManagedSseEnabled';
     public const VISIBILITY_TIMEOUT = 'VisibilityTimeout';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

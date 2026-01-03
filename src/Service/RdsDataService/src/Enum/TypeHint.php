@@ -11,6 +11,9 @@ final class TypeHint
     public const TIMESTAMP = 'TIMESTAMP';
     public const UUID = 'UUID';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

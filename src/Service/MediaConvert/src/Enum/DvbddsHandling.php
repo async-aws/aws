@@ -20,7 +20,11 @@ final class DvbddsHandling
     public const NO_DISPLAY_WINDOW = 'NO_DISPLAY_WINDOW';
     public const SPECIFIED = 'SPECIFIED';
     public const SPECIFIED_OPTIMAL = 'SPECIFIED_OPTIMAL';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

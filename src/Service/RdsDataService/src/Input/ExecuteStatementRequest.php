@@ -386,6 +386,7 @@ final class ExecuteStatementRequest extends Input
         }
         if (null !== $v = $this->formatRecordsAs) {
             if (!RecordsFormatType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "formatRecordsAs" for "%s". The value "%s" is not a valid "RecordsFormatType".', __CLASS__, $v));
             }
             $payload['formatRecordsAs'] = $v;

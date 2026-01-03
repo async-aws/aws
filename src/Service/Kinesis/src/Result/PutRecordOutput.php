@@ -68,6 +68,6 @@ class PutRecordOutput extends Result
 
         $this->shardId = (string) $data['ShardId'];
         $this->sequenceNumber = (string) $data['SequenceNumber'];
-        $this->encryptionType = isset($data['EncryptionType']) ? (string) $data['EncryptionType'] : null;
+        $this->encryptionType = isset($data['EncryptionType']) ? (!EncryptionType::exists((string) $data['EncryptionType']) ? EncryptionType::UNKNOWN_TO_SDK : (string) $data['EncryptionType']) : null;
     }
 }

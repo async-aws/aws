@@ -104,6 +104,7 @@ final class Mp2Settings
         $payload = [];
         if (null !== $v = $this->audioDescriptionMix) {
             if (!Mp2AudioDescriptionMix::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "audioDescriptionMix" for "%s". The value "%s" is not a valid "Mp2AudioDescriptionMix".', __CLASS__, $v));
             }
             $payload['audioDescriptionMix'] = $v;

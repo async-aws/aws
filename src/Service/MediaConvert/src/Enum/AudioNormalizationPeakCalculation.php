@@ -9,7 +9,11 @@ final class AudioNormalizationPeakCalculation
 {
     public const NONE = 'NONE';
     public const TRUE_PEAK = 'TRUE_PEAK';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -27,7 +27,11 @@ final class ColorSpace
     public const P3DCI = 'P3DCI';
     public const REC_601 = 'REC_601';
     public const REC_709 = 'REC_709';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

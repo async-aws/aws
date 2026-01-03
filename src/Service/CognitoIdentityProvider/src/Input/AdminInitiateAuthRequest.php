@@ -390,6 +390,7 @@ final class AdminInitiateAuthRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "AuthFlow" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!AuthFlowType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "AuthFlow" for "%s". The value "%s" is not a valid "AuthFlowType".', __CLASS__, $v));
         }
         $payload['AuthFlow'] = $v;

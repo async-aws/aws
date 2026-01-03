@@ -6,7 +6,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\EncodingType;
+use AsyncAws\S3\Enum\ObjectVersionStorageClass;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\S3Client;
@@ -414,7 +416,7 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
         $this->delimiter = (null !== $v = $data->Delimiter[0]) ? (string) $v : null;
         $this->maxKeys = (null !== $v = $data->MaxKeys[0]) ? (int) (string) $v : null;
         $this->commonPrefixes = (0 === ($v = $data->CommonPrefixes)->count()) ? [] : $this->populateResultCommonPrefixList($v);
-        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (string) $v : null;
+        $this->encodingType = (null !== $v = $data->EncodingType[0]) ? (!EncodingType::exists((string) $data->EncodingType) ? EncodingType::UNKNOWN_TO_SDK : (string) $data->EncodingType) : null;
     }
 
     /**
@@ -424,7 +426,11 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[] = (string) $item;
+            $a = (string) $item;
+            if (!ChecksumAlgorithm::exists($a)) {
+                $a = ChecksumAlgorithm::UNKNOWN_TO_SDK;
+            }
+            $items[] = $a;
         }
 
         return $items;
@@ -479,9 +485,9 @@ class ListObjectVersionsOutput extends Result implements \IteratorAggregate
         return new ObjectVersion([
             'ETag' => (null !== $v = $xml->ETag[0]) ? (string) $v : null,
             'ChecksumAlgorithm' => (0 === ($v = $xml->ChecksumAlgorithm)->count()) ? null : $this->populateResultChecksumAlgorithmList($v),
-            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (string) $v : null,
+            'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (!ChecksumType::exists((string) $xml->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $xml->ChecksumType) : null,
             'Size' => (null !== $v = $xml->Size[0]) ? (int) (string) $v : null,
-            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (string) $v : null,
+            'StorageClass' => (null !== $v = $xml->StorageClass[0]) ? (!ObjectVersionStorageClass::exists((string) $xml->StorageClass) ? ObjectVersionStorageClass::UNKNOWN_TO_SDK : (string) $xml->StorageClass) : null,
             'Key' => (null !== $v = $xml->Key[0]) ? (string) $v : null,
             'VersionId' => (null !== $v = $xml->VersionId[0]) ? (string) $v : null,
             'IsLatest' => (null !== $v = $xml->IsLatest[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,

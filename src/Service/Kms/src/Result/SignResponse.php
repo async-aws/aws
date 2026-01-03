@@ -73,6 +73,6 @@ class SignResponse extends Result
 
         $this->keyId = isset($data['KeyId']) ? (string) $data['KeyId'] : null;
         $this->signature = isset($data['Signature']) ? base64_decode((string) $data['Signature']) : null;
-        $this->signingAlgorithm = isset($data['SigningAlgorithm']) ? (string) $data['SigningAlgorithm'] : null;
+        $this->signingAlgorithm = isset($data['SigningAlgorithm']) ? (!SigningAlgorithmSpec::exists((string) $data['SigningAlgorithm']) ? SigningAlgorithmSpec::UNKNOWN_TO_SDK : (string) $data['SigningAlgorithm']) : null;
     }
 }

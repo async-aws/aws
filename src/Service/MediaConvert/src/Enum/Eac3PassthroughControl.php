@@ -11,7 +11,11 @@ final class Eac3PassthroughControl
 {
     public const NO_PASSTHROUGH = 'NO_PASSTHROUGH';
     public const WHEN_POSSIBLE = 'WHEN_POSSIBLE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

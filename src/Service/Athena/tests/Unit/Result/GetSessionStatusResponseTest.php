@@ -22,7 +22,7 @@ class GetSessionStatusResponseTest extends TestCase
               "IdleSinceDateTime": 1680596075.052,
               "LastModifiedDateTime": 1680596075.0032,
               "StartDateTime": 1680596075,
-              "State": "RUNNING",
+              "State": "CREATING",
               "StateChangeReason": "insertion"
            }
         }');
@@ -32,6 +32,6 @@ class GetSessionStatusResponseTest extends TestCase
 
         self::assertSame('session-iad-1256', $result->getSessionId());
         self::assertInstanceOf(SessionStatus::class, $result->getStatus());
-        self::assertSame('RUNNING', $result->getStatus()->getState());
+        self::assertSame('CREATING', $result->getStatus()->getState());
     }
 }

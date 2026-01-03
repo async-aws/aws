@@ -85,6 +85,7 @@ final class Projection
         $payload = [];
         if (null !== $v = $this->projectionType) {
             if (!ProjectionType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "ProjectionType" for "%s". The value "%s" is not a valid "ProjectionType".', __CLASS__, $v));
             }
             $payload['ProjectionType'] = $v;

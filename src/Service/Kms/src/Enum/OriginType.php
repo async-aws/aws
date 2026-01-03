@@ -8,7 +8,11 @@ final class OriginType
     public const AWS_KMS = 'AWS_KMS';
     public const EXTERNAL = 'EXTERNAL';
     public const EXTERNAL_KEY_STORE = 'EXTERNAL_KEY_STORE';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -135,30 +135,35 @@ final class MovSettings
         $payload = [];
         if (null !== $v = $this->clapAtom) {
             if (!MovClapAtom::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "clapAtom" for "%s". The value "%s" is not a valid "MovClapAtom".', __CLASS__, $v));
             }
             $payload['clapAtom'] = $v;
         }
         if (null !== $v = $this->cslgAtom) {
             if (!MovCslgAtom::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "cslgAtom" for "%s". The value "%s" is not a valid "MovCslgAtom".', __CLASS__, $v));
             }
             $payload['cslgAtom'] = $v;
         }
         if (null !== $v = $this->mpeg2FourccControl) {
             if (!MovMpeg2FourCCControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "mpeg2FourCCControl" for "%s". The value "%s" is not a valid "MovMpeg2FourCCControl".', __CLASS__, $v));
             }
             $payload['mpeg2FourCCControl'] = $v;
         }
         if (null !== $v = $this->paddingControl) {
             if (!MovPaddingControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "paddingControl" for "%s". The value "%s" is not a valid "MovPaddingControl".', __CLASS__, $v));
             }
             $payload['paddingControl'] = $v;
         }
         if (null !== $v = $this->reference) {
             if (!MovReference::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "reference" for "%s". The value "%s" is not a valid "MovReference".', __CLASS__, $v));
             }
             $payload['reference'] = $v;

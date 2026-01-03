@@ -9,7 +9,11 @@ final class HlsOutputSelection
 {
     public const MANIFESTS_AND_SEGMENTS = 'MANIFESTS_AND_SEGMENTS';
     public const SEGMENTS_ONLY = 'SEGMENTS_ONLY';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

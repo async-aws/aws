@@ -246,8 +246,9 @@ class RestJsonSerializer implements Serializer
             $enumClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
             $this->usedClassesAdd(InvalidArgument::class);
             $validateEnum = strtr('if (!ENUM_CLASS::exists($name)) {
-                    throw new InvalidArgument(sprintf(\'Invalid key for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $name));
-                }', [
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(sprintf(\'Invalid key for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $name));
+            }', [
                 'ENUM_CLASS' => $enumClassName->getName(),
             ]);
         } else {
@@ -285,6 +286,7 @@ if (empty(INPUT)) {
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
             $this->usedClassesAdd(InvalidArgument::class);
             $body = 'if (!ENUM_CLASS::exists(INPUT)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
                 }
             ' . $body;

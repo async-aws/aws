@@ -5,6 +5,7 @@ namespace AsyncAws\Route53\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Route53\Enum\AcceleratedRecoveryStatus;
 use AsyncAws\Route53\Input\ListHostedZonesRequest;
 use AsyncAws\Route53\Route53Client;
 use AsyncAws\Route53\ValueObject\HostedZone;
@@ -184,7 +185,7 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
     private function populateResultHostedZoneFeatures(\SimpleXMLElement $xml): HostedZoneFeatures
     {
         return new HostedZoneFeatures([
-            'AcceleratedRecoveryStatus' => (null !== $v = $xml->AcceleratedRecoveryStatus[0]) ? (string) $v : null,
+            'AcceleratedRecoveryStatus' => (null !== $v = $xml->AcceleratedRecoveryStatus[0]) ? (!AcceleratedRecoveryStatus::exists((string) $xml->AcceleratedRecoveryStatus) ? AcceleratedRecoveryStatus::UNKNOWN_TO_SDK : (string) $xml->AcceleratedRecoveryStatus) : null,
             'FailureReasons' => 0 === $xml->FailureReasons->count() ? null : $this->populateResultHostedZoneFailureReasons($xml->FailureReasons),
         ]);
     }

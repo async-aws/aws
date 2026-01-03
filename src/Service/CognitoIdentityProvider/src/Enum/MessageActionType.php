@@ -7,6 +7,9 @@ final class MessageActionType
     public const RESEND = 'RESEND';
     public const SUPPRESS = 'SUPPRESS';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

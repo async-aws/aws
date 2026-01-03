@@ -7,7 +7,11 @@ final class Type
     public const AMAZON_CUSTOMER_BY_EMAIL = 'AmazonCustomerByEmail';
     public const CANONICAL_USER = 'CanonicalUser';
     public const GROUP = 'Group';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

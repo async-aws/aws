@@ -8,6 +8,9 @@ final class ArtifactsType
     public const NO_ARTIFACTS = 'NO_ARTIFACTS';
     public const S3 = 'S3';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

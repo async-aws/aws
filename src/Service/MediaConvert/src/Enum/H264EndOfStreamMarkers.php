@@ -11,7 +11,11 @@ final class H264EndOfStreamMarkers
 {
     public const INCLUDE = 'INCLUDE';
     public const SUPPRESS = 'SUPPRESS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

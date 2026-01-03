@@ -22,7 +22,11 @@ final class AudioDurationCorrection
     public const FORCE = 'FORCE';
     public const FRAME = 'FRAME';
     public const TRACK = 'TRACK';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

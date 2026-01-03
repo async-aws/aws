@@ -177,6 +177,7 @@ final class VideoOverlay
         }
         if (null !== $v = $this->playback) {
             if (!VideoOverlayPlayBackMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "playback" for "%s". The value "%s" is not a valid "VideoOverlayPlayBackMode".', __CLASS__, $v));
             }
             $payload['playback'] = $v;

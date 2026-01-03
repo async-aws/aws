@@ -8,6 +8,9 @@ final class AttributeAction
     public const DELETE = 'DELETE';
     public const PUT = 'PUT';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

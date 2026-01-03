@@ -13,7 +13,11 @@ final class H264WriteMp4PackagingType
 {
     public const AVC1 = 'AVC1';
     public const AVC3 = 'AVC3';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

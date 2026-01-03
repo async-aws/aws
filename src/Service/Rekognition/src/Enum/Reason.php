@@ -11,7 +11,11 @@ final class Reason
     public const LOW_FACE_QUALITY = 'LOW_FACE_QUALITY';
     public const LOW_SHARPNESS = 'LOW_SHARPNESS';
     public const SMALL_BOUNDING_BOX = 'SMALL_BOUNDING_BOX';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

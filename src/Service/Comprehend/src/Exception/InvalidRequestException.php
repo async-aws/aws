@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Comprehend\Exception;
 
+use AsyncAws\Comprehend\Enum\InvalidRequestDetailReason;
 use AsyncAws\Comprehend\Enum\InvalidRequestReason;
 use AsyncAws\Comprehend\ValueObject\InvalidRequestDetail;
 use AsyncAws\Core\Exception\Http\ClientException;
@@ -39,14 +40,14 @@ final class InvalidRequestException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->reason = isset($data['Reason']) ? (string) $data['Reason'] : null;
+        $this->reason = isset($data['Reason']) ? (!InvalidRequestReason::exists((string) $data['Reason']) ? InvalidRequestReason::UNKNOWN_TO_SDK : (string) $data['Reason']) : null;
         $this->detail = empty($data['Detail']) ? null : $this->populateResultInvalidRequestDetail($data['Detail']);
     }
 
     private function populateResultInvalidRequestDetail(array $json): InvalidRequestDetail
     {
         return new InvalidRequestDetail([
-            'Reason' => isset($json['Reason']) ? (string) $json['Reason'] : null,
+            'Reason' => isset($json['Reason']) ? (!InvalidRequestDetailReason::exists((string) $json['Reason']) ? InvalidRequestDetailReason::UNKNOWN_TO_SDK : (string) $json['Reason']) : null,
         ]);
     }
 }

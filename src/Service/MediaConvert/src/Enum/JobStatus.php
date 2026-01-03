@@ -12,7 +12,11 @@ final class JobStatus
     public const ERROR = 'ERROR';
     public const PROGRESSING = 'PROGRESSING';
     public const SUBMITTED = 'SUBMITTED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

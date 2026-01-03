@@ -13,7 +13,11 @@ final class Eac3StereoDownmix
     public const LO_RO = 'LO_RO';
     public const LT_RT = 'LT_RT';
     public const NOT_INDICATED = 'NOT_INDICATED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

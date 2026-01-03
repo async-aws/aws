@@ -5,7 +5,20 @@ namespace AsyncAws\Lambda\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\ApplicationLogLevel;
 use AsyncAws\Lambda\Enum\Architecture;
+use AsyncAws\Lambda\Enum\LastUpdateStatus;
+use AsyncAws\Lambda\Enum\LastUpdateStatusReasonCode;
+use AsyncAws\Lambda\Enum\LogFormat;
+use AsyncAws\Lambda\Enum\PackageType;
+use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\Enum\SnapStartApplyOn;
+use AsyncAws\Lambda\Enum\SnapStartOptimizationStatus;
+use AsyncAws\Lambda\Enum\State;
+use AsyncAws\Lambda\Enum\StateReasonCode;
+use AsyncAws\Lambda\Enum\SystemLogLevel;
+use AsyncAws\Lambda\Enum\TenantIsolationMode;
+use AsyncAws\Lambda\Enum\TracingMode;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
@@ -126,6 +139,9 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         foreach ($json as $item) {
             $a = isset($item) ? (string) $item : null;
             if (null !== $a) {
+                if (!Architecture::exists($a)) {
+                    $a = Architecture::UNKNOWN_TO_SDK;
+                }
                 $items[] = $a;
             }
         }
@@ -217,7 +233,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         return new FunctionConfiguration([
             'FunctionName' => isset($json['FunctionName']) ? (string) $json['FunctionName'] : null,
             'FunctionArn' => isset($json['FunctionArn']) ? (string) $json['FunctionArn'] : null,
-            'Runtime' => isset($json['Runtime']) ? (string) $json['Runtime'] : null,
+            'Runtime' => isset($json['Runtime']) ? (!Runtime::exists((string) $json['Runtime']) ? Runtime::UNKNOWN_TO_SDK : (string) $json['Runtime']) : null,
             'Role' => isset($json['Role']) ? (string) $json['Role'] : null,
             'Handler' => isset($json['Handler']) ? (string) $json['Handler'] : null,
             'CodeSize' => isset($json['CodeSize']) ? (int) $json['CodeSize'] : null,
@@ -235,14 +251,14 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
             'MasterArn' => isset($json['MasterArn']) ? (string) $json['MasterArn'] : null,
             'RevisionId' => isset($json['RevisionId']) ? (string) $json['RevisionId'] : null,
             'Layers' => !isset($json['Layers']) ? null : $this->populateResultLayersReferenceList($json['Layers']),
-            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'State' => isset($json['State']) ? (!State::exists((string) $json['State']) ? State::UNKNOWN_TO_SDK : (string) $json['State']) : null,
             'StateReason' => isset($json['StateReason']) ? (string) $json['StateReason'] : null,
-            'StateReasonCode' => isset($json['StateReasonCode']) ? (string) $json['StateReasonCode'] : null,
-            'LastUpdateStatus' => isset($json['LastUpdateStatus']) ? (string) $json['LastUpdateStatus'] : null,
+            'StateReasonCode' => isset($json['StateReasonCode']) ? (!StateReasonCode::exists((string) $json['StateReasonCode']) ? StateReasonCode::UNKNOWN_TO_SDK : (string) $json['StateReasonCode']) : null,
+            'LastUpdateStatus' => isset($json['LastUpdateStatus']) ? (!LastUpdateStatus::exists((string) $json['LastUpdateStatus']) ? LastUpdateStatus::UNKNOWN_TO_SDK : (string) $json['LastUpdateStatus']) : null,
             'LastUpdateStatusReason' => isset($json['LastUpdateStatusReason']) ? (string) $json['LastUpdateStatusReason'] : null,
-            'LastUpdateStatusReasonCode' => isset($json['LastUpdateStatusReasonCode']) ? (string) $json['LastUpdateStatusReasonCode'] : null,
+            'LastUpdateStatusReasonCode' => isset($json['LastUpdateStatusReasonCode']) ? (!LastUpdateStatusReasonCode::exists((string) $json['LastUpdateStatusReasonCode']) ? LastUpdateStatusReasonCode::UNKNOWN_TO_SDK : (string) $json['LastUpdateStatusReasonCode']) : null,
             'FileSystemConfigs' => !isset($json['FileSystemConfigs']) ? null : $this->populateResultFileSystemConfigList($json['FileSystemConfigs']),
-            'PackageType' => isset($json['PackageType']) ? (string) $json['PackageType'] : null,
+            'PackageType' => isset($json['PackageType']) ? (!PackageType::exists((string) $json['PackageType']) ? PackageType::UNKNOWN_TO_SDK : (string) $json['PackageType']) : null,
             'ImageConfigResponse' => empty($json['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($json['ImageConfigResponse']),
             'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
             'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
@@ -331,9 +347,9 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
     private function populateResultLoggingConfig(array $json): LoggingConfig
     {
         return new LoggingConfig([
-            'LogFormat' => isset($json['LogFormat']) ? (string) $json['LogFormat'] : null,
-            'ApplicationLogLevel' => isset($json['ApplicationLogLevel']) ? (string) $json['ApplicationLogLevel'] : null,
-            'SystemLogLevel' => isset($json['SystemLogLevel']) ? (string) $json['SystemLogLevel'] : null,
+            'LogFormat' => isset($json['LogFormat']) ? (!LogFormat::exists((string) $json['LogFormat']) ? LogFormat::UNKNOWN_TO_SDK : (string) $json['LogFormat']) : null,
+            'ApplicationLogLevel' => isset($json['ApplicationLogLevel']) ? (!ApplicationLogLevel::exists((string) $json['ApplicationLogLevel']) ? ApplicationLogLevel::UNKNOWN_TO_SDK : (string) $json['ApplicationLogLevel']) : null,
+            'SystemLogLevel' => isset($json['SystemLogLevel']) ? (!SystemLogLevel::exists((string) $json['SystemLogLevel']) ? SystemLogLevel::UNKNOWN_TO_SDK : (string) $json['SystemLogLevel']) : null,
             'LogGroup' => isset($json['LogGroup']) ? (string) $json['LogGroup'] : null,
         ]);
     }
@@ -373,8 +389,8 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
     private function populateResultSnapStartResponse(array $json): SnapStartResponse
     {
         return new SnapStartResponse([
-            'ApplyOn' => isset($json['ApplyOn']) ? (string) $json['ApplyOn'] : null,
-            'OptimizationStatus' => isset($json['OptimizationStatus']) ? (string) $json['OptimizationStatus'] : null,
+            'ApplyOn' => isset($json['ApplyOn']) ? (!SnapStartApplyOn::exists((string) $json['ApplyOn']) ? SnapStartApplyOn::UNKNOWN_TO_SDK : (string) $json['ApplyOn']) : null,
+            'OptimizationStatus' => isset($json['OptimizationStatus']) ? (!SnapStartOptimizationStatus::exists((string) $json['OptimizationStatus']) ? SnapStartOptimizationStatus::UNKNOWN_TO_SDK : (string) $json['OptimizationStatus']) : null,
         ]);
     }
 
@@ -413,14 +429,14 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
     private function populateResultTenancyConfig(array $json): TenancyConfig
     {
         return new TenancyConfig([
-            'TenantIsolationMode' => (string) $json['TenantIsolationMode'],
+            'TenantIsolationMode' => !TenantIsolationMode::exists((string) $json['TenantIsolationMode']) ? TenantIsolationMode::UNKNOWN_TO_SDK : (string) $json['TenantIsolationMode'],
         ]);
     }
 
     private function populateResultTracingConfigResponse(array $json): TracingConfigResponse
     {
         return new TracingConfigResponse([
-            'Mode' => isset($json['Mode']) ? (string) $json['Mode'] : null,
+            'Mode' => isset($json['Mode']) ? (!TracingMode::exists((string) $json['Mode']) ? TracingMode::UNKNOWN_TO_SDK : (string) $json['Mode']) : null,
         ]);
     }
 

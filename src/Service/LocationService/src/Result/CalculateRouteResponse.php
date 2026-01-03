@@ -4,6 +4,7 @@ namespace AsyncAws\LocationService\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\LocationService\Enum\DistanceUnit;
 use AsyncAws\LocationService\ValueObject\CalculateRouteSummary;
 use AsyncAws\LocationService\ValueObject\Leg;
 use AsyncAws\LocationService\ValueObject\LegGeometry;
@@ -93,7 +94,7 @@ class CalculateRouteResponse extends Result
             'DataSource' => (string) $json['DataSource'],
             'Distance' => (float) $json['Distance'],
             'DurationSeconds' => (float) $json['DurationSeconds'],
-            'DistanceUnit' => (string) $json['DistanceUnit'],
+            'DistanceUnit' => !DistanceUnit::exists((string) $json['DistanceUnit']) ? DistanceUnit::UNKNOWN_TO_SDK : (string) $json['DistanceUnit'],
         ]);
     }
 

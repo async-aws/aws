@@ -191,24 +191,28 @@ final class Xavc4kProfileSettings
         $payload = [];
         if (null !== $v = $this->bitrateClass) {
             if (!Xavc4kProfileBitrateClass::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "bitrateClass" for "%s". The value "%s" is not a valid "Xavc4kProfileBitrateClass".', __CLASS__, $v));
             }
             $payload['bitrateClass'] = $v;
         }
         if (null !== $v = $this->codecProfile) {
             if (!Xavc4kProfileCodecProfile::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "codecProfile" for "%s". The value "%s" is not a valid "Xavc4kProfileCodecProfile".', __CLASS__, $v));
             }
             $payload['codecProfile'] = $v;
         }
         if (null !== $v = $this->flickerAdaptiveQuantization) {
             if (!XavcFlickerAdaptiveQuantization::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "flickerAdaptiveQuantization" for "%s". The value "%s" is not a valid "XavcFlickerAdaptiveQuantization".', __CLASS__, $v));
             }
             $payload['flickerAdaptiveQuantization'] = $v;
         }
         if (null !== $v = $this->gopBReference) {
             if (!XavcGopBReference::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "gopBReference" for "%s". The value "%s" is not a valid "XavcGopBReference".', __CLASS__, $v));
             }
             $payload['gopBReference'] = $v;
@@ -221,6 +225,7 @@ final class Xavc4kProfileSettings
         }
         if (null !== $v = $this->qualityTuningLevel) {
             if (!Xavc4kProfileQualityTuningLevel::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "qualityTuningLevel" for "%s". The value "%s" is not a valid "Xavc4kProfileQualityTuningLevel".', __CLASS__, $v));
             }
             $payload['qualityTuningLevel'] = $v;

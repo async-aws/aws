@@ -8,7 +8,11 @@ namespace AsyncAws\AppSync\Enum;
 final class BadRequestReason
 {
     public const CODE_ERROR = 'CODE_ERROR';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

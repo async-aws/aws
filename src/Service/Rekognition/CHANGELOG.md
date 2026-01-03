@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Add `UNKNOWN_TO_SDK` value to enums that is used when the API returns an value that is not (or not yet) known by the AsyncAws
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2

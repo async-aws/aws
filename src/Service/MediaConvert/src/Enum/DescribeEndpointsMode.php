@@ -12,6 +12,9 @@ final class DescribeEndpointsMode
     public const DEFAULT = 'DEFAULT';
     public const GET_ONLY = 'GET_ONLY';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

@@ -16,7 +16,11 @@ final class VideoTimecodeInsertion
 {
     public const DISABLED = 'DISABLED';
     public const PIC_TIMING_SEI = 'PIC_TIMING_SEI';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

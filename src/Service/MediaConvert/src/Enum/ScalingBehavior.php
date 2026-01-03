@@ -13,7 +13,11 @@ final class ScalingBehavior
     public const FIT = 'FIT';
     public const FIT_NO_UPSCALE = 'FIT_NO_UPSCALE';
     public const STRETCH_TO_OUTPUT = 'STRETCH_TO_OUTPUT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

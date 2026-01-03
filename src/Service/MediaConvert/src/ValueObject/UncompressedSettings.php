@@ -229,18 +229,21 @@ final class UncompressedSettings
         $payload = [];
         if (null !== $v = $this->fourcc) {
             if (!UncompressedFourcc::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "fourcc" for "%s". The value "%s" is not a valid "UncompressedFourcc".', __CLASS__, $v));
             }
             $payload['fourcc'] = $v;
         }
         if (null !== $v = $this->framerateControl) {
             if (!UncompressedFramerateControl::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerateControl" for "%s". The value "%s" is not a valid "UncompressedFramerateControl".', __CLASS__, $v));
             }
             $payload['framerateControl'] = $v;
         }
         if (null !== $v = $this->framerateConversionAlgorithm) {
             if (!UncompressedFramerateConversionAlgorithm::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "framerateConversionAlgorithm" for "%s". The value "%s" is not a valid "UncompressedFramerateConversionAlgorithm".', __CLASS__, $v));
             }
             $payload['framerateConversionAlgorithm'] = $v;
@@ -253,24 +256,28 @@ final class UncompressedSettings
         }
         if (null !== $v = $this->interlaceMode) {
             if (!UncompressedInterlaceMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "interlaceMode" for "%s". The value "%s" is not a valid "UncompressedInterlaceMode".', __CLASS__, $v));
             }
             $payload['interlaceMode'] = $v;
         }
         if (null !== $v = $this->scanTypeConversionMode) {
             if (!UncompressedScanTypeConversionMode::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "scanTypeConversionMode" for "%s". The value "%s" is not a valid "UncompressedScanTypeConversionMode".', __CLASS__, $v));
             }
             $payload['scanTypeConversionMode'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!UncompressedSlowPal::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "slowPal" for "%s". The value "%s" is not a valid "UncompressedSlowPal".', __CLASS__, $v));
             }
             $payload['slowPal'] = $v;
         }
         if (null !== $v = $this->telecine) {
             if (!UncompressedTelecine::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "telecine" for "%s". The value "%s" is not a valid "UncompressedTelecine".', __CLASS__, $v));
             }
             $payload['telecine'] = $v;

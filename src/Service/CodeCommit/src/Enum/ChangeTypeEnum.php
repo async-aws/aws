@@ -7,7 +7,11 @@ final class ChangeTypeEnum
     public const A = 'A';
     public const D = 'D';
     public const M = 'M';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

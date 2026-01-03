@@ -22,7 +22,11 @@ final class CaptionSourceType
     public const TTML = 'TTML';
     public const TT_3GPP = 'TT_3GPP';
     public const WEBVTT = 'WEBVTT';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

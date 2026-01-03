@@ -14,7 +14,11 @@ final class ReplicaStatus
     public const REGION_DISABLED = 'REGION_DISABLED';
     public const REPLICATION_NOT_AUTHORIZED = 'REPLICATION_NOT_AUTHORIZED';
     public const UPDATING = 'UPDATING';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

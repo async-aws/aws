@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudWatchLogs\Result;
 
+use AsyncAws\CloudWatchLogs\Enum\EntityRejectionErrorType;
 use AsyncAws\CloudWatchLogs\ValueObject\RejectedEntityInfo;
 use AsyncAws\CloudWatchLogs\ValueObject\RejectedLogEventsInfo;
 use AsyncAws\Core\Response;
@@ -71,7 +72,7 @@ class PutLogEventsResponse extends Result
     private function populateResultRejectedEntityInfo(array $json): RejectedEntityInfo
     {
         return new RejectedEntityInfo([
-            'errorType' => (string) $json['errorType'],
+            'errorType' => !EntityRejectionErrorType::exists((string) $json['errorType']) ? EntityRejectionErrorType::UNKNOWN_TO_SDK : (string) $json['errorType'],
         ]);
     }
 

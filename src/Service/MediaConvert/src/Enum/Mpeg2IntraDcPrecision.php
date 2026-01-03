@@ -13,7 +13,11 @@ final class Mpeg2IntraDcPrecision
     public const INTRA_DC_PRECISION_11 = 'INTRA_DC_PRECISION_11';
     public const INTRA_DC_PRECISION_8 = 'INTRA_DC_PRECISION_8';
     public const INTRA_DC_PRECISION_9 = 'INTRA_DC_PRECISION_9';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

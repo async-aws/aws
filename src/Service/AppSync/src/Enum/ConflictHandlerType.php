@@ -8,7 +8,11 @@ final class ConflictHandlerType
     public const LAMBDA = 'LAMBDA';
     public const NONE = 'NONE';
     public const OPTIMISTIC_CONCURRENCY = 'OPTIMISTIC_CONCURRENCY';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

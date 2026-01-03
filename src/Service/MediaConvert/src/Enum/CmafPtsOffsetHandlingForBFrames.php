@@ -14,7 +14,11 @@ final class CmafPtsOffsetHandlingForBFrames
 {
     public const MATCH_INITIAL_PTS = 'MATCH_INITIAL_PTS';
     public const ZERO_BASED = 'ZERO_BASED';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

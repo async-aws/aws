@@ -47,6 +47,6 @@ class PutParameterResult extends Result
         $data = $response->toArray();
 
         $this->version = isset($data['Version']) ? (int) $data['Version'] : null;
-        $this->tier = isset($data['Tier']) ? (string) $data['Tier'] : null;
+        $this->tier = isset($data['Tier']) ? (!ParameterTier::exists((string) $data['Tier']) ? ParameterTier::UNKNOWN_TO_SDK : (string) $data['Tier']) : null;
     }
 }

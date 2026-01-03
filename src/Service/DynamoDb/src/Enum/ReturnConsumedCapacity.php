@@ -20,6 +20,9 @@ final class ReturnConsumedCapacity
     public const NONE = 'NONE';
     public const TOTAL = 'TOTAL';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

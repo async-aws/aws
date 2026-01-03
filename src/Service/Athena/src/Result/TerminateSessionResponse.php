@@ -45,6 +45,6 @@ class TerminateSessionResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->state = isset($data['State']) ? (string) $data['State'] : null;
+        $this->state = isset($data['State']) ? (!SessionState::exists((string) $data['State']) ? SessionState::UNKNOWN_TO_SDK : (string) $data['State']) : null;
     }
 }

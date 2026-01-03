@@ -186,8 +186,8 @@ class WaiterGenerator
                 ACCEPTOR_CODE
 
                 return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
-            ', ['ACCEPTOR_CODE' => implode("\n", array_map(function ($acceptor) use ($waiter) {
-                return $this->getAcceptorBody($waiter, $acceptor);
+            ', ['ACCEPTOR_CODE' => implode("\n", array_map(function ($acceptor) use ($waiter, $classBuilder) {
+                return $this->getAcceptorBody($waiter, $acceptor, $classBuilder);
             }, $waiter->getAcceptors()))]));
         $method->addParameter('response')->setType(Response::class);
         $method->addParameter('exception')->setType(HttpException::class)->setNullable(true);
@@ -197,7 +197,7 @@ class WaiterGenerator
         return $className;
     }
 
-    private function getAcceptorBody(Waiter $waiter, WaiterAcceptor $acceptor): string
+    private function getAcceptorBody(Waiter $waiter, WaiterAcceptor $acceptor, ClassBuilder $classBuilder): string
     {
         if ($acceptor instanceof ErrorWaiterAcceptor) {
             return $this->getAcceptorErrorBody($acceptor);
@@ -207,7 +207,7 @@ class WaiterGenerator
             case WaiterAcceptor::MATCHER_STATUS:
                 return $this->getAcceptorStatusBody($acceptor);
             case WaiterAcceptor::MATCHER_PATH:
-                return $this->getAcceptorPathBody($waiter, $acceptor);
+                return $this->getAcceptorPathBody($waiter, $acceptor, $classBuilder);
             default:
                 throw new \RuntimeException(\sprintf('Acceptor matcher "%s" is not yet implemented', $acceptor->getMatcher()));
         }
@@ -225,8 +225,15 @@ class WaiterGenerator
         ]);
     }
 
-    private function getAcceptorPathBody(Waiter $waiter, WaiterAcceptor $acceptor): string
+    private function getAcceptorPathBody(Waiter $waiter, WaiterAcceptor $acceptor, ClassBuilder $classBuilder): string
     {
+        $operation = $waiter->getOperation();
+        $parserResult = $this->parserProvider->get($operation->getService())->generateForPath($operation->getOutput(), $acceptor->getArgument(), '$a');
+        foreach ($parserResult->getUsedClasses() as $className) {
+            $classBuilder->addUse($className->getFqdn());
+        }
+        $classBuilder->addMethods($parserResult->getExtraMethods());
+
         return strtr('
             if (200 === $response->getStatusCode()) {
                 ACCESS;
@@ -235,7 +242,7 @@ class WaiterGenerator
                 }
             }
         ', [
-            'ACCESS' => $this->parserProvider->get($waiter->getOperation()->getService())->generateForPath($waiter->getOperation()->getOutput(), $acceptor->getArgument(), '$a'),
+            'ACCESS' => $parserResult->getBody(),
             'EXPECTED' => var_export($acceptor->getExpected(), true),
             'BEHAVIOR' => $this->getAcceptorBehavior($acceptor),
         ]);

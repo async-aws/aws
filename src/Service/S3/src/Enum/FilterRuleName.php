@@ -7,6 +7,9 @@ final class FilterRuleName
     public const PREFIX = 'prefix';
     public const SUFFIX = 'suffix';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

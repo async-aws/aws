@@ -6,6 +6,9 @@ final class OptionalObjectAttributes
 {
     public const RESTORE_STATUS = 'RestoreStatus';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

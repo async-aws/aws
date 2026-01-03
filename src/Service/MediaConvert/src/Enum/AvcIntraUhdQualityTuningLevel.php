@@ -12,7 +12,11 @@ final class AvcIntraUhdQualityTuningLevel
 {
     public const MULTI_PASS = 'MULTI_PASS';
     public const SINGLE_PASS = 'SINGLE_PASS';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

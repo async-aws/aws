@@ -94,6 +94,7 @@ final class AwsVpcConfiguration
         $payload = [];
         if (null !== $v = $this->assignPublicIp) {
             if (!AssignPublicIp::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "AssignPublicIp" for "%s". The value "%s" is not a valid "AssignPublicIp".', __CLASS__, $v));
             }
             $payload['AssignPublicIp'] = $v;

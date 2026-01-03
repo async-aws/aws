@@ -11,7 +11,11 @@ final class M2tsEbpPlacement
 {
     public const VIDEO_AND_AUDIO_PIDS = 'VIDEO_AND_AUDIO_PIDS';
     public const VIDEO_PID = 'VIDEO_PID';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

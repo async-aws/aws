@@ -85,12 +85,14 @@ final class ImscDestinationSettings
         $payload = [];
         if (null !== $v = $this->accessibility) {
             if (!ImscAccessibilitySubs::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "accessibility" for "%s". The value "%s" is not a valid "ImscAccessibilitySubs".', __CLASS__, $v));
             }
             $payload['accessibility'] = $v;
         }
         if (null !== $v = $this->stylePassthrough) {
             if (!ImscStylePassthrough::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "stylePassthrough" for "%s". The value "%s" is not a valid "ImscStylePassthrough".', __CLASS__, $v));
             }
             $payload['stylePassthrough'] = $v;

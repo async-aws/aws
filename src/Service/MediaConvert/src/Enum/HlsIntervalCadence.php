@@ -11,7 +11,11 @@ final class HlsIntervalCadence
 {
     public const FOLLOW_CUSTOM = 'FOLLOW_CUSTOM';
     public const FOLLOW_IFRAME = 'FOLLOW_IFRAME';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

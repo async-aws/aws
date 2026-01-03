@@ -11,7 +11,11 @@ final class Xavc4kProfileQualityTuningLevel
     public const MULTI_PASS_HQ = 'MULTI_PASS_HQ';
     public const SINGLE_PASS = 'SINGLE_PASS';
     public const SINGLE_PASS_HQ = 'SINGLE_PASS_HQ';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

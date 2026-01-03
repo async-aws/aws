@@ -43,7 +43,11 @@ final class ResourceRecordSetRegion
     public const US_GOV_WEST_1 = 'us-gov-west-1';
     public const US_WEST_1 = 'us-west-1';
     public const US_WEST_2 = 'us-west-2';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

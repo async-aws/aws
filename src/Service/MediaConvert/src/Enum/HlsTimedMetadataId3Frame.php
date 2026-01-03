@@ -11,7 +11,11 @@ final class HlsTimedMetadataId3Frame
     public const NONE = 'NONE';
     public const PRIV = 'PRIV';
     public const TDRL = 'TDRL';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

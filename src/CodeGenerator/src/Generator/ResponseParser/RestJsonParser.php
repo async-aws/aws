@@ -13,6 +13,7 @@ use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
+use AsyncAws\CodeGenerator\Generator\EnumGenerator;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
@@ -110,8 +111,11 @@ class RestJsonParser implements Parser
         return new ParserResult($body, $this->imports, $this->functions);
     }
 
-    public function generateForPath(StructureShape $shape, string $path, string $output): string
+    public function generateForPath(StructureShape $shape, string $path, string $output): ParserResult
     {
+        $this->functions = [];
+        $this->imports = [];
+
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body = '$data = $response->toArray();' . "\n";
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
@@ -129,11 +133,13 @@ class RestJsonParser implements Parser
             $accesor .= '[' . var_export($this->getInputAccessorName($member), true) . ']';
         }
 
-        return $body . strtr('OUTPUT = INPUTPATH ?? null', [
+        $body .= strtr('OUTPUT = INPUTPATH ?? null', [
             'INPUT' => $input,
             'PATH' => $accesor,
             'OUTPUT' => $output,
         ]);
+
+        return new ParserResult($body, $this->imports, $this->functions);
     }
 
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
@@ -197,6 +203,10 @@ class RestJsonParser implements Parser
 
         switch ($shape->getType()) {
             case 'string':
+                if (!empty($shape->getEnum())) {
+                    return $this->parseResponseEnum($shape, $input, $required);
+                }
+
                 return $this->parseResponseString($input, $required);
             case 'long':
             case 'integer':
@@ -259,6 +269,25 @@ class RestJsonParser implements Parser
         return strtr('isset(INPUT) ? (string) INPUT : null', ['INPUT' => $input]);
     }
 
+    private function parseResponseEnum(Shape $shape, string $input, bool $required): string
+    {
+        $className = $this->namespaceRegistry->getEnum($shape);
+        $this->imports[] = $className;
+        if ($required) {
+            return strtr('!ENUM_CLASS::exists((string) INPUT) ? ENUM_CLASS::UNKNOWN_VALUE_CONST : (string) INPUT', [
+                'ENUM_CLASS' => $className->getName(),
+                'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                'INPUT' => $input,
+            ]);
+        }
+
+        return strtr('isset(INPUT) ? (!ENUM_CLASS::exists((string) INPUT) ? ENUM_CLASS::UNKNOWN_VALUE_CONST : (string) INPUT) : null', [
+            'ENUM_CLASS' => $className->getName(),
+            'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+            'INPUT' => $input,
+        ]);
+    }
+
     private function parseResponseInteger(string $input, bool $required): string
     {
         if ($required) {
@@ -312,32 +341,71 @@ class RestJsonParser implements Parser
         if (!isset($this->generatedFunctions[$functionName])) {
             // prevent recursion
             $this->generatedFunctions[$functionName] = true;
-
             if ($shapeMember->getShape() instanceof StructureShape || $shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
-                $listAccessorRequired = true;
-                $body = '
+                if (!empty($shapeMember->getShape()->getEnum())) {
+                    $className = $this->namespaceRegistry->getEnum($shapeMember->getShape());
+                    $body = strtr('
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
-                       $items[] = LIST_ACCESSOR;
+                        $a = LIST_ACCESSOR;
+                        if (!ENUM_CLASS::exists($a)) {
+                            $a = ENUM_CLASS::UNKNOWN_VALUE_CONST;
+                        }
+                        $items[] = $a;
                     }
 
-                    return $items;';
+                    return $items;', [
+                        'ENUM_CLASS' => $className->getName(),
+                        'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                    ]);
+                    $accessCode = $this->parseResponseString('$item', true);
+                } else {
+                    $body = '
+                        $items = [];
+                        foreach (INPUT_PROPERTY as $item) {
+                           $items[] = LIST_ACCESSOR;
+                        }
+
+                        return $items;';
+                    $accessCode = $this->parseElement('$item', $shapeMember->getShape(), true, $inObject);
+                }
             } else {
-                $listAccessorRequired = false;
-                $body = '
+                if (!empty($shapeMember->getShape()->getEnum())) {
+                    $className = $this->namespaceRegistry->getEnum($shapeMember->getShape());
+                    $body = strtr('
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
                         $a = LIST_ACCESSOR;
                         if (null !== $a) {
+                            if (!ENUM_CLASS::exists($a)) {
+                                $a = ENUM_CLASS::UNKNOWN_VALUE_CONST;
+                            }
                             $items[] = $a;
                         }
                     }
 
-                    return $items;';
+                    return $items;', [
+                        'ENUM_CLASS' => $className->getName(),
+                        'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                    ]);
+                    $accessCode = $this->parseResponseString('$item', false);
+                } else {
+                    $body = '
+                        $items = [];
+                        foreach (INPUT_PROPERTY as $item) {
+                            $a = LIST_ACCESSOR;
+                            if (null !== $a) {
+                                $items[] = $a;
+                            }
+                        }
+
+                        return $items;';
+                    $accessCode = $this->parseElement('$item', $shapeMember->getShape(), false, $inObject);
+                }
             }
 
             $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired, $inObject),
+                'LIST_ACCESSOR' => $accessCode,
                 'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
             ]), $shape);
         }
@@ -359,12 +427,30 @@ class RestJsonParser implements Parser
             $this->generatedFunctions[$functionName] = true;
 
             if (null === $locationName = $shape->getKey()->getLocationName()) {
+                if (!empty($shape->getKey()->getShape()->getEnum())) {
+                    $className = $this->namespaceRegistry->getEnum($shape->getKey()->getShape());
+                    $this->imports[] = $className;
+                    $cleanKeyCode = strtr('
+                        $name = (string) $name;
+                        if (!ENUM_CLASS::exists($name)) {
+                            $name = ENUM_CLASS::UNKNOWN_VALUE_CONST;
+                        }', [
+                        'ENUM_CLASS' => $className->getName(),
+                        'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                    ]);
+                    $keyVar = '$name';
+                } else {
+                    $cleanKeyCode = '';
+                    $keyVar = '(string) $name';
+                }
+
                 // We need to use array keys
                 if ($shapeValue->getShape() instanceof StructureShape) {
                     $body = '
                         $items = [];
                         foreach ($json as $name => $value) {
-                           $items[(string) $name] = BUILDER_CODE;
+                            CLEAN_KEY_CODE
+                            $items[KEY_VAR] = BUILDER_CODE;
                         }
 
                         return $items;
@@ -372,28 +458,51 @@ class RestJsonParser implements Parser
 
                     $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                         'BUILDER_CODE' => $this->parseResponseStructure($shapeValue->getShape(), '$value', true),
+                        'CLEAN_KEY_CODE' => $cleanKeyCode,
+                        'KEY_VAR' => $keyVar,
                     ]), $shape);
                 } else {
                     $body = '
                         $items = [];
                         foreach ($json as $name => $value) {
-                           $items[(string) $name] = CODE;
+                            CLEAN_KEY_CODE
+                            $items[KEY_VAR] = BUILDER_CODE;
                         }
 
                         return $items;
                     ';
 
                     $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                        'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true, $inObject),
+                        'BUILDER_CODE' => $this->parseElement('$value', $shapeValue->getShape(), true, $inObject),
+                        'CLEAN_KEY_CODE' => $cleanKeyCode,
+                        'KEY_VAR' => $keyVar,
                     ]), $shape);
                 }
             } else {
+                if (!empty($shape->getKey()->getShape()->getEnum())) {
+                    $className = $this->namespaceRegistry->getEnum($shape->getKey()->getShape());
+                    $this->imports[] = $className;
+                    $cleanKeyCode = strtr('
+                        $name = $item[MAP_KEY];
+                        if (!ENUM_CLASS::exists($name)) {
+                            $name = ENUM_CLASS::UNKNOWN_VALUE_CONST;
+                        }', [
+                        'MAP_KEY' => var_export($locationName, true),
+                        'ENUM_CLASS' => $className->getName(),
+                        'UNKNOWN_VALUE_CONST' => EnumGenerator::UNKNOWN_VALUE,
+                    ]);
+                    $keyVar = '$name';
+                } else {
+                    $cleanKeyCode = '';
+                    $keyVar = strtr('$name = $item[MAP_KEY]', ['MAP_KEY' => var_export($locationName, true)]);
+                }
                 $inputAccessorName = $this->getInputAccessorName($shapeValue);
                 if ($shapeValue->getShape() instanceof StructureShape) {
                     $body = '
                         $items = [];
                         foreach ($json as $item) {
-                            $items[$item[MAP_KEY]] = MAP_ACCESSOR;
+                            CLEAN_KEY_CODE
+                            $items[KEY_VAR] = MAP_ACCESSOR;
                         }
 
                         return $items;
@@ -402,9 +511,10 @@ class RestJsonParser implements Parser
                     $body = '
                         $items = [];
                         foreach ($json as $item) {
+                            CLEAN_KEY_CODE
                             $a = MAP_ACCESSOR;
                             if (null !== $a) {
-                                $items[$item[MAP_KEY]] = $a;
+                                $items[KEY_VAR] = $a;
                             }
                         }
 
@@ -413,8 +523,9 @@ class RestJsonParser implements Parser
                 }
 
                 $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                    'MAP_KEY' => var_export($locationName, true),
                     'MAP_ACCESSOR' => $this->parseElement(\sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false, $inObject),
+                    'CLEAN_KEY_CODE' => $cleanKeyCode,
+                    'KEY_VAR' => $keyVar,
                 ]), $shape);
             }
         }

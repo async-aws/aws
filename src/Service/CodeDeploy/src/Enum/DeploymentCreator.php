@@ -12,7 +12,11 @@ final class DeploymentCreator
     public const CODE_DEPLOY_AUTO_UPDATE = 'CodeDeployAutoUpdate';
     public const CODE_DEPLOY_ROLLBACK = 'codeDeployRollback';
     public const USER = 'user';
+    public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
+    /**
+     * @psalm-assert-if-true self::* $value
+     */
     public static function exists(string $value): bool
     {
         return isset([

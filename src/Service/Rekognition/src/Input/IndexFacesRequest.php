@@ -254,6 +254,7 @@ final class IndexFacesRequest extends Input
             foreach ($v as $listValue) {
                 ++$index;
                 if (!Attribute::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
                     throw new InvalidArgument(\sprintf('Invalid parameter "DetectionAttributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
                 }
                 $payload['DetectionAttributes'][$index] = $listValue;
@@ -264,6 +265,7 @@ final class IndexFacesRequest extends Input
         }
         if (null !== $v = $this->qualityFilter) {
             if (!QualityFilter::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "QualityFilter" for "%s". The value "%s" is not a valid "QualityFilter".', __CLASS__, $v));
             }
             $payload['QualityFilter'] = $v;

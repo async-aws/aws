@@ -4,6 +4,9 @@ namespace AsyncAws\Rekognition\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Rekognition\Enum\EmotionName;
+use AsyncAws\Rekognition\Enum\GenderType;
+use AsyncAws\Rekognition\Enum\LandmarkType;
 use AsyncAws\Rekognition\Enum\OrientationCorrection;
 use AsyncAws\Rekognition\ValueObject\AgeRange;
 use AsyncAws\Rekognition\ValueObject\Beard;
@@ -73,7 +76,7 @@ class DetectFacesResponse extends Result
         $data = $response->toArray();
 
         $this->faceDetails = empty($data['FaceDetails']) ? [] : $this->populateResultFaceDetailList($data['FaceDetails']);
-        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
+        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (!OrientationCorrection::exists((string) $data['OrientationCorrection']) ? OrientationCorrection::UNKNOWN_TO_SDK : (string) $data['OrientationCorrection']) : null;
     }
 
     private function populateResultAgeRange(array $json): AgeRange
@@ -105,7 +108,7 @@ class DetectFacesResponse extends Result
     private function populateResultEmotion(array $json): Emotion
     {
         return new Emotion([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!EmotionName::exists((string) $json['Type']) ? EmotionName::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
         ]);
     }
@@ -195,7 +198,7 @@ class DetectFacesResponse extends Result
     private function populateResultGender(array $json): Gender
     {
         return new Gender([
-            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+            'Value' => isset($json['Value']) ? (!GenderType::exists((string) $json['Value']) ? GenderType::UNKNOWN_TO_SDK : (string) $json['Value']) : null,
             'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
         ]);
     }
@@ -211,7 +214,7 @@ class DetectFacesResponse extends Result
     private function populateResultLandmark(array $json): Landmark
     {
         return new Landmark([
-            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Type' => isset($json['Type']) ? (!LandmarkType::exists((string) $json['Type']) ? LandmarkType::UNKNOWN_TO_SDK : (string) $json['Type']) : null,
             'X' => isset($json['X']) ? (float) $json['X'] : null,
             'Y' => isset($json['Y']) ? (float) $json['Y'] : null,
         ]);
