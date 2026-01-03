@@ -1,0 +1,38 @@
+{
+    "name": "async-aws/s3-vectors",
+    "description": "S3Vectors client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "S3Vectors"
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "async-aws/core": "^1.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5.42",
+        "symfony/error-handler": "^7.3.2 || ^8.0",
+        "symfony/phpunit-bridge": "^7.3.2 || ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\S3Vectors\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\S3Vectors\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

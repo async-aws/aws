@@ -167,6 +167,7 @@ for more information.
 | [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)                             |
 | [Route53](./route53.md)                     | [async-aws/route53](https://packagist.org/packages/async-aws/route53)                                     |
 | [S3](./s3.md)                               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)                                               |
+| [S3Vectors](./s3-vectors.md)                | [async-aws/s3-vectors](https://packagist.org/packages/async-aws/s3-vectors)                               |
 | [Scheduler](./scheduler.md)                 | [async-aws/scheduler](https://packagist.org/packages/async-aws/scheduler)                                 |
 | [SecretsManager](./secrets-manager.md)      | [async-aws/secrets-manager](https://packagist.org/packages/async-aws/secrets-manager)                     |
 | [SES](./ses.md)                             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)                                             |
