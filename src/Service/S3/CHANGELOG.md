@@ -20,6 +20,10 @@
 
 - Drop support for PHP versions lower than 8.2
 
+### Fixed
+
+- Fix PHP 8.5 deprecation warning for `DateTimeInterface::RFC7231` constant by using `RFC1123` instead.
+
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.

@@ -597,7 +597,8 @@ PHP
 
                 if ('RFC822' === $format) {
                     $variable .= '->setTimezone(new \\DateTimeZone("GMT"))';
-                    $format = 'RFC7231';
+                    // Use RFC1123 instead of deprecated RFC7231 constant (PHP 8.5+)
+                    return $variable . '->format(\DateTimeInterface::RFC1123)';
                 }
 
                 return $variable . '->format(\DateTimeInterface::' . $format . ')';
