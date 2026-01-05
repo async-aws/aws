@@ -4,6 +4,7 @@ namespace AsyncAws\S3Vectors\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3Vectors\Enum\SseType;
 use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\VectorBucket;
 
@@ -33,7 +34,7 @@ class GetVectorBucketOutput extends Result
     private function populateResultEncryptionConfiguration(array $json): EncryptionConfiguration
     {
         return new EncryptionConfiguration([
-            'sseType' => isset($json['sseType']) ? (string) $json['sseType'] : null,
+            'sseType' => isset($json['sseType']) ? (!SseType::exists((string) $json['sseType']) ? SseType::UNKNOWN_TO_SDK : (string) $json['sseType']) : null,
             'kmsKeyArn' => isset($json['kmsKeyArn']) ? (string) $json['kmsKeyArn'] : null,
         ]);
     }

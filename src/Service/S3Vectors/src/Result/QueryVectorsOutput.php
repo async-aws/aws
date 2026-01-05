@@ -49,7 +49,7 @@ class QueryVectorsOutput extends Result
         $data = $response->toArray();
 
         $this->vectors = $this->populateResultQueryVectorsOutputList($data['vectors'] ?? []);
-        $this->distanceMetric = (string) $data['distanceMetric'];
+        $this->distanceMetric = !DistanceMetric::exists((string) $data['distanceMetric']) ? DistanceMetric::UNKNOWN_TO_SDK : (string) $data['distanceMetric'];
     }
 
     private function populateResultQueryOutputVector(array $json): QueryOutputVector

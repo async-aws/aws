@@ -79,6 +79,7 @@ final class EncryptionConfiguration
         $payload = [];
         if (null !== $v = $this->sseType) {
             if (!SseType::exists($v)) {
+                /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "sseType" for "%s". The value "%s" is not a valid "SseType".', __CLASS__, $v));
             }
             $payload['sseType'] = $v;

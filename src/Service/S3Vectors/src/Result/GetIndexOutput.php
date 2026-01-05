@@ -4,6 +4,9 @@ namespace AsyncAws\S3Vectors\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3Vectors\Enum\DataType;
+use AsyncAws\S3Vectors\Enum\DistanceMetric;
+use AsyncAws\S3Vectors\Enum\SseType;
 use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\Index;
 use AsyncAws\S3Vectors\ValueObject\MetadataConfiguration;
@@ -34,7 +37,7 @@ class GetIndexOutput extends Result
     private function populateResultEncryptionConfiguration(array $json): EncryptionConfiguration
     {
         return new EncryptionConfiguration([
-            'sseType' => isset($json['sseType']) ? (string) $json['sseType'] : null,
+            'sseType' => isset($json['sseType']) ? (!SseType::exists((string) $json['sseType']) ? SseType::UNKNOWN_TO_SDK : (string) $json['sseType']) : null,
             'kmsKeyArn' => isset($json['kmsKeyArn']) ? (string) $json['kmsKeyArn'] : null,
         ]);
     }
@@ -46,9 +49,9 @@ class GetIndexOutput extends Result
             'indexName' => (string) $json['indexName'],
             'indexArn' => (string) $json['indexArn'],
             'creationTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])),
-            'dataType' => (string) $json['dataType'],
+            'dataType' => !DataType::exists((string) $json['dataType']) ? DataType::UNKNOWN_TO_SDK : (string) $json['dataType'],
             'dimension' => (int) $json['dimension'],
-            'distanceMetric' => (string) $json['distanceMetric'],
+            'distanceMetric' => !DistanceMetric::exists((string) $json['distanceMetric']) ? DistanceMetric::UNKNOWN_TO_SDK : (string) $json['distanceMetric'],
             'metadataConfiguration' => empty($json['metadataConfiguration']) ? null : $this->populateResultMetadataConfiguration($json['metadataConfiguration']),
             'encryptionConfiguration' => empty($json['encryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['encryptionConfiguration']),
         ]);

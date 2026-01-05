@@ -307,6 +307,7 @@ final class CreateIndexInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "dataType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!DataType::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "dataType" for "%s". The value "%s" is not a valid "DataType".', __CLASS__, $v));
         }
         $payload['dataType'] = $v;
@@ -318,6 +319,7 @@ final class CreateIndexInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "distanceMetric" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!DistanceMetric::exists($v)) {
+            /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "distanceMetric" for "%s". The value "%s" is not a valid "DistanceMetric".', __CLASS__, $v));
         }
         $payload['distanceMetric'] = $v;
