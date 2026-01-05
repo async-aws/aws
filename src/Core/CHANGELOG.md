@@ -7,6 +7,7 @@
 - AWS api-change: Added `us-isob-west-1` region
 - Added `DescribeLogGroups` method
 - Support for BedrockAgent
+- Support for AWS S3 Vectors
 - AWS api-change: Added `eusc-de-east-1` region
 
 ### Dependency bumped

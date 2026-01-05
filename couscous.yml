@@ -121,6 +121,9 @@ menu:
             s3:
                 text: S3
                 url: /clients/s3.html
+            s3-vectors:
+                text: S3 Vectors
+                url: /clients/s3-vectors.html
             scheduler:
                 text: Scheduler
                 url: /clients/scheduler.html
