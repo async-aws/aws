@@ -596,7 +596,7 @@ PHP
                 }
 
                 if ('RFC822' === $format || 'RFC7231' === $format) {
-                    return $variable.'->setTimezone(new \\DateTimeZone("GMT"))->format(\'D, d M Y H:i:s \G\M\T\')';
+                    return $variable . '->setTimezone(new \\DateTimeZone("GMT"))->format(\'D, d M Y H:i:s \G\M\T\')';
                 }
 
                 return $variable . '->format(\DateTimeInterface::' . $format . ')';
