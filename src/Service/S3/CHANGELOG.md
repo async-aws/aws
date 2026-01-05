@@ -20,10 +20,6 @@
 
 - Drop support for PHP versions lower than 8.2
 
-### Fixed
-
-- Fix PHP 8.5 deprecation warning for `DateTimeInterface::RFC7231` constant by using `RFC1123` instead.
-
 ### Changed
 
 - Apply new CodingStandard from latest php-cs-fixer.
@@ -31,6 +27,7 @@
 - AWS enhancement: Documentation updates.
 - Use a more stable sorting for the list of generated region metadata
 - Remove unnecessary `use` statements
+- Fix PHP 8.5 deprecation warning for `DateTimeInterface::RFC7231` constant by using `RFC1123` instead.
 
 ## 2.10.0
 
