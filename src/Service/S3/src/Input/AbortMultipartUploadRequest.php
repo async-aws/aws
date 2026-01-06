@@ -178,7 +178,7 @@ final class AbortMultipartUploadRequest extends Input
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
         if (null !== $this->ifMatchInitiatedTime) {
-            $headers['x-amz-if-match-initiated-time'] = $this->ifMatchInitiatedTime->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['x-amz-if-match-initiated-time'] = $this->ifMatchInitiatedTime->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
 
         // Prepare query

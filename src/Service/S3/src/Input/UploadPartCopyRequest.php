@@ -468,13 +468,13 @@ final class UploadPartCopyRequest extends Input
             $headers['x-amz-copy-source-if-match'] = $this->copySourceIfMatch;
         }
         if (null !== $this->copySourceIfModifiedSince) {
-            $headers['x-amz-copy-source-if-modified-since'] = $this->copySourceIfModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['x-amz-copy-source-if-modified-since'] = $this->copySourceIfModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->copySourceIfNoneMatch) {
             $headers['x-amz-copy-source-if-none-match'] = $this->copySourceIfNoneMatch;
         }
         if (null !== $this->copySourceIfUnmodifiedSince) {
-            $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->copySourceRange) {
             $headers['x-amz-copy-source-range'] = $this->copySourceRange;

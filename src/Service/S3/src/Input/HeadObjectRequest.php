@@ -466,13 +466,13 @@ final class HeadObjectRequest extends Input
             $headers['If-Match'] = $this->ifMatch;
         }
         if (null !== $this->ifModifiedSince) {
-            $headers['If-Modified-Since'] = $this->ifModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['If-Modified-Since'] = $this->ifModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->ifNoneMatch) {
             $headers['If-None-Match'] = $this->ifNoneMatch;
         }
         if (null !== $this->ifUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->ifUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['If-Unmodified-Since'] = $this->ifUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->range) {
             $headers['Range'] = $this->range;
@@ -522,7 +522,7 @@ final class HeadObjectRequest extends Input
             $query['response-content-type'] = $this->responseContentType;
         }
         if (null !== $this->responseExpires) {
-            $query['response-expires'] = $this->responseExpires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $query['response-expires'] = $this->responseExpires->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->versionId) {
             $query['versionId'] = $this->versionId;

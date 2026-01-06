@@ -268,7 +268,7 @@ final class DeleteObjectRequest extends Input
             $headers['If-Match'] = $this->ifMatch;
         }
         if (null !== $this->ifMatchLastModifiedTime) {
-            $headers['x-amz-if-match-last-modified-time'] = $this->ifMatchLastModifiedTime->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
+            $headers['x-amz-if-match-last-modified-time'] = $this->ifMatchLastModifiedTime->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->ifMatchSize) {
             $headers['x-amz-if-match-size'] = (string) $this->ifMatchSize;

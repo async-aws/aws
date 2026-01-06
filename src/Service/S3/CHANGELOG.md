@@ -27,6 +27,7 @@
 - AWS enhancement: Documentation updates.
 - Use a more stable sorting for the list of generated region metadata
 - Remove unnecessary `use` statements
+- Fix PHP 8.5 deprecation warning for `DateTimeInterface::RFC7231`
 
 ## 2.10.0
 

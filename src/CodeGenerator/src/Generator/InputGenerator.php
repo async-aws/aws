@@ -595,9 +595,8 @@ PHP
                     throw new \InvalidArgumentException('Constant "\DateTimeInterface::' . $format . '" does not exists.');
                 }
 
-                if ('RFC822' === $format) {
-                    $variable .= '->setTimezone(new \\DateTimeZone("GMT"))';
-                    $format = 'RFC7231';
+                if ('RFC822' === $format || 'RFC7231' === $format) {
+                    return $variable . '->setTimezone(new \\DateTimeZone("GMT"))->format(\'D, d M Y H:i:s \G\M\T\')';
                 }
 
                 return $variable . '->format(\DateTimeInterface::' . $format . ')';
