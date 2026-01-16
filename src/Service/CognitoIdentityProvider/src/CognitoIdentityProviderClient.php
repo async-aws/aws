@@ -2034,6 +2034,13 @@ class CognitoIdentityProviderClient extends AbstractApi
         }
 
         switch ($region) {
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://cognito-idp.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-east-1.amazonaws.com',
