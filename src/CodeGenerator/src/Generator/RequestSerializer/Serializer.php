@@ -25,7 +25,11 @@ interface Serializer
     /**
      * Returns the return type, the body and extra arguments for the requestBody method.
      */
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder;
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResult;
+
+    public function getRequestBuilderReturnType(): string;
+
+    public function getRequestBuilderExtraArguments(): array;
 
     public function getHeaders(Operation $operation, bool $withPayload): string;
 }

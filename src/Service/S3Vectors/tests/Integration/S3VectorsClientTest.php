@@ -22,6 +22,7 @@ use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\MetadataConfiguration;
 use AsyncAws\S3Vectors\ValueObject\PutInputVector;
 use AsyncAws\S3Vectors\ValueObject\VectorData;
+use AsyncAws\S3Vectors\ValueObject\VectorDataMemberFloat32;
 
 class S3VectorsClientTest extends TestCase
 {
@@ -278,7 +279,7 @@ class S3VectorsClientTest extends TestCase
             'indexName' => 'change me',
             'indexArn' => 'change me',
             'topK' => 1337,
-            'queryVector' => new VectorData([
+            'queryVector' => new VectorDataMemberFloat32([
                 'float32' => [1337],
             ]),
             'filter' => 'change me',

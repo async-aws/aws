@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\EnumGenerator;
@@ -180,6 +181,8 @@ class RestXmlParser implements Parser
         switch (true) {
             case $shape instanceof ListShape:
                 return $this->parseXmlResponseList($shape, $input, $required, $inObject);
+            case $shape instanceof UnionShape:
+                return $this->parseXmlResponseUnion($shape, $input, $required);
             case $shape instanceof StructureShape:
                 return $this->parseXmlResponseStructure($shape, $input, $required);
             case $shape instanceof MapShape:
@@ -212,6 +215,57 @@ class RestXmlParser implements Parser
         throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
+    private function parseXmlResponseUnion(UnionShape $shape, string $input, bool $required): string
+    {
+        $functionName = 'populateResult' . ucfirst($shape->getName());
+        if (!isset($this->generatedFunctions[$functionName])) {
+            // prevent recursion
+            $this->generatedFunctions[$functionName] = true;
+
+            $body = [];
+            foreach ($shape->getChildren() as $child) {
+                $body[] = strtr('if (0 !== PROPERTY_ACCESSOR->count()) {
+                    return PROPERTY_ACCESSOR;
+                }', [
+                    'PROPERTY_NAME' => $this->getInputAccessor('$xml', $child->getMembers()[0]),
+                    'PROPERTY_ACCESSOR' => $this->parseXmlElement('$xml', $child, true, true),
+                ]);
+                $className = $this->namespaceRegistry->getObject($child);
+                $this->imports[] = $className;
+            }
+
+            // Generate fallback for unknown member
+            $childForUnknown = $shape->getChildForUnknown();
+            $functionNameForUnknown = 'populateResult' . ucfirst($childForUnknown->getName());
+            $className = $this->namespaceRegistry->getObject($childForUnknown);
+            $this->imports[] = $className;
+            $this->functions[$functionNameForUnknown] = $this->createPopulateMethod($functionNameForUnknown, strtr('return new CLASS_NAME([\'xml\' => $xml]);', [
+                'INPUT' => $input,
+                'CLASS_NAME' => $className->getName(),
+            ]), $shape);
+
+            $body[] = strtr('return $this->FUNCTION_NAME($xml);', [
+                'FUNCTION_NAME' => $functionNameForUnknown,
+            ]);
+
+            $this->imports[] = ClassName::create('AsyncAws\Core\Exception', 'InvalidArgument');
+            $body[] = 'throw new InvalidArgument(\'Invalid union input\');';
+
+            $className = $this->namespaceRegistry->getObject($shape);
+            $this->imports[] = $className;
+
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr(implode("\n", $body), [
+                'INPUT' => $input,
+                'CLASS_NAME' => $className->getName(),
+            ]), $shape);
+        }
+
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '0 === INPUT->count() ? null : $this->FUNCTION_NAME(INPUT)', [
+            'INPUT' => $input,
+            'FUNCTION_NAME' => $functionName,
+        ]);
+    }
+
     private function parseXmlResponseStructure(StructureShape $shape, string $input, bool $required): string
     {
         $functionName = 'populateResult' . ucfirst($shape->getName());
@@ -223,7 +277,12 @@ class RestXmlParser implements Parser
             foreach ($shape->getMembers() as $member) {
                 $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
                     'PROPERTY_NAME' => var_export($member->getName(), true),
-                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$xml', $member), $member->getShape(), $member->isRequired(), true),
+                    'PROPERTY_ACCESSOR' => $this->parseXmlElement(
+                        $this->getInputAccessor('$xml', $member),
+                        $member->getShape(),
+                        $member->isRequired(),
+                        true
+                    ),
                 ]);
             }
 

@@ -103,7 +103,7 @@ class RestXmlSerializer implements Serializer
         ', true, $this->usedClassesFlush(), ['node' => \DOMNode::class]);
     }
 
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResult
     {
         $this->usedClassesInit();
         $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
@@ -149,7 +149,17 @@ class RestXmlSerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return new SerializerResultBuilder('void', $body, $this->usedClassesFlush(), ['node' => \DOMElement::class, 'document' => \DOMDocument::class]);
+        return new SerializerResult($body, $this->usedClassesFlush());
+    }
+
+    public function getRequestBuilderReturnType(): string
+    {
+        return 'void';
+    }
+
+    public function getRequestBuilderExtraArguments(): array
+    {
+        return ['node' => \DOMElement::class, 'document' => \DOMDocument::class];
     }
 
     private function dumpXmlShape(Member $member, Shape $shape, string $output, string $input): string

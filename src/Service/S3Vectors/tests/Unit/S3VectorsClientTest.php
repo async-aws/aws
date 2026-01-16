@@ -32,7 +32,7 @@ use AsyncAws\S3Vectors\Result\PutVectorsOutput;
 use AsyncAws\S3Vectors\Result\QueryVectorsOutput;
 use AsyncAws\S3Vectors\S3VectorsClient;
 use AsyncAws\S3Vectors\ValueObject\PutInputVector;
-use AsyncAws\S3Vectors\ValueObject\VectorData;
+use AsyncAws\S3Vectors\ValueObject\VectorDataMemberFloat32;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3VectorsClientTest extends TestCase
@@ -183,7 +183,8 @@ class S3VectorsClientTest extends TestCase
         $input = new PutVectorsInput([
             'vectors' => [new PutInputVector([
                 'key' => 'change me',
-                'data' => new VectorData([
+                'data' => new VectorDataMemberFloat32([
+                    'float32' => [],
                 ]),
             ])],
         ]);
@@ -199,7 +200,8 @@ class S3VectorsClientTest extends TestCase
 
         $input = new QueryVectorsInput([
             'topK' => 1337,
-            'queryVector' => new VectorData([
+            'queryVector' => new VectorDataMemberFloat32([
+                'float32' => [],
             ]),
         ]);
         $result = $client->queryVectors($input);

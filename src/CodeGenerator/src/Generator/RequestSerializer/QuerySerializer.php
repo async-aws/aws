@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
@@ -79,7 +80,7 @@ class QuerySerializer implements Serializer
         ]), true, $this->usedClassesFlush());
     }
 
-    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResultBuilder
+    public function generateRequestBuilder(StructureShape $shape, bool $needsChecks): SerializerResult
     {
         $this->usedClassesInit();
         $body = implode("\n", array_map(function (StructureMember $member) use ($needsChecks) {
@@ -125,7 +126,7 @@ class QuerySerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return new SerializerResultBuilder('array', strtr('
+        return new SerializerResult(strtr('
                 $payload = [];
                 CHILDREN_CODE
 
@@ -133,6 +134,16 @@ class QuerySerializer implements Serializer
             ', [
             'CHILDREN_CODE' => $body,
         ]), $this->usedClassesFlush());
+    }
+
+    public function getRequestBuilderReturnType(): string
+    {
+        return 'array';
+    }
+
+    public function getRequestBuilderExtraArguments(): array
+    {
+        return [];
     }
 
     private function getQueryName(Member $member, string $default): string
@@ -178,8 +189,8 @@ class QuerySerializer implements Serializer
     private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape): string
     {
         switch (true) {
-            case $shape instanceof StructureShape:
-                return $this->dumpArrayStructure($output, $input, $shape);
+            case $shape instanceof ObjectShape:
+                return $this->dumpArrayStructure($output, $input);
             case $shape instanceof ListShape:
                 return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
@@ -204,7 +215,7 @@ class QuerySerializer implements Serializer
         throw new \RuntimeException(\sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
-    private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
+    private function dumpArrayStructure(string $output, string $input): string
     {
         return strtr('foreach (INPUT->requestBody() as $bodyKey => $bodyValue) {
                 $payload["OUTPUT.$bodyKey"] = $bodyValue;

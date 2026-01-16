@@ -7,8 +7,9 @@ namespace AsyncAws\CodeGenerator\Generator;
 use AsyncAws\CodeGenerator\Definition\DocumentShape;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
-use AsyncAws\CodeGenerator\Definition\Shape;
+use AsyncAws\CodeGenerator\Definition\ObjectShape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Definition\UnionShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
@@ -18,6 +19,7 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\EndpointDiscovery\EndpointInterface;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Stream\ResultStream;
 
 /**
@@ -61,33 +63,43 @@ class ObjectGenerator
     private $serializer;
 
     /**
-     * @var list<string>
+     * @var ShapeUsageHelper
      */
-    private $managedMethods;
+    private $shapeUsageHelper;
 
-    /**
-     * @var array<string, bool>|null
-     */
-    private $usedShapedInput;
-
-    /**
-     * @param list<string> $managedMethods
-     */
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ShapeUsageHelper $shapeUsageHelper, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $managedMethods);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry, $shapeUsageHelper);
         $this->serializer = new SerializerProvider($this->namespaceRegistry, $requirementsRegistry);
-        $this->managedMethods = $managedMethods;
+        $this->shapeUsageHelper = $shapeUsageHelper;
     }
 
-    public function generate(StructureShape $shape, bool $forEndpoint = false): ClassName
+    public function generate(ObjectShape $shape, bool $forEndpoint = false): ClassName
     {
         if (isset($this->generated[$shape->getName()])) {
             return $this->generated[$shape->getName()];
         }
+
+        if ($shape instanceof StructureShape) {
+            return $this->generateStructure($shape, $forEndpoint);
+        }
+
+        if ($shape instanceof UnionShape) {
+            if ($forEndpoint) {
+                throw new InvalidArgument('Union shapes are not supported for endpoint discovery.');
+            }
+
+            return $this->generateUnion($shape);
+        }
+
+        throw new InvalidArgument('Unsupported object shape: ' . \get_class($shape));
+    }
+
+    private function generateStructure(StructureShape $shape, bool $forEndpoint = false): ClassName
+    {
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getObject($shape);
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
@@ -97,7 +109,8 @@ class ObjectGenerator
         }
 
         // Named constructor
-        $this->namedConstructor($shape, $classBuilder);
+        $this->generateConstructor($shape, $classBuilder);
+        $this->generateNamedConstructor($shape, $classBuilder);
         $this->addProperties($shape, $classBuilder, $forEndpoint);
 
         if ($forEndpoint) {
@@ -106,14 +119,14 @@ class ObjectGenerator
         }
 
         $serializer = $this->serializer->get($shape->getService());
-        if ($this->isShapeUsedInput($shape)) {
+        if ($this->shapeUsageHelper->isShapeUsedInput($shape)) {
             $serializerBuilderResult = $serializer->generateRequestBuilder($shape, false);
             foreach ($serializerBuilderResult->getUsedClasses() as $classNameFqdn) {
                 $classBuilder->addUse($classNameFqdn);
             }
 
-            $method = $classBuilder->addMethod('requestBody')->setReturnType($serializerBuilderResult->getReturnType())->setBody($serializerBuilderResult->getBody())->setPublic()->setComment('@internal');
-            foreach ($serializerBuilderResult->getExtraMethodArgs() as $arg => $type) {
+            $method = $classBuilder->addMethod('requestBody')->setReturnType($serializer->getRequestBuilderReturnType())->setBody($serializerBuilderResult->getBody())->setPublic()->setComment('@internal');
+            foreach ($serializer->getRequestBuilderExtraArguments() as $arg => $type) {
                 $method->addParameter($arg)->setType($type);
             }
         }
@@ -121,43 +134,100 @@ class ObjectGenerator
         return $className;
     }
 
-    private function isShapeUsedInput(StructureShape $shape): bool
+    private function generateUnion(UnionShape $shape): ClassName
     {
-        if (null === $this->usedShapedInput) {
-            $service = $shape->getService();
-            $walk = function (Shape $shape) use (&$walk) {
-                if (isset($this->usedShapedInput[$shape->getName()])) {
-                    // Node already visited
-                    return;
+        $this->generated[$shape->getName()] = $abstractClassName = $this->namespaceRegistry->getObject($shape);
+
+        // first generates the Abstract class
+        $classBuilder = $classBuilderForAbstract = $this->classRegistry->register($abstractClassName->getFqdn());
+        $classBuilder->setAbstract();
+        if (null !== $documentation = $shape->getDocumentationMain()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation));
+        }
+
+        $this->generateNamedConstructorForUnion($shape, $classBuilder);
+
+        if ($this->shapeUsageHelper->isShapeUsedInput($shape)) {
+            $serializer = $this->serializer->get($shape->getService());
+
+            $method = $classBuilder->addMethod('requestBody')
+                ->setReturnType($serializer->getRequestBuilderReturnType())
+                ->setAbstract()
+                ->setPublic()
+                ->setComment('@internal');
+            foreach ($serializer->getRequestBuilderExtraArguments() as $arg => $type) {
+                $method->addParameter($arg)->setType($type);
+            }
+        }
+
+        $serializer = $this->serializer->get($shape->getService());
+        // generate one class per member
+        $inheritors = [];
+        foreach ($shape->getChildren() as $child) {
+            $this->generated[$child->getName()] = $childClassName = $this->namespaceRegistry->getObject($child);
+            $classBuilder = $this->classRegistry->register($childClassName->getFqdn());
+            $classBuilder->setFinal()->setExtends($abstractClassName->getFqdn());
+            $inheritors[] = $childClassName->getName();
+
+            $this->generateConstructor($child, $classBuilder);
+            $this->addProperties($child, $classBuilder, false);
+
+            if ($this->shapeUsageHelper->isShapeUsedInput($shape)) {
+                $serializerBuilderResult = $serializer->generateRequestBuilder($child, false);
+                foreach ($serializerBuilderResult->getUsedClasses() as $classNameFqdn) {
+                    $classBuilder->addUse($classNameFqdn);
                 }
 
-                $this->usedShapedInput[$shape->getName()] = true;
-                if ($shape instanceof StructureShape) {
-                    foreach ($shape->getMembers() as $member) {
-                        $walk($member->getShape());
-                    }
-                } elseif ($shape instanceof ListShape) {
-                    $walk($shape->getMember()->getShape());
-                } elseif ($shape instanceof MapShape) {
-                    $walk($shape->getKey()->getShape());
-                    $walk($shape->getValue()->getShape());
-                }
-            };
-
-            foreach ($this->managedMethods as $method) {
-                if (null !== $operation = $service->getOperation($method)) {
-                    $walk($operation->getInput());
-                }
-                if (null !== $waiter = $service->getWaiter($method)) {
-                    $walk($waiter->getOperation()->getInput());
+                $method = $classBuilder->addMethod('requestBody')->setReturnType($serializer->getRequestBuilderReturnType())->setBody($serializerBuilderResult->getBody())->setPublic()->setComment('@internal');
+                foreach ($serializer->getRequestBuilderExtraArguments() as $arg => $type) {
+                    $method->addParameter($arg)->setType($type);
                 }
             }
         }
 
-        return $this->usedShapedInput[$shape->getName()] ?? false;
+        if ($this->shapeUsageHelper->isShapeUsedOutput($shape)) {
+            // generate fallback for unknown member
+            $child = $shape->getChildForUnknown();
+            $this->generated[$child->getName()] = $childClassName = $this->namespaceRegistry->getObject($child);
+            $classBuilder = $this->classRegistry->register($childClassName->getFqdn());
+            $classBuilder->setFinal()->setExtends($abstractClassName->getFqdn());
+            $inheritors[] = $childClassName->getName();
+
+            $classBuilder->addMethod('__construct')
+                ->setComment('@internal')
+                ->addComment('@param array<string, mixed> $input')
+                ->setBody('$this->unknown = $input;')
+                ->addParameter('input')->setType('array')
+            ;
+
+            $classBuilder->addProperty('unknown')
+                ->setPrivate()
+                ->addComment('@var array<string, mixed>');
+
+            $classBuilder->addMethod('getUnknown')
+                ->setReturnType('array')
+                ->addComment('@return array<string, mixed>')
+                ->setBody('return $this->unknown;');
+
+            if ($this->shapeUsageHelper->isShapeUsedInput($shape)) {
+                $method = $classBuilder->addMethod('requestBody')
+                    ->setPublic()
+                    ->setReturnType($serializer->getRequestBuilderReturnType())
+                    ->setComment('@internal')
+                    ->setBody('throw new LogicException(\'request can not be generated for unknown object\');');
+                $classBuilder->addUse(LogicException::class);
+                foreach ($serializer->getRequestBuilderExtraArguments() as $arg => $type) {
+                    $method->addParameter($arg)->setType($type);
+                }
+            }
+        }
+
+        $classBuilderForAbstract->addComment('@psalm-inheritors ' . implode('|', $inheritors));
+
+        return $abstractClassName;
     }
 
-    private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
+    private function generateNamedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         if (empty($shape->getMembers())) {
             $createMethod = $classBuilder->addMethod('create')
@@ -184,8 +254,44 @@ class ObjectGenerator
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());
         }
+    }
 
-        // We need a constructor
+    private function generateNamedConstructorForUnion(UnionShape $shape, ClassBuilder $classBuilder): void
+    {
+        $body = ['if ($input instanceof self) {
+            return $input;
+        }'];
+        /** @var StructureShape $children */
+        foreach ($shape->getChildren() as $name => $children) {
+            $memberClassName = $this->namespaceRegistry->getObject($children);
+            $classBuilder->addUse($memberClassName->getFqdn());
+            $body[] = strtr('if (isset($input[NAME])) {
+                return new CLASS([NAME => $input[NAME]]);
+            }', [
+                'NAME' => var_export($name, true),
+                'CLASS' => $memberClassName->getName(),
+            ]);
+        }
+        $classBuilder->addUse(InvalidArgument::class);
+        $body[] = 'throw new InvalidArgument(\'Invalid union input\');';
+
+        $createMethod = $classBuilder->addMethod('create')
+            ->setStatic(true)
+            ->setReturnType('self')
+            ->setBody(implode("\n", $body));
+        $createMethod->addParameter('input');
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], true, false, true);
+        $createMethod->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $classBuilder->addUse($memberClassName->getFqdn());
+        }
+    }
+
+    private function generateConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
+    {
+        if (empty($shape->getMembers())) {
+            return;
+        }
         $constructor = $classBuilder->addMethod('__construct');
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true);
         $constructor->addComment($doc);
@@ -201,14 +307,14 @@ class ObjectGenerator
         $constructorBody = '';
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $objectClass = $this->generate($memberShape);
                 $memberCode = strtr('CLASS::create($input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // Check if this is a list of objects
-                if ($listMemberShape instanceof StructureShape) {
+                if ($listMemberShape instanceof ObjectShape) {
                     $objectClass = $this->generate($listMemberShape);
                     $memberCode = strtr('array_map([CLASS::class, "create"], $input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
@@ -217,7 +323,7 @@ class ObjectGenerator
             } elseif ($memberShape instanceof MapShape) {
                 $mapValueShape = $memberShape->getValue()->getShape();
 
-                if ($mapValueShape instanceof StructureShape) {
+                if ($mapValueShape instanceof ObjectShape) {
                     $objectClass = $this->generate($mapValueShape);
                     $memberCode = strtr('array_map([CLASS::class, "create"], $input["NAME"])', ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
@@ -280,7 +386,7 @@ class ObjectGenerator
             $getterSetterNullable = null;
             $typeAlreadyNullable = false;
 
-            if ($memberShape instanceof StructureShape) {
+            if ($memberShape instanceof ObjectShape) {
                 $this->generate($memberShape);
             } elseif ($memberShape instanceof MapShape) {
                 $getterSetterNullable = false;
@@ -292,7 +398,7 @@ class ObjectGenerator
                     $this->enumGenerator->generate($mapKeyShape);
                 }
 
-                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof ObjectShape) {
                     $this->generate($valueShape);
                 }
                 if (!empty($valueShape->getEnum())) {
@@ -303,7 +409,7 @@ class ObjectGenerator
                 $getterSetterNullable = false;
                 $memberShape->getMember()->getShape();
 
-                if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
+                if (($memberShape = $memberShape->getMember()->getShape()) instanceof ObjectShape) {
                     $this->generate($memberShape);
                 }
                 if (!empty($memberShape->getEnum())) {

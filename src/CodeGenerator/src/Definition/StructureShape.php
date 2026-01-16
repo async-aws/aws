@@ -7,7 +7,7 @@ namespace AsyncAws\CodeGenerator\Definition;
 /**
  * @internal
  */
-class StructureShape extends Shape
+class StructureShape extends ObjectShape
 {
     /**
      * @return StructureMember[]
@@ -18,7 +18,7 @@ class StructureShape extends Shape
         $members = [];
         foreach ($this->data['members'] as $name => $member) {
             $members[] = new StructureMember(
-                $member + ['_name' => $name, '_owner' => $this, '_required' => \in_array($name, $required)],
+                $member + ['_name' => $name, '_owner' => $this->data['_members_owner'] ?? $this, '_required' => \in_array($name, $required)],
                 $this->shapeLocator
             );
         }
