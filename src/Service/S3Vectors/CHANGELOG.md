@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.0.0
+
 ### BC-BREAK
 
 - Generic `VectorData` value object now have strict types for all its getters and setters. This may lead to type errors in existing code if you were passing or expecting different types.

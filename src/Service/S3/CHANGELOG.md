@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.0
+
 ### BC-BREAK
 
 - AWS api-change: Expires's property and its getters/setters switched from `\DateTimeImmutable` to `string`.

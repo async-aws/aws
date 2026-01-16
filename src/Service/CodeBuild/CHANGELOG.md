@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.12.0
+
 ### Added
 
 - Add `UNKNOWN_TO_SDK` value to enums that is used when the API returns an value that is not (or not yet) known by the AsyncAws

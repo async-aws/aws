@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.16.0
+
 ### Added
 
 - Support for s3 vectors

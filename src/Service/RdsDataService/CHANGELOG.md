@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.0
+
 ### BC-BREAK
 
 - Generic `Field` and `ArrayValue` value objects now have strict types for all their getters and setters. This may lead to type errors in existing code if you were passing or expecting different types.

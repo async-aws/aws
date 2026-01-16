@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.14.0
+
 ### Added
 
 - AWS api-change: Update Mail Manager Archive ARN validation

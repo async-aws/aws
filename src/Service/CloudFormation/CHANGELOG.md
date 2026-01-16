@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.0.0
+
 ### BC-BREAK
 
 - AWS api-change: The `stackName` parameter is now required in `DescribeStackEvents` operation.

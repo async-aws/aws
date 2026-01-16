@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.2.0
+
 ### Dependency bumped
 
 - Drop support for PHP versions lower than 8.2

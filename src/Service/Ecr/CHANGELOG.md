@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.12.0
+
 ### Added
 
 - AWS api-change: Update endpoint ruleset parameters casing
