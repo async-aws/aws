@@ -18,6 +18,7 @@ use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\GetObjectTaggingRequest;
@@ -30,6 +31,7 @@ use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
+use AsyncAws\S3\Input\PutBucketVersioningRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
@@ -46,6 +48,7 @@ use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\DeleteObjectTaggingOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
+use AsyncAws\S3\Result\GetBucketVersioningOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\GetObjectTaggingOutput;
@@ -73,6 +76,7 @@ use AsyncAws\S3\ValueObject\S3KeyFilter;
 use AsyncAws\S3\ValueObject\Tag;
 use AsyncAws\S3\ValueObject\Tagging;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
+use AsyncAws\S3\ValueObject\VersioningConfiguration;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
@@ -296,6 +300,19 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testGetBucketVersioning(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetBucketVersioningRequest([
+            'Bucket' => 'change me',
+        ]);
+        $result = $client->getBucketVersioning($input);
+
+        self::assertInstanceOf(GetBucketVersioningOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testGetObject(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -490,6 +507,22 @@ class S3ClientTest extends TestCase
             ]),
         ]);
         $result = $client->putBucketTagging($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketVersioning(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketVersioningRequest([
+            'Bucket' => 'change me',
+
+            'VersioningConfiguration' => new VersioningConfiguration([
+            ]),
+        ]);
+        $result = $client->putBucketVersioning($input);
 
         self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);

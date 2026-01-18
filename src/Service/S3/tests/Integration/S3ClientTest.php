@@ -20,6 +20,7 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\GetObjectTaggingRequest;
@@ -33,6 +34,7 @@ use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
+use AsyncAws\S3\Input\PutBucketVersioningRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
@@ -62,6 +64,7 @@ use AsyncAws\S3\ValueObject\S3KeyFilter;
 use AsyncAws\S3\ValueObject\Tag;
 use AsyncAws\S3\ValueObject\Tagging;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
+use AsyncAws\S3\ValueObject\VersioningConfiguration;
 
 class S3ClientTest extends TestCase
 {
@@ -369,6 +372,23 @@ class S3ClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getServerSideEncryptionConfiguration());
+    }
+
+    public function testGetBucketVersioning(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement GetBucketVersioning.');
+        $client = $this->getClient();
+
+        $input = new GetBucketVersioningRequest([
+            'Bucket' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->getBucketVersioning($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getStatus());
+        self::assertSame('changeIt', $result->getMfaDelete());
     }
 
     public function testGetFileNotExist()
@@ -846,6 +866,27 @@ class S3ClientTest extends TestCase
 
         self::assertSame(200, $result->info()['response']->getStatusCode());
         self::assertSame('', $result->info()['response']->getContent());
+    }
+
+    public function testPutBucketVersioning(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement PutBucketVersioning.');
+        $client = $this->getClient();
+
+        $input = new PutBucketVersioningRequest([
+            'Bucket' => 'change me',
+            'ContentMD5' => 'change me',
+            'ChecksumAlgorithm' => 'change me',
+            'MFA' => 'change me',
+            'VersioningConfiguration' => new VersioningConfiguration([
+                'MFADelete' => 'change me',
+                'Status' => 'change me',
+            ]),
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->putBucketVersioning($input);
+
+        $result->resolve();
     }
 
     public function testPutObject(): void

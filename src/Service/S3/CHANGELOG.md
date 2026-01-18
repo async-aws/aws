@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added `S3Client::getBucketVersioning()` and `S3Client::putBucketVersioning()` methods
+
 ## 3.0.0
 
 ### BC-BREAK

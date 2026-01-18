@@ -46,6 +46,7 @@ use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\GetObjectTaggingRequest;
@@ -59,6 +60,7 @@ use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
+use AsyncAws\S3\Input\PutBucketVersioningRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\PutObjectTaggingRequest;
@@ -77,6 +79,7 @@ use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\DeleteObjectTaggingOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
+use AsyncAws\S3\Result\GetBucketVersioningOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\GetObjectTaggingOutput;
@@ -104,6 +107,7 @@ use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\Part;
 use AsyncAws\S3\ValueObject\PublicAccessBlockConfiguration;
 use AsyncAws\S3\ValueObject\Tagging;
+use AsyncAws\S3\ValueObject\VersioningConfiguration;
 
 class S3Client extends AbstractApi
 {
@@ -1431,6 +1435,46 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * > This operation is not supported for directory buckets.
+     *
+     * Returns the versioning state of a bucket.
+     *
+     * To retrieve the versioning state of a bucket, you must be the bucket owner.
+     *
+     * This implementation also returns the MFA Delete status of the versioning state. If the MFA Delete status is
+     * `enabled`, the bucket owner must use an authentication device to change the versioning state of the bucket.
+     *
+     * The following operations are related to `GetBucketVersioning`:
+     *
+     * - GetObject [^1]
+     * - PutObject [^2]
+     * - DeleteObject [^3]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketversioning
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string|null,
+     *   '@region'?: string|null,
+     * }|GetBucketVersioningRequest $input
+     */
+    public function getBucketVersioning($input): GetBucketVersioningOutput
+    {
+        $input = GetBucketVersioningRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBucketVersioning', 'region' => $input->getRegion()]));
+
+        return new GetBucketVersioningOutput($response);
+    }
+
+    /**
      * Retrieves an object from Amazon S3.
      *
      * In the `GetObject` request, specify the full key name for the object.
@@ -2539,6 +2583,73 @@ class S3Client extends AbstractApi
     {
         $input = PutBucketTaggingRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketTagging', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
+    /**
+     * > This operation is not supported for directory buckets.
+     *
+     * > When you enable versioning on a bucket for the first time, it might take a short amount of time for the change to
+     * > be fully propagated. While this change is propagating, you might encounter intermittent `HTTP 404 NoSuchKey` errors
+     * > for requests to objects created or updated after enabling versioning. We recommend that you wait for 15 minutes
+     * > after enabling versioning before issuing write operations (`PUT` or `DELETE`) on objects in the bucket.
+     *
+     * Sets the versioning state of an existing bucket.
+     *
+     * You can set the versioning state with one of the following values:
+     *
+     * **Enabled**—Enables versioning for the objects in the bucket. All objects added to the bucket receive a unique
+     * version ID.
+     *
+     * **Suspended**—Disables versioning for the objects in the bucket. All objects added to the bucket receive the
+     * version ID null.
+     *
+     * If the versioning state has never been set on a bucket, it has no versioning state; a GetBucketVersioning [^1]
+     * request does not return a versioning state value.
+     *
+     * In order to enable MFA Delete, you must be the bucket owner. If you are the bucket owner and want to enable MFA
+     * Delete in the bucket versioning configuration, you must include the `x-amz-mfa request` header and the `Status` and
+     * the `MfaDelete` request elements in a request to set the versioning state of the bucket.
+     *
+     * ! If you have an object expiration lifecycle configuration in your non-versioned bucket and you want to maintain the
+     * ! same permanent delete behavior when you enable versioning, you must add a noncurrent expiration policy. The
+     * ! noncurrent expiration lifecycle configuration will manage the deletes of the noncurrent object versions in the
+     * ! version-enabled bucket. (A version-enabled bucket maintains one current and zero or more noncurrent object
+     * ! versions.) For more information, see Lifecycle and Versioning [^2].
+     *
+     * The following operations are related to `PutBucketVersioning`:
+     *
+     * - CreateBucket [^3]
+     * - DeleteBucket [^4]
+     * - GetBucketVersioning [^5]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-and-other-bucket-config
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbucketversioning
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ContentMD5?: string|null,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   MFA?: string|null,
+     *   VersioningConfiguration: VersioningConfiguration|array,
+     *   ExpectedBucketOwner?: string|null,
+     *   '@region'?: string|null,
+     * }|PutBucketVersioningRequest $input
+     */
+    public function putBucketVersioning($input): Result
+    {
+        $input = PutBucketVersioningRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketVersioning', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }
