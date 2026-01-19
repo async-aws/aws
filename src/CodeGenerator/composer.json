@@ -6,7 +6,6 @@
     "require": {
         "php": "^8.2",
         "ext-dom": "*",
-        "ext-json": "*",
         "ext-simplexml": "*",
         "friendsofphp/php-cs-fixer": "~3.60.0",
         "nette/php-generator": "^3.6 || ^4.1",

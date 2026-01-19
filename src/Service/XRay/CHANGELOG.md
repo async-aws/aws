@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- remove unecessary ext-json depedency
+
 ## 1.5.0
 
 ### Added

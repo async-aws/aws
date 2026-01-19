@@ -13,7 +13,6 @@
     "require": {
         "php": "^8.2",
         "ext-filter": "*",
-        "ext-json": "*",
         "async-aws/core": "^1.16",
         "symfony/polyfill-uuid": "^1.13.1"
     },
