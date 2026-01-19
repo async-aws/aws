@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- remove unecessary ext-json depedency
+
 ## 3.4.0
 
 ### Added
