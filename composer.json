@@ -8,7 +8,6 @@
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-hash": "*",
-        "ext-json": "*",
         "ext-simplexml": "*",
         "psr/log": "^1.0 || ^2.0 || ^3.0",
         "symfony/http-client": "^4.4.16 || ^5.1.7 || ^6.0 || ^7.0 || ^8.0",

@@ -6,6 +6,10 @@
 
 - AWS api-change: Adds StreamId parameter to AWS Kinesis Data Streams APIs that is reserved for future use.
 
+### Changed
+
+- Remove redundant ext-json requirement
+
 ## 3.4.0
 
 ### Added

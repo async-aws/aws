@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Remove redundant ext-json requirement
+
 ## 3.4.0
 
 ### Added

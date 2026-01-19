@@ -77,8 +77,6 @@ class RestJsonSerializer implements Serializer
             ]), false, $this->usedClassesFlush());
         }
 
-        $this->requirementsRegistry->addRequirement('ext-json');
-
         return new SerializerResultBody('$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true, $this->usedClassesFlush());
     }
 

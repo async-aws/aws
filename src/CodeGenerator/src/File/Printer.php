@@ -33,6 +33,7 @@ class Printer extends BasePrinter
     {
         $methods = $class->getMethods();
         ksort($methods);
+        /** @phpstan-ignore-next-line */
         $class->setMethods($methods);
 
         return parent::printClass($class, $namespace);

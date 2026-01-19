@@ -34,7 +34,7 @@ class ComposerWriter
         $content = json_decode(file_get_contents($filename), true);
         if ($clean) {
             unset(
-                $content['require']['ext-json'],
+                $content['require']['ext-json'], // Older versions of the code generator were using that case. We keep cleaning it to avoid garbage.
                 $content['require']['ext-dom'],
                 $content['require']['ext-SimpleXML'], // Older versions of the code generator were using that case. We keep cleaning it to avoid garbage.
                 $content['require']['ext-simplexml'],
