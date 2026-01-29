@@ -15,8 +15,9 @@ final class AiffSettings
     private $bitDepth;
 
     /**
-     * Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For example,
-     * 1, 2, 4, 6, and so on, up to 64.
+     * Specify the number of channels in this output audio track. Valid values are 0, 1, and even numbers up to 64. Choose 0
+     * to follow the number of channels from your input audio. Otherwise, manually choose from 1, 2, 4, 6, and so on, up to
+     * 64.
      *
      * @var int|null
      */
