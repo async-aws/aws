@@ -6,6 +6,10 @@
 
 - Added `S3Client::getBucketVersioning()` and `S3Client::putBucketVersioning()` methods
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 3.0.0
 
 ### BC-BREAK

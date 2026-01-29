@@ -127,6 +127,7 @@ use AsyncAws\MediaConvert\Enum\DecryptionMode;
 use AsyncAws\MediaConvert\Enum\DeinterlaceAlgorithm;
 use AsyncAws\MediaConvert\Enum\DeinterlacerControl;
 use AsyncAws\MediaConvert\Enum\DeinterlacerMode;
+use AsyncAws\MediaConvert\Enum\DolbyVisionCompatibility;
 use AsyncAws\MediaConvert\Enum\DolbyVisionLevel6Mode;
 use AsyncAws\MediaConvert\Enum\DolbyVisionMapping;
 use AsyncAws\MediaConvert\Enum\DolbyVisionProfile;
@@ -345,6 +346,7 @@ use AsyncAws\MediaConvert\Enum\MsSmoothFragmentLengthControl;
 use AsyncAws\MediaConvert\Enum\MsSmoothManifestEncoding;
 use AsyncAws\MediaConvert\Enum\MxfAfdSignaling;
 use AsyncAws\MediaConvert\Enum\MxfProfile;
+use AsyncAws\MediaConvert\Enum\MxfUncompressedAudioWrapping;
 use AsyncAws\MediaConvert\Enum\MxfXavcDurationMode;
 use AsyncAws\MediaConvert\Enum\NielsenActiveWatermarkProcessType;
 use AsyncAws\MediaConvert\Enum\NielsenSourceWatermarkStatusType;
@@ -1227,6 +1229,7 @@ class GetJobResponse extends Result
     private function populateResultDolbyVision(array $json): DolbyVision
     {
         return new DolbyVision([
+            'Compatibility' => isset($json['compatibility']) ? (!DolbyVisionCompatibility::exists((string) $json['compatibility']) ? DolbyVisionCompatibility::UNKNOWN_TO_SDK : (string) $json['compatibility']) : null,
             'L6Metadata' => empty($json['l6Metadata']) ? null : $this->populateResultDolbyVisionLevel6Metadata($json['l6Metadata']),
             'L6Mode' => isset($json['l6Mode']) ? (!DolbyVisionLevel6Mode::exists((string) $json['l6Mode']) ? DolbyVisionLevel6Mode::UNKNOWN_TO_SDK : (string) $json['l6Mode']) : null,
             'Mapping' => isset($json['mapping']) ? (!DolbyVisionMapping::exists((string) $json['mapping']) ? DolbyVisionMapping::UNKNOWN_TO_SDK : (string) $json['mapping']) : null,
@@ -2230,6 +2233,7 @@ class GetJobResponse extends Result
         return new MxfSettings([
             'AfdSignaling' => isset($json['afdSignaling']) ? (!MxfAfdSignaling::exists((string) $json['afdSignaling']) ? MxfAfdSignaling::UNKNOWN_TO_SDK : (string) $json['afdSignaling']) : null,
             'Profile' => isset($json['profile']) ? (!MxfProfile::exists((string) $json['profile']) ? MxfProfile::UNKNOWN_TO_SDK : (string) $json['profile']) : null,
+            'UncompressedAudioWrapping' => isset($json['uncompressedAudioWrapping']) ? (!MxfUncompressedAudioWrapping::exists((string) $json['uncompressedAudioWrapping']) ? MxfUncompressedAudioWrapping::UNKNOWN_TO_SDK : (string) $json['uncompressedAudioWrapping']) : null,
             'XavcProfileSettings' => empty($json['xavcProfileSettings']) ? null : $this->populateResultMxfXavcProfileSettings($json['xavcProfileSettings']),
         ]);
     }

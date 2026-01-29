@@ -118,9 +118,9 @@ final class AudioSelector
      * values of your audio streams. Track: Default. Select audio by track number. This is the most common option and works
      * with most input container formats. If more types of audio data get recognized in the future, these numberings may
      * shift, but the numberings used for Stream mode will not. Language code: Select audio by language using an ISO 639-2
-     * or ISO 639-3 three-letter    code in all capital letters. Use this when your source has embedded language metadata
-     * and you want to select tracks based on their language. HLS rendition group: Select audio from an HLS rendition group.
-     * Use this when your input is an HLS package with multiple audio renditions and you want to select specific rendition
+     * or ISO 639-3 three-letter code in all capital letters. Use this when your source has embedded language metadata and
+     * you want to select tracks based on their language. HLS rendition group: Select audio from an HLS rendition group. Use
+     * this when your input is an HLS package with multiple audio renditions and you want to select specific rendition
      * groups. All PCM: Select all uncompressed PCM audio tracks from your input automatically. This is useful when you want
      * to include all PCM audio tracks without specifying individual track numbers. Stream: Select audio by stream number.
      * Stream numbers include all tracks in the source file, regardless of type, and correspond to either the order of

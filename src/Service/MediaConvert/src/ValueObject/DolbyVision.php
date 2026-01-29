@@ -3,6 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\DolbyVisionCompatibility;
 use AsyncAws\MediaConvert\Enum\DolbyVisionLevel6Mode;
 use AsyncAws\MediaConvert\Enum\DolbyVisionMapping;
 use AsyncAws\MediaConvert\Enum\DolbyVisionProfile;
@@ -12,6 +13,17 @@ use AsyncAws\MediaConvert\Enum\DolbyVisionProfile;
  */
 final class DolbyVision
 {
+    /**
+     * When you set Compatibility mapping to Duplicate Stream, DolbyVision streams that have a backward compatible base
+     * layer (e.g., DolbyVision 8.1) will cause a duplicate stream to be signaled in the manifest as a duplicate stream.
+     * When you set Compatibility mapping to Supplemntal Codecs, DolbyVision streams that have a backward compatible base
+     * layer (e.g., DolbyVision 8.1) will cause the associate stream in the manifest to include a SUPPLEMENTAL_CODECS
+     * property.
+     *
+     * @var DolbyVisionCompatibility::*|null
+     */
+    private $compatibility;
+
     /**
      * Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to override the MaxCLL and MaxFALL values in your
      * input with new values.
@@ -51,6 +63,7 @@ final class DolbyVision
 
     /**
      * @param array{
+     *   Compatibility?: DolbyVisionCompatibility::*|null,
      *   L6Metadata?: DolbyVisionLevel6Metadata|array|null,
      *   L6Mode?: DolbyVisionLevel6Mode::*|null,
      *   Mapping?: DolbyVisionMapping::*|null,
@@ -59,6 +72,7 @@ final class DolbyVision
      */
     public function __construct(array $input)
     {
+        $this->compatibility = $input['Compatibility'] ?? null;
         $this->l6Metadata = isset($input['L6Metadata']) ? DolbyVisionLevel6Metadata::create($input['L6Metadata']) : null;
         $this->l6Mode = $input['L6Mode'] ?? null;
         $this->mapping = $input['Mapping'] ?? null;
@@ -67,6 +81,7 @@ final class DolbyVision
 
     /**
      * @param array{
+     *   Compatibility?: DolbyVisionCompatibility::*|null,
      *   L6Metadata?: DolbyVisionLevel6Metadata|array|null,
      *   L6Mode?: DolbyVisionLevel6Mode::*|null,
      *   Mapping?: DolbyVisionMapping::*|null,
@@ -76,6 +91,14 @@ final class DolbyVision
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return DolbyVisionCompatibility::*|null
+     */
+    public function getCompatibility(): ?string
+    {
+        return $this->compatibility;
     }
 
     public function getL6Metadata(): ?DolbyVisionLevel6Metadata
@@ -113,6 +136,13 @@ final class DolbyVision
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->compatibility) {
+            if (!DolbyVisionCompatibility::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "compatibility" for "%s". The value "%s" is not a valid "DolbyVisionCompatibility".', __CLASS__, $v));
+            }
+            $payload['compatibility'] = $v;
+        }
         if (null !== $v = $this->l6Metadata) {
             $payload['l6Metadata'] = $v->requestBody();
         }
