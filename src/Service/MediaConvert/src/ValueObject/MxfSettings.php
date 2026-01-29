@@ -5,6 +5,7 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\MxfAfdSignaling;
 use AsyncAws\MediaConvert\Enum\MxfProfile;
+use AsyncAws\MediaConvert\Enum\MxfUncompressedAudioWrapping;
 
 /**
  * These settings relate to your MXF output container.
@@ -35,6 +36,15 @@ final class MxfSettings
     private $profile;
 
     /**
+     * Choose the audio frame wrapping mode for PCM tracks in MXF outputs. AUTO (default): Uses codec-appropriate defaults -
+     * BWF for H.264/AVC, AES3 for MPEG2/XDCAM. AES3: Use AES3 frame wrapping with SMPTE-compliant descriptors. This setting
+     * only takes effect when the MXF profile is OP1a.
+     *
+     * @var MxfUncompressedAudioWrapping::*|null
+     */
+    private $uncompressedAudioWrapping;
+
+    /**
      * Specify the XAVC profile settings for MXF outputs when you set your MXF profile to XAVC.
      *
      * @var MxfXavcProfileSettings|null
@@ -45,6 +55,7 @@ final class MxfSettings
      * @param array{
      *   AfdSignaling?: MxfAfdSignaling::*|null,
      *   Profile?: MxfProfile::*|null,
+     *   UncompressedAudioWrapping?: MxfUncompressedAudioWrapping::*|null,
      *   XavcProfileSettings?: MxfXavcProfileSettings|array|null,
      * } $input
      */
@@ -52,6 +63,7 @@ final class MxfSettings
     {
         $this->afdSignaling = $input['AfdSignaling'] ?? null;
         $this->profile = $input['Profile'] ?? null;
+        $this->uncompressedAudioWrapping = $input['UncompressedAudioWrapping'] ?? null;
         $this->xavcProfileSettings = isset($input['XavcProfileSettings']) ? MxfXavcProfileSettings::create($input['XavcProfileSettings']) : null;
     }
 
@@ -59,6 +71,7 @@ final class MxfSettings
      * @param array{
      *   AfdSignaling?: MxfAfdSignaling::*|null,
      *   Profile?: MxfProfile::*|null,
+     *   UncompressedAudioWrapping?: MxfUncompressedAudioWrapping::*|null,
      *   XavcProfileSettings?: MxfXavcProfileSettings|array|null,
      * }|MxfSettings $input
      */
@@ -81,6 +94,14 @@ final class MxfSettings
     public function getProfile(): ?string
     {
         return $this->profile;
+    }
+
+    /**
+     * @return MxfUncompressedAudioWrapping::*|null
+     */
+    public function getUncompressedAudioWrapping(): ?string
+    {
+        return $this->uncompressedAudioWrapping;
     }
 
     public function getXavcProfileSettings(): ?MxfXavcProfileSettings
@@ -107,6 +128,13 @@ final class MxfSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "profile" for "%s". The value "%s" is not a valid "MxfProfile".', __CLASS__, $v));
             }
             $payload['profile'] = $v;
+        }
+        if (null !== $v = $this->uncompressedAudioWrapping) {
+            if (!MxfUncompressedAudioWrapping::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "uncompressedAudioWrapping" for "%s". The value "%s" is not a valid "MxfUncompressedAudioWrapping".', __CLASS__, $v));
+            }
+            $payload['uncompressedAudioWrapping'] = $v;
         }
         if (null !== $v = $this->xavcProfileSettings) {
             $payload['xavcProfileSettings'] = $v->requestBody();

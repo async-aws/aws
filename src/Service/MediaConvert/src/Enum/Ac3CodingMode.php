@@ -11,6 +11,7 @@ final class Ac3CodingMode
     public const CODING_MODE_1_1 = 'CODING_MODE_1_1';
     public const CODING_MODE_2_0 = 'CODING_MODE_2_0';
     public const CODING_MODE_3_2_LFE = 'CODING_MODE_3_2_LFE';
+    public const CODING_MODE_AUTO = 'CODING_MODE_AUTO';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
     /**
@@ -23,6 +24,7 @@ final class Ac3CodingMode
             self::CODING_MODE_1_1 => true,
             self::CODING_MODE_2_0 => true,
             self::CODING_MODE_3_2_LFE => true,
+            self::CODING_MODE_AUTO => true,
         ][$value]);
     }
 }

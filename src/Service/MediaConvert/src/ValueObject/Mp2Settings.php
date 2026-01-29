@@ -30,8 +30,9 @@ final class Mp2Settings
     private $bitrate;
 
     /**
-     * Set Channels to specify the number of channels in this output audio track. Choosing Mono in will give you 1 output
-     * channel; choosing Stereo will give you 2. In the API, valid values are 1 and 2.
+     * Set Channels to specify the number of channels in this output audio track. Choosing Follow input will use the number
+     * of channels found in the audio source; choosing Mono will give you 1 output channel; choosing Stereo will give you 2.
+     * In the API, valid values are 0, 1, and 2.
      *
      * @var int|null
      */

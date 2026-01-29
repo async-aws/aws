@@ -2744,6 +2744,17 @@ class S3Client extends AbstractApi
      *   **Directory buckets ** - The HTTP Host header syntax is
      *   `*Bucket-name*.s3express-*zone-id*.*region-code*.amazonaws.com`.
      *
+     * - `Errors`:
+     *
+     *   - You might receive an `InvalidRequest` error for several reasons. Depending on the reason for the error, you might
+     *     receive one of the following messages:
+     *
+     *     - Cannot specify both a write offset value and user-defined object metadata for existing objects.
+     *     - Checksum Type mismatch occurred, expected checksum Type: sha1, actual checksum Type: crc32c.
+     *     - Request body cannot be empty when 'write offset' is specified.
+     *
+     *
+     *
      * For more information about related Amazon S3 APIs, see the following:
      *
      * - CopyObject [^10]
