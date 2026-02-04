@@ -31,9 +31,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - There is insufficient provisioned capacity for the transaction to be completed.
  * - There is a user error, such as an invalid data format.
  *
- * > If using Java, DynamoDB lists the cancellation reasons on the `CancellationReasons` property. This property is not
- * > set for other languages. Transaction cancellation reasons are ordered in the order of requested items, if an item
- * > has no error it will have `None` code and `Null` message.
+ * > DynamoDB lists the cancellation reasons on the `CancellationReasons` property. Transaction cancellation reasons are
+ * > ordered in the order of requested items, if an item has no error it will have `None` code and `Null` message.
  *
  * Cancellation reason codes and possible error messages:
  *

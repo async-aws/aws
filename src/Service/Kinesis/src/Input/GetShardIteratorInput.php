@@ -77,6 +77,13 @@ final class GetShardIteratorInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   ShardId?: string,
@@ -84,6 +91,7 @@ final class GetShardIteratorInput extends Input
      *   StartingSequenceNumber?: string|null,
      *   Timestamp?: \DateTimeImmutable|string|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -95,6 +103,7 @@ final class GetShardIteratorInput extends Input
         $this->startingSequenceNumber = $input['StartingSequenceNumber'] ?? null;
         $this->timestamp = !isset($input['Timestamp']) ? null : ($input['Timestamp'] instanceof \DateTimeImmutable ? $input['Timestamp'] : new \DateTimeImmutable($input['Timestamp']));
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -106,6 +115,7 @@ final class GetShardIteratorInput extends Input
      *   StartingSequenceNumber?: string|null,
      *   Timestamp?: \DateTimeImmutable|string|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|GetShardIteratorInput $input
      */
@@ -135,6 +145,11 @@ final class GetShardIteratorInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamName(): ?string
@@ -204,6 +219,13 @@ final class GetShardIteratorInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -244,6 +266,9 @@ final class GetShardIteratorInput extends Input
         }
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

@@ -64,11 +64,19 @@ final class ListStreamConsumersInput extends Input
     private $streamCreationTimestamp;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamARN?: string,
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -78,6 +86,7 @@ final class ListStreamConsumersInput extends Input
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->streamCreationTimestamp = !isset($input['StreamCreationTimestamp']) ? null : ($input['StreamCreationTimestamp'] instanceof \DateTimeImmutable ? $input['StreamCreationTimestamp'] : new \DateTimeImmutable($input['StreamCreationTimestamp']));
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -87,6 +96,7 @@ final class ListStreamConsumersInput extends Input
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|ListStreamConsumersInput $input
      */
@@ -113,6 +123,11 @@ final class ListStreamConsumersInput extends Input
     public function getStreamCreationTimestamp(): ?\DateTimeImmutable
     {
         return $this->streamCreationTimestamp;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     /**
@@ -169,6 +184,13 @@ final class ListStreamConsumersInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -184,6 +206,9 @@ final class ListStreamConsumersInput extends Input
         }
         if (null !== $v = $this->streamCreationTimestamp) {
             $payload['StreamCreationTimestamp'] = $v->getTimestamp();
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

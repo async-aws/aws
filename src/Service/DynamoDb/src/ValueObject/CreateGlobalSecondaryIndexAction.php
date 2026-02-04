@@ -17,7 +17,8 @@ final class CreateGlobalSecondaryIndexAction
     private $indexName;
 
     /**
-     * The key schema for the global secondary index.
+     * The key schema for the global secondary index. Global secondary index supports up to 4 partition and up to 4 sort
+     * keys.
      *
      * @var KeySchemaElement[]
      */

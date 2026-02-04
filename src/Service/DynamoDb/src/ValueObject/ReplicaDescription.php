@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\DynamoDb\Enum\GlobalTableSettingsReplicationMode;
 use AsyncAws\DynamoDb\Enum\ReplicaStatus;
 
 /**
@@ -100,6 +101,18 @@ final class ReplicaDescription
     private $replicaTableClassSummary;
 
     /**
+     * Indicates one of the settings synchronization modes for the global table replica:
+     *
+     * - `ENABLED`: Indicates that the settings synchronization mode for the global table replica is enabled.
+     * - `DISABLED`: Indicates that the settings synchronization mode for the global table replica is disabled.
+     * - `ENABLED_WITH_OVERRIDES`: This mode is set by default for a same account global table. Indicates that certain
+     *   global table settings can be overridden.
+     *
+     * @var GlobalTableSettingsReplicationMode::*|null
+     */
+    private $globalTableSettingsReplicationMode;
+
+    /**
      * @param array{
      *   RegionName?: string|null,
      *   ReplicaStatus?: ReplicaStatus::*|null,
@@ -112,6 +125,7 @@ final class ReplicaDescription
      *   GlobalSecondaryIndexes?: array<ReplicaGlobalSecondaryIndexDescription|array>|null,
      *   ReplicaInaccessibleDateTime?: \DateTimeImmutable|null,
      *   ReplicaTableClassSummary?: TableClassSummary|array|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -127,6 +141,7 @@ final class ReplicaDescription
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->replicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
         $this->replicaTableClassSummary = isset($input['ReplicaTableClassSummary']) ? TableClassSummary::create($input['ReplicaTableClassSummary']) : null;
+        $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
     }
 
     /**
@@ -142,6 +157,7 @@ final class ReplicaDescription
      *   GlobalSecondaryIndexes?: array<ReplicaGlobalSecondaryIndexDescription|array>|null,
      *   ReplicaInaccessibleDateTime?: \DateTimeImmutable|null,
      *   ReplicaTableClassSummary?: TableClassSummary|array|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      * }|ReplicaDescription $input
      */
     public static function create($input): self
@@ -155,6 +171,14 @@ final class ReplicaDescription
     public function getGlobalSecondaryIndexes(): array
     {
         return $this->globalSecondaryIndexes ?? [];
+    }
+
+    /**
+     * @return GlobalTableSettingsReplicationMode::*|null
+     */
+    public function getGlobalTableSettingsReplicationMode(): ?string
+    {
+        return $this->globalTableSettingsReplicationMode;
     }
 
     public function getKmsMasterKeyId(): ?string

@@ -5,6 +5,7 @@ namespace AsyncAws\DynamoDb\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\GlobalTableSettingsReplicationMode;
 use AsyncAws\DynamoDb\Enum\IndexStatus;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
@@ -280,6 +281,7 @@ class DeleteTableOutput extends Result
             'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($json['GlobalSecondaryIndexes']),
             'ReplicaInaccessibleDateTime' => (isset($json['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ReplicaInaccessibleDateTime'])))) ? $d : null,
             'ReplicaTableClassSummary' => empty($json['ReplicaTableClassSummary']) ? null : $this->populateResultTableClassSummary($json['ReplicaTableClassSummary']),
+            'GlobalTableSettingsReplicationMode' => isset($json['GlobalTableSettingsReplicationMode']) ? (!GlobalTableSettingsReplicationMode::exists((string) $json['GlobalTableSettingsReplicationMode']) ? GlobalTableSettingsReplicationMode::UNKNOWN_TO_SDK : (string) $json['GlobalTableSettingsReplicationMode']) : null,
         ]);
     }
 
@@ -377,6 +379,7 @@ class DeleteTableOutput extends Result
             'GlobalTableVersion' => isset($json['GlobalTableVersion']) ? (string) $json['GlobalTableVersion'] : null,
             'Replicas' => !isset($json['Replicas']) ? null : $this->populateResultReplicaDescriptionList($json['Replicas']),
             'GlobalTableWitnesses' => !isset($json['GlobalTableWitnesses']) ? null : $this->populateResultGlobalTableWitnessDescriptionList($json['GlobalTableWitnesses']),
+            'GlobalTableSettingsReplicationMode' => isset($json['GlobalTableSettingsReplicationMode']) ? (!GlobalTableSettingsReplicationMode::exists((string) $json['GlobalTableSettingsReplicationMode']) ? GlobalTableSettingsReplicationMode::UNKNOWN_TO_SDK : (string) $json['GlobalTableSettingsReplicationMode']) : null,
             'RestoreSummary' => empty($json['RestoreSummary']) ? null : $this->populateResultRestoreSummary($json['RestoreSummary']),
             'SSEDescription' => empty($json['SSEDescription']) ? null : $this->populateResultSSEDescription($json['SSEDescription']),
             'ArchivalSummary' => empty($json['ArchivalSummary']) ? null : $this->populateResultArchivalSummary($json['ArchivalSummary']),

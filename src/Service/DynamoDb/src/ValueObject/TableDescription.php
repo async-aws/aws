@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\DynamoDb\Enum\GlobalTableSettingsReplicationMode;
 use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\TableStatus;
 
@@ -272,6 +273,18 @@ final class TableDescription
     private $globalTableWitnesses;
 
     /**
+     * Indicates one of the settings synchronization modes for the global table:
+     *
+     * - `ENABLED`: Indicates that the settings synchronization mode for the global table is enabled.
+     * - `DISABLED`: Indicates that the settings synchronization mode for the global table is disabled.
+     * - `ENABLED_WITH_OVERRIDES`: This mode is set by default for a same account global table. Indicates that certain
+     *   global table settings can be overridden.
+     *
+     * @var GlobalTableSettingsReplicationMode::*|null
+     */
+    private $globalTableSettingsReplicationMode;
+
+    /**
      * Contains details for the restore.
      *
      * @var RestoreSummary|null
@@ -357,6 +370,7 @@ final class TableDescription
      *   GlobalTableVersion?: string|null,
      *   Replicas?: array<ReplicaDescription|array>|null,
      *   GlobalTableWitnesses?: array<GlobalTableWitnessDescription|array>|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   RestoreSummary?: RestoreSummary|array|null,
      *   SSEDescription?: SSEDescription|array|null,
      *   ArchivalSummary?: ArchivalSummary|array|null,
@@ -388,6 +402,7 @@ final class TableDescription
         $this->globalTableVersion = $input['GlobalTableVersion'] ?? null;
         $this->replicas = isset($input['Replicas']) ? array_map([ReplicaDescription::class, 'create'], $input['Replicas']) : null;
         $this->globalTableWitnesses = isset($input['GlobalTableWitnesses']) ? array_map([GlobalTableWitnessDescription::class, 'create'], $input['GlobalTableWitnesses']) : null;
+        $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
         $this->restoreSummary = isset($input['RestoreSummary']) ? RestoreSummary::create($input['RestoreSummary']) : null;
         $this->sseDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
@@ -419,6 +434,7 @@ final class TableDescription
      *   GlobalTableVersion?: string|null,
      *   Replicas?: array<ReplicaDescription|array>|null,
      *   GlobalTableWitnesses?: array<GlobalTableWitnessDescription|array>|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   RestoreSummary?: RestoreSummary|array|null,
      *   SSEDescription?: SSEDescription|array|null,
      *   ArchivalSummary?: ArchivalSummary|array|null,
@@ -468,6 +484,14 @@ final class TableDescription
     public function getGlobalSecondaryIndexes(): array
     {
         return $this->globalSecondaryIndexes ?? [];
+    }
+
+    /**
+     * @return GlobalTableSettingsReplicationMode::*|null
+     */
+    public function getGlobalTableSettingsReplicationMode(): ?string
+    {
+        return $this->globalTableSettingsReplicationMode;
     }
 
     public function getGlobalTableVersion(): ?string

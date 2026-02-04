@@ -26,6 +26,13 @@ final class StreamDescriptionSummary
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * The current status of the stream being described. The stream status is one of the following states:
      *
      * - `CREATING` - The stream is being created. Kinesis Data Streams immediately returns and sets `StreamStatus` to
@@ -128,6 +135,7 @@ final class StreamDescriptionSummary
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
+     *   StreamId?: string|null,
      *   StreamStatus: StreamStatus::*,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   RetentionPeriodHours: int,
@@ -145,6 +153,7 @@ final class StreamDescriptionSummary
     {
         $this->streamName = $input['StreamName'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamName".'));
         $this->streamArn = $input['StreamARN'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamARN".'));
+        $this->streamId = $input['StreamId'] ?? null;
         $this->streamStatus = $input['StreamStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "StreamStatus".'));
         $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
         $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? $this->throwException(new InvalidArgument('Missing required field "RetentionPeriodHours".'));
@@ -162,6 +171,7 @@ final class StreamDescriptionSummary
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
+     *   StreamId?: string|null,
      *   StreamStatus: StreamStatus::*,
      *   StreamModeDetails?: StreamModeDetails|array|null,
      *   RetentionPeriodHours: int,
@@ -229,6 +239,11 @@ final class StreamDescriptionSummary
     public function getStreamCreationTimestamp(): \DateTimeImmutable
     {
         return $this->streamCreationTimestamp;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamModeDetails(): ?StreamModeDetails

@@ -32,6 +32,13 @@ final class RegisterStreamConsumerInput extends Input
     private $consumerName;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * A set of up to 50 key-value pairs. A tag consists of a required key and an optional value.
      *
      * @var array<string, string>|null
@@ -42,6 +49,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
+     *   StreamId?: string|null,
      *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * } $input
@@ -50,6 +58,7 @@ final class RegisterStreamConsumerInput extends Input
     {
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->consumerName = $input['ConsumerName'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         $this->tags = $input['Tags'] ?? null;
         parent::__construct($input);
     }
@@ -58,6 +67,7 @@ final class RegisterStreamConsumerInput extends Input
      * @param array{
      *   StreamARN?: string,
      *   ConsumerName?: string,
+     *   StreamId?: string|null,
      *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
      * }|RegisterStreamConsumerInput $input
@@ -75,6 +85,11 @@ final class RegisterStreamConsumerInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     /**
@@ -125,6 +140,13 @@ final class RegisterStreamConsumerInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     /**
      * @param array<string, string> $value
      */
@@ -146,6 +168,9 @@ final class RegisterStreamConsumerInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "ConsumerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ConsumerName'] = $v;
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
+        }
         if (null !== $v = $this->tags) {
             if (empty($v)) {
                 $payload['Tags'] = new \stdClass();
