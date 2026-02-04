@@ -38,10 +38,18 @@ final class GetRecordsInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   ShardIterator?: string,
      *   Limit?: int|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -50,6 +58,7 @@ final class GetRecordsInput extends Input
         $this->shardIterator = $input['ShardIterator'] ?? null;
         $this->limit = $input['Limit'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -58,6 +67,7 @@ final class GetRecordsInput extends Input
      *   ShardIterator?: string,
      *   Limit?: int|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|GetRecordsInput $input
      */
@@ -79,6 +89,11 @@ final class GetRecordsInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     /**
@@ -128,6 +143,13 @@ final class GetRecordsInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -140,6 +162,9 @@ final class GetRecordsInput extends Input
         }
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\GlobalTableSettingsReplicationMode;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex;
@@ -26,8 +27,6 @@ final class CreateTableInput extends Input
 {
     /**
      * An array of attributes that describe the key schema for the table and indexes.
-     *
-     * @required
      *
      * @var AttributeDefinition[]|null
      */
@@ -73,8 +72,6 @@ final class CreateTableInput extends Input
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html
      * [^2]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#WorkingWithTables.primary.key
      *
-     * @required
-     *
      * @var KeySchemaElement[]|null
      */
     private $keySchema;
@@ -116,7 +113,8 @@ final class CreateTableInput extends Input
      * the array includes the following:
      *
      * - `IndexName` - The name of the global secondary index. Must be unique only for this table.
-     * - `KeySchema` - Specifies the key schema for the global secondary index.
+     * - `KeySchema` - Specifies the key schema for the global secondary index. Each global secondary index supports up to 4
+     *   partition keys and up to 4 sort keys.
      * - `Projection` - Specifies attributes that are copied (projected) from the table into the index. These are in
      *   addition to the primary key attributes and index key attributes, which are automatically projected. Each attribute
      *   specification is composed of:
@@ -254,10 +252,26 @@ final class CreateTableInput extends Input
     private $onDemandThroughput;
 
     /**
+     * The Amazon Resource Name (ARN) of the source table used for the creation of a multi-account global table.
+     *
+     * @var string|null
+     */
+    private $globalTableSourceArn;
+
+    /**
+     * Controls the settings synchronization mode for the global table. For multi-account global tables, this parameter is
+     * required and the only supported value is ENABLED. For same-account global tables, this parameter is set to
+     * ENABLED_WITH_OVERRIDES.
+     *
+     * @var GlobalTableSettingsReplicationMode::*|null
+     */
+    private $globalTableSettingsReplicationMode;
+
+    /**
      * @param array{
-     *   AttributeDefinitions?: array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName?: string,
-     *   KeySchema?: array<KeySchemaElement|array>,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
      *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>|null,
      *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>|null,
      *   BillingMode?: BillingMode::*|null,
@@ -270,6 +284,8 @@ final class CreateTableInput extends Input
      *   WarmThroughput?: WarmThroughput|array|null,
      *   ResourcePolicy?: string|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   GlobalTableSourceArn?: string|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -290,14 +306,16 @@ final class CreateTableInput extends Input
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         $this->resourcePolicy = $input['ResourcePolicy'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
+        $this->globalTableSourceArn = $input['GlobalTableSourceArn'] ?? null;
+        $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   AttributeDefinitions?: array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName?: string,
-     *   KeySchema?: array<KeySchemaElement|array>,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
      *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>|null,
      *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>|null,
      *   BillingMode?: BillingMode::*|null,
@@ -310,6 +328,8 @@ final class CreateTableInput extends Input
      *   WarmThroughput?: WarmThroughput|array|null,
      *   ResourcePolicy?: string|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   GlobalTableSourceArn?: string|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      */
@@ -345,6 +365,19 @@ final class CreateTableInput extends Input
     public function getGlobalSecondaryIndexes(): array
     {
         return $this->globalSecondaryIndexes ?? [];
+    }
+
+    /**
+     * @return GlobalTableSettingsReplicationMode::*|null
+     */
+    public function getGlobalTableSettingsReplicationMode(): ?string
+    {
+        return $this->globalTableSettingsReplicationMode;
+    }
+
+    public function getGlobalTableSourceArn(): ?string
+    {
+        return $this->globalTableSourceArn;
     }
 
     /**
@@ -478,6 +511,23 @@ final class CreateTableInput extends Input
     }
 
     /**
+     * @param GlobalTableSettingsReplicationMode::*|null $value
+     */
+    public function setGlobalTableSettingsReplicationMode(?string $value): self
+    {
+        $this->globalTableSettingsReplicationMode = $value;
+
+        return $this;
+    }
+
+    public function setGlobalTableSourceArn(?string $value): self
+    {
+        $this->globalTableSourceArn = $value;
+
+        return $this;
+    }
+
+    /**
      * @param KeySchemaElement[] $value
      */
     public function setKeySchema(array $value): self
@@ -569,32 +619,26 @@ final class CreateTableInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->attributeDefinitions) {
-            throw new InvalidArgument(\sprintf('Missing parameter "AttributeDefinitions" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->attributeDefinitions) {
+            $index = -1;
+            $payload['AttributeDefinitions'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
+            }
         }
-
-        $index = -1;
-        $payload['AttributeDefinitions'] = [];
-        foreach ($v as $listValue) {
-            ++$index;
-            $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
-        }
-
         if (null === $v = $this->tableName) {
             throw new InvalidArgument(\sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->keySchema) {
-            throw new InvalidArgument(\sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->keySchema) {
+            $index = -1;
+            $payload['KeySchema'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['KeySchema'][$index] = $listValue->requestBody();
+            }
         }
-
-        $index = -1;
-        $payload['KeySchema'] = [];
-        foreach ($v as $listValue) {
-            ++$index;
-            $payload['KeySchema'][$index] = $listValue->requestBody();
-        }
-
         if (null !== $v = $this->localSecondaryIndexes) {
             $index = -1;
             $payload['LocalSecondaryIndexes'] = [];
@@ -653,6 +697,16 @@ final class CreateTableInput extends Input
         }
         if (null !== $v = $this->onDemandThroughput) {
             $payload['OnDemandThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->globalTableSourceArn) {
+            $payload['GlobalTableSourceArn'] = $v;
+        }
+        if (null !== $v = $this->globalTableSettingsReplicationMode) {
+            if (!GlobalTableSettingsReplicationMode::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "GlobalTableSettingsReplicationMode" for "%s". The value "%s" is not a valid "GlobalTableSettingsReplicationMode".', __CLASS__, $v));
+            }
+            $payload['GlobalTableSettingsReplicationMode'] = $v;
         }
 
         return $payload;

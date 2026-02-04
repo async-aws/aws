@@ -45,11 +45,19 @@ final class MergeShardsInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   ShardToMerge?: string,
      *   AdjacentShardToMerge?: string,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -59,6 +67,7 @@ final class MergeShardsInput extends Input
         $this->shardToMerge = $input['ShardToMerge'] ?? null;
         $this->adjacentShardToMerge = $input['AdjacentShardToMerge'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -68,6 +77,7 @@ final class MergeShardsInput extends Input
      *   ShardToMerge?: string,
      *   AdjacentShardToMerge?: string,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|MergeShardsInput $input
      */
@@ -89,6 +99,11 @@ final class MergeShardsInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamName(): ?string
@@ -143,6 +158,13 @@ final class MergeShardsInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -166,6 +188,9 @@ final class MergeShardsInput extends Input
         $payload['AdjacentShardToMerge'] = $v;
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

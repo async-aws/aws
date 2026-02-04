@@ -80,6 +80,7 @@ class DescribeStreamSummaryOutput extends Result
         return new StreamDescriptionSummary([
             'StreamName' => (string) $json['StreamName'],
             'StreamARN' => (string) $json['StreamARN'],
+            'StreamId' => isset($json['StreamId']) ? (string) $json['StreamId'] : null,
             'StreamStatus' => !StreamStatus::exists((string) $json['StreamStatus']) ? StreamStatus::UNKNOWN_TO_SDK : (string) $json['StreamStatus'],
             'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
             'RetentionPeriodHours' => (int) $json['RetentionPeriodHours'],

@@ -34,10 +34,18 @@ final class DeleteStreamInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   EnforceConsumerDeletion?: bool|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -46,6 +54,7 @@ final class DeleteStreamInput extends Input
         $this->streamName = $input['StreamName'] ?? null;
         $this->enforceConsumerDeletion = $input['EnforceConsumerDeletion'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -54,6 +63,7 @@ final class DeleteStreamInput extends Input
      *   StreamName?: string|null,
      *   EnforceConsumerDeletion?: bool|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|DeleteStreamInput $input
      */
@@ -70,6 +80,11 @@ final class DeleteStreamInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamName(): ?string
@@ -117,6 +132,13 @@ final class DeleteStreamInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -135,6 +157,9 @@ final class DeleteStreamInput extends Input
         }
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

@@ -35,10 +35,18 @@ final class DeregisterStreamConsumerInput extends Input
     private $consumerArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamARN?: string|null,
      *   ConsumerName?: string|null,
      *   ConsumerARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,6 +55,7 @@ final class DeregisterStreamConsumerInput extends Input
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->consumerName = $input['ConsumerName'] ?? null;
         $this->consumerArn = $input['ConsumerARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -55,6 +64,7 @@ final class DeregisterStreamConsumerInput extends Input
      *   StreamARN?: string|null,
      *   ConsumerName?: string|null,
      *   ConsumerARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|DeregisterStreamConsumerInput $input
      */
@@ -76,6 +86,11 @@ final class DeregisterStreamConsumerInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     /**
@@ -125,6 +140,13 @@ final class DeregisterStreamConsumerInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -136,6 +158,9 @@ final class DeregisterStreamConsumerInput extends Input
         }
         if (null !== $v = $this->consumerArn) {
             $payload['ConsumerARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

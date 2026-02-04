@@ -49,11 +49,19 @@ final class UpdateShardCountInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,6 +71,7 @@ final class UpdateShardCountInput extends Input
         $this->targetShardCount = $input['TargetShardCount'] ?? null;
         $this->scalingType = $input['ScalingType'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -72,6 +81,7 @@ final class UpdateShardCountInput extends Input
      *   TargetShardCount?: int,
      *   ScalingType?: ScalingType::*,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|UpdateShardCountInput $input
      */
@@ -91,6 +101,11 @@ final class UpdateShardCountInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamName(): ?string
@@ -146,6 +161,13 @@ final class UpdateShardCountInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -180,6 +202,9 @@ final class UpdateShardCountInput extends Input
         $payload['ScalingType'] = $v;
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

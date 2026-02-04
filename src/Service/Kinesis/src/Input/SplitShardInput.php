@@ -49,11 +49,19 @@ final class SplitShardInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   ShardToSplit?: string,
      *   NewStartingHashKey?: string,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -63,6 +71,7 @@ final class SplitShardInput extends Input
         $this->shardToSplit = $input['ShardToSplit'] ?? null;
         $this->newStartingHashKey = $input['NewStartingHashKey'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -72,6 +81,7 @@ final class SplitShardInput extends Input
      *   ShardToSplit?: string,
      *   NewStartingHashKey?: string,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|SplitShardInput $input
      */
@@ -93,6 +103,11 @@ final class SplitShardInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamName(): ?string
@@ -147,6 +162,13 @@ final class SplitShardInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -170,6 +192,9 @@ final class SplitShardInput extends Input
         $payload['NewStartingHashKey'] = $v;
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

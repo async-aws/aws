@@ -22,7 +22,7 @@ final class PutRecordInput extends Input
     /**
      * The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data blob (the
      * payload before base64-encoding) is added to the partition key size, the total size must not exceed the maximum record
-     * size (1 MiB).
+     * size (10 MiB).
      *
      * @required
      *
@@ -68,6 +68,13 @@ final class PutRecordInput extends Input
     private $streamArn;
 
     /**
+     * Not Implemented. Reserved for future use.
+     *
+     * @var string|null
+     */
+    private $streamId;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   Data?: string,
@@ -75,6 +82,7 @@ final class PutRecordInput extends Input
      *   ExplicitHashKey?: string|null,
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -86,6 +94,7 @@ final class PutRecordInput extends Input
         $this->explicitHashKey = $input['ExplicitHashKey'] ?? null;
         $this->sequenceNumberForOrdering = $input['SequenceNumberForOrdering'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
+        $this->streamId = $input['StreamId'] ?? null;
         parent::__construct($input);
     }
 
@@ -97,6 +106,7 @@ final class PutRecordInput extends Input
      *   ExplicitHashKey?: string|null,
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
+     *   StreamId?: string|null,
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      */
@@ -128,6 +138,11 @@ final class PutRecordInput extends Input
     public function getStreamArn(): ?string
     {
         return $this->streamArn;
+    }
+
+    public function getStreamId(): ?string
+    {
+        return $this->streamId;
     }
 
     public function getStreamName(): ?string
@@ -196,6 +211,13 @@ final class PutRecordInput extends Input
         return $this;
     }
 
+    public function setStreamId(?string $value): self
+    {
+        $this->streamId = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -225,6 +247,9 @@ final class PutRecordInput extends Input
         }
         if (null !== $v = $this->streamArn) {
             $payload['StreamARN'] = $v;
+        }
+        if (null !== $v = $this->streamId) {
+            $payload['StreamId'] = $v;
         }
 
         return $payload;

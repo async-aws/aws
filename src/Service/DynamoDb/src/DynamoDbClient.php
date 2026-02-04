@@ -9,6 +9,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\DynamoDb\Enum\BillingMode;
 use AsyncAws\DynamoDb\Enum\ConditionalOperator;
+use AsyncAws\DynamoDb\Enum\GlobalTableSettingsReplicationMode;
 use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
@@ -285,9 +286,9 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
      *
      * @param array{
-     *   AttributeDefinitions: array<AttributeDefinition|array>,
+     *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName: string,
-     *   KeySchema: array<KeySchemaElement|array>,
+     *   KeySchema?: array<KeySchemaElement|array>|null,
      *   LocalSecondaryIndexes?: array<LocalSecondaryIndex|array>|null,
      *   GlobalSecondaryIndexes?: array<GlobalSecondaryIndex|array>|null,
      *   BillingMode?: BillingMode::*|null,
@@ -300,6 +301,8 @@ class DynamoDbClient extends AbstractApi
      *   WarmThroughput?: WarmThroughput|array|null,
      *   ResourcePolicy?: string|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
+     *   GlobalTableSourceArn?: string|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
