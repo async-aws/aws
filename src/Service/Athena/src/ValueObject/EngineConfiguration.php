@@ -3,7 +3,13 @@
 namespace AsyncAws\Athena\ValueObject;
 
 /**
- * Contains data processing unit (DPU) configuration settings and parameter mappings for a notebook engine.
+ * The engine configuration for the workgroup, which includes the minimum/maximum number of Data Processing Units (DPU)
+ * that queries should use when running in provisioned capacity. If not specified, Athena uses default values (Default
+ * value for min is 4 and for max is Minimum of 124 and allocated DPUs).
+ *
+ * To specify DPU values for PC queries the WG containing EngineConfiguration should have the following values: The name
+ * of the Classifications should be `athena-query-engine-properties`, with the only allowed properties as
+ * `max-dpu-count` and `min-dpu-count`.
  */
 final class EngineConfiguration
 {
