@@ -5,6 +5,7 @@
 ### Changed
 
 - AWS enhancement: Documentation updates.
+- Remove redundant ext-json requirement
 
 ## 3.5.0
 

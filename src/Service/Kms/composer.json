@@ -13,7 +13,6 @@
     "require": {
         "php": "^8.2",
         "ext-filter": "*",
-        "ext-json": "*",
         "async-aws/core": "^1.9"
     },
     "require-dev": {

@@ -12,7 +12,6 @@
     ],
     "require": {
         "php": "^8.2",
-        "ext-json": "*",
         "async-aws/s3": "^3.0"
     },
     "require-dev": {
