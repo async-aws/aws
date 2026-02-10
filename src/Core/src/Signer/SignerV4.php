@@ -39,6 +39,7 @@ class SignerV4 implements Signer
         'from' => true,
         'referer' => true,
         'user-agent' => true,
+        'x-amz-user-agent' => true,
         'x-amzn-trace-id' => true,
         'aws-sdk-invocation-id' => true,
         'aws-sdk-retry' => true,
@@ -139,7 +140,7 @@ class SignerV4 implements Signer
         $bodyDigest = $this->buildBodyDigest($request, $isPresign);
 
         if ($isPresign) {
-            // Should be called after `buildBodyDigest` because this method may remove the header `x-amz-content-sha256`
+            // Should be called after `buildBodyDigest` because this method moves the header `x-amz-content-sha256` in the querystring
             $this->convertHeaderToQuery($request);
         }
 
@@ -243,7 +244,8 @@ class SignerV4 implements Signer
     {
         foreach ($request->getHeaders() as $name => $value) {
             if ('x-amz' === substr($name, 0, 5)) {
-                $request->setQueryAttribute($name, $value);
+                $attribute = implode('-', array_map(ucfirst(...), explode('-', $name)));
+                $request->setQueryAttribute($attribute, $value);
             }
 
             if (isset(self::BLACKLIST_HEADERS[$name])) {
