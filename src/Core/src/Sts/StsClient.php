@@ -11,6 +11,7 @@ use AsyncAws\Core\Sts\Exception\IDPCommunicationErrorException;
 use AsyncAws\Core\Sts\Exception\IDPRejectedClaimException;
 use AsyncAws\Core\Sts\Exception\InvalidIdentityTokenException;
 use AsyncAws\Core\Sts\Exception\MalformedPolicyDocumentException;
+use AsyncAws\Core\Sts\Exception\MissingAuthenticationToken;
 use AsyncAws\Core\Sts\Exception\PackedPolicyTooLargeException;
 use AsyncAws\Core\Sts\Exception\RegionDisabledException;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
@@ -313,11 +314,15 @@ class StsClient extends AbstractApi
      * @param array{
      *   '@region'?: string|null,
      * }|GetCallerIdentityRequest $input
+     *
+     * @throws MissingAuthenticationToken
      */
     public function getCallerIdentity($input = []): GetCallerIdentityResponse
     {
         $input = GetCallerIdentityRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCallerIdentity', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCallerIdentity', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'MissingAuthenticationToken' => MissingAuthenticationToken::class,
+        ]]));
 
         return new GetCallerIdentityResponse($response);
     }

@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added `MissingAuthenticationToken` exception, triggered by `StsClient::getCallerIdentity()` when no credentials are provided.
+
 ### Changed
 
 - Remove redundant ext-json requirement
