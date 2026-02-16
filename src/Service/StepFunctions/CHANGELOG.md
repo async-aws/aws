@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.1
+
 ### Changed
 
 - Remove redundant ext-json requirement

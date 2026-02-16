@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.13.0
+
 ### Added
 
 - AWS api-change: This release adds a follow source mode for audio output channel count, an AES audio frame wrapping option for MXF outputs, and an option to signal DolbyVision compatibility using the SUPPLEMENTAL-CODECS tag in HLS manifests.

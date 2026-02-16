@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.1.0
+
 ### Added
 
 - Added `S3Client::getBucketVersioning()` and `S3Client::putBucketVersioning()` methods
