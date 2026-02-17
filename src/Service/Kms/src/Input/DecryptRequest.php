@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Kms\Enum\DryRunModifierType;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\ValueObject\RecipientInfo;
 
@@ -14,7 +15,8 @@ final class DecryptRequest extends Input
     /**
      * Ciphertext to be decrypted. The blob includes metadata.
      *
-     * @required
+     * This parameter is required in all cases except when `DryRun` is `true` and `DryRunModifiers` is set to
+     * `IGNORE_CIPHERTEXT`.
      *
      * @var string|null
      */
@@ -60,9 +62,10 @@ final class DecryptRequest extends Input
      * Enter a key ID of the KMS key that was used to encrypt the ciphertext. If you identify a different KMS key, the
      * `Decrypt` operation throws an `IncorrectKeyException`.
      *
-     * This parameter is required only when the ciphertext was encrypted under an asymmetric KMS key. If you used a
-     * symmetric encryption KMS key, KMS can get the KMS key from metadata that it adds to the symmetric ciphertext blob.
-     * However, it is always recommended as a best practice. This practice ensures that you use the KMS key that you intend.
+     * This parameter is required only when the ciphertext was encrypted under an asymmetric KMS key or when `DryRun` is
+     * `true` and `DryRunModifiers` is set to `IGNORE_CIPHERTEXT`. If you used a symmetric encryption KMS key, KMS can get
+     * the KMS key from metadata that it adds to the symmetric ciphertext blob. However, it is always recommended as a best
+     * practice. This practice ensures that you use the KMS key that you intend.
      *
      * To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix it with
      * `"alias/"`. To specify a KMS key in a different Amazon Web Services account, you must use the key ARN or alias ARN.
@@ -129,14 +132,31 @@ final class DecryptRequest extends Input
     private $dryRun;
 
     /**
+     * Specifies the modifiers to apply to the dry run operation. `DryRunModifiers` is an optional parameter that only
+     * applies when `DryRun` is set to `true`.
+     *
+     * When set to `IGNORE_CIPHERTEXT`, KMS performs only authorization validation without ciphertext validation. This
+     * allows you to test permissions without requiring a valid ciphertext blob.
+     *
+     * To learn more about how to use this parameter, see Testing your permissions [^1] in the *Key Management Service
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/testing-permissions.html
+     *
+     * @var list<DryRunModifierType::*>|null
+     */
+    private $dryRunModifiers;
+
+    /**
      * @param array{
-     *   CiphertextBlob?: string,
+     *   CiphertextBlob?: string|null,
      *   EncryptionContext?: array<string, string>|null,
      *   GrantTokens?: string[]|null,
      *   KeyId?: string|null,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
      *   Recipient?: RecipientInfo|array|null,
      *   DryRun?: bool|null,
+     *   DryRunModifiers?: array<DryRunModifierType::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -149,18 +169,20 @@ final class DecryptRequest extends Input
         $this->encryptionAlgorithm = $input['EncryptionAlgorithm'] ?? null;
         $this->recipient = isset($input['Recipient']) ? RecipientInfo::create($input['Recipient']) : null;
         $this->dryRun = $input['DryRun'] ?? null;
+        $this->dryRunModifiers = $input['DryRunModifiers'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   CiphertextBlob?: string,
+     *   CiphertextBlob?: string|null,
      *   EncryptionContext?: array<string, string>|null,
      *   GrantTokens?: string[]|null,
      *   KeyId?: string|null,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
      *   Recipient?: RecipientInfo|array|null,
      *   DryRun?: bool|null,
+     *   DryRunModifiers?: array<DryRunModifierType::*>|null,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      */
@@ -177,6 +199,14 @@ final class DecryptRequest extends Input
     public function getDryRun(): ?bool
     {
         return $this->dryRun;
+    }
+
+    /**
+     * @return list<DryRunModifierType::*>
+     */
+    public function getDryRunModifiers(): array
+    {
+        return $this->dryRunModifiers ?? [];
     }
 
     /**
@@ -254,6 +284,16 @@ final class DecryptRequest extends Input
     }
 
     /**
+     * @param list<DryRunModifierType::*> $value
+     */
+    public function setDryRunModifiers(array $value): self
+    {
+        $this->dryRunModifiers = $value;
+
+        return $this;
+    }
+
+    /**
      * @param EncryptionAlgorithmSpec::*|null $value
      */
     public function setEncryptionAlgorithm(?string $value): self
@@ -300,10 +340,9 @@ final class DecryptRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ciphertextBlob) {
-            throw new InvalidArgument(\sprintf('Missing parameter "CiphertextBlob" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->ciphertextBlob) {
+            $payload['CiphertextBlob'] = base64_encode($v);
         }
-        $payload['CiphertextBlob'] = base64_encode($v);
         if (null !== $v = $this->encryptionContext) {
             if (empty($v)) {
                 $payload['EncryptionContext'] = new \stdClass();
@@ -337,6 +376,18 @@ final class DecryptRequest extends Input
         }
         if (null !== $v = $this->dryRun) {
             $payload['DryRun'] = (bool) $v;
+        }
+        if (null !== $v = $this->dryRunModifiers) {
+            $index = -1;
+            $payload['DryRunModifiers'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!DryRunModifierType::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
+                    throw new InvalidArgument(\sprintf('Invalid parameter "DryRunModifiers" for "%s". The value "%s" is not a valid "DryRunModifierType".', __CLASS__, $listValue));
+                }
+                $payload['DryRunModifiers'][$index] = $listValue;
+            }
         }
 
         return $payload;

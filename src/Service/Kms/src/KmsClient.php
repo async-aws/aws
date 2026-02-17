@@ -10,6 +10,7 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
 use AsyncAws\Kms\Enum\DataKeySpec;
+use AsyncAws\Kms\Enum\DryRunModifierType;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\KeySpec;
 use AsyncAws\Kms\Enum\KeyUsageType;
@@ -204,8 +205,7 @@ class KmsClient extends AbstractApi
      *   HMAC KMS keys are symmetric keys that never leave KMS unencrypted. You can use HMAC keys to generate (GenerateMac)
      *   and verify (VerifyMac) HMAC codes for messages up to 4096 bytes.
      *
-     * - `Multi-Region primary keys`
-     * - `Imported key material`:
+     * - `Multi-Region primary keys`:
      *
      *   To create a multi-Region *primary key* in the local Amazon Web Services Region, use the `MultiRegion` parameter
      *   with a value of `True`. To create a multi-Region *replica key*, that is, a KMS key with the same key ID and key
@@ -223,7 +223,9 @@ class KmsClient extends AbstractApi
      *   information about multi-Region keys, see Multi-Region keys in KMS [^3] in the *Key Management Service Developer
      *   Guide*.
      *
-     * - To import your own key material into a KMS key, begin by creating a KMS key with no key material. To do this, use
+     * - `Imported key material`:
+     *
+     *   To import your own key material into a KMS key, begin by creating a KMS key with no key material. To do this, use
      *   the `Origin` parameter of `CreateKey` with a value of `EXTERNAL`. Next, use GetParametersForImport operation to get
      *   a public key and import token. Use the wrapping public key to encrypt your key material. Then, use
      *   ImportKeyMaterial with your import token to import the key material. For step-by-step instructions, see Importing
@@ -433,13 +435,14 @@ class KmsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt
      *
      * @param array{
-     *   CiphertextBlob: string,
+     *   CiphertextBlob?: string|null,
      *   EncryptionContext?: array<string, string>|null,
      *   GrantTokens?: string[]|null,
      *   KeyId?: string|null,
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
      *   Recipient?: RecipientInfo|array|null,
      *   DryRun?: bool|null,
+     *   DryRunModifiers?: array<DryRunModifierType::*>|null,
      *   '@region'?: string|null,
      * }|DecryptRequest $input
      *
@@ -455,7 +458,7 @@ class KmsClient extends AbstractApi
      * @throws KeyUnavailableException
      * @throws NotFoundException
      */
-    public function decrypt($input): DecryptResponse
+    public function decrypt($input = []): DecryptResponse
     {
         $input = DecryptRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Decrypt', 'region' => $input->getRegion(), 'exceptionMapping' => [

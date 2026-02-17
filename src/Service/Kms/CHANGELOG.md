@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added support for Decrypt and ReEncrypt API's to use dry run feature without ciphertext for authorization validation
+
 ## 1.11.1
 
 ### Changed
