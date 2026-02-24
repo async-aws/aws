@@ -620,6 +620,9 @@ class DynamoDbClient extends AbstractApi
      * > every record must contain that attribute, the `attribute_not_exists` function will only succeed if no matching item
      * > exists.
      *
+     * > To determine whether `PutItem` overwrote an existing item, use `ReturnValues` set to `ALL_OLD`. If the response
+     * > includes the `Attributes` element, an existing item was overwritten.
+     *
      * For more information about `PutItem`, see Working with Items [^1] in the *Amazon DynamoDB Developer Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html
@@ -1036,6 +1039,7 @@ class DynamoDbClient extends AbstractApi
      *   GlobalTableWitnessUpdates?: array<GlobalTableWitnessGroupUpdate|array>|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *
