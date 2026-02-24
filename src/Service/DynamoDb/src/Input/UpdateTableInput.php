@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\GlobalTableSettingsReplicationMode;
 use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
@@ -178,6 +179,19 @@ final class UpdateTableInput extends Input
     private $warmThroughput;
 
     /**
+     * Controls the settings replication mode for a global table replica. This attribute can be defined using UpdateTable
+     * operation only on a regional table with values:
+     *
+     * - `ENABLED`: Defines settings replication on a regional table to be used as a source table for creating Multi-Account
+     *   Global Table.
+     * - `DISABLED`: Remove settings replication on a regional table. Settings replication needs to be defined to ENABLED
+     *   again in order to create a Multi-Account Global Table using this table.
+     *
+     * @var GlobalTableSettingsReplicationMode::*|null
+     */
+    private $globalTableSettingsReplicationMode;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName?: string,
@@ -193,6 +207,7 @@ final class UpdateTableInput extends Input
      *   GlobalTableWitnessUpdates?: array<GlobalTableWitnessGroupUpdate|array>|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -212,6 +227,7 @@ final class UpdateTableInput extends Input
         $this->globalTableWitnessUpdates = isset($input['GlobalTableWitnessUpdates']) ? array_map([GlobalTableWitnessGroupUpdate::class, 'create'], $input['GlobalTableWitnessUpdates']) : null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
+        $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
         parent::__construct($input);
     }
 
@@ -231,6 +247,7 @@ final class UpdateTableInput extends Input
      *   GlobalTableWitnessUpdates?: array<GlobalTableWitnessGroupUpdate|array>|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
+     *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      */
@@ -266,6 +283,14 @@ final class UpdateTableInput extends Input
     public function getGlobalSecondaryIndexUpdates(): array
     {
         return $this->globalSecondaryIndexUpdates ?? [];
+    }
+
+    /**
+     * @return GlobalTableSettingsReplicationMode::*|null
+     */
+    public function getGlobalTableSettingsReplicationMode(): ?string
+    {
+        return $this->globalTableSettingsReplicationMode;
     }
 
     /**
@@ -389,6 +414,16 @@ final class UpdateTableInput extends Input
     public function setGlobalSecondaryIndexUpdates(array $value): self
     {
         $this->globalSecondaryIndexUpdates = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param GlobalTableSettingsReplicationMode::*|null $value
+     */
+    public function setGlobalTableSettingsReplicationMode(?string $value): self
+    {
+        $this->globalTableSettingsReplicationMode = $value;
 
         return $this;
     }
@@ -552,6 +587,13 @@ final class UpdateTableInput extends Input
         }
         if (null !== $v = $this->warmThroughput) {
             $payload['WarmThroughput'] = $v->requestBody();
+        }
+        if (null !== $v = $this->globalTableSettingsReplicationMode) {
+            if (!GlobalTableSettingsReplicationMode::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "GlobalTableSettingsReplicationMode" for "%s". The value "%s" is not a valid "GlobalTableSettingsReplicationMode".', __CLASS__, $v));
+            }
+            $payload['GlobalTableSettingsReplicationMode'] = $v;
         }
 
         return $payload;
