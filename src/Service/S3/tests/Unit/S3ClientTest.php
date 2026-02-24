@@ -18,6 +18,7 @@ use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketLifecycleConfigurationRequest;
 use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
@@ -29,6 +30,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
+use AsyncAws\S3\Input\PutBucketLifecycleConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutBucketVersioningRequest;
@@ -48,6 +50,7 @@ use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\DeleteObjectTaggingOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
+use AsyncAws\S3\Result\GetBucketLifecycleConfigurationOutput;
 use AsyncAws\S3\Result\GetBucketVersioningOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
@@ -58,6 +61,7 @@ use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListObjectVersionsOutput;
 use AsyncAws\S3\Result\ListPartsOutput;
+use AsyncAws\S3\Result\PutBucketLifecycleConfigurationOutput;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\PutObjectTaggingOutput;
@@ -300,6 +304,19 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testGetBucketLifecycleConfiguration(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetBucketLifecycleConfigurationRequest([
+            'Bucket' => 'change me',
+        ]);
+        $result = $client->getBucketLifecycleConfiguration($input);
+
+        self::assertInstanceOf(GetBucketLifecycleConfigurationOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testGetBucketVersioning(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -451,6 +468,19 @@ class S3ClientTest extends TestCase
         $result = $client->PutBucketCors($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketLifecycleConfiguration(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketLifecycleConfigurationRequest([
+            'Bucket' => 'change me',
+        ]);
+        $result = $client->putBucketLifecycleConfiguration($input);
+
+        self::assertInstanceOf(PutBucketLifecycleConfigurationOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

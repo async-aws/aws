@@ -23,6 +23,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Enum\TaggingDirective;
+use AsyncAws\S3\Enum\TransitionDefaultMinimumObjectSize;
 use AsyncAws\S3\Exception\BucketAlreadyExistsException;
 use AsyncAws\S3\Exception\BucketAlreadyOwnedByYouException;
 use AsyncAws\S3\Exception\EncryptionTypeMismatchException;
@@ -46,6 +47,7 @@ use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketLifecycleConfigurationRequest;
 use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
@@ -58,6 +60,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
+use AsyncAws\S3\Input\PutBucketLifecycleConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutBucketVersioningRequest;
@@ -79,6 +82,7 @@ use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\DeleteObjectTaggingOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetBucketEncryptionOutput;
+use AsyncAws\S3\Result\GetBucketLifecycleConfigurationOutput;
 use AsyncAws\S3\Result\GetBucketVersioningOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
@@ -91,6 +95,7 @@ use AsyncAws\S3\Result\ListObjectVersionsOutput;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\ObjectNotExistsWaiter;
+use AsyncAws\S3\Result\PutBucketLifecycleConfigurationOutput;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\PutObjectTaggingOutput;
@@ -98,6 +103,7 @@ use AsyncAws\S3\Result\UploadPartCopyOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
+use AsyncAws\S3\ValueObject\BucketLifecycleConfiguration;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CORSConfiguration;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
@@ -1435,6 +1441,94 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Returns the lifecycle configuration information set on the bucket. For information about lifecycle configuration, see
+     * Object Lifecycle Management [^1].
+     *
+     * Bucket lifecycle configuration now supports specifying a lifecycle rule using an object key name prefix, one or more
+     * object tags, object size, or any combination of these. Accordingly, this section describes the latest API, which is
+     * compatible with the new functionality. The previous version of the API supported filtering based only on an object
+     * key name prefix, which is supported for general purpose buckets for backward compatibility. For the related API
+     * description, see GetBucketLifecycle [^2].
+     *
+     * > Lifecyle configurations for directory buckets only support expiring objects and cancelling multipart uploads.
+     * > Expiring of versioned objects, transitions and tag filters are not supported.
+     *
+     * - `Permissions`:
+     *
+     *   - **General purpose bucket permissions** - By default, all Amazon S3 resources are private, including buckets,
+     *     objects, and related subresources (for example, lifecycle configuration and website configuration). Only the
+     *     resource owner (that is, the Amazon Web Services account that created it) can access the resource. The resource
+     *     owner can optionally grant access permissions to others by writing an access policy. For this operation, a user
+     *     must have the `s3:GetLifecycleConfiguration` permission.
+     *
+     *     For more information about permissions, see Managing Access Permissions to Your Amazon S3 Resources [^3].
+     *
+     *   - **Directory bucket permissions** - You must have the `s3express:GetLifecycleConfiguration` permission in an IAM
+     *     identity-based policy to use this operation. Cross-account access to this API operation isn't supported. The
+     *     resource owner can optionally grant access permissions to others by creating a role or user for them as long as
+     *     they are within the same account as the owner and resource.
+     *
+     *     For more information about directory bucket policies and permissions, see Authorizing Regional endpoint APIs with
+     *     IAM [^4] in the *Amazon S3 User Guide*.
+     *
+     *     > **Directory buckets ** - For directory buckets, you must make requests for this API operation to the Regional
+     *     > endpoint. These endpoints support path-style requests in the format
+     *     > `https://s3express-control.*region-code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
+     *     > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
+     *     > directory buckets in Availability Zones [^5] in the *Amazon S3 User Guide*. For more information about
+     *     > endpoints in Local Zones, see Concepts for directory buckets in Local Zones [^6] in the *Amazon S3 User Guide*.
+     *
+     *
+     * - `HTTP Host header syntax`:
+     *
+     *   **Directory buckets ** - The HTTP Host header syntax is `s3express-control.*region*.amazonaws.com`.
+     *
+     * `GetBucketLifecycleConfiguration` has the following special error:
+     *
+     * - Error code: `NoSuchLifecycleConfiguration`
+     *
+     *   - Description: The lifecycle configuration does not exist.
+     *   - HTTP Status Code: 404 Not Found
+     *   - SOAP Fault Code Prefix: Client
+     *
+     *
+     * The following operations are related to `GetBucketLifecycleConfiguration`:
+     *
+     * - GetBucketLifecycle [^7]
+     * - PutBucketLifecycle [^8]
+     * - DeleteBucketLifecycle [^9]
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycle.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycle.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketlifecycleconfiguration
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string|null,
+     *   '@region'?: string|null,
+     * }|GetBucketLifecycleConfigurationRequest $input
+     */
+    public function getBucketLifecycleConfiguration($input): GetBucketLifecycleConfigurationOutput
+    {
+        $input = GetBucketLifecycleConfigurationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBucketLifecycleConfiguration', 'region' => $input->getRegion()]));
+
+        return new GetBucketLifecycleConfigurationOutput($response);
+    }
+
+    /**
      * > This operation is not supported for directory buckets.
      *
      * Returns the versioning state of a bucket.
@@ -2440,6 +2534,122 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketCors', 'region' => $input->getRegion()]));
 
         return new Result($response);
+    }
+
+    /**
+     * Creates a new lifecycle configuration for the bucket or replaces an existing lifecycle configuration. Keep in mind
+     * that this will overwrite an existing lifecycle configuration, so if you want to retain any configuration details,
+     * they must be included in the new lifecycle configuration. For information about lifecycle configuration, see Managing
+     * your storage lifecycle [^1].
+     *
+     * > Bucket lifecycle configuration now supports specifying a lifecycle rule using an object key name prefix, one or
+     * > more object tags, object size, or any combination of these. Accordingly, this section describes the latest API. The
+     * > previous version of the API supported filtering based only on an object key name prefix, which is supported for
+     * > backward compatibility. For the related API description, see PutBucketLifecycle [^2].
+     *
+     * - `Rules`:
+     *
+     *   You specify the lifecycle configuration in your request body. The lifecycle configuration is specified as XML
+     *   consisting of one or more rules. An Amazon S3 Lifecycle configuration can have up to 1,000 rules. This limit is not
+     *   adjustable.
+     *
+     *   Bucket lifecycle configuration supports specifying a lifecycle rule using an object key name prefix, one or more
+     *   object tags, object size, or any combination of these. Accordingly, this section describes the latest API. The
+     *   previous version of the API supported filtering based only on an object key name prefix, which is supported for
+     *   backward compatibility for general purpose buckets. For the related API description, see PutBucketLifecycle [^3].
+     *
+     *   > Lifecyle configurations for directory buckets only support expiring objects and cancelling multipart uploads.
+     *   > Expiring of versioned objects,transitions and tag filters are not supported.
+     *
+     *   A lifecycle rule consists of the following:
+     *
+     *   - A filter identifying a subset of objects to which the rule applies. The filter can be based on a key name prefix,
+     *     object tags, object size, or any combination of these.
+     *   - A status indicating whether the rule is in effect.
+     *   - One or more lifecycle transition and expiration actions that you want Amazon S3 to perform on the objects
+     *     identified by the filter. If the state of your bucket is versioning-enabled or versioning-suspended, you can have
+     *     many versions of the same object (one current version and zero or more noncurrent versions). Amazon S3 provides
+     *     predefined actions that you can specify for current and noncurrent object versions.
+     *
+     *   For more information, see Object Lifecycle Management [^4] and Lifecycle Configuration Elements [^5].
+     * - `Permissions`:
+     *
+     *   - **General purpose bucket permissions** - By default, all Amazon S3 resources are private, including buckets,
+     *     objects, and related subresources (for example, lifecycle configuration and website configuration). Only the
+     *     resource owner (that is, the Amazon Web Services account that created it) can access the resource. The resource
+     *     owner can optionally grant access permissions to others by writing an access policy. For this operation, a user
+     *     must have the `s3:PutLifecycleConfiguration` permission.
+     *
+     *     You can also explicitly deny permissions. An explicit deny also supersedes any other permissions. If you want to
+     *     block users or accounts from removing or deleting objects from your bucket, you must deny them permissions for
+     *     the following actions:
+     *
+     *     - `s3:DeleteObject`
+     *     - `s3:DeleteObjectVersion`
+     *     - `s3:PutLifecycleConfiguration`
+     *
+     *       For more information about permissions, see Managing Access Permissions to Your Amazon S3 Resources [^6].
+     *
+     *
+     *   - **Directory bucket permissions** - You must have the `s3express:PutLifecycleConfiguration` permission in an IAM
+     *     identity-based policy to use this operation. Cross-account access to this API operation isn't supported. The
+     *     resource owner can optionally grant access permissions to others by creating a role or user for them as long as
+     *     they are within the same account as the owner and resource.
+     *
+     *     For more information about directory bucket policies and permissions, see Authorizing Regional endpoint APIs with
+     *     IAM [^7] in the *Amazon S3 User Guide*.
+     *
+     *     > **Directory buckets ** - For directory buckets, you must make requests for this API operation to the Regional
+     *     > endpoint. These endpoints support path-style requests in the format
+     *     > `https://s3express-control.*region-code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
+     *     > supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
+     *     > directory buckets in Availability Zones [^8] in the *Amazon S3 User Guide*. For more information about
+     *     > endpoints in Local Zones, see Concepts for directory buckets in Local Zones [^9] in the *Amazon S3 User Guide*.
+     *
+     *
+     * - `HTTP Host header syntax`:
+     *
+     *   **Directory buckets ** - The HTTP Host header syntax is `s3express-control.*region*.amazonaws.com`.
+     *
+     *   The following operations are related to `PutBucketLifecycleConfiguration`:
+     *
+     *   - GetBucketLifecycleConfiguration [^10]
+     *   - DeleteBucketLifecycle [^11]
+     *
+     *
+     * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
+     * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbucketlifecycleconfiguration
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
+     *   LifecycleConfiguration?: BucketLifecycleConfiguration|array|null,
+     *   ExpectedBucketOwner?: string|null,
+     *   TransitionDefaultMinimumObjectSize?: TransitionDefaultMinimumObjectSize::*|null,
+     *   '@region'?: string|null,
+     * }|PutBucketLifecycleConfigurationRequest $input
+     */
+    public function putBucketLifecycleConfiguration($input): PutBucketLifecycleConfigurationOutput
+    {
+        $input = PutBucketLifecycleConfigurationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketLifecycleConfiguration', 'region' => $input->getRegion()]));
+
+        return new PutBucketLifecycleConfigurationOutput($response);
     }
 
     /**

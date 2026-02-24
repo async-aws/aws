@@ -376,6 +376,7 @@ class RestXmlParser implements Parser
         $format = $shape->get('timestampFormat') ?? '';
         switch ($format) {
             case '':
+            case 'iso8601':
                 $body = 'new \DateTimeImmutable((string) INPUT)';
 
                 break;
