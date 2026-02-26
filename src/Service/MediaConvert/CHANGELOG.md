@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Rework endpoints resolution.
 
 ## 1.13.0
 
