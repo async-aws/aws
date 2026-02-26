@@ -6,7 +6,6 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\MediaConvert\Enum\BillingTagsSource;
 use AsyncAws\MediaConvert\Enum\DescribeEndpointsMode;
@@ -251,32 +250,6 @@ class MediaConvertClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'af-south-1':
-            case 'ap-northeast-1':
-            case 'ap-northeast-2':
-            case 'ap-northeast-3':
-            case 'ap-south-1':
-            case 'ap-southeast-1':
-            case 'ap-southeast-2':
-            case 'ap-southeast-4':
-            case 'ca-central-1':
-            case 'eu-central-1':
-            case 'eu-north-1':
-            case 'eu-west-1':
-            case 'eu-west-2':
-            case 'eu-west-3':
-            case 'me-central-1':
-            case 'sa-east-1':
-            case 'us-east-1':
-            case 'us-east-2':
-            case 'us-west-1':
-            case 'us-west-2':
-                return [
-                    'endpoint' => "https://mediaconvert.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'mediaconvert',
-                    'signVersions' => ['v4'],
-                ];
             case 'cn-northwest-1':
                 return [
                     'endpoint' => 'https://mediaconvert.cn-northwest-1.amazonaws.com.cn',
@@ -320,7 +293,6 @@ class MediaConvertClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'fips-us-gov-west-1':
-            case 'us-gov-west-1':
                 return [
                     'endpoint' => 'https://mediaconvert.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
@@ -329,6 +301,11 @@ class MediaConvertClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(\sprintf('The region "%s" is not supported by "MediaConvert".', $region));
+        return [
+            'endpoint' => "https://mediaconvert.$region.amazonaws.com",
+            'signRegion' => $region,
+            'signService' => 'mediaconvert',
+            'signVersions' => ['v4'],
+        ];
     }
 }
