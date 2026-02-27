@@ -46,7 +46,6 @@ use AsyncAws\S3\Input\UploadPartCopyRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
-use AsyncAws\S3\ValueObject\AbortIncompleteMultipartUpload;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\Bucket;
@@ -62,10 +61,7 @@ use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\LambdaFunctionConfiguration;
 use AsyncAws\S3\ValueObject\LifecycleExpiration;
 use AsyncAws\S3\ValueObject\LifecycleRule;
-use AsyncAws\S3\ValueObject\LifecycleRuleAndOperator;
 use AsyncAws\S3\ValueObject\LifecycleRuleFilter;
-use AsyncAws\S3\ValueObject\NoncurrentVersionExpiration;
-use AsyncAws\S3\ValueObject\NoncurrentVersionTransition;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
@@ -75,7 +71,6 @@ use AsyncAws\S3\ValueObject\S3KeyFilter;
 use AsyncAws\S3\ValueObject\Tag;
 use AsyncAws\S3\ValueObject\Tagging;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
-use AsyncAws\S3\ValueObject\Transition;
 use AsyncAws\S3\ValueObject\VersioningConfiguration;
 
 class S3ClientTest extends TestCase
