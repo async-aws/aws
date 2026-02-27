@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- SignerV4: Fix presign PUT requests for S3 objects not passing signature validation
+
 ## 1.28.1
 
 ### Changed
