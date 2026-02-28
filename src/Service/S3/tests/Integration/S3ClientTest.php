@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Enum\Event;
+use AsyncAws\S3\Enum\ExpirationStatus;
 use AsyncAws\S3\Enum\FilterRuleName;
 use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\Type;
@@ -20,6 +21,7 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectTaggingRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetBucketEncryptionRequest;
+use AsyncAws\S3\Input\GetBucketLifecycleConfigurationRequest;
 use AsyncAws\S3\Input\GetBucketVersioningRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
@@ -32,6 +34,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListObjectVersionsRequest;
 use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutBucketCorsRequest;
+use AsyncAws\S3\Input\PutBucketLifecycleConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutBucketTaggingRequest;
 use AsyncAws\S3\Input\PutBucketVersioningRequest;
@@ -46,6 +49,7 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\Bucket;
+use AsyncAws\S3\ValueObject\BucketLifecycleConfiguration;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
@@ -55,6 +59,9 @@ use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\LambdaFunctionConfiguration;
+use AsyncAws\S3\ValueObject\LifecycleExpiration;
+use AsyncAws\S3\ValueObject\LifecycleRule;
+use AsyncAws\S3\ValueObject\LifecycleRuleFilter;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
@@ -372,6 +379,22 @@ class S3ClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getServerSideEncryptionConfiguration());
+    }
+
+    public function testGetBucketLifecycleConfiguration(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement GetBucketLifecycleConfiguration.');
+
+        $client = $this->getClient();
+
+        $input = new GetBucketLifecycleConfigurationRequest([
+            'Bucket' => 'foo',
+        ]);
+        $result = $client->getBucketLifecycleConfiguration($input);
+
+        $result->resolve();
+
+        self::assertIsArray($result->getRules());
     }
 
     public function testGetBucketVersioning(): void
@@ -769,6 +792,32 @@ class S3ClientTest extends TestCase
 
         $info = $result->info();
         self::assertEquals(200, $info['status']);
+    }
+
+    public function testPutBucketLifecycleConfiguration(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement PutBucketLifecycleConfiguration.');
+
+        $client = $this->getClient();
+
+        $input = new PutBucketLifecycleConfigurationRequest([
+            'Bucket' => 'foo',
+            'LifecycleConfiguration' => new BucketLifecycleConfiguration([
+                'Rules' => [new LifecycleRule([
+                    'ID' => 'test-rule',
+                    'Filter' => new LifecycleRuleFilter([
+                        'Prefix' => 'logs/',
+                    ]),
+                    'Status' => ExpirationStatus::ENABLED,
+                    'Expiration' => new LifecycleExpiration([
+                        'Days' => 30,
+                    ]),
+                ])],
+            ]),
+        ]);
+        $result = $client->putBucketLifecycleConfiguration($input);
+
+        $result->resolve();
     }
 
     public function testPutBucketNotificationConfiguration(): void

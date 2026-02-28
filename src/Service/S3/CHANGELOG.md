@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added `S3Client::getBucketLifecycleConfiguration()` and `S3Client::putBucketLifecycleConfiguration()` methods
+
 ## 3.1.0
 
 ### Added
