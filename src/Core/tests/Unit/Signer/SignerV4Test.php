@@ -61,6 +61,33 @@ class SignerV4Test extends TestCase
         self::assertEqualsCanonicalizing($expectedQuery, $request->getQuery());
     }
 
+    public function testPresignS3UserDefinedMetadata()
+    {
+        $signer = new SignerV4('sqs', 'eu-west-1');
+
+        $request = new Request('POST', '/foo', ['arg' => 'bar'], ['header' => 'baz', 'x-amz-meta-keyid1' => '1', 'x-amz-meta-keyId2' => '2'], StringStream::create('body'));
+        $request->setEndpoint('http://localhost:1234/foo?arg=bar');
+        $context = new RequestContext(['currentDate' => new \DateTimeImmutable('2020-01-01T00:00:00Z')]);
+        $credentials = new Credentials('key', 'secret', 'token');
+
+        $signer->presign($request, $credentials, $context);
+
+        $expectedQuery = [
+            '1',
+            '2',
+            '20200101T000000Z',
+            '2f7f3d47aaed21ef48cd09a47e09c14355e959c8d480e972fdce55a699ae727c',
+            '3600',
+            'AWS4-HMAC-SHA256',
+            'bar',
+            'header;host;x-amz-meta-keyid1;x-amz-meta-keyid2',
+            'key/20200101/eu-west-1/sqs/aws4_request',
+            'token',
+        ];
+
+        self::assertEqualsCanonicalizing($expectedQuery, $request->getQuery());
+    }
+
     #[DataProvider('provideRequests')]
     public function testSignsRequests($rawRequest, $rawExpected)
     {
