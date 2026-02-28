@@ -117,23 +117,24 @@ final class AdminInitiateAuthRequest extends Input
     private $authParameters;
 
     /**
-     * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers. You
+     * create custom workflows by assigning Lambda functions to user pool triggers.
      *
-     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the AdminInitiateAuth
-     * API action, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The ClientMetadata
-     * value is passed as input to the functions for only the following triggers:
+     * When Amazon Cognito invokes any of these functions, it passes a JSON payload, which the function receives as input.
+     * This payload contains a `clientMetadata` attribute that provides the data that you assigned to the ClientMetadata
+     * parameter in your request. In your function code, you can process the `clientMetadata` value to enhance your workflow
+     * for your specific needs.
+     *
+     * To review the Lambda trigger types that Amazon Cognito invokes at runtime with API requests, see Connecting API
+     * actions to Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
+     *
+     * The `ClientMetadata` value is passed as input to the functions for only the following triggers:
      *
      * - Pre signup
      * - Pre authentication
      * - User migration
      *
-     * When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function receives
-     * as input. This payload contains a `validationData` attribute, which provides the data that you assigned to the
-     * ClientMetadata parameter in your AdminInitiateAuth request. In your function code in Lambda, you can process the
-     * `validationData` value to enhance your workflow for your specific needs.
-     *
-     * When you use the AdminInitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers,
-     * but it doesn't provide the ClientMetadata value as input:
+     * This request also invokes the functions for the following triggers, but doesn't pass `ClientMetadata`:
      *
      * - Post authentication
      * - Custom message
@@ -142,8 +143,6 @@ final class AdminInitiateAuthRequest extends Input
      * - Define auth challenge
      * - Custom email sender
      * - Custom SMS sender
-     *
-     * For more information, see Using Lambda triggers [^1] in the *Amazon Cognito Developer Guide*.
      *
      * > When you use the `ClientMetadata` parameter, note that Amazon Cognito won't do the following:
      * >
@@ -154,7 +153,7 @@ final class AdminInitiateAuthRequest extends Input
      * > - Encrypt the `ClientMetadata` value. Don't send sensitive information in this parameter.
      * >
      *
-     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-working-with-lambda-triggers.html#lambda-triggers-by-event
      *
      * @var array<string, string>|null
      */
