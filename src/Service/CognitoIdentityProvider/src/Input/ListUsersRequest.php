@@ -36,7 +36,9 @@ final class ListUsersRequest extends Input
     private $attributesToGet;
 
     /**
-     * The maximum number of users that you want Amazon Cognito to return in the response.
+     * The maximum number of users that you want Amazon Cognito to return in the response. In some SDK contexts, this
+     * operation might return fewer items than you specify in the `Limit` parameter without having reached the end of the
+     * full list. If the response contains a `PaginationToken`, then there are more results.
      *
      * @var int|null
      */
