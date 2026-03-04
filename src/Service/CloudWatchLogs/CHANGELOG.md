@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: CloudWatch Logs updates- Added support for the PutBearerTokenAuthentication API to enable or disable bearer token authentication on a log group. For more information, see CloudWatch Logs API documentation.
+- AWS api-change: Expose `bearerTokenAuthenticationEnabled` property in LogGroups
 
 ## 2.8.1
 
