@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Expose `bearerTokenAuthenticationEnabled` property in LogGroups
+
 ## 2.8.1
 
 ### Changed
