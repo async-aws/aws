@@ -129,6 +129,14 @@ final class LogGroup
     private $deletionProtectionEnabled;
 
     /**
+     * Indicates whether bearer token authentication is enabled for this log group. When enabled, bearer token
+     * authentication is allowed on operations until it is explicitly disabled.
+     *
+     * @var bool|null
+     */
+    private $bearerTokenAuthenticationEnabled;
+
+    /**
      * @param array{
      *   logGroupName?: string|null,
      *   creationTime?: int|null,
@@ -142,6 +150,7 @@ final class LogGroup
      *   logGroupClass?: LogGroupClass::*|null,
      *   logGroupArn?: string|null,
      *   deletionProtectionEnabled?: bool|null,
+     *   bearerTokenAuthenticationEnabled?: bool|null,
      * } $input
      */
     public function __construct(array $input)
@@ -158,6 +167,7 @@ final class LogGroup
         $this->logGroupClass = $input['logGroupClass'] ?? null;
         $this->logGroupArn = $input['logGroupArn'] ?? null;
         $this->deletionProtectionEnabled = $input['deletionProtectionEnabled'] ?? null;
+        $this->bearerTokenAuthenticationEnabled = $input['bearerTokenAuthenticationEnabled'] ?? null;
     }
 
     /**
@@ -174,6 +184,7 @@ final class LogGroup
      *   logGroupClass?: LogGroupClass::*|null,
      *   logGroupArn?: string|null,
      *   deletionProtectionEnabled?: bool|null,
+     *   bearerTokenAuthenticationEnabled?: bool|null,
      * }|LogGroup $input
      */
     public static function create($input): self
@@ -184,6 +195,11 @@ final class LogGroup
     public function getArn(): ?string
     {
         return $this->arn;
+    }
+
+    public function getBearerTokenAuthenticationEnabled(): ?bool
+    {
+        return $this->bearerTokenAuthenticationEnabled;
     }
 
     public function getCreationTime(): ?int
