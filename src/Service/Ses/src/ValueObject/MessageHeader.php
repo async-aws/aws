@@ -23,7 +23,8 @@ final class MessageHeader
      * The value of the message header. The message header value has to meet the following criteria:
      *
      * - Can contain any printable ASCII character.
-     * - Can contain no more than 870 characters.
+     * - Can contain no more than 995 characters.
+     * - The combined length of the header name and value must not exceed 996 characters.
      *
      * @var string
      */
