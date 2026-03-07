@@ -244,7 +244,8 @@ class SignerV4 implements Signer
     {
         foreach ($request->getHeaders() as $name => $value) {
             if ('x-amz' === substr($name, 0, 5)) {
-                $attribute = implode('-', array_map(ucfirst(...), explode('-', $name)));
+                $attribute = self::formatAmazonHeader($name);
+
                 $request->setQueryAttribute($attribute, $value);
             }
 
@@ -309,7 +310,10 @@ class SignerV4 implements Signer
             $this->buildCanonicalQuery($request),
             implode("\n", array_values($canonicalHeaders)),
             '', // empty line after headers
-            implode(';', array_keys($canonicalHeaders)),
+            implode(
+                ';',
+                array_keys($canonicalHeaders)
+            ),
             $bodyDigest,
         ]);
     }
@@ -370,5 +374,27 @@ class SignerV4 implements Signer
     private function buildSignature(string $stringToSign, string $signingKey): string
     {
         return hash_hmac('sha256', $stringToSign, $signingKey);
+    }
+
+    private static function formatAmazonHeader(string $key): string
+    {
+        if (
+            'x-amz' === substr($key, 0, 5)
+            && 'x-amz-meta' !== substr($key, 0, 10)
+        ) {
+            /**
+             * In order to maintain compatability with S3-like APIs we need to compute the
+             * signature inline with the official SDKs behaviour - which means Amazon's headers
+             * should look like: `X-Amz-Content-Sha256`.
+             *
+             * Worth noting this **does not** include S3 object's user-defined metadata, which should
+             * remain prefixed as `x-amz-meta-<key>` (all lowercase).
+             *
+             * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingMetadata.html#UserMetadata
+             */
+            return implode('-', array_map(ucfirst(...), explode('-', $key)));
+        }
+
+        return $key;
     }
 }
