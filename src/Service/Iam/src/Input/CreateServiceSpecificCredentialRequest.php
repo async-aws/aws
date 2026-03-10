@@ -35,8 +35,8 @@ final class CreateServiceSpecificCredentialRequest extends Input
     private $serviceName;
 
     /**
-     * The number of days until the service specific credential expires. This field is only valid for Bedrock API keys and
-     * must be a positive integer. When not specified, the credential will not expire.
+     * The number of days until the service specific credential expires. This field is only valid for Bedrock and CloudWatch
+     * Logs API keys and must be a positive integer. When not specified, the credential will not expire.
      *
      * @var int|null
      */

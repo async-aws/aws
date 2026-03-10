@@ -33,8 +33,8 @@ final class ServiceSpecificCredentialMetadata
     private $serviceUserName;
 
     /**
-     * For Bedrock API keys, this is the public portion of the credential that includes the IAM user name and a suffix
-     * containing version and creation information.
+     * For Bedrock API keys and CloudWatch Logs API keys, this is the public portion of the credential that includes the IAM
+     * user name and a suffix containing version and creation information.
      *
      * @var string|null
      */
@@ -50,8 +50,8 @@ final class ServiceSpecificCredentialMetadata
     private $createDate;
 
     /**
-     * The date and time when the service specific credential expires. This field is only present for Bedrock API keys that
-     * were created with an expiration period.
+     * The date and time when the service specific credential expires. This field is only present for Bedrock API keys and
+     * CloudWatch Logs API keys that were created with an expiration period.
      *
      * @var \DateTimeImmutable|null
      */
