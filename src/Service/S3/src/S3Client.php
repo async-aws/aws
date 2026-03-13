@@ -9,6 +9,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\BucketCannedACL;
+use AsyncAws\S3\Enum\BucketNamespace;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ChecksumMode;
 use AsyncAws\S3\Enum\ChecksumType;
@@ -457,9 +458,10 @@ class S3Client extends AbstractApi
      *     based on the source and destination bucket types in a `CopyObject` operation.
      *
      *     - If the source object that you want to copy is in a directory bucket, you must have the
-     *       **`s3express:CreateSession`** permission in the `Action` element of a policy to read the object. By default,
-     *       the session is in the `ReadWrite` mode. If you want to restrict the access, you can explicitly set the
-     *       `s3express:SessionMode` condition key to `ReadOnly` on the copy source bucket.
+     *       **`s3express:CreateSession`** permission in the `Action` element of a policy to read the object. If no session
+     *       mode is specified, the session will be created with the maximum allowable privilege, attempting `ReadWrite`
+     *       first, then `ReadOnly` if `ReadWrite` is not permitted. If you want to explicitly restrict the access to be
+     *       read-only, you can set the `s3express:SessionMode` condition key to `ReadOnly` on the copy source bucket.
      *     - If the copy destination is a directory bucket, you must have the **`s3express:CreateSession`** permission in
      *       the `Action` element of a policy to write the object to the destination. The `s3express:SessionMode` condition
      *       key can't be set to `ReadOnly` on the copy destination bucket.
@@ -605,18 +607,27 @@ class S3Client extends AbstractApi
      * There are two types of buckets: general purpose buckets and directory buckets. For more information about these
      * bucket types, see Creating, configuring, and working with Amazon S3 buckets [^2] in the *Amazon S3 User Guide*.
      *
+     * General purpose buckets exist in a global namespace, which means that each bucket name must be unique across all
+     * Amazon Web Services accounts in all the Amazon Web Services Regions within a partition. A partition is a grouping of
+     * Regions. Amazon Web Services currently has four partitions: `aws` (Standard Regions), `aws-cn` (China Regions),
+     * `aws-us-gov` (Amazon Web Services GovCloud (US)), and `aws-eusc` (European Sovereign Cloud). When you create a
+     * general purpose bucket, you can choose to create a bucket in the shared global namespace or you can choose to create
+     * a bucket in your account regional namespace. Your account regional namespace is a subdivision of the global namespace
+     * that only your account can create buckets in. For more information on account regional namespaces, see Namespaces for
+     * general purpose buckets [^3].
+     *
      * > - **General purpose buckets** - If you send your `CreateBucket` request to the `s3.amazonaws.com` global endpoint,
      * >   the request goes to the `us-east-1` Region. So the signature calculations in Signature Version 4 must use
      * >   `us-east-1` as the Region, even if the location constraint in the request specifies another Region where the
      * >   bucket is to be created. If you create a bucket in a Region other than US East (N. Virginia), your application
-     * >   must be able to handle 307 redirect. For more information, see Virtual hosting of buckets [^3] in the *Amazon S3
+     * >   must be able to handle 307 redirect. For more information, see Virtual hosting of buckets [^4] in the *Amazon S3
      * >   User Guide*.
      * > - **Directory buckets ** - For directory buckets, you must make requests for this API operation to the Regional
      * >   endpoint. These endpoints support path-style requests in the format
      * >   `https://s3express-control.*region-code*.amazonaws.com/*bucket-name*`. Virtual-hosted-style requests aren't
      * >   supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints for
-     * >   directory buckets in Availability Zones [^4] in the *Amazon S3 User Guide*. For more information about endpoints
-     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^5] in the *Amazon S3 User Guide*.
+     * >   directory buckets in Availability Zones [^5] in the *Amazon S3 User Guide*. For more information about endpoints
+     * >   in Local Zones, see Concepts for directory buckets in Local Zones [^6] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Permissions`:
@@ -643,27 +654,27 @@ class S3Client extends AbstractApi
      *       ! For the majority of modern use cases in S3, we recommend that you keep all Block Public Access settings
      *       ! enabled and keep ACLs disabled. If you would like to share data with users outside of your account, you can
      *       ! use bucket policies as needed. For more information, see Controlling ownership of objects and disabling ACLs
-     *       ! for your bucket [^6] and Blocking public access to your Amazon S3 storage [^7] in the *Amazon S3 User Guide*.
+     *       ! for your bucket [^7] and Blocking public access to your Amazon S3 storage [^8] in the *Amazon S3 User Guide*.
      *
      *     - **S3 Block Public Access** - If your specific use case requires granting public access to your S3 resources,
      *       you can disable Block Public Access. Specifically, you can create a new bucket with Block Public Access
-     *       enabled, then separately call the `DeletePublicAccessBlock` [^8] API. To use this operation, you must have the
+     *       enabled, then separately call the `DeletePublicAccessBlock` [^9] API. To use this operation, you must have the
      *       `s3:PutBucketPublicAccessBlock` permission. For more information about S3 Block Public Access, see Blocking
-     *       public access to your Amazon S3 storage [^9] in the *Amazon S3 User Guide*.
+     *       public access to your Amazon S3 storage [^10] in the *Amazon S3 User Guide*.
      *
      *   - **Directory bucket permissions** - You must have the `s3express:CreateBucket` permission in an IAM identity-based
      *     policy instead of a bucket policy. Cross-account access to this API operation isn't supported. This operation can
      *     only be performed by the Amazon Web Services account that owns the resource. For more information about directory
      *     bucket policies and permissions, see Amazon Web Services Identity and Access Management (IAM) for S3 Express One
-     *     Zone [^10] in the *Amazon S3 User Guide*.
+     *     Zone [^11] in the *Amazon S3 User Guide*.
      *
      *     ! The permissions for ACLs, Object Lock, S3 Object Ownership, and S3 Block Public Access are not supported for
      *     ! directory buckets. For directory buckets, all Block Public Access settings are enabled at the bucket level and
      *     ! S3 Object Ownership is set to Bucket owner enforced (ACLs disabled). These settings can't be modified.
      *     !
      *     ! For more information about permissions for creating and working with directory buckets, see Directory buckets
-     *     ! [^11] in the *Amazon S3 User Guide*. For more information about supported S3 features for directory buckets,
-     *     ! see Features of S3 Express One Zone [^12] in the *Amazon S3 User Guide*.
+     *     ! [^12] in the *Amazon S3 User Guide*. For more information about supported S3 features for directory buckets,
+     *     ! see Features of S3 Express One Zone [^13] in the *Amazon S3 User Guide*.
      *
      *
      * - `HTTP Host header syntax`:
@@ -672,26 +683,27 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `CreateBucket`:
      *
-     * - PutObject [^13]
-     * - DeleteBucket [^14]
+     * - PutObject [^14]
+     * - DeleteBucket [^15]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateBucket.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
-     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
-     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-overview.html
-     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-one-zone.html#s3-express-features
-     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/gpbucketnamespaces.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam.html
+     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-overview.html
+     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-one-zone.html#s3-express-features
+     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createbucket
@@ -707,6 +719,7 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string|null,
      *   ObjectLockEnabledForBucket?: bool|null,
      *   ObjectOwnership?: ObjectOwnership::*|null,
+     *   BucketNamespace?: BucketNamespace::*|null,
      *   '@region'?: string|null,
      * }|CreateBucketRequest $input
      *
@@ -3576,9 +3589,10 @@ class S3Client extends AbstractApi
      *     based on the source and destination bucket types in an `UploadPartCopy` operation.
      *
      *     - If the source object that you want to copy is in a directory bucket, you must have the
-     *       **`s3express:CreateSession`** permission in the `Action` element of a policy to read the object. By default,
-     *       the session is in the `ReadWrite` mode. If you want to restrict the access, you can explicitly set the
-     *       `s3express:SessionMode` condition key to `ReadOnly` on the copy source bucket.
+     *       **`s3express:CreateSession`** permission in the `Action` element of a policy to read the object. If no session
+     *       mode is specified, the session will be created with the maximum allowable privilege, attempting `ReadWrite`
+     *       first, then `ReadOnly` if `ReadWrite` is not permitted. If you want to explicitly restrict the access to be
+     *       read-only, you can set the `s3express:SessionMode` condition key to `ReadOnly` on the copy source bucket.
      *     - If the copy destination is a directory bucket, you must have the **`s3express:CreateSession`** permission in
      *       the `Action` element of a policy to write the object to the destination. The `s3express:SessionMode` condition
      *       key cannot be set to `ReadOnly` on the copy destination.
