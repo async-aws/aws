@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
+use AsyncAws\S3\Enum\BucketNamespace;
 use AsyncAws\S3\Enum\ObjectOwnership;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 
@@ -112,6 +113,29 @@ final class CreateBucketRequest extends Input
     private $objectOwnership;
 
     /**
+     * Specifies the namespace where you want to create your general purpose bucket. When you create a general purpose
+     * bucket, you can choose to create a bucket in the shared global namespace or you can choose to create a bucket in your
+     * account regional namespace. Your account regional namespace is a subdivision of the global namespace that only your
+     * account can create buckets in. For more information on bucket namespaces, see Namespaces for general purpose buckets
+     * [^1].
+     *
+     * General purpose buckets in your account regional namespace must follow a specific naming convention. These buckets
+     * consist of a bucket name prefix that you create, and a suffix that contains your 12-digit Amazon Web Services Account
+     * ID, the Amazon Web Services Region code, and ends with `-an`. Bucket names must follow the format
+     * `bucket-name-prefix-accountId-region-an` (for example, `amzn-s3-demo-bucket-111122223333-us-west-2-an`). For
+     * information about bucket naming restrictions, see Account regional namespace naming rules [^2] in the *Amazon S3 User
+     * Guide*.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/gpbucketnamespaces.html
+     * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html#account-regional-naming-rules
+     *
+     * @var BucketNamespace::*|null
+     */
+    private $bucketNamespace;
+
+    /**
      * @param array{
      *   ACL?: BucketCannedACL::*|null,
      *   Bucket?: string,
@@ -123,6 +147,7 @@ final class CreateBucketRequest extends Input
      *   GrantWriteACP?: string|null,
      *   ObjectLockEnabledForBucket?: bool|null,
      *   ObjectOwnership?: ObjectOwnership::*|null,
+     *   BucketNamespace?: BucketNamespace::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -138,6 +163,7 @@ final class CreateBucketRequest extends Input
         $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->objectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
         $this->objectOwnership = $input['ObjectOwnership'] ?? null;
+        $this->bucketNamespace = $input['BucketNamespace'] ?? null;
         parent::__construct($input);
     }
 
@@ -153,6 +179,7 @@ final class CreateBucketRequest extends Input
      *   GrantWriteACP?: string|null,
      *   ObjectLockEnabledForBucket?: bool|null,
      *   ObjectOwnership?: ObjectOwnership::*|null,
+     *   BucketNamespace?: BucketNamespace::*|null,
      *   '@region'?: string|null,
      * }|CreateBucketRequest $input
      */
@@ -172,6 +199,14 @@ final class CreateBucketRequest extends Input
     public function getBucket(): ?string
     {
         return $this->bucket;
+    }
+
+    /**
+     * @return BucketNamespace::*|null
+     */
+    public function getBucketNamespace(): ?string
+    {
+        return $this->bucketNamespace;
     }
 
     public function getCreateBucketConfiguration(): ?CreateBucketConfiguration
@@ -256,6 +291,13 @@ final class CreateBucketRequest extends Input
             }
             $headers['x-amz-object-ownership'] = $this->objectOwnership;
         }
+        if (null !== $this->bucketNamespace) {
+            if (!BucketNamespace::exists($this->bucketNamespace)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "BucketNamespace" for "%s". The value "%s" is not a valid "BucketNamespace".', __CLASS__, $this->bucketNamespace));
+            }
+            $headers['x-amz-bucket-namespace'] = $this->bucketNamespace;
+        }
 
         // Prepare query
         $query = [];
@@ -292,6 +334,16 @@ final class CreateBucketRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->bucket = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param BucketNamespace::*|null $value
+     */
+    public function setBucketNamespace(?string $value): self
+    {
+        $this->bucketNamespace = $value;
 
         return $this;
     }
