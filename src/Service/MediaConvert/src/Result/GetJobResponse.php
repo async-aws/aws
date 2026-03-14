@@ -19,6 +19,10 @@ use AsyncAws\MediaConvert\Enum\Ac3DynamicRangeCompressionProfile;
 use AsyncAws\MediaConvert\Enum\Ac3DynamicRangeCompressionRf;
 use AsyncAws\MediaConvert\Enum\Ac3LfeFilter;
 use AsyncAws\MediaConvert\Enum\Ac3MetadataControl;
+use AsyncAws\MediaConvert\Enum\Ac4BitstreamMode;
+use AsyncAws\MediaConvert\Enum\Ac4CodingMode;
+use AsyncAws\MediaConvert\Enum\Ac4DynamicRangeCompressionDrcProfile;
+use AsyncAws\MediaConvert\Enum\Ac4StereoDownmix;
 use AsyncAws\MediaConvert\Enum\AccelerationMode;
 use AsyncAws\MediaConvert\Enum\AccelerationStatus;
 use AsyncAws\MediaConvert\Enum\AdvancedInputFilter;
@@ -244,6 +248,7 @@ use AsyncAws\MediaConvert\Enum\HlsAudioOnlyHeader;
 use AsyncAws\MediaConvert\Enum\HlsAudioTrackType;
 use AsyncAws\MediaConvert\Enum\HlsCaptionLanguageSetting;
 use AsyncAws\MediaConvert\Enum\HlsCaptionSegmentLengthControl;
+use AsyncAws\MediaConvert\Enum\HlsClearLead;
 use AsyncAws\MediaConvert\Enum\HlsClientCache;
 use AsyncAws\MediaConvert\Enum\HlsCodecSpecification;
 use AsyncAws\MediaConvert\Enum\HlsDescriptiveVideoServiceFlag;
@@ -448,6 +453,7 @@ use AsyncAws\MediaConvert\Enum\XavcSpatialAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\XavcTemporalAdaptiveQuantization;
 use AsyncAws\MediaConvert\ValueObject\AacSettings;
 use AsyncAws\MediaConvert\ValueObject\Ac3Settings;
+use AsyncAws\MediaConvert\ValueObject\Ac4Settings;
 use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
 use AsyncAws\MediaConvert\ValueObject\AdvancedInputFilterSettings;
 use AsyncAws\MediaConvert\ValueObject\AiffSettings;
@@ -686,6 +692,25 @@ class GetJobResponse extends Result
         ]);
     }
 
+    private function populateResultAc4Settings(array $json): Ac4Settings
+    {
+        return new Ac4Settings([
+            'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
+            'BitstreamMode' => isset($json['bitstreamMode']) ? (!Ac4BitstreamMode::exists((string) $json['bitstreamMode']) ? Ac4BitstreamMode::UNKNOWN_TO_SDK : (string) $json['bitstreamMode']) : null,
+            'CodingMode' => isset($json['codingMode']) ? (!Ac4CodingMode::exists((string) $json['codingMode']) ? Ac4CodingMode::UNKNOWN_TO_SDK : (string) $json['codingMode']) : null,
+            'DynamicRangeCompressionFlatPanelTv' => isset($json['dynamicRangeCompressionFlatPanelTv']) ? (!Ac4DynamicRangeCompressionDrcProfile::exists((string) $json['dynamicRangeCompressionFlatPanelTv']) ? Ac4DynamicRangeCompressionDrcProfile::UNKNOWN_TO_SDK : (string) $json['dynamicRangeCompressionFlatPanelTv']) : null,
+            'DynamicRangeCompressionHomeTheater' => isset($json['dynamicRangeCompressionHomeTheater']) ? (!Ac4DynamicRangeCompressionDrcProfile::exists((string) $json['dynamicRangeCompressionHomeTheater']) ? Ac4DynamicRangeCompressionDrcProfile::UNKNOWN_TO_SDK : (string) $json['dynamicRangeCompressionHomeTheater']) : null,
+            'DynamicRangeCompressionPortableHeadphones' => isset($json['dynamicRangeCompressionPortableHeadphones']) ? (!Ac4DynamicRangeCompressionDrcProfile::exists((string) $json['dynamicRangeCompressionPortableHeadphones']) ? Ac4DynamicRangeCompressionDrcProfile::UNKNOWN_TO_SDK : (string) $json['dynamicRangeCompressionPortableHeadphones']) : null,
+            'DynamicRangeCompressionPortableSpeakers' => isset($json['dynamicRangeCompressionPortableSpeakers']) ? (!Ac4DynamicRangeCompressionDrcProfile::exists((string) $json['dynamicRangeCompressionPortableSpeakers']) ? Ac4DynamicRangeCompressionDrcProfile::UNKNOWN_TO_SDK : (string) $json['dynamicRangeCompressionPortableSpeakers']) : null,
+            'LoRoCenterMixLevel' => isset($json['loRoCenterMixLevel']) ? (float) $json['loRoCenterMixLevel'] : null,
+            'LoRoSurroundMixLevel' => isset($json['loRoSurroundMixLevel']) ? (float) $json['loRoSurroundMixLevel'] : null,
+            'LtRtCenterMixLevel' => isset($json['ltRtCenterMixLevel']) ? (float) $json['ltRtCenterMixLevel'] : null,
+            'LtRtSurroundMixLevel' => isset($json['ltRtSurroundMixLevel']) ? (float) $json['ltRtSurroundMixLevel'] : null,
+            'SampleRate' => isset($json['sampleRate']) ? (int) $json['sampleRate'] : null,
+            'StereoDownmix' => isset($json['stereoDownmix']) ? (!Ac4StereoDownmix::exists((string) $json['stereoDownmix']) ? Ac4StereoDownmix::UNKNOWN_TO_SDK : (string) $json['stereoDownmix']) : null,
+        ]);
+    }
+
     private function populateResultAccelerationSettings(array $json): AccelerationSettings
     {
         return new AccelerationSettings([
@@ -741,6 +766,7 @@ class GetJobResponse extends Result
         return new AudioCodecSettings([
             'AacSettings' => empty($json['aacSettings']) ? null : $this->populateResultAacSettings($json['aacSettings']),
             'Ac3Settings' => empty($json['ac3Settings']) ? null : $this->populateResultAc3Settings($json['ac3Settings']),
+            'Ac4Settings' => empty($json['ac4Settings']) ? null : $this->populateResultAc4Settings($json['ac4Settings']),
             'AiffSettings' => empty($json['aiffSettings']) ? null : $this->populateResultAiffSettings($json['aiffSettings']),
             'Codec' => isset($json['codec']) ? (!AudioCodec::exists((string) $json['codec']) ? AudioCodec::UNKNOWN_TO_SDK : (string) $json['codec']) : null,
             'Eac3AtmosSettings' => empty($json['eac3AtmosSettings']) ? null : $this->populateResultEac3AtmosSettings($json['eac3AtmosSettings']),
@@ -1033,6 +1059,7 @@ class GetJobResponse extends Result
     private function populateResultCmafEncryptionSettings(array $json): CmafEncryptionSettings
     {
         return new CmafEncryptionSettings([
+            'ClearLead' => isset($json['clearLead']) ? (!HlsClearLead::exists((string) $json['clearLead']) ? HlsClearLead::UNKNOWN_TO_SDK : (string) $json['clearLead']) : null,
             'ConstantInitializationVector' => isset($json['constantInitializationVector']) ? (string) $json['constantInitializationVector'] : null,
             'EncryptionMethod' => isset($json['encryptionMethod']) ? (!CmafEncryptionType::exists((string) $json['encryptionMethod']) ? CmafEncryptionType::UNKNOWN_TO_SDK : (string) $json['encryptionMethod']) : null,
             'InitializationVectorInManifest' => isset($json['initializationVectorInManifest']) ? (!CmafInitializationVectorInManifest::exists((string) $json['initializationVectorInManifest']) ? CmafInitializationVectorInManifest::UNKNOWN_TO_SDK : (string) $json['initializationVectorInManifest']) : null,

@@ -15,6 +15,7 @@ final class AudioCodec
 {
     public const AAC = 'AAC';
     public const AC3 = 'AC3';
+    public const AC4 = 'AC4';
     public const AIFF = 'AIFF';
     public const EAC3 = 'EAC3';
     public const EAC3_ATMOS = 'EAC3_ATMOS';
@@ -35,6 +36,7 @@ final class AudioCodec
         return isset([
             self::AAC => true,
             self::AC3 => true,
+            self::AC4 => true,
             self::AIFF => true,
             self::EAC3 => true,
             self::EAC3_ATMOS => true,
