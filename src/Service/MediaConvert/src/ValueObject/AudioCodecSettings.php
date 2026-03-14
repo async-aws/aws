@@ -29,6 +29,13 @@ final class AudioCodecSettings
     private $ac3Settings;
 
     /**
+     * Required when you set Codec to the value AC4.
+     *
+     * @var Ac4Settings|null
+     */
+    private $ac4Settings;
+
+    /**
      * Required when you set Codec to the value AIFF.
      *
      * @var AiffSettings|null
@@ -108,6 +115,7 @@ final class AudioCodecSettings
      * @param array{
      *   AacSettings?: AacSettings|array|null,
      *   Ac3Settings?: Ac3Settings|array|null,
+     *   Ac4Settings?: Ac4Settings|array|null,
      *   AiffSettings?: AiffSettings|array|null,
      *   Codec?: AudioCodec::*|null,
      *   Eac3AtmosSettings?: Eac3AtmosSettings|array|null,
@@ -124,6 +132,7 @@ final class AudioCodecSettings
     {
         $this->aacSettings = isset($input['AacSettings']) ? AacSettings::create($input['AacSettings']) : null;
         $this->ac3Settings = isset($input['Ac3Settings']) ? Ac3Settings::create($input['Ac3Settings']) : null;
+        $this->ac4Settings = isset($input['Ac4Settings']) ? Ac4Settings::create($input['Ac4Settings']) : null;
         $this->aiffSettings = isset($input['AiffSettings']) ? AiffSettings::create($input['AiffSettings']) : null;
         $this->codec = $input['Codec'] ?? null;
         $this->eac3AtmosSettings = isset($input['Eac3AtmosSettings']) ? Eac3AtmosSettings::create($input['Eac3AtmosSettings']) : null;
@@ -140,6 +149,7 @@ final class AudioCodecSettings
      * @param array{
      *   AacSettings?: AacSettings|array|null,
      *   Ac3Settings?: Ac3Settings|array|null,
+     *   Ac4Settings?: Ac4Settings|array|null,
      *   AiffSettings?: AiffSettings|array|null,
      *   Codec?: AudioCodec::*|null,
      *   Eac3AtmosSettings?: Eac3AtmosSettings|array|null,
@@ -165,6 +175,11 @@ final class AudioCodecSettings
     public function getAc3Settings(): ?Ac3Settings
     {
         return $this->ac3Settings;
+    }
+
+    public function getAc4Settings(): ?Ac4Settings
+    {
+        return $this->ac4Settings;
     }
 
     public function getAiffSettings(): ?AiffSettings
@@ -231,6 +246,9 @@ final class AudioCodecSettings
         }
         if (null !== $v = $this->ac3Settings) {
             $payload['ac3Settings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->ac4Settings) {
+            $payload['ac4Settings'] = $v->requestBody();
         }
         if (null !== $v = $this->aiffSettings) {
             $payload['aiffSettings'] = $v->requestBody();
