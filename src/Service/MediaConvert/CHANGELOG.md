@@ -7,6 +7,10 @@
 - AWS api-change: Rework endpoints resolution.
 - AWS api-change: This update adds support for Dolby AC-4 audio output, frame rate conversion between non-Dolby Vision inputs to Dolby Vision outputs, and clear lead CMAF HLS output.
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 1.13.0
 
 ### Added
