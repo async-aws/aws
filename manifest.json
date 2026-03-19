@@ -439,10 +439,12 @@
                 "DeleteFunction",
                 "GetFunctionConfiguration",
                 "Invoke",
+                "ListEventSourceMappings",
                 "ListFunctions",
                 "ListLayerVersions",
                 "ListVersionsByFunction",
                 "PublishLayerVersion",
+                "PutFunctionConcurrency",
                 "UpdateFunctionConfiguration"
             ]
         },

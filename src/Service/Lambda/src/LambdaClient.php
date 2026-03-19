@@ -58,15 +58,19 @@ use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListEventSourceMappingsRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Input\PutFunctionConcurrencyRequest;
 use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\Concurrency;
 use AsyncAws\Lambda\Result\DeleteFunctionResponse;
 use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\Result\ListEventSourceMappingsResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
@@ -349,6 +353,39 @@ class LambdaClient extends AbstractApi
     }
 
     /**
+     * Lists event source mappings. Specify an `EventSourceArn` to show only event source mappings for a single event
+     * source.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListEventSourceMappings.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listeventsourcemappings
+     *
+     * @param array{
+     *   EventSourceArn?: string|null,
+     *   FunctionName?: string|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
+     *   '@region'?: string|null,
+     * }|ListEventSourceMappingsRequest $input
+     *
+     * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
+     */
+    public function listEventSourceMappings($input = []): ListEventSourceMappingsResponse
+    {
+        $input = ListEventSourceMappingsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListEventSourceMappings', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new ListEventSourceMappingsResponse($response, $this, $input);
+    }
+
+    /**
      * Returns a list of Lambda functions, with the version-specific configuration of each. Lambda returns up to 50
      * functions per call.
      *
@@ -497,6 +534,49 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new PublishLayerVersionResponse($response);
+    }
+
+    /**
+     * Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level.
+     *
+     * Concurrency settings apply to the function as a whole, including all published versions and the unpublished version.
+     * Reserving concurrency both ensures that your function has capacity to process the specified number of events
+     * simultaneously, and prevents it from scaling beyond that level. Use GetFunction to see the current setting for a
+     * function.
+     *
+     * Use GetAccountSettings to see your Regional concurrency limit. You can reserve concurrency for as many functions as
+     * you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured
+     * with a per-function limit. For more information, see Lambda function scaling [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_PutFunctionConcurrency.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#putfunctionconcurrency
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   ReservedConcurrentExecutions: int,
+     *   '@region'?: string|null,
+     * }|PutFunctionConcurrencyRequest $input
+     *
+     * @throws InvalidParameterValueException
+     * @throws ResourceConflictException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
+     */
+    public function putFunctionConcurrency($input): Concurrency
+    {
+        $input = PutFunctionConcurrencyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutFunctionConcurrency', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new Concurrency($response);
     }
 
     /**

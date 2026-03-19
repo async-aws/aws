@@ -12,10 +12,12 @@ use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListEventSourceMappingsRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Input\PutFunctionConcurrencyRequest;
 use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\InvocationResponse;
@@ -166,6 +168,24 @@ class LambdaClientTest extends TestCase
         self::assertEqualsCanonicalizing($expected, $resolves);
     }
 
+    public function testListEventSourceMappings(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListEventSourceMappingsRequest([
+            'EventSourceArn' => 'change me',
+            'FunctionName' => 'change me',
+            'Marker' => 'change me',
+            'MaxItems' => 1337,
+        ]);
+        $result = $client->listEventSourceMappings($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getEventSourceMappings());
+    }
+
     public function testListFunctions(): void
     {
         self::markTestSkipped('The Lambda Docker image does not implement ListFunctions.');
@@ -248,6 +268,21 @@ class LambdaClientTest extends TestCase
         self::assertSame(1337, $result->getVersion());
         // self::assertTODO(expected, $result->getCompatibleRuntimes());
         self::assertStringContainsString('change it', $result->getLicenseInfo());
+    }
+
+    public function testPutFunctionConcurrency(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutFunctionConcurrencyRequest([
+            'FunctionName' => 'change me',
+            'ReservedConcurrentExecutions' => 1337,
+        ]);
+        $result = $client->putFunctionConcurrency($input);
+
+        $result->resolve();
+
+        self::assertSame(1337, $result->getReservedConcurrentExecutions());
     }
 
     public function testUpdateFunctionConfiguration(): void
