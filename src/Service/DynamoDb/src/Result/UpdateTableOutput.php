@@ -272,6 +272,7 @@ class UpdateTableOutput extends Result
         return new ReplicaDescription([
             'RegionName' => isset($json['RegionName']) ? (string) $json['RegionName'] : null,
             'ReplicaStatus' => isset($json['ReplicaStatus']) ? (!ReplicaStatus::exists((string) $json['ReplicaStatus']) ? ReplicaStatus::UNKNOWN_TO_SDK : (string) $json['ReplicaStatus']) : null,
+            'ReplicaArn' => isset($json['ReplicaArn']) ? (string) $json['ReplicaArn'] : null,
             'ReplicaStatusDescription' => isset($json['ReplicaStatusDescription']) ? (string) $json['ReplicaStatusDescription'] : null,
             'ReplicaStatusPercentProgress' => isset($json['ReplicaStatusPercentProgress']) ? (string) $json['ReplicaStatusPercentProgress'] : null,
             'KMSMasterKeyId' => isset($json['KMSMasterKeyId']) ? (string) $json['KMSMasterKeyId'] : null,

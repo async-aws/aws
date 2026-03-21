@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: This change supports the creation of multi-account global tables. It adds one new arguments to UpdateTable, GlobalTableSettingsReplicationMode.
+- AWS api-change: Adding ReplicaArn to ReplicaDescription of a global table replica
 
 ## 3.10.0
 
