@@ -39,6 +39,13 @@ final class ReplicaDescription
     private $replicaStatus;
 
     /**
+     * The Amazon Resource Name (ARN) of the global table replica.
+     *
+     * @var string|null
+     */
+    private $replicaArn;
+
+    /**
      * Detailed information about the replica status.
      *
      * @var string|null
@@ -116,6 +123,7 @@ final class ReplicaDescription
      * @param array{
      *   RegionName?: string|null,
      *   ReplicaStatus?: ReplicaStatus::*|null,
+     *   ReplicaArn?: string|null,
      *   ReplicaStatusDescription?: string|null,
      *   ReplicaStatusPercentProgress?: string|null,
      *   KMSMasterKeyId?: string|null,
@@ -132,6 +140,7 @@ final class ReplicaDescription
     {
         $this->regionName = $input['RegionName'] ?? null;
         $this->replicaStatus = $input['ReplicaStatus'] ?? null;
+        $this->replicaArn = $input['ReplicaArn'] ?? null;
         $this->replicaStatusDescription = $input['ReplicaStatusDescription'] ?? null;
         $this->replicaStatusPercentProgress = $input['ReplicaStatusPercentProgress'] ?? null;
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
@@ -148,6 +157,7 @@ final class ReplicaDescription
      * @param array{
      *   RegionName?: string|null,
      *   ReplicaStatus?: ReplicaStatus::*|null,
+     *   ReplicaArn?: string|null,
      *   ReplicaStatusDescription?: string|null,
      *   ReplicaStatusPercentProgress?: string|null,
      *   KMSMasterKeyId?: string|null,
@@ -199,6 +209,11 @@ final class ReplicaDescription
     public function getRegionName(): ?string
     {
         return $this->regionName;
+    }
+
+    public function getReplicaArn(): ?string
+    {
+        return $this->replicaArn;
     }
 
     public function getReplicaInaccessibleDateTime(): ?\DateTimeImmutable
