@@ -8,6 +8,10 @@
 - AWS api-change: Adds support for account regional namespaces for general purpose buckets. The account regional namespace is a reserved subdivision of the global bucket namespace where only your account can create general purpose buckets.
 - AWS api-change: Updated list of the valid AWS Region values for the LocationConstraint parameter for general purpose buckets.
 
+### Fixed
+
+- SignerV4: Fix presign request for S3 when request contains user-defined metadata
+
 ## 3.1.0
 
 ### Added

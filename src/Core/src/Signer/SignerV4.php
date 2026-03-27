@@ -84,9 +84,9 @@ class SignerV4 implements Signer
 
     protected function buildBodyDigest(Request $request, bool $isPresign): string
     {
-        if ($request->hasHeader('x-amz-content-sha256')) {
+        if ($request->hasHeader('X-Amz-Content-Sha256')) {
             /** @var string $hash */
-            $hash = $request->getHeader('x-amz-content-sha256');
+            $hash = $request->getHeader('X-Amz-Content-Sha256');
         } else {
             $body = $request->getBody();
             if ($body instanceof ReadOnceResultStream) {
@@ -97,7 +97,7 @@ class SignerV4 implements Signer
         }
 
         if ('UNSIGNED-PAYLOAD' === $hash) {
-            $request->setHeader('x-amz-content-sha256', $hash);
+            $request->setHeader('X-Amz-Content-Sha256', $hash);
         }
 
         return $hash;
@@ -140,7 +140,7 @@ class SignerV4 implements Signer
         $bodyDigest = $this->buildBodyDigest($request, $isPresign);
 
         if ($isPresign) {
-            // Should be called after `buildBodyDigest` because this method moves the header `x-amz-content-sha256` in the querystring
+            // Should be called after `buildBodyDigest` because this method moves the header `X-Amz-Content-Sha256` in the querystring
             $this->convertHeaderToQuery($request);
         }
 
@@ -152,7 +152,7 @@ class SignerV4 implements Signer
         if ($isPresign) {
             $request->setQueryAttribute('X-Amz-Signature', $signature);
         } else {
-            $request->setHeader('authorization', \sprintf(
+            $request->setHeader('Authorization', \sprintf(
                 '%s Credential=%s/%s, SignedHeaders=%s, Signature=%s',
                 self::ALGORITHM_REQUEST,
                 $credentials->getAccessKeyId(),
@@ -189,7 +189,7 @@ class SignerV4 implements Signer
             $host .= ':' . $parsedUrl['port'];
         }
 
-        $request->setHeader('host', $host);
+        $request->setHeader('Host', $host);
     }
 
     private function assignAmzQueryValues(Request $request, Credentials $credentials, bool $isPresign): void
@@ -204,7 +204,7 @@ class SignerV4 implements Signer
         }
 
         if (null !== $sessionToken = $credentials->getSessionToken()) {
-            $request->setHeader('x-amz-security-token', $sessionToken);
+            $request->setHeader('X-Amz-Security-Token', $sessionToken);
         }
     }
 
@@ -243,16 +243,16 @@ class SignerV4 implements Signer
     private function convertHeaderToQuery(Request $request): void
     {
         foreach ($request->getHeaders() as $name => $value) {
-            if ('x-amz' === substr($name, 0, 5)) {
-                $attribute = implode('-', array_map(ucfirst(...), explode('-', $name)));
-                $request->setQueryAttribute($attribute, $value);
+            $lowerName = strtolower($name);
+            if (str_starts_with($lowerName, 'x-amz')) {
+                $request->setQueryAttribute($name, $value);
             }
 
-            if (isset(self::BLACKLIST_HEADERS[$name])) {
+            if (isset(self::BLACKLIST_HEADERS[$lowerName])) {
                 $request->removeHeader($name);
             }
         }
-        $request->removeHeader('x-amz-content-sha256');
+        $request->removeHeader('X-Amz-Content-Sha256');
     }
 
     private function convertBodyToQuery(Request $request): void

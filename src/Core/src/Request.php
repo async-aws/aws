@@ -15,6 +15,8 @@ use AsyncAws\Core\Stream\RequestStream;
 final class Request
 {
     use BuildHttpQueryTrait;
+    private const UPPER = '_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    private const LOWER = '-abcdefghijklmnopqrstuvwxyz';
 
     /**
      * @var string
@@ -30,6 +32,11 @@ final class Request
      * @var array<string, string>
      */
     private $headers;
+
+    /**
+     * @var array<string, string> Map of lowercase header name => original name at registration
+     */
+    private $headerNames = [];
 
     /**
      * @var RequestStream
@@ -70,8 +77,10 @@ final class Request
         $this->method = $method;
         $this->uri = $uri;
         $this->headers = [];
-        foreach ($headers as $key => $value) {
-            $this->headers[strtolower($key)] = (string) $value;
+        foreach ($headers as $name => $value) {
+            $normalized = strtr($name, self::UPPER, self::LOWER);
+            $this->headerNames[$normalized] = $name;
+            $this->headers[$name] = (string) $value;
         }
         $this->body = $body;
         $this->query = $query;
@@ -96,12 +105,20 @@ final class Request
 
     public function hasHeader(string $name): bool
     {
-        return \array_key_exists(strtolower($name), $this->headers);
+        $normalized = strtr($name, self::UPPER, self::LOWER);
+
+        return isset($this->headerNames[$normalized]);
     }
 
     public function setHeader(string $name, string $value): void
     {
-        $this->headers[strtolower($name)] = $value;
+        $normalized = strtr($name, self::UPPER, self::LOWER);
+
+        if (isset($this->headerNames[$normalized])) {
+            unset($this->headers[$this->headerNames[$normalized]]);
+        }
+        $this->headerNames[$normalized] = $name;
+        $this->headers[$name] = $value;
     }
 
     /**
@@ -114,12 +131,25 @@ final class Request
 
     public function getHeader(string $name): ?string
     {
-        return $this->headers[strtolower($name)] ?? null;
+        $normalized = strtr($name, self::UPPER, self::LOWER);
+        if (!isset($this->headerNames[$normalized])) {
+            return null;
+        }
+
+        $name = $this->headerNames[$normalized];
+
+        return $this->headers[$name] ?? null;
     }
 
     public function removeHeader(string $name): void
     {
-        unset($this->headers[strtolower($name)]);
+        $normalized = strtr($name, self::UPPER, self::LOWER);
+        if (!isset($this->headerNames[$normalized])) {
+            return;
+        }
+
+        $name = $this->headerNames[$normalized];
+        unset($this->headers[$name], $this->headerNames[$normalized]);
     }
 
     public function getBody(): RequestStream

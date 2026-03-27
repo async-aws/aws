@@ -8,6 +8,10 @@
 - AwsClientFactory: add `ec2()` method for the new `async-aws/ec2` client
 - XmlAwsErrorFactory: parse EC2-style error envelopes (`<Response><Errors><Error>...`)
 
+### Fixed
+
+- SignerV4: Fix presign request for S3 when request contains user-defined metadata
+
 ## 1.28.1
 
 ### Changed
