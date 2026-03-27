@@ -213,6 +213,7 @@ class InputGenerator
                 }
             } elseif ($memberShape instanceof DocumentShape) {
                 $typeAlreadyNullable = true; // The type itself is already nullable
+                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|(callable(int): string)|iterable<string>';
                 $returnType = null;

@@ -95,6 +95,7 @@ final class QueryVectorsInput extends Input
         $this->indexArn = $input['indexArn'] ?? null;
         $this->topK = $input['topK'] ?? null;
         $this->queryVector = isset($input['queryVector']) ? VectorData::create($input['queryVector']) : null;
+        $this->filter = $input['filter'] ?? null;
         $this->returnMetadata = $input['returnMetadata'] ?? null;
         $this->returnDistance = $input['returnDistance'] ?? null;
         parent::__construct($input);
