@@ -29,7 +29,25 @@ class QueryVectorsInputTest extends TestCase
             Content-Type: application/json
             Accept: application/json
 
-            {"vectorBucketName":"my-bucket","indexName":"my-index","indexArn":"arn:aws:s3:us-east-1:123456789012:index/my-index","topK":5,"queryVector":{"float32":[1.23,4.56]},"returnMetadata":true,"returnDistance":true}
+            {
+                "vectorBucketName": "my-bucket",
+                "filter": {
+                    "tag": "value"
+                },
+                "indexName": "my-index",
+                "indexArn": "arn:aws:s3:us-east-1:123456789012:index/my-index",
+                "topK": 5,
+                "queryVector":
+                {
+                    "float32":
+                    [
+                        1.23,
+                        4.56
+                    ]
+                },
+                "returnMetadata": true,
+                "returnDistance": true
+            }
         ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
