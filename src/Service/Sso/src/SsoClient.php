@@ -67,6 +67,13 @@ class SsoClient extends AbstractApi
                     'signService' => 'awsssoportal',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://portal.sso.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'awsssoportal',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [
