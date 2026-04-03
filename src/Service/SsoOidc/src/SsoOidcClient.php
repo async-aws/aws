@@ -96,6 +96,13 @@ class SsoOidcClient extends AbstractApi
                     'signService' => 'sso-oauth',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://oidc.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'sso-oauth',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         return [
