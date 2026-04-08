@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Launching Lambda integration with S3 Files as a new file system configuration.
+
 ## 2.13.1
 
 ### Changed

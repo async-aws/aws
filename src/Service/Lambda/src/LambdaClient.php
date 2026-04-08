@@ -43,6 +43,9 @@ use AsyncAws\Lambda\Exception\RequestTooLargeException;
 use AsyncAws\Lambda\Exception\ResourceConflictException;
 use AsyncAws\Lambda\Exception\ResourceNotFoundException;
 use AsyncAws\Lambda\Exception\ResourceNotReadyException;
+use AsyncAws\Lambda\Exception\S3FilesMountConnectivityException;
+use AsyncAws\Lambda\Exception\S3FilesMountFailureException;
+use AsyncAws\Lambda\Exception\S3FilesMountTimeoutException;
 use AsyncAws\Lambda\Exception\SerializedRequestEntityTooLargeException;
 use AsyncAws\Lambda\Exception\ServiceException;
 use AsyncAws\Lambda\Exception\SnapStartException;
@@ -288,6 +291,9 @@ class LambdaClient extends AbstractApi
      * @throws ResourceConflictException
      * @throws ResourceNotFoundException
      * @throws ResourceNotReadyException
+     * @throws S3FilesMountConnectivityException
+     * @throws S3FilesMountFailureException
+     * @throws S3FilesMountTimeoutException
      * @throws SerializedRequestEntityTooLargeException
      * @throws ServiceException
      * @throws SnapStartException
@@ -326,6 +332,9 @@ class LambdaClient extends AbstractApi
             'ResourceConflictException' => ResourceConflictException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ResourceNotReadyException' => ResourceNotReadyException::class,
+            'S3FilesMountConnectivityException' => S3FilesMountConnectivityException::class,
+            'S3FilesMountFailureException' => S3FilesMountFailureException::class,
+            'S3FilesMountTimeoutException' => S3FilesMountTimeoutException::class,
             'SerializedRequestEntityTooLargeException' => SerializedRequestEntityTooLargeException::class,
             'ServiceException' => ServiceException::class,
             'SnapStartException' => SnapStartException::class,

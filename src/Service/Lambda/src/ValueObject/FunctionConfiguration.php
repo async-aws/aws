@@ -234,9 +234,10 @@ final class FunctionConfiguration
     private $lastUpdateStatusReasonCode;
 
     /**
-     * Connection settings for an Amazon EFS file system [^1].
+     * Connection settings for an Amazon EFS file system [^1] or an Amazon S3 Files file system [^2].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
+     * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
      *
      * @var FileSystemConfig[]|null
      */
