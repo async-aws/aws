@@ -182,7 +182,7 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $layers;
 
     /**
-     * Connection settings for an Amazon EFS file system.
+     * Connection settings for an Amazon EFS file system or an Amazon S3 Files file system.
      *
      * @var FileSystemConfig[]|null
      */

@@ -6,6 +6,7 @@
 
 - Added `S3Client::getBucketLifecycleConfiguration()` and `S3Client::putBucketLifecycleConfiguration()` methods
 - AWS api-change: Adds support for account regional namespaces for general purpose buckets. The account regional namespace is a reserved subdivision of the global bucket namespace where only your account can create general purpose buckets.
+- AWS api-change: Updated list of the valid AWS Region values for the LocationConstraint parameter for general purpose buckets.
 
 ## 3.1.0
 

@@ -5,14 +5,17 @@ namespace AsyncAws\Lambda\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Details about the connection between a Lambda function and an Amazon EFS file system [^1].
+ * Details about the connection between a Lambda function and an Amazon EFS file system [^1] or an Amazon S3 Files file
+ * system [^2].
  *
  * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
+ * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
  */
 final class FileSystemConfig
 {
     /**
-     * The Amazon Resource Name (ARN) of the Amazon EFS access point that provides access to the file system.
+     * The Amazon Resource Name (ARN) of the Amazon EFS or Amazon S3 Files access point that provides access to the file
+     * system.
      *
      * @var string
      */
