@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix URL encoding of `CopySource` in `CopyObjectRequest` (fix #2060)
+
 ### Added
 
 - Added `S3Client::getBucketLifecycleConfiguration()` and `S3Client::putBucketLifecycleConfiguration()` methods

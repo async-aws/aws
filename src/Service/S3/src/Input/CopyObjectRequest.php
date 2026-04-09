@@ -1162,7 +1162,7 @@ final class CopyObjectRequest extends Input
         if (null === $v = $this->copySource) {
             throw new InvalidArgument(\sprintf('Missing parameter "CopySource" for "%s". The value cannot be null.', __CLASS__));
         }
-        $headers['x-amz-copy-source'] = $v;
+        $headers['x-amz-copy-source'] = str_replace('%2F', '/', rawurlencode($v));
         if (null !== $this->copySourceIfMatch) {
             $headers['x-amz-copy-source-if-match'] = $this->copySourceIfMatch;
         }

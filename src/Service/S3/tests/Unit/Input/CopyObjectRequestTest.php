@@ -16,7 +16,7 @@ class CopyObjectRequestTest extends TestCase
             'Key' => 'my-second-image.jpg',
             'Bucket' => 'my-bucket',
             'ContentType' => 'image/jpg',
-            'CopySource' => '/bucket/my-image.jpg',
+            'CopySource' => '/bucket/my-image% $.jpg',
             'Metadata' => [
                 'filename' => 'biz',
             ],
@@ -25,7 +25,7 @@ class CopyObjectRequestTest extends TestCase
         $expected = '
             PUT /my-bucket/my-second-image.jpg HTTP/1.0
             Content-Type: image/jpg
-            x-amz-copy-source: /bucket/my-image.jpg
+            x-amz-copy-source: /bucket/my-image%25%20%24.jpg
             x-amz-meta-filename: biz
         ';
 
