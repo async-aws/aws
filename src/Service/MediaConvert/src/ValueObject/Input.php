@@ -186,6 +186,16 @@ final class Input
     private $inputScanType;
 
     /**
+     * Specify the enhancement layer input video file path for Multi View outputs. The base layer input is treated as the
+     * left eye and this Multi View input is treated as the right eye. Only one Multi View input is currently supported.
+     * MediaConvert encodes both views into a single MV-HEVC output codec. When you add MultiViewSettings to your job, you
+     * can only produce Multi View outputs. Adding any other codec output to the same job is not supported.
+     *
+     * @var MultiViewSettings[]|null
+     */
+    private $multiViewSettings;
+
+    /**
      * Use Selection placement to define the video area in your output frame. The area outside of the rectangle that you
      * specify here is black. If you specify a value here, it will override any value that you specify in the output setting
      * Selection placement. If you specify a value here, this will override any AFD values in your input, even if you set
@@ -303,6 +313,7 @@ final class Input
      *   ImageInserter?: ImageInserter|array|null,
      *   InputClippings?: array<InputClipping|array>|null,
      *   InputScanType?: InputScanType::*|null,
+     *   MultiViewSettings?: array<MultiViewSettings|array>|null,
      *   Position?: Rectangle|array|null,
      *   ProgramNumber?: int|null,
      *   PsiControl?: InputPsiControl::*|null,
@@ -334,6 +345,7 @@ final class Input
         $this->imageInserter = isset($input['ImageInserter']) ? ImageInserter::create($input['ImageInserter']) : null;
         $this->inputClippings = isset($input['InputClippings']) ? array_map([InputClipping::class, 'create'], $input['InputClippings']) : null;
         $this->inputScanType = $input['InputScanType'] ?? null;
+        $this->multiViewSettings = isset($input['MultiViewSettings']) ? array_map([MultiViewSettings::class, 'create'], $input['MultiViewSettings']) : null;
         $this->position = isset($input['Position']) ? Rectangle::create($input['Position']) : null;
         $this->programNumber = $input['ProgramNumber'] ?? null;
         $this->psiControl = $input['PsiControl'] ?? null;
@@ -365,6 +377,7 @@ final class Input
      *   ImageInserter?: ImageInserter|array|null,
      *   InputClippings?: array<InputClipping|array>|null,
      *   InputScanType?: InputScanType::*|null,
+     *   MultiViewSettings?: array<MultiViewSettings|array>|null,
      *   Position?: Rectangle|array|null,
      *   ProgramNumber?: int|null,
      *   PsiControl?: InputPsiControl::*|null,
@@ -495,6 +508,14 @@ final class Input
     public function getInputScanType(): ?string
     {
         return $this->inputScanType;
+    }
+
+    /**
+     * @return MultiViewSettings[]
+     */
+    public function getMultiViewSettings(): array
+    {
+        return $this->multiViewSettings ?? [];
     }
 
     public function getPosition(): ?Rectangle
@@ -668,6 +689,14 @@ final class Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "inputScanType" for "%s". The value "%s" is not a valid "InputScanType".', __CLASS__, $v));
             }
             $payload['inputScanType'] = $v;
+        }
+        if (null !== $v = $this->multiViewSettings) {
+            $index = -1;
+            $payload['multiViewSettings'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['multiViewSettings'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->position) {
             $payload['position'] = $v->requestBody();

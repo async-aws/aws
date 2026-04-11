@@ -9,9 +9,9 @@ namespace AsyncAws\MediaConvert\Enum;
  * encryption begins at the start of the second segment. The HLS manifest will omit #EXT-X-KEY tags during the clear
  * segment and insert the first #EXT-X-KEY immediately before the first encrypted fragment. This feature is supported
  * exclusively for CMAF HLS (fMP4) outputs and is compatible with all existing key provider integrations (SPEKE v1,
- * SPEKE v2, and Static Key encryption). Supported codecs: H.264 and H.265 video codecs, and AAC audio codec. Choose
- * Enabled to activate Clear Lead DRM optimization. Choose Disabled to use standard encryption where all segments are
- * encrypted from the beginning.
+ * SPEKE v2, and Static Key encryption). Supported codecs: H.264, H.265, and AV1 video codecs, and AAC audio codec.
+ * Choose Enabled to activate Clear Lead DRM optimization. Choose Disabled to use standard encryption where all segments
+ * are encrypted from the beginning.
  */
 final class HlsClearLead
 {
