@@ -568,6 +568,8 @@ use AsyncAws\MediaConvert\ValueObject\Mpeg2Settings;
 use AsyncAws\MediaConvert\ValueObject\MsSmoothAdditionalManifest;
 use AsyncAws\MediaConvert\ValueObject\MsSmoothEncryptionSettings;
 use AsyncAws\MediaConvert\ValueObject\MsSmoothGroupSettings;
+use AsyncAws\MediaConvert\ValueObject\MultiViewInput;
+use AsyncAws\MediaConvert\ValueObject\MultiViewSettings;
 use AsyncAws\MediaConvert\ValueObject\MxfSettings;
 use AsyncAws\MediaConvert\ValueObject\MxfXavcProfileSettings;
 use AsyncAws\MediaConvert\ValueObject\NexGuardFileMarkerSettings;
@@ -1902,6 +1904,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'ImageInserter' => empty($json['imageInserter']) ? null : $this->populateResultImageInserter($json['imageInserter']),
             'InputClippings' => !isset($json['inputClippings']) ? null : $this->populateResult__listOfInputClipping($json['inputClippings']),
             'InputScanType' => isset($json['inputScanType']) ? (!InputScanType::exists((string) $json['inputScanType']) ? InputScanType::UNKNOWN_TO_SDK : (string) $json['inputScanType']) : null,
+            'MultiViewSettings' => !isset($json['multiViewSettings']) ? null : $this->populateResult__listOfMultiViewSettings($json['multiViewSettings']),
             'Position' => empty($json['position']) ? null : $this->populateResultRectangle($json['position']),
             'ProgramNumber' => isset($json['programNumber']) ? (int) $json['programNumber'] : null,
             'PsiControl' => isset($json['psiControl']) ? (!InputPsiControl::exists((string) $json['psiControl']) ? InputPsiControl::UNKNOWN_TO_SDK : (string) $json['psiControl']) : null,
@@ -2319,6 +2322,20 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'FragmentLength' => isset($json['fragmentLength']) ? (int) $json['fragmentLength'] : null,
             'FragmentLengthControl' => isset($json['fragmentLengthControl']) ? (!MsSmoothFragmentLengthControl::exists((string) $json['fragmentLengthControl']) ? MsSmoothFragmentLengthControl::UNKNOWN_TO_SDK : (string) $json['fragmentLengthControl']) : null,
             'ManifestEncoding' => isset($json['manifestEncoding']) ? (!MsSmoothManifestEncoding::exists((string) $json['manifestEncoding']) ? MsSmoothManifestEncoding::UNKNOWN_TO_SDK : (string) $json['manifestEncoding']) : null,
+        ]);
+    }
+
+    private function populateResultMultiViewInput(array $json): MultiViewInput
+    {
+        return new MultiViewInput([
+            'FileInput' => isset($json['fileInput']) ? (string) $json['fileInput'] : null,
+        ]);
+    }
+
+    private function populateResultMultiViewSettings(array $json): MultiViewSettings
+    {
+        return new MultiViewSettings([
+            'Input' => empty($json['input']) ? null : $this->populateResultMultiViewInput($json['input']),
         ]);
     }
 
@@ -3298,6 +3315,19 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultMsSmoothAdditionalManifest($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return MultiViewSettings[]
+     */
+    private function populateResult__listOfMultiViewSettings(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultMultiViewSettings($item);
         }
 
         return $items;
