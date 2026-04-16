@@ -102,6 +102,7 @@ class TestGenerator
                 $contentType = 'application/x-amz-json-' . number_format($operation->getService()->getJsonVersion(), 1);
 
                 break;
+            case 'ec2':
             case 'query':
                 $stub = substr(var_export($exampleInput ? http_build_query($exampleInput, '', '&', \PHP_QUERY_RFC3986) : "
     Action={$operation->getName()}
@@ -171,6 +172,7 @@ class TestGenerator
         $exampleOutput = $operation->getExample()->getOutput();
         $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see ' . $operation->getApiReferenceDocumentationUrl();
         switch ($operation->getService()->getProtocol()) {
+            case 'ec2':
             case 'rest-xml':
             case 'query':
                 $stub = \sprintf('$response = new SimpleMockedResponse(%s);', var_export($this->arrayToXml($exampleOutput ?? ['change' => 'it']), true));

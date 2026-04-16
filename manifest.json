@@ -259,6 +259,19 @@
                 "UpdateTimeToLive"
             ]
         },
+        "Ec2": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ec2/2016-11-15/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ec2/2016-11-15/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ec2/2016-11-15/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ec2/2016-11-15/waiters-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ec2/2016-11-15/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/AWSEC2/latest/APIReference",
+            "methods": [
+                "DeleteSnapshot",
+                "DeregisterImage",
+                "DescribeImages"
+            ]
+        },
         "Ecr": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/docs-2.json",

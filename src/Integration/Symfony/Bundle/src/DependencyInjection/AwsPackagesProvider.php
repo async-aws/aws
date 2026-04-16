@@ -70,6 +70,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\DynamoDb\DynamoDbClient::class,
                 'package' => 'async-aws/dynamo-db',
             ],
+            'ec2' => [
+                'class' => \AsyncAws\Ec2\Ec2Client::class,
+                'package' => 'async-aws/ec2',
+            ],
             'ecr' => [
                 'class' => \AsyncAws\Ecr\EcrClient::class,
                 'package' => 'async-aws/ecr',

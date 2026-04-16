@@ -146,7 +146,7 @@ class QuerySerializer implements Serializer
         return [];
     }
 
-    private function getQueryName(Member $member, string $default): string
+    protected function getQueryName(Member $member, string $default): string
     {
         if (null !== $member->getQueryName()) {
             return $member->getQueryName();
@@ -162,7 +162,7 @@ class QuerySerializer implements Serializer
         return $default;
     }
 
-    private function getName(Member $member): string
+    protected function getName(Member $member): string
     {
         if ($member instanceof StructureMember) {
             $name = $this->getQueryName($member, $member->getName());

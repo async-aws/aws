@@ -70,6 +70,9 @@ menu:
             comprehend:
                 text: Comprehend
                 url: /clients/comprehend.html
+            ec2:
+                text: EC2
+                url: /clients/ec2.html
             ecr:
                 text: ECR
                 url: /clients/ecr.html

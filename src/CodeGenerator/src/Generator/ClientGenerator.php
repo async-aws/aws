@@ -261,6 +261,7 @@ class ClientGenerator
             $errorFactory = $customErrorFactory;
         } else {
             switch ($definition->getProtocol()) {
+                case 'ec2':
                 case 'query':
                 case 'rest-xml':
                     $errorFactory = XmlAwsErrorFactory::class;
