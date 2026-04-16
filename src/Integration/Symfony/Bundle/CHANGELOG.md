@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for EC2
+
 ## 1.16.0
 
 ### Added

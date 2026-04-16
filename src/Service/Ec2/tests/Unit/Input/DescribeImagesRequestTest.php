@@ -8,7 +8,7 @@ use AsyncAws\Ec2\ValueObject\Filter;
 
 class DescribeImagesRequestTest extends TestCase
 {
-    public function testRequestWithFiltersAndOwners(): void
+    public function testRequest(): void
     {
         $input = new DescribeImagesRequest([
             'Owners' => ['amazon', 'self'],
