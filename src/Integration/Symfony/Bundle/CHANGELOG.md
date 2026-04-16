@@ -4,6 +4,7 @@
 
 ### Added
 
+- Support for ImageBuilder
 - Support for EC2
 
 ## 1.16.0

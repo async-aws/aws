@@ -157,6 +157,7 @@ for more information.
 | [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)                           |
 | [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)                               |
 | [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)                                             |
+| [ImageBuilder](./image-builder.md)          | [async-aws/image-builder](https://packagist.org/packages/async-aws/image-builder)                         |
 | [Iot](./iot.md)                             | [async-aws/iot](https://packagist.org/packages/async-aws/iot)                                             |
 | [IotData](./iot-data.md)                    | [async-aws/iot-data](https://packagist.org/packages/async-aws/iot-data)                                   |
 | [Kinesis](./kinesis.md)                     | [async-aws/kinesis](https://packagist.org/packages/async-aws/kinesis)                                     |

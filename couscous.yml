@@ -91,6 +91,9 @@ menu:
             iam:
                 text: IAM
                 url: /clients/iam.html
+            image-builder:
+                text: ImageBuilder
+                url: /clients/image-builder.html
             iot:
                 text: Iot
                 url: /clients/iot.html

@@ -94,6 +94,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Iam\IamClient::class,
                 'package' => 'async-aws/iam',
             ],
+            'image_builder' => [
+                'class' => \AsyncAws\ImageBuilder\ImageBuilderClient::class,
+                'package' => 'async-aws/image-builder',
+            ],
             'iot' => [
                 'class' => \AsyncAws\Iot\IotClient::class,
                 'package' => 'async-aws/iot',
