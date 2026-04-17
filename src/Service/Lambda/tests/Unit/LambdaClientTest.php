@@ -9,15 +9,19 @@ use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListEventSourceMappingsRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Input\PutFunctionConcurrencyRequest;
 use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\Concurrency;
 use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\Result\ListEventSourceMappingsResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
@@ -83,6 +87,18 @@ class LambdaClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testListEventSourceMappings(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListEventSourceMappingsRequest([
+        ]);
+        $result = $client->listEventSourceMappings($input);
+
+        self::assertInstanceOf(ListEventSourceMappingsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testListFunctions(): void
     {
         $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
@@ -138,6 +154,20 @@ class LambdaClientTest extends TestCase
         $result = $client->PublishLayerVersion($input);
 
         self::assertInstanceOf(PublishLayerVersionResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutFunctionConcurrency(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutFunctionConcurrencyRequest([
+            'FunctionName' => 'change me',
+            'ReservedConcurrentExecutions' => 1337,
+        ]);
+        $result = $client->putFunctionConcurrency($input);
+
+        self::assertInstanceOf(Concurrency::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

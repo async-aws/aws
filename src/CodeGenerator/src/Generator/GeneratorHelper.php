@@ -54,10 +54,12 @@ class GeneratorHelper
             'STL' => 'Stl',
             'TTL' => 'Ttl',
             'URI' => 'Uri',
+            'UUID' => 'Uuid',
             'VPC' => 'Vpc',
             'YUV' => 'Yuv',
 
             'BS' => 'Bs',
+            'DB' => 'Db',
             'ID' => 'Id',
             'NS' => 'Ns',
             'SS' => 'Ss',
