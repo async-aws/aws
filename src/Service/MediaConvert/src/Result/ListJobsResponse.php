@@ -173,6 +173,8 @@ use AsyncAws\MediaConvert\Enum\Eac3PhaseControl;
 use AsyncAws\MediaConvert\Enum\Eac3StereoDownmix;
 use AsyncAws\MediaConvert\Enum\Eac3SurroundExMode;
 use AsyncAws\MediaConvert\Enum\Eac3SurroundMode;
+use AsyncAws\MediaConvert\Enum\ElementalInferenceFeature;
+use AsyncAws\MediaConvert\Enum\ElementalInferenceFeedManagementState;
 use AsyncAws\MediaConvert\Enum\EmbeddedConvert608To708;
 use AsyncAws\MediaConvert\Enum\EmbeddedTerminateCaptions;
 use AsyncAws\MediaConvert\Enum\EmbeddedTimecodeOverride;
@@ -510,6 +512,8 @@ use AsyncAws\MediaConvert\ValueObject\DvbTdtSettings;
 use AsyncAws\MediaConvert\ValueObject\DynamicAudioSelector;
 use AsyncAws\MediaConvert\ValueObject\Eac3AtmosSettings;
 use AsyncAws\MediaConvert\ValueObject\Eac3Settings;
+use AsyncAws\MediaConvert\ValueObject\ElementalInferenceConfiguration;
+use AsyncAws\MediaConvert\ValueObject\ElementalInferenceFeed;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\EncryptionContractConfiguration;
@@ -1472,6 +1476,22 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         ]);
     }
 
+    private function populateResultElementalInferenceConfiguration(array $json): ElementalInferenceConfiguration
+    {
+        return new ElementalInferenceConfiguration([
+            'Features' => !isset($json['features']) ? null : $this->populateResult__listOfElementalInferenceFeature($json['features']),
+            'Feeds' => !isset($json['feeds']) ? null : $this->populateResult__listOfElementalInferenceFeed($json['feeds']),
+        ]);
+    }
+
+    private function populateResultElementalInferenceFeed(array $json): ElementalInferenceFeed
+    {
+        return new ElementalInferenceFeed([
+            'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
+            'FeedManagementState' => isset($json['feedManagementState']) ? (!ElementalInferenceFeedManagementState::exists((string) $json['feedManagementState']) ? ElementalInferenceFeedManagementState::UNKNOWN_TO_SDK : (string) $json['feedManagementState']) : null,
+        ]);
+    }
+
     private function populateResultEmbeddedDestinationSettings(array $json): EmbeddedDestinationSettings
     {
         return new EmbeddedDestinationSettings([
@@ -1987,6 +2007,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'ClientRequestToken' => isset($json['clientRequestToken']) ? (string) $json['clientRequestToken'] : null,
             'CreatedAt' => isset($json['createdAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['createdAt']))) ? $d : null,
             'CurrentPhase' => isset($json['currentPhase']) ? (!JobPhase::exists((string) $json['currentPhase']) ? JobPhase::UNKNOWN_TO_SDK : (string) $json['currentPhase']) : null,
+            'ElementalInferenceConfiguration' => empty($json['elementalInferenceConfiguration']) ? null : $this->populateResultElementalInferenceConfiguration($json['elementalInferenceConfiguration']),
             'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
             'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
             'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),
@@ -3147,6 +3168,38 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultDashAdditionalManifest($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return list<ElementalInferenceFeature::*>
+     */
+    private function populateResult__listOfElementalInferenceFeature(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!ElementalInferenceFeature::exists($a)) {
+                    $a = ElementalInferenceFeature::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return ElementalInferenceFeed[]
+     */
+    private function populateResult__listOfElementalInferenceFeed(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultElementalInferenceFeed($item);
         }
 
         return $items;

@@ -5,6 +5,7 @@ namespace AsyncAws\CognitoIdentityProvider\Input;
 use AsyncAws\CognitoIdentityProvider\ValueObject\EmailMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\WebAuthnMfaSettingsType;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -41,6 +42,19 @@ final class SetUserMFAPreferenceRequest extends Input
     private $emailMfaSettings;
 
     /**
+     * User preferences for passkey MFA. Activates or deactivates passkey MFA for the user. When activated, passkey
+     * authentication requires user verification, and passkey sign-in is available when MFA is required. To activate this
+     * setting, the `FactorConfiguration` of your user pool `WebAuthnConfiguration` must be
+     * `MULTI_FACTOR_WITH_USER_VERIFICATION`. To activate this setting, your user pool must be in the Essentials tier [^1]
+     * or higher.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html
+     *
+     * @var WebAuthnMfaSettingsType|null
+     */
+    private $webAuthnMfaSettings;
+
+    /**
      * A valid access token that Amazon Cognito issued to the currently signed-in user. Must include a scope claim for
      * `aws.cognito.signin.user.admin`.
      *
@@ -55,6 +69,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *   SMSMfaSettings?: SMSMfaSettingsType|array|null,
      *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array|null,
      *   EmailMfaSettings?: EmailMfaSettingsType|array|null,
+     *   WebAuthnMfaSettings?: WebAuthnMfaSettingsType|array|null,
      *   AccessToken?: string,
      *   '@region'?: string|null,
      * } $input
@@ -64,6 +79,7 @@ final class SetUserMFAPreferenceRequest extends Input
         $this->smsMfaSettings = isset($input['SMSMfaSettings']) ? SMSMfaSettingsType::create($input['SMSMfaSettings']) : null;
         $this->softwareTokenMfaSettings = isset($input['SoftwareTokenMfaSettings']) ? SoftwareTokenMfaSettingsType::create($input['SoftwareTokenMfaSettings']) : null;
         $this->emailMfaSettings = isset($input['EmailMfaSettings']) ? EmailMfaSettingsType::create($input['EmailMfaSettings']) : null;
+        $this->webAuthnMfaSettings = isset($input['WebAuthnMfaSettings']) ? WebAuthnMfaSettingsType::create($input['WebAuthnMfaSettings']) : null;
         $this->accessToken = $input['AccessToken'] ?? null;
         parent::__construct($input);
     }
@@ -73,6 +89,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *   SMSMfaSettings?: SMSMfaSettingsType|array|null,
      *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array|null,
      *   EmailMfaSettings?: EmailMfaSettingsType|array|null,
+     *   WebAuthnMfaSettings?: WebAuthnMfaSettingsType|array|null,
      *   AccessToken?: string,
      *   '@region'?: string|null,
      * }|SetUserMFAPreferenceRequest $input
@@ -100,6 +117,11 @@ final class SetUserMFAPreferenceRequest extends Input
     public function getSoftwareTokenMfaSettings(): ?SoftwareTokenMfaSettingsType
     {
         return $this->softwareTokenMfaSettings;
+    }
+
+    public function getWebAuthnMfaSettings(): ?WebAuthnMfaSettingsType
+    {
+        return $this->webAuthnMfaSettings;
     }
 
     /**
@@ -156,6 +178,13 @@ final class SetUserMFAPreferenceRequest extends Input
         return $this;
     }
 
+    public function setWebAuthnMfaSettings(?WebAuthnMfaSettingsType $value): self
+    {
+        $this->webAuthnMfaSettings = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -167,6 +196,9 @@ final class SetUserMFAPreferenceRequest extends Input
         }
         if (null !== $v = $this->emailMfaSettings) {
             $payload['EmailMfaSettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->webAuthnMfaSettings) {
+            $payload['WebAuthnMfaSettings'] = $v->requestBody();
         }
         if (null === $v = $this->accessToken) {
             throw new InvalidArgument(\sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
