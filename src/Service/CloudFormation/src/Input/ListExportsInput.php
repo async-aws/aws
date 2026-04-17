@@ -1,0 +1,83 @@
+<?php
+
+namespace AsyncAws\CloudFormation\Input;
+
+use AsyncAws\Core\Input;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
+
+final class ListExportsInput extends Input
+{
+    /**
+     * The token for the next set of items to return. (You received this token from a previous call.).
+     *
+     * @var string|null
+     */
+    private $nextToken;
+
+    /**
+     * @param array{
+     *   NextToken?: string|null,
+     *   '@region'?: string|null,
+     * } $input
+     */
+    public function __construct(array $input = [])
+    {
+        $this->nextToken = $input['NextToken'] ?? null;
+        parent::__construct($input);
+    }
+
+    /**
+     * @param array{
+     *   NextToken?: string|null,
+     *   '@region'?: string|null,
+     * }|ListExportsInput $input
+     */
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getNextToken(): ?string
+    {
+        return $this->nextToken;
+    }
+
+    /**
+     * @internal
+     */
+    public function request(): Request
+    {
+        // Prepare headers
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+
+        // Prepare query
+        $query = [];
+
+        // Prepare URI
+        $uriString = '/';
+
+        // Prepare Body
+        $body = http_build_query(['Action' => 'ListExports', 'Version' => '2010-05-15'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setNextToken(?string $value): self
+    {
+        $this->nextToken = $value;
+
+        return $this;
+    }
+
+    private function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->nextToken) {
+            $payload['NextToken'] = $v;
+        }
+
+        return $payload;
+    }
+}

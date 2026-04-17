@@ -5,9 +5,11 @@ namespace AsyncAws\CloudFormation;
 use AsyncAws\CloudFormation\Input\DescribeStackDriftDetectionStatusInput;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\Input\ListExportsInput;
 use AsyncAws\CloudFormation\Result\DescribeStackDriftDetectionStatusOutput;
 use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
+use AsyncAws\CloudFormation\Result\ListExportsOutput;
 use AsyncAws\CloudFormation\ValueObject\Stack;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
@@ -97,6 +99,32 @@ class CloudFormationClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStacks', 'region' => $input->getRegion()]));
 
         return new DescribeStacksOutput($response, $this, $input);
+    }
+
+    /**
+     * Lists all exported output values in the account and Region in which you call this action. Use this action to see the
+     * exported output values that you can import into other stacks. To import values, use the Fn::ImportValue [^1]
+     * function.
+     *
+     * For more information, see Get exported outputs from a deployed CloudFormation stack [^2].
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/intrinsic-function-reference-importvalue.html
+     * [^2]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html
+     *
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ListExports.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#listexports
+     *
+     * @param array{
+     *   NextToken?: string|null,
+     *   '@region'?: string|null,
+     * }|ListExportsInput $input
+     */
+    public function listExports($input = []): ListExportsOutput
+    {
+        $input = ListExportsInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListExports', 'region' => $input->getRegion()]));
+
+        return new ListExportsOutput($response, $this, $input);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface

@@ -98,7 +98,8 @@
             "methods": [
                 "DescribeStackDriftDetectionStatus",
                 "DescribeStackEvents",
-                "DescribeStacks"
+                "DescribeStacks",
+                "ListExports"
             ]
         },
         "CloudFront": {

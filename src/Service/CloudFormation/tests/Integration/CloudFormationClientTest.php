@@ -6,6 +6,7 @@ use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Input\DescribeStackDriftDetectionStatusInput;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\Input\ListExportsInput;
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
@@ -62,6 +63,17 @@ class CloudFormationClientTest extends TestCase
         self::expectExceptionMessageMatches('/Stack with id demo does not exist/');
 
         $result->resolve();
+    }
+
+    public function testListExports(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListExportsInput([]);
+        $result = $client->listExports($input);
+
+        self::assertCount(0, iterator_to_array($result->getExports()));
+        self::assertNull($result->getNextToken());
     }
 
     private function getClient(): CloudFormationClient
