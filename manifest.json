@@ -448,8 +448,10 @@
             "methods": [
                 "AddLayerVersionPermission",
                 "DeleteFunction",
+                "GetAlias",
                 "GetFunctionConfiguration",
                 "Invoke",
+                "ListAliases",
                 "ListEventSourceMappings",
                 "ListFunctions",
                 "ListLayerVersions",

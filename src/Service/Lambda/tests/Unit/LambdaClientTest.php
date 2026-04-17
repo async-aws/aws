@@ -7,8 +7,10 @@ use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
+use AsyncAws\Lambda\Input\GetAliasRequest;
 use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListAliasesRequest;
 use AsyncAws\Lambda\Input\ListEventSourceMappingsRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
@@ -18,9 +20,11 @@ use AsyncAws\Lambda\Input\PutFunctionConcurrencyRequest;
 use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\AliasConfiguration;
 use AsyncAws\Lambda\Result\Concurrency;
 use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\Result\ListAliasesResponse;
 use AsyncAws\Lambda\Result\ListEventSourceMappingsResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
@@ -61,6 +65,20 @@ class LambdaClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testGetAlias(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetAliasRequest([
+            'FunctionName' => 'change me',
+            'Name' => 'change me',
+        ]);
+        $result = $client->getAlias($input);
+
+        self::assertInstanceOf(AliasConfiguration::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testGetFunctionConfiguration(): void
     {
         $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
@@ -84,6 +102,19 @@ class LambdaClientTest extends TestCase
         $result = $client->Invoke($input);
 
         self::assertInstanceOf(InvocationResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListAliases(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListAliasesRequest([
+            'FunctionName' => 'change me',
+        ]);
+        $result = $client->listAliases($input);
+
+        self::assertInstanceOf(ListAliasesResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

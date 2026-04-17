@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added `ListEventSourceMappings` and `PutFunctionConcurrency` operations.
+- Added `GetAlias`, `ListAliases`, `ListEventSourceMappings` and `PutFunctionConcurrency` operations.
 - AWS api-change: Launching Lambda integration with S3 Files as a new file system configuration.
 
 ## 2.13.1
