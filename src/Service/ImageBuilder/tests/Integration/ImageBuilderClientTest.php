@@ -5,11 +5,30 @@ namespace AsyncAws\ImageBuilder\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\ImageBuilder\ImageBuilderClient;
+use AsyncAws\ImageBuilder\Input\DeleteImageRequest;
 use AsyncAws\ImageBuilder\Input\GetImageRequest;
+use AsyncAws\ImageBuilder\Input\ListImageBuildVersionsRequest;
+use AsyncAws\ImageBuilder\Input\ListImagesRequest;
 use AsyncAws\ImageBuilder\Input\StartImagePipelineExecutionRequest;
+use AsyncAws\ImageBuilder\ValueObject\Filter;
 
 class ImageBuilderClientTest extends TestCase
 {
+    public function testDeleteImage(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DeleteImageRequest([
+            'imageBuildVersionArn' => 'change me',
+        ]);
+        $result = $client->deleteImage($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getRequestId());
+        self::assertSame('changeIt', $result->getImageBuildVersionArn());
+    }
+
     public function testGetImage(): void
     {
         $client = $this->getClient();
@@ -24,6 +43,52 @@ class ImageBuilderClientTest extends TestCase
         self::assertSame('changeIt', $result->getRequestId());
         // self::assertTODO(expected, $result->getImage());
         // self::assertTODO(expected, $result->getLatestVersionReferences());
+    }
+
+    public function testListImageBuildVersions(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListImageBuildVersionsRequest([
+            'imageVersionArn' => 'change me',
+            'filters' => [new Filter([
+                'name' => 'change me',
+                'values' => ['change me'],
+            ])],
+            'maxResults' => 1337,
+            'nextToken' => 'change me',
+        ]);
+        $result = $client->listImageBuildVersions($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getRequestId());
+        // self::assertTODO(expected, $result->getImageSummaryList());
+        self::assertSame('changeIt', $result->getNextToken());
+    }
+
+    public function testListImages(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListImagesRequest([
+            'owner' => 'change me',
+            'filters' => [new Filter([
+                'name' => 'change me',
+                'values' => ['change me'],
+            ])],
+            'byName' => false,
+            'maxResults' => 1337,
+            'nextToken' => 'change me',
+            'includeDeprecated' => false,
+        ]);
+        $result = $client->listImages($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getRequestId());
+        // self::assertTODO(expected, $result->getImageVersionList());
+        self::assertSame('changeIt', $result->getNextToken());
     }
 
     public function testStartImagePipelineExecution(): void
