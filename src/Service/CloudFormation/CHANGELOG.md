@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added `listExports` operation.
+
 ## 2.0.0
 
 ### BC-BREAK

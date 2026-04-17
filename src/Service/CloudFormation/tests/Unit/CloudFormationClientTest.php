@@ -6,9 +6,11 @@ use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Input\DescribeStackDriftDetectionStatusInput;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\Input\ListExportsInput;
 use AsyncAws\CloudFormation\Result\DescribeStackDriftDetectionStatusOutput;
 use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
+use AsyncAws\CloudFormation\Result\ListExportsOutput;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -50,6 +52,18 @@ class CloudFormationClientTest extends TestCase
         $result = $client->DescribeStacks($input);
 
         self::assertInstanceOf(DescribeStacksOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListExports(): void
+    {
+        $client = new CloudFormationClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListExportsInput([
+        ]);
+        $result = $client->listExports($input);
+
+        self::assertInstanceOf(ListExportsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }
