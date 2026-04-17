@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AwsClientFactory: add `ec2()` method for the new `async-aws/ec2` client
+- XmlAwsErrorFactory: parse EC2-style error envelopes (`<Response><Errors><Error>...`)
+
 ## 1.28.1
 
 ### Changed

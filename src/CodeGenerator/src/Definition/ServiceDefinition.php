@@ -15,7 +15,7 @@ use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
  */
 class ServiceDefinition
 {
-    private const SUPPORTED_PROTOCOLS = ['json', 'rest-json', 'query', 'rest-xml'];
+    private const SUPPORTED_PROTOCOLS = ['ec2', 'json', 'rest-json', 'query', 'rest-xml'];
 
     /**
      * @var string

@@ -43,6 +43,7 @@ class ParserProvider
     public function get(ServiceDefinition $definition): Parser
     {
         switch ($definition->getProtocol()) {
+            case 'ec2':
             case 'query':
             case 'rest-xml':
                 return new RestXmlParser($this->namespaceRegistry, $this->requirementsRegistry, $this->typeGenerator);

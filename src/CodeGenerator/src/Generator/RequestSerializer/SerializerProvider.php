@@ -42,6 +42,8 @@ class SerializerProvider
                 return new RestJsonSerializer($this->namespaceRegistry, $this->requirementsRegistry);
             case 'query':
                 return new QuerySerializer($this->namespaceRegistry, $this->requirementsRegistry);
+            case 'ec2':
+                return new Ec2QuerySerializer($this->namespaceRegistry, $this->requirementsRegistry);
             case 'json':
                 return new JsonRpcSerializer($this->namespaceRegistry, $this->requirementsRegistry);
             default:
