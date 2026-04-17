@@ -10,8 +10,10 @@ use AsyncAws\Lambda\Enum\SnapStartApplyOn;
 use AsyncAws\Lambda\Enum\TracingMode;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
+use AsyncAws\Lambda\Input\GetAliasRequest;
 use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListAliasesRequest;
 use AsyncAws\Lambda\Input\ListEventSourceMappingsRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
@@ -68,6 +70,27 @@ class LambdaClientTest extends TestCase
         $result = $client->DeleteFunction($input);
 
         $result->resolve();
+    }
+
+    public function testGetAlias(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement GetAlias.');
+        $client = $this->getClient();
+
+        $input = new GetAliasRequest([
+            'FunctionName' => 'change me',
+            'Name' => 'change me',
+        ]);
+        $result = $client->getAlias($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getAliasArn());
+        self::assertSame('changeIt', $result->getName());
+        self::assertSame('changeIt', $result->getFunctionVersion());
+        self::assertSame('changeIt', $result->getDescription());
+        // self::assertTODO(expected, $result->getRoutingConfig());
+        self::assertSame('changeIt', $result->getRevisionId());
     }
 
     public function testGetFunctionConfiguration(): void
@@ -166,6 +189,25 @@ class LambdaClientTest extends TestCase
         }
 
         self::assertEqualsCanonicalizing($expected, $resolves);
+    }
+
+    public function testListAliases(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement ListAliases.');
+        $client = $this->getClient();
+
+        $input = new ListAliasesRequest([
+            'FunctionName' => 'change me',
+            'FunctionVersion' => 'change me',
+            'Marker' => 'change me',
+            'MaxItems' => 1337,
+        ]);
+        $result = $client->listAliases($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getAliases());
     }
 
     public function testListEventSourceMappings(): void

@@ -56,8 +56,10 @@ use AsyncAws\Lambda\Exception\TooManyRequestsException;
 use AsyncAws\Lambda\Exception\UnsupportedMediaTypeException;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
+use AsyncAws\Lambda\Input\GetAliasRequest;
 use AsyncAws\Lambda\Input\GetFunctionConfigurationRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListAliasesRequest;
 use AsyncAws\Lambda\Input\ListEventSourceMappingsRequest;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
@@ -66,10 +68,12 @@ use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\Input\PutFunctionConcurrencyRequest;
 use AsyncAws\Lambda\Input\UpdateFunctionConfigurationRequest;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use AsyncAws\Lambda\Result\AliasConfiguration;
 use AsyncAws\Lambda\Result\Concurrency;
 use AsyncAws\Lambda\Result\DeleteFunctionResponse;
 use AsyncAws\Lambda\Result\FunctionConfiguration;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\Result\ListAliasesResponse;
 use AsyncAws\Lambda\Result\ListEventSourceMappingsResponse;
 use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
@@ -175,6 +179,38 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new DeleteFunctionResponse($response);
+    }
+
+    /**
+     * Returns details about a Lambda function alias [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_GetAlias.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#getalias
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   Name: string,
+     *   '@region'?: string|null,
+     * }|GetAliasRequest $input
+     *
+     * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
+     */
+    public function getAlias($input): AliasConfiguration
+    {
+        $input = GetAliasRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetAlias', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new AliasConfiguration($response);
     }
 
     /**
@@ -350,6 +386,40 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new InvocationResponse($response);
+    }
+
+    /**
+     * Returns a list of aliases [^1] for a Lambda function.
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListAliases.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listaliases
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   FunctionVersion?: string|null,
+     *   Marker?: string|null,
+     *   MaxItems?: int|null,
+     *   '@region'?: string|null,
+     * }|ListAliasesRequest $input
+     *
+     * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws ServiceException
+     * @throws TooManyRequestsException
+     */
+    public function listAliases($input): ListAliasesResponse
+    {
+        $input = ListAliasesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListAliases', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new ListAliasesResponse($response, $this, $input);
     }
 
     /**
