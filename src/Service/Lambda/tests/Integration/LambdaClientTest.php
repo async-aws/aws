@@ -170,6 +170,8 @@ class LambdaClientTest extends TestCase
 
     public function testListEventSourceMappings(): void
     {
+        self::markTestSkipped('The Lambda Docker image does not implement ListEventSourceMappings.');
+
         $client = $this->getClient();
 
         $input = new ListEventSourceMappingsRequest([
@@ -272,6 +274,8 @@ class LambdaClientTest extends TestCase
 
     public function testPutFunctionConcurrency(): void
     {
+        self::markTestSkipped('The Lambda Docker image does not implement PutFunctionConcurrency.');
+
         $client = $this->getClient();
 
         $input = new PutFunctionConcurrencyRequest([
