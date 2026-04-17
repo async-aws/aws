@@ -103,6 +103,7 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\EmailMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\WebAuthnMfaSettingsType;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
@@ -1849,6 +1850,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   SMSMfaSettings?: SMSMfaSettingsType|array|null,
      *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array|null,
      *   EmailMfaSettings?: EmailMfaSettingsType|array|null,
+     *   WebAuthnMfaSettings?: WebAuthnMfaSettingsType|array|null,
      *   AccessToken: string,
      *   '@region'?: string|null,
      * }|SetUserMFAPreferenceRequest $input

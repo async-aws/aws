@@ -4,7 +4,9 @@ namespace AsyncAws\MediaConvert\Enum;
 
 /**
  * Specify the video Scaling behavior when your output has a different resolution than your input. For more information,
- * see https://docs.aws.amazon.com/mediaconvert/latest/ug/video-scaling.html.
+ * see https://docs.aws.amazon.com/mediaconvert/latest/ug/video-scaling.html Select Smart Cropping using Elemental
+ * Inference as your scaling behavior to have Elemental Inference automatically crop your video. Smart Crop requires a
+ * vertical output aspect ratio (1:1 is the widest aspect ratio supported).
  */
 final class ScalingBehavior
 {
@@ -12,6 +14,7 @@ final class ScalingBehavior
     public const FILL = 'FILL';
     public const FIT = 'FIT';
     public const FIT_NO_UPSCALE = 'FIT_NO_UPSCALE';
+    public const SMART_CROP = 'SMART_CROP';
     public const STRETCH_TO_OUTPUT = 'STRETCH_TO_OUTPUT';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
@@ -25,6 +28,7 @@ final class ScalingBehavior
             self::FILL => true,
             self::FIT => true,
             self::FIT_NO_UPSCALE => true,
+            self::SMART_CROP => true,
             self::STRETCH_TO_OUTPUT => true,
         ][$value]);
     }

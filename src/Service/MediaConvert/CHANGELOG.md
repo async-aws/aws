@@ -7,6 +7,7 @@
 - AWS api-change: Rework endpoints resolution.
 - AWS api-change: This update adds support for Dolby AC-4 audio output, frame rate conversion between non-Dolby Vision inputs to Dolby Vision outputs, and clear lead CMAF HLS output.
 - AWS api-change: Adds support for MV-HEVC video output and clear lead for AV1 DRM output.
+- AWS api-change: Adds support for Elemental Inference powered smart crop feature, enabling video verticalization
 
 ### Changed
 
