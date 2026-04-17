@@ -7,6 +7,7 @@
 ### Changed
 
 - Remove redundant ext-json requirement
+- Use PartSize as threshold for multipart upload
 
 ## 3.0.0
 
