@@ -21,13 +21,13 @@ class ListExportsOutputTest extends TestCase
   <ListExportsResult>
     <Exports>
       <member>
-        <ExportingStackId>arn:aws:cloudformation:eu-west-1:123456789012:stack/producer/abc123</ExportingStackId>
         <Name>SharedVpcId</Name>
+        <ExportingStackId>arn:aws:cloudformation:eu-west-1:123456789012:stack/producer/12a3b456-0e10-4ce0-9052-5d484a8c4e5b</ExportingStackId>
         <Value>vpc-0abcd1234ef567890</Value>
       </member>
       <member>
-        <ExportingStackId>arn:aws:cloudformation:eu-west-1:123456789012:stack/producer/abc123</ExportingStackId>
         <Name>SharedSubnetId</Name>
+        <ExportingStackId>arn:aws:cloudformation:eu-west-1:123456789012:stack/producer/12a3b456-0e10-4ce0-9052-5d484a8c4e5b</ExportingStackId>
         <Value>subnet-0123456789abcdef0</Value>
       </member>
     </Exports>
@@ -50,7 +50,7 @@ class ListExportsOutputTest extends TestCase
 
         self::assertCount(2, $exports);
         self::assertInstanceOf(Export::class, $exports[0]);
-        self::assertEquals('arn:aws:cloudformation:eu-west-1:123456789012:stack/producer/abc123', $exports[0]->getExportingStackId());
+        self::assertEquals('arn:aws:cloudformation:eu-west-1:123456789012:stack/producer/12a3b456-0e10-4ce0-9052-5d484a8c4e5b', $exports[0]->getExportingStackId());
         self::assertEquals('SharedVpcId', $exports[0]->getName());
         self::assertEquals('vpc-0abcd1234ef567890', $exports[0]->getValue());
         self::assertEquals('SharedSubnetId', $exports[1]->getName());
