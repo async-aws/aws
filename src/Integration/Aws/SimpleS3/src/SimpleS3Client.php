@@ -89,7 +89,7 @@ class SimpleS3Client extends S3Client
         unset($options['PartSize']);
 
         // If file is less than 64MB, use normal upload
-        if (null !== $contentLength && $contentLength < 64 * $megabyte) {
+        if (null !== $contentLength && $contentLength <= $partSize * $megabyte) {
             $this->doSmallFileUpload($options, $bucket, $key, $object);
 
             return;

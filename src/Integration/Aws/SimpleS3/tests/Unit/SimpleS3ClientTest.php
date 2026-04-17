@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace AsyncAws\SimpleS3\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
-use AsyncAws\Core\Test\ResultMockFactory;
+use AsyncAws\S3\Result\CompleteMultipartUploadOutput;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
+use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\SimpleS3\SimpleS3Client;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -49,7 +51,64 @@ class SimpleS3ClientTest extends TestCase
             return true;
         };
 
-        self::assertSmallFileUpload($callback, $bucket, $file, $object);
+        $this->assertSmallFileUpload($callback, $bucket, $file, $object);
+    }
+
+    #[DataProvider('providePartSizes')]
+    public function testUploadIsSmallerThanPartSize(int $partSize)
+    {
+        $object = fopen('php://temp', 'rw+');
+        fwrite($object, str_repeat('a', $partSize * 1024 * 512));
+
+        $bucket = 'bucket';
+        $file = 'some-file.txt';
+        $callback = function (array $input) use ($bucket, $file, $object) {
+            self::assertEquals($bucket, $input['Bucket']);
+            self::assertEquals($file, $input['Key']);
+            self::assertEquals($object, $input['Body']);
+
+            return true;
+        };
+
+        $this->assertSmallFileUpload($callback, $bucket, $file, $object, ['PartSize' => $partSize]);
+    }
+
+    #[DataProvider('providePartSizes')]
+    public function testUploadMatchesPartSize(int $partSize)
+    {
+        $object = fopen('php://temp', 'rw+');
+        fwrite($object, str_repeat('a', $partSize * 1024 * 1024));
+
+        $bucket = 'bucket';
+        $file = 'some-file.txt';
+        $callback = function (array $input) use ($bucket, $file, $object) {
+            self::assertEquals($bucket, $input['Bucket']);
+            self::assertEquals($file, $input['Key']);
+            self::assertEquals($object, $input['Body']);
+
+            return true;
+        };
+
+        $this->assertSmallFileUpload($callback, $bucket, $file, $object, ['PartSize' => $partSize]);
+    }
+
+    #[DataProvider('providePartSizes')]
+    public function testUploadExceedsPartSize(int $partSize)
+    {
+        $object = fopen('php://temp', 'rw+');
+        fwrite($object, str_repeat('a', $partSize * 4096 * 1024));
+
+        $bucket = 'bucket';
+        $file = 'some-file.txt';
+
+        $this->assertMultipartFileUpload(4, $bucket, $file, $object, ['PartSize' => $partSize]);
+    }
+
+    public static function providePartSizes(): \Generator
+    {
+        foreach ([1, 16, 64] as $partSizeInMiB) {
+            yield "$partSizeInMiB MiB" => [$partSizeInMiB];
+        }
     }
 
     public function testUploadSmallFileResource()
@@ -68,7 +127,7 @@ class SimpleS3ClientTest extends TestCase
             return true;
         };
 
-        self::assertSmallFileUpload($callback, $bucket, $file, $object);
+        $this->assertSmallFileUpload($callback, $bucket, $file, $object);
     }
 
     public function testUploadSmallFileClosure()
@@ -91,7 +150,7 @@ class SimpleS3ClientTest extends TestCase
             return true;
         };
 
-        self::assertSmallFileUpload($callback, $bucket, $file, static function (int $length) use ($resource): string {
+        $this->assertSmallFileUpload($callback, $bucket, $file, static function (int $length) use ($resource): string {
             return fread($resource, $length);
         });
     }
@@ -115,7 +174,7 @@ class SimpleS3ClientTest extends TestCase
             return true;
         };
 
-        self::assertSmallFileUpload($callback, $bucket, $file, (static function () use ($contents): iterable {
+        $this->assertSmallFileUpload($callback, $bucket, $file, (static function () use ($contents): iterable {
             foreach ($contents as $data) {
                 yield $data;
             }
@@ -139,30 +198,62 @@ class SimpleS3ClientTest extends TestCase
         });
     }
 
-    private function assertSmallFileUpload(\Closure $callback, string $bucket, string $file, $object): void
+    private function assertSmallFileUpload(\Closure $callback, string $bucket, string $file, $object, array $options = []): void
     {
         $s3 = $this->getMockBuilder(SimpleS3Client::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'putObject', 'completeMultipartUpload'])
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'putObject', 'completeMultipartUpload', 'uploadPart'])
             ->getMock();
 
-        $createMultipartUploadCount = 0;
-        $s3->expects(self::any())->method('createMultipartUpload')->with(self::callback(function () use (&$createMultipartUploadCount) {
-            ++$createMultipartUploadCount;
-
-            return true;
-        }))->willReturn(ResultMockFactory::create(CreateMultipartUploadOutput::class, ['UploadId' => '4711']));
-
-        $s3->expects(self::any())->method('abortMultipartUpload')->with(self::callback(function () use (&$createMultipartUploadCount) {
-            --$createMultipartUploadCount;
-
-            return true;
-        }));
+        $s3->expects(self::never())->method('createMultipartUpload');
+        $s3->expects(self::never())->method('abortMultipartUpload');
         $s3->expects(self::never())->method('completeMultipartUpload');
+        $s3->expects(self::never())->method('uploadPart');
 
         $s3->expects(self::once())->method('putObject')->with(self::callback($callback));
-        $s3->upload($bucket, $file, $object);
+        $s3->upload($bucket, $file, $object, $options);
+    }
 
-        self::assertEquals(0, $createMultipartUploadCount, 'We did not abort all uploads properly.');
+    private function assertMultipartFileUpload(int $expectedNumberOfParts, string $bucket, string $file, $object, array $options = []): void
+    {
+        $s3 = $this->getMockBuilder(SimpleS3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'putObject', 'completeMultipartUpload', 'uploadPart'])
+            ->getMock();
+
+        $s3->expects(self::never())->method('abortMultipartUpload');
+        $s3->expects(self::never())->method('putObject');
+
+        $s3->expects(self::once())->method('createMultipartUpload')->willReturnCallback(static function (array $input) use ($bucket, $file): CreateMultipartUploadOutput {
+            self::assertSame($bucket, $input['Bucket']);
+            self::assertSame($file, $input['Key']);
+
+            $upload = self::createStub(CreateMultipartUploadOutput::class);
+            $upload->method('getUploadId')->willReturn('some-upload-id');
+
+            return $upload;
+        });
+        $s3->expects(self::exactly($expectedNumberOfParts))->method('uploadPart')->willReturnCallback(static function (array $part) use ($bucket, $file): UploadPartOutput {
+            self::assertSame($bucket, $part['Bucket']);
+            self::assertSame($file, $part['Key']);
+            self::assertSame('some-upload-id', $part['UploadId']);
+            self::assertIsInt($part['PartNumber']);
+            self::assertGreaterThan(0, $part['PartNumber']);
+
+            $output = self::createStub(UploadPartOutput::class);
+            $output->method('getETag')->willReturn("some-etag-{$part['PartNumber']}");
+
+            return $output;
+        });
+        $s3->expects(self::once())->method('completeMultipartUpload')->willReturnCallback(static function (array $input) use ($bucket, $file, $expectedNumberOfParts): CompleteMultipartUploadOutput {
+            self::assertSame($bucket, $input['Bucket']);
+            self::assertSame($file, $input['Key']);
+            self::assertSame('some-upload-id', $input['UploadId']);
+            self::assertCount($expectedNumberOfParts, $input['MultipartUpload']->getParts());
+
+            return self::createStub(CompleteMultipartUploadOutput::class);
+        });
+
+        $s3->upload($bucket, $file, $object, $options);
     }
 }
