@@ -3,6 +3,8 @@
 namespace AsyncAws\CloudFormation\Tests\Integration;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudFormation\Enum\StackDriftDetectionStatus;
+use AsyncAws\CloudFormation\Enum\StackDriftStatus;
 use AsyncAws\CloudFormation\Input\DescribeStackDriftDetectionStatusInput;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
@@ -29,12 +31,12 @@ class CloudFormationClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getStackId());
-        self::assertSame('changeIt', $result->getStackDriftDetectionId());
-        self::assertSame('changeIt', $result->getStackDriftStatus());
-        self::assertSame('changeIt', $result->getDetectionStatus());
-        self::assertSame('changeIt', $result->getDetectionStatusReason());
-        self::assertSame(1337, $result->getDriftedStackResourceCount());
+        self::assertSame('arn:aws:cloudformation:eu-west-1:123456789012:stack/MyStack/12a3b456-0e10-4ce0-9052-5d484a8c4e5b', $result->getStackId());
+        self::assertSame('b78ac9b0-dec1-11e7-a451-503a3example', $result->getStackDriftDetectionId());
+        self::assertSame(StackDriftStatus::IN_SYNC, $result->getStackDriftStatus());
+        self::assertSame(StackDriftDetectionStatus::DETECTION_COMPLETE, $result->getDetectionStatus());
+        self::assertNull($result->getDetectionStatusReason());
+        self::assertSame(0, $result->getDriftedStackResourceCount());
     }
 
     public function testDescribeStackEvents(): void
