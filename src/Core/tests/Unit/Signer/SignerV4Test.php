@@ -27,10 +27,33 @@ class SignerV4Test extends TestCase
 
         $expectedHeaders = [
             'header' => 'baz',
-            'host' => 'localhost:1234',
-            'x-amz-security-token' => 'token',
-            'x-amz-date' => '20200101T000000Z',
-            'authorization' => 'AWS4-HMAC-SHA256 Credential=key/20200101/eu-west-1/sqs/aws4_request, SignedHeaders=header;host;x-amz-date;x-amz-security-token, Signature=87e3d70ecfaf7655c24284198c90c61da166aea5bbe2eb3fe470634369acb108',
+            'Host' => 'localhost:1234',
+            'X-Amz-Security-Token' => 'token',
+            'X-Amz-Date' => '20200101T000000Z',
+            'Authorization' => 'AWS4-HMAC-SHA256 Credential=key/20200101/eu-west-1/sqs/aws4_request, SignedHeaders=header;host;x-amz-date;x-amz-security-token, Signature=87e3d70ecfaf7655c24284198c90c61da166aea5bbe2eb3fe470634369acb108',
+        ];
+
+        self::assertEqualsCanonicalizing($expectedHeaders, $request->getHeaders());
+    }
+
+    public function testSignWithCustomMetadata()
+    {
+        $signer = new SignerV4('sqs', 'eu-west-1');
+
+        $request = new Request('POST', '/foo', ['arg' => 'bar'], ['header' => 'baz', 'x-amz-meta-foo' => 'qux'], StringStream::create('body'));
+        $request->setEndpoint('http://localhost:1234/foo?arg=bar');
+        $context = new RequestContext(['currentDate' => new \DateTimeImmutable('2020-01-01T00:00:00Z')]);
+        $credentials = new Credentials('key', 'secret', 'token');
+
+        $signer->sign($request, $credentials, $context);
+
+        $expectedHeaders = [
+            'header' => 'baz',
+            'x-amz-meta-foo' => 'qux',
+            'Host' => 'localhost:1234',
+            'X-Amz-Security-Token' => 'token',
+            'X-Amz-Date' => '20200101T000000Z',
+            'Authorization' => 'AWS4-HMAC-SHA256 Credential=key/20200101/eu-west-1/sqs/aws4_request, SignedHeaders=header;host;x-amz-date;x-amz-meta-foo;x-amz-security-token, Signature=ca51c7ab9267efedb93598add21a9bd8e354471c7cbfdccbb5309b6da1fcc74a',
         ];
 
         self::assertEqualsCanonicalizing($expectedHeaders, $request->getHeaders());
@@ -56,6 +79,32 @@ class SignerV4Test extends TestCase
             'X-Amz-Credential' => 'key/20200101/eu-west-1/sqs/aws4_request',
             'X-Amz-SignedHeaders' => 'header;host',
             'X-Amz-Signature' => '27d875a8ba472ef2c315e2120e7718c4187b4b07f6b787264858227586c0445a',
+        ];
+
+        self::assertEqualsCanonicalizing($expectedQuery, $request->getQuery());
+    }
+
+    public function testPresignWithCustomMetadata()
+    {
+        $signer = new SignerV4('sqs', 'eu-west-1');
+
+        $request = new Request('POST', '/foo', ['arg' => 'bar'], ['header' => 'baz', 'x-amz-meta-foo' => 'qux'], StringStream::create('body'));
+        $request->setEndpoint('http://localhost:1234/foo?arg=bar');
+        $context = new RequestContext(['currentDate' => new \DateTimeImmutable('2020-01-01T00:00:00Z')]);
+        $credentials = new Credentials('key', 'secret', 'token');
+
+        $signer->presign($request, $credentials, $context);
+
+        $expectedQuery = [
+            'arg' => 'bar',
+            'X-Amz-Algorithm' => 'AWS4-HMAC-SHA256',
+            'X-Amz-Security-Token' => 'token',
+            'X-Amz-Date' => '20200101T000000Z',
+            'X-Amz-Expires' => '3600',
+            'X-Amz-Credential' => 'key/20200101/eu-west-1/sqs/aws4_request',
+            'x-amz-meta-foo' => 'qux',
+            'X-Amz-SignedHeaders' => 'header;host;x-amz-meta-foo',
+            'X-Amz-Signature' => '03af97bd38e7310c6335aedce2f588fe3714240bcc390c253b8346f1380df909',
         ];
 
         self::assertEqualsCanonicalizing($expectedQuery, $request->getQuery());
@@ -134,7 +183,7 @@ class SignerV4Test extends TestCase
             // DateHeader should be kept
             [
                 "POST / HTTP/1.1\r\nHost: host.foo.com:443\r\nx-AMZ-date: 20110909T233600Z\r\nExpires: Thu, 21 May 20 20:54:15 +0200\r\n\r\n",
-                "POST / HTTP/1.1\r\nHost: host.foo.com:443\r\nexpires:Thu, 21 May 20 20:54:15 +0200\r\nX-Amz-Date: 20110909T233600Z\r\nAuthorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=expires;host;x-amz-date, Signature=7090e12acc44281b2b46ba195ee1ae09f2e8c81653fcd592abbfbc30e1a5acc6\r\n\r\n",
+                "POST / HTTP/1.1\r\nHost: host.foo.com:443\r\nExpires:Thu, 21 May 20 20:54:15 +0200\r\nX-Amz-Date: 20110909T233600Z\r\nAuthorization: AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/20110909/us-east-1/host/aws4_request, SignedHeaders=expires;host;x-amz-date, Signature=7090e12acc44281b2b46ba195ee1ae09f2e8c81653fcd592abbfbc30e1a5acc6\r\n\r\n",
             ],
         ];
     }

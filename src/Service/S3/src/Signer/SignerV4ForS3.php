@@ -66,11 +66,11 @@ class SignerV4ForS3 extends SignerV4
     public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
         if ((null === ($operation = $context->getOperation()) || isset(self::MD5_OPERATIONS[$operation])) && !$request->hasHeader('content-md5')) {
-            $request->setHeader('content-md5', base64_encode($request->getBody()->hash('md5', true)));
+            $request->setHeader('Content-MD5', base64_encode($request->getBody()->hash('md5', true)));
         }
 
-        if (!$request->hasHeader('x-amz-content-sha256')) {
-            $request->setHeader('x-amz-content-sha256', $request->getBody()->hash());
+        if (!$request->hasHeader('X-Amz-Content-Sha256')) {
+            $request->setHeader('X-Amz-Content-Sha256', $request->getBody()->hash());
         }
 
         parent::sign($request, $credentials, $context);
@@ -79,7 +79,7 @@ class SignerV4ForS3 extends SignerV4
     protected function buildBodyDigest(Request $request, bool $isPresign): string
     {
         if ($isPresign) {
-            $request->setHeader('x-amz-content-sha256', 'UNSIGNED-PAYLOAD');
+            $request->setHeader('X-Amz-Content-Sha256', 'UNSIGNED-PAYLOAD');
 
             return 'UNSIGNED-PAYLOAD';
         }
@@ -125,15 +125,15 @@ class SignerV4ForS3 extends SignerV4
         $customEncoding = $request->getHeader('content-encoding');
 
         // Convert the body into a chunked stream
-        $request->setHeader('content-encoding', $customEncoding ? "aws-chunked, $customEncoding" : 'aws-chunked');
-        $request->setHeader('x-amz-decoded-content-length', (string) $contentLength);
-        $request->setHeader('x-amz-content-sha256', 'STREAMING-' . self::ALGORITHM_CHUNK);
+        $request->setHeader('Content-Encoding', $customEncoding ? "aws-chunked, $customEncoding" : 'aws-chunked');
+        $request->setHeader('X-Amz-Decoded-Content-Length', (string) $contentLength);
+        $request->setHeader('X-Amz-Content-Sha256', 'STREAMING-' . self::ALGORITHM_CHUNK);
 
         // Compute size of content + metadata used sign each Chunk
         $chunkCount = (int) ceil($contentLength / self::CHUNK_SIZE);
         $fullChunkCount = $chunkCount * self::CHUNK_SIZE === $contentLength ? $chunkCount : ($chunkCount - 1);
         $metaLength = \strlen(";chunk-signature=\r\n\r\n") + 64;
-        $request->setHeader('content-length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen(dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen(dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
+        $request->setHeader('Content-Length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen(dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen(dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
         $body = RewindableStream::create(IterableStream::create((function (RequestStream $body) use ($context): iterable {
             $now = $context->getNow();
             $credentialString = $context->getCredentialString();
