@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.29.0
+
 ### Added
 
 - AwsClientFactory: add `imageBuilder()` method for the new `async-aws/image-builder` client

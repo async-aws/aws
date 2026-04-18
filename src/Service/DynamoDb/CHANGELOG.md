@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.11.0
+
 ### Added
 
 - AWS api-change: This change supports the creation of multi-account global tables. It adds one new arguments to UpdateTable, GlobalTableSettingsReplicationMode.

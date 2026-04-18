@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.17.0
+
 ### Added
 
 - Support for ImageBuilder

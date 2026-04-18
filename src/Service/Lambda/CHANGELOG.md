@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.14.0
+
 ### Added
 
 - Added `GetAlias`, `ListAliases`, `ListEventSourceMappings` and `PutFunctionConcurrency` operations.

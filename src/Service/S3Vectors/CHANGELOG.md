@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.0.2
+
 ### Fixed
 
 - Fix QueryVectors's filter option silently ignored
