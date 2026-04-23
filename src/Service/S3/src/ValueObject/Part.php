@@ -90,6 +90,61 @@ final class Part
     private $checksumSha256;
 
     /**
+     * The Base64 encoded, 512-bit `SHA512` digest of the part. This checksum is present if the multipart upload request was
+     * created with the `SHA512` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon
+     * S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha512;
+
+    /**
+     * The Base64 encoded, 128-bit `MD5` digest of the part. This checksum is present if the multipart upload request was
+     * created with the `MD5` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon S3
+     * User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumMd5;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH64` checksum of the part. This checksum is present if the multipart upload request
+     * was created with the `XXHASH64` checksum algorithm. For more information, see Checking object integrity [^1] in the
+     * *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash64;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH3` checksum of the part. This checksum is present if the multipart upload request
+     * was created with the `XXHASH3` checksum algorithm. For more information, see Checking object integrity [^1] in the
+     * *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash3;
+
+    /**
+     * The Base64 encoded, 128-bit `XXHASH128` checksum of the part. This checksum is present if the multipart upload
+     * request was created with the `XXHASH128` checksum algorithm. For more information, see Checking object integrity [^1]
+     * in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash128;
+
+    /**
      * @param array{
      *   PartNumber?: int|null,
      *   LastModified?: \DateTimeImmutable|null,
@@ -100,6 +155,11 @@ final class Part
      *   ChecksumCRC64NVME?: string|null,
      *   ChecksumSHA1?: string|null,
      *   ChecksumSHA256?: string|null,
+     *   ChecksumSHA512?: string|null,
+     *   ChecksumMD5?: string|null,
+     *   ChecksumXXHASH64?: string|null,
+     *   ChecksumXXHASH3?: string|null,
+     *   ChecksumXXHASH128?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -113,6 +173,11 @@ final class Part
         $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
+        $this->checksumSha512 = $input['ChecksumSHA512'] ?? null;
+        $this->checksumMd5 = $input['ChecksumMD5'] ?? null;
+        $this->checksumXxhash64 = $input['ChecksumXXHASH64'] ?? null;
+        $this->checksumXxhash3 = $input['ChecksumXXHASH3'] ?? null;
+        $this->checksumXxhash128 = $input['ChecksumXXHASH128'] ?? null;
     }
 
     /**
@@ -126,6 +191,11 @@ final class Part
      *   ChecksumCRC64NVME?: string|null,
      *   ChecksumSHA1?: string|null,
      *   ChecksumSHA256?: string|null,
+     *   ChecksumSHA512?: string|null,
+     *   ChecksumMD5?: string|null,
+     *   ChecksumXXHASH64?: string|null,
+     *   ChecksumXXHASH3?: string|null,
+     *   ChecksumXXHASH128?: string|null,
      * }|Part $input
      */
     public static function create($input): self
@@ -148,6 +218,11 @@ final class Part
         return $this->checksumCrc64Nvme;
     }
 
+    public function getChecksumMd5(): ?string
+    {
+        return $this->checksumMd5;
+    }
+
     public function getChecksumSha1(): ?string
     {
         return $this->checksumSha1;
@@ -156,6 +231,26 @@ final class Part
     public function getChecksumSha256(): ?string
     {
         return $this->checksumSha256;
+    }
+
+    public function getChecksumSha512(): ?string
+    {
+        return $this->checksumSha512;
+    }
+
+    public function getChecksumXxhash128(): ?string
+    {
+        return $this->checksumXxhash128;
+    }
+
+    public function getChecksumXxhash3(): ?string
+    {
+        return $this->checksumXxhash3;
+    }
+
+    public function getChecksumXxhash64(): ?string
+    {
+        return $this->checksumXxhash64;
     }
 
     public function getEtag(): ?string

@@ -27,35 +27,28 @@ class UploadPartOutput extends Result
     private $etag;
 
     /**
-     * The Base64 encoded, 32-bit `CRC32 checksum` of the object. This checksum is only present if the checksum was uploaded
-     * with the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may
-     * not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each
-     * individual part. For more information about how checksums are calculated with multipart uploads, see Checking object
-     * integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC32` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumCrc32;
 
     /**
-     * The Base64 encoded, 32-bit `CRC32C` checksum of the object. This checksum is only present if the checksum was
-     * uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this
-     * value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values
-     * of each individual part. For more information about how checksums are calculated with multipart uploads, see Checking
-     * object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 32-bit `CRC32C` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumCrc32C;
 
     /**
-     * This header can be used as a data integrity check to verify that the data received is the same data that was
-     * originally sent. This header specifies the Base64 encoded, 64-bit `CRC64NVME` checksum of the part. For more
-     * information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 64-bit `CRC64NVME` checksum of the part. This will only be present if the checksum was provided
+     * in the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -64,30 +57,74 @@ class UploadPartOutput extends Result
     private $checksumCrc64Nvme;
 
     /**
-     * The Base64 encoded, 160-bit `SHA1` digest of the object. This checksum is only present if the checksum was uploaded
-     * with the object. When you use the API operation on an object that was uploaded using multipart uploads, this value
-     * may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of
-     * each individual part. For more information about how checksums are calculated with multipart uploads, see Checking
-     * object integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 160-bit `SHA1` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumSha1;
 
     /**
-     * The Base64 encoded, 256-bit `SHA256` digest of the object. This checksum is only present if the checksum was uploaded
-     * with the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may
-     * not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each
-     * individual part. For more information about how checksums are calculated with multipart uploads, see Checking object
-     * integrity [^1] in the *Amazon S3 User Guide*.
+     * The Base64 encoded, 256-bit `SHA256` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
-     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
      * @var string|null
      */
     private $checksumSha256;
+
+    /**
+     * The Base64 encoded, 512-bit `SHA512` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha512;
+
+    /**
+     * The Base64 encoded, 128-bit `MD5` checksum of the part. This will only be present if the checksum was provided in the
+     * request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumMd5;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH64` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash64;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH3` checksum of the part. This will only be present if the checksum was provided in
+     * the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash3;
+
+    /**
+     * The Base64 encoded, 128-bit `XXHASH128` checksum of the part. This will only be present if the checksum was provided
+     * in the request. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash128;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
@@ -157,6 +194,13 @@ class UploadPartOutput extends Result
         return $this->checksumCrc64Nvme;
     }
 
+    public function getChecksumMd5(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumMd5;
+    }
+
     public function getChecksumSha1(): ?string
     {
         $this->initialize();
@@ -169,6 +213,34 @@ class UploadPartOutput extends Result
         $this->initialize();
 
         return $this->checksumSha256;
+    }
+
+    public function getChecksumSha512(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha512;
+    }
+
+    public function getChecksumXxhash128(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash128;
+    }
+
+    public function getChecksumXxhash3(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash3;
+    }
+
+    public function getChecksumXxhash64(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash64;
     }
 
     public function getEtag(): ?string
@@ -230,6 +302,11 @@ class UploadPartOutput extends Result
         $this->checksumCrc64Nvme = $headers['x-amz-checksum-crc64nvme'][0] ?? null;
         $this->checksumSha1 = $headers['x-amz-checksum-sha1'][0] ?? null;
         $this->checksumSha256 = $headers['x-amz-checksum-sha256'][0] ?? null;
+        $this->checksumSha512 = $headers['x-amz-checksum-sha512'][0] ?? null;
+        $this->checksumMd5 = $headers['x-amz-checksum-md5'][0] ?? null;
+        $this->checksumXxhash64 = $headers['x-amz-checksum-xxhash64'][0] ?? null;
+        $this->checksumXxhash3 = $headers['x-amz-checksum-xxhash3'][0] ?? null;
+        $this->checksumXxhash128 = $headers['x-amz-checksum-xxhash128'][0] ?? null;
         $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
         $this->sseCustomerKeyMd5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
         $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;

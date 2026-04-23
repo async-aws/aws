@@ -177,8 +177,13 @@ final class PutObjectRequest extends Input
      * - `CRC32`
      * - `CRC32C`
      * - `CRC64NVME`
+     * - `MD5`
      * - `SHA1`
      * - `SHA256`
+     * - `SHA512`
+     * - `XXHASH3`
+     * - `XXHASH64`
+     * - `XXHASH128`
      *
      * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
@@ -254,6 +259,61 @@ final class PutObjectRequest extends Input
      * @var string|null
      */
     private $checksumSha256;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 512-bit `SHA512` digest of the object. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha512;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 128-bit `MD5` digest of the object. For more information,
+     * see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumMd5;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 64-bit `XXHASH64` checksum of the object. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash64;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 64-bit `XXHASH3` checksum of the object. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash3;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the Base64 encoded, 128-bit `XXHASH128` checksum of the object. For more
+     * information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash128;
 
     /**
      * The date and time at which the object is no longer cacheable. For more information, see
@@ -633,6 +693,11 @@ final class PutObjectRequest extends Input
      *   ChecksumCRC64NVME?: string|null,
      *   ChecksumSHA1?: string|null,
      *   ChecksumSHA256?: string|null,
+     *   ChecksumSHA512?: string|null,
+     *   ChecksumMD5?: string|null,
+     *   ChecksumXXHASH64?: string|null,
+     *   ChecksumXXHASH3?: string|null,
+     *   ChecksumXXHASH128?: string|null,
      *   Expires?: string|null,
      *   IfMatch?: string|null,
      *   IfNoneMatch?: string|null,
@@ -679,6 +744,11 @@ final class PutObjectRequest extends Input
         $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
+        $this->checksumSha512 = $input['ChecksumSHA512'] ?? null;
+        $this->checksumMd5 = $input['ChecksumMD5'] ?? null;
+        $this->checksumXxhash64 = $input['ChecksumXXHASH64'] ?? null;
+        $this->checksumXxhash3 = $input['ChecksumXXHASH3'] ?? null;
+        $this->checksumXxhash128 = $input['ChecksumXXHASH128'] ?? null;
         $this->expires = $input['Expires'] ?? null;
         $this->ifMatch = $input['IfMatch'] ?? null;
         $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
@@ -725,6 +795,11 @@ final class PutObjectRequest extends Input
      *   ChecksumCRC64NVME?: string|null,
      *   ChecksumSHA1?: string|null,
      *   ChecksumSHA256?: string|null,
+     *   ChecksumSHA512?: string|null,
+     *   ChecksumMD5?: string|null,
+     *   ChecksumXXHASH64?: string|null,
+     *   ChecksumXXHASH3?: string|null,
+     *   ChecksumXXHASH128?: string|null,
      *   Expires?: string|null,
      *   IfMatch?: string|null,
      *   IfNoneMatch?: string|null,
@@ -812,6 +887,11 @@ final class PutObjectRequest extends Input
         return $this->checksumCrc64Nvme;
     }
 
+    public function getChecksumMd5(): ?string
+    {
+        return $this->checksumMd5;
+    }
+
     public function getChecksumSha1(): ?string
     {
         return $this->checksumSha1;
@@ -820,6 +900,26 @@ final class PutObjectRequest extends Input
     public function getChecksumSha256(): ?string
     {
         return $this->checksumSha256;
+    }
+
+    public function getChecksumSha512(): ?string
+    {
+        return $this->checksumSha512;
+    }
+
+    public function getChecksumXxhash128(): ?string
+    {
+        return $this->checksumXxhash128;
+    }
+
+    public function getChecksumXxhash3(): ?string
+    {
+        return $this->checksumXxhash3;
+    }
+
+    public function getChecksumXxhash64(): ?string
+    {
+        return $this->checksumXxhash64;
     }
 
     public function getContentDisposition(): ?string
@@ -1047,6 +1147,21 @@ final class PutObjectRequest extends Input
         if (null !== $this->checksumSha256) {
             $headers['x-amz-checksum-sha256'] = $this->checksumSha256;
         }
+        if (null !== $this->checksumSha512) {
+            $headers['x-amz-checksum-sha512'] = $this->checksumSha512;
+        }
+        if (null !== $this->checksumMd5) {
+            $headers['x-amz-checksum-md5'] = $this->checksumMd5;
+        }
+        if (null !== $this->checksumXxhash64) {
+            $headers['x-amz-checksum-xxhash64'] = $this->checksumXxhash64;
+        }
+        if (null !== $this->checksumXxhash3) {
+            $headers['x-amz-checksum-xxhash3'] = $this->checksumXxhash3;
+        }
+        if (null !== $this->checksumXxhash128) {
+            $headers['x-amz-checksum-xxhash128'] = $this->checksumXxhash128;
+        }
         if (null !== $this->expires) {
             $headers['Expires'] = $this->expires;
         }
@@ -1236,6 +1351,13 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
+    public function setChecksumMd5(?string $value): self
+    {
+        $this->checksumMd5 = $value;
+
+        return $this;
+    }
+
     public function setChecksumSha1(?string $value): self
     {
         $this->checksumSha1 = $value;
@@ -1246,6 +1368,34 @@ final class PutObjectRequest extends Input
     public function setChecksumSha256(?string $value): self
     {
         $this->checksumSha256 = $value;
+
+        return $this;
+    }
+
+    public function setChecksumSha512(?string $value): self
+    {
+        $this->checksumSha512 = $value;
+
+        return $this;
+    }
+
+    public function setChecksumXxhash128(?string $value): self
+    {
+        $this->checksumXxhash128 = $value;
+
+        return $this;
+    }
+
+    public function setChecksumXxhash3(?string $value): self
+    {
+        $this->checksumXxhash3 = $value;
+
+        return $this;
+    }
+
+    public function setChecksumXxhash64(?string $value): self
+    {
+        $this->checksumXxhash64 = $value;
 
         return $this;
     }

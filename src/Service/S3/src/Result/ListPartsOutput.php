@@ -382,6 +382,11 @@ class ListPartsOutput extends Result implements \IteratorAggregate
             'ChecksumCRC64NVME' => (null !== $v = $xml->ChecksumCRC64NVME[0]) ? (string) $v : null,
             'ChecksumSHA1' => (null !== $v = $xml->ChecksumSHA1[0]) ? (string) $v : null,
             'ChecksumSHA256' => (null !== $v = $xml->ChecksumSHA256[0]) ? (string) $v : null,
+            'ChecksumSHA512' => (null !== $v = $xml->ChecksumSHA512[0]) ? (string) $v : null,
+            'ChecksumMD5' => (null !== $v = $xml->ChecksumMD5[0]) ? (string) $v : null,
+            'ChecksumXXHASH64' => (null !== $v = $xml->ChecksumXXHASH64[0]) ? (string) $v : null,
+            'ChecksumXXHASH3' => (null !== $v = $xml->ChecksumXXHASH3[0]) ? (string) $v : null,
+            'ChecksumXXHASH128' => (null !== $v = $xml->ChecksumXXHASH128[0]) ? (string) $v : null,
         ]);
     }
 

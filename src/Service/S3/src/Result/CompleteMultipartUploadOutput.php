@@ -122,6 +122,56 @@ class CompleteMultipartUploadOutput extends Result
     private $checksumSha256;
 
     /**
+     * The Base64 encoded, 512-bit `SHA512` digest of the object. For more information, see Checking object integrity in the
+     * Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha512;
+
+    /**
+     * The Base64 encoded, 128-bit `MD5` digest of the object. For more information, see Checking object integrity in the
+     * Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumMd5;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH64` checksum of the object. For more information, see Checking object integrity in
+     * the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash64;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH3` checksum of the object. For more information, see Checking object integrity in
+     * the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash3;
+
+    /**
+     * The Base64 encoded, 128-bit `XXHASH128` checksum of the object. For more information, see Checking object integrity
+     * in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash128;
+
+    /**
      * The checksum type, which determines how part-level checksums are combined to create an object-level checksum for
      * multipart objects. You can use this header as a data integrity check to verify that the checksum type that is
      * received is the same checksum type that was specified during the `CreateMultipartUpload` request. For more
@@ -207,6 +257,13 @@ class CompleteMultipartUploadOutput extends Result
         return $this->checksumCrc64Nvme;
     }
 
+    public function getChecksumMd5(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumMd5;
+    }
+
     public function getChecksumSha1(): ?string
     {
         $this->initialize();
@@ -221,6 +278,13 @@ class CompleteMultipartUploadOutput extends Result
         return $this->checksumSha256;
     }
 
+    public function getChecksumSha512(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha512;
+    }
+
     /**
      * @return ChecksumType::*|null
      */
@@ -229,6 +293,27 @@ class CompleteMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->checksumType;
+    }
+
+    public function getChecksumXxhash128(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash128;
+    }
+
+    public function getChecksumXxhash3(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash3;
+    }
+
+    public function getChecksumXxhash64(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash64;
     }
 
     public function getEtag(): ?string
@@ -314,6 +399,11 @@ class CompleteMultipartUploadOutput extends Result
         $this->checksumCrc64Nvme = (null !== $v = $data->ChecksumCRC64NVME[0]) ? (string) $v : null;
         $this->checksumSha1 = (null !== $v = $data->ChecksumSHA1[0]) ? (string) $v : null;
         $this->checksumSha256 = (null !== $v = $data->ChecksumSHA256[0]) ? (string) $v : null;
+        $this->checksumSha512 = (null !== $v = $data->ChecksumSHA512[0]) ? (string) $v : null;
+        $this->checksumMd5 = (null !== $v = $data->ChecksumMD5[0]) ? (string) $v : null;
+        $this->checksumXxhash64 = (null !== $v = $data->ChecksumXXHASH64[0]) ? (string) $v : null;
+        $this->checksumXxhash3 = (null !== $v = $data->ChecksumXXHASH3[0]) ? (string) $v : null;
+        $this->checksumXxhash128 = (null !== $v = $data->ChecksumXXHASH128[0]) ? (string) $v : null;
         $this->checksumType = (null !== $v = $data->ChecksumType[0]) ? (!ChecksumType::exists((string) $data->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $data->ChecksumType) : null;
     }
 }

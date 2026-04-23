@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add Ruby 4.0 (ruby4.0) support to AWS Lambda.
+
 ## 2.14.0
 
 ### Added

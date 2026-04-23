@@ -102,6 +102,59 @@ class PutObjectOutput extends Result
     private $checksumSha256;
 
     /**
+     * The Base64 encoded, 512-bit `SHA512` digest of the object. This header is present if the object was uploaded with the
+     * `SHA512` checksum algorithm. For more information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha512;
+
+    /**
+     * The Base64 encoded, 128-bit `MD5` digest of the object. This header is present if the object was uploaded with the
+     * `MD5` checksum algorithm. For more information, see Checking object integrity in the Amazon S3 User Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumMd5;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH64` checksum of the object. This header is present if the object was uploaded with
+     * the `XXHASH64` checksum algorithm. For more information, see Checking object integrity in the Amazon S3 User Guide
+     * [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash64;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH3` checksum of the object. This header is present if the object was uploaded with
+     * the `XXHASH3` checksum algorithm. For more information, see Checking object integrity in the Amazon S3 User Guide
+     * [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash3;
+
+    /**
+     * The Base64 encoded, 128-bit `XXHASH128` checksum of the object. This header is present if the object was uploaded
+     * with the `XXHASH128` checksum algorithm. For more information, see Checking object integrity in the Amazon S3 User
+     * Guide [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash128;
+
+    /**
      * This header specifies the checksum type of the object, which determines how part-level checksums are combined to
      * create an object-level checksum for multipart objects. For `PutObject` uploads, the checksum type is always
      * `FULL_OBJECT`. You can use this header as a data integrity check to verify that the checksum type that is received is
@@ -230,6 +283,13 @@ class PutObjectOutput extends Result
         return $this->checksumCrc64Nvme;
     }
 
+    public function getChecksumMd5(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumMd5;
+    }
+
     public function getChecksumSha1(): ?string
     {
         $this->initialize();
@@ -244,6 +304,13 @@ class PutObjectOutput extends Result
         return $this->checksumSha256;
     }
 
+    public function getChecksumSha512(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha512;
+    }
+
     /**
      * @return ChecksumType::*|null
      */
@@ -252,6 +319,27 @@ class PutObjectOutput extends Result
         $this->initialize();
 
         return $this->checksumType;
+    }
+
+    public function getChecksumXxhash128(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash128;
+    }
+
+    public function getChecksumXxhash3(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash3;
+    }
+
+    public function getChecksumXxhash64(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumXxhash64;
     }
 
     public function getEtag(): ?string
@@ -341,6 +429,11 @@ class PutObjectOutput extends Result
         $this->checksumCrc64Nvme = $headers['x-amz-checksum-crc64nvme'][0] ?? null;
         $this->checksumSha1 = $headers['x-amz-checksum-sha1'][0] ?? null;
         $this->checksumSha256 = $headers['x-amz-checksum-sha256'][0] ?? null;
+        $this->checksumSha512 = $headers['x-amz-checksum-sha512'][0] ?? null;
+        $this->checksumMd5 = $headers['x-amz-checksum-md5'][0] ?? null;
+        $this->checksumXxhash64 = $headers['x-amz-checksum-xxhash64'][0] ?? null;
+        $this->checksumXxhash3 = $headers['x-amz-checksum-xxhash3'][0] ?? null;
+        $this->checksumXxhash128 = $headers['x-amz-checksum-xxhash128'][0] ?? null;
         $this->checksumType = $headers['x-amz-checksum-type'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;
