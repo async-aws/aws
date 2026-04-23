@@ -25,6 +25,8 @@ class GeneratorHelper
         static $replacements = [
             'FourCC' => 'Fourcc',
             'SHA256' => 'Sha256',
+            'SHA512' => 'Sha512',
+            'XXHASH' => 'Xxhash',
 
             '3DLUT' => '3Dlut',
             'CRC32' => 'Crc32',
