@@ -111,8 +111,13 @@ final class DeleteObjectsRequest extends Input
      * - `CRC32`
      * - `CRC32C`
      * - `CRC64NVME`
+     * - `MD5`
      * - `SHA1`
      * - `SHA256`
+     * - `SHA512`
+     * - `XXHASH3`
+     * - `XXHASH64`
+     * - `XXHASH128`
      *
      * For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *

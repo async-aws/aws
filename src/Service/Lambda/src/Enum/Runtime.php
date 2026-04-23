@@ -49,6 +49,7 @@ final class Runtime
     public const RUBY_3_2 = 'ruby3.2';
     public const RUBY_3_3 = 'ruby3.3';
     public const RUBY_3_4 = 'ruby3.4';
+    public const RUBY_4_0 = 'ruby4.0';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
     /**
@@ -102,6 +103,7 @@ final class Runtime
             self::RUBY_3_2 => true,
             self::RUBY_3_3 => true,
             self::RUBY_3_4 => true,
+            self::RUBY_4_0 => true,
         ][$value]);
     }
 }

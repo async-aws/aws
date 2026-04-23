@@ -38,8 +38,8 @@ final class CompletedPart
 
     /**
      * The Base64 encoded, 64-bit `CRC64NVME` checksum of the part. This checksum is present if the multipart upload request
-     * was created with the `CRC64NVME` checksum algorithm to the uploaded object). For more information, see Checking
-     * object integrity [^1] in the *Amazon S3 User Guide*.
+     * was created with the `CRC64NVME` checksum algorithm. For more information, see Checking object integrity [^1] in the
+     * *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      *
@@ -70,6 +70,61 @@ final class CompletedPart
     private $checksumSha256;
 
     /**
+     * The Base64 encoded, 512-bit `SHA512` digest of the part. This checksum is present if the multipart upload request was
+     * created with the `SHA512` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon
+     * S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha512;
+
+    /**
+     * The Base64 encoded, 128-bit `MD5` digest of the part. This checksum is present if the multipart upload request was
+     * created with the `MD5` checksum algorithm. For more information, see Checking object integrity [^1] in the *Amazon S3
+     * User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumMd5;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH64` checksum of the part. This checksum is present if the multipart upload request
+     * was created with the `XXHASH64` checksum algorithm. For more information, see Checking object integrity [^1] in the
+     * *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash64;
+
+    /**
+     * The Base64 encoded, 64-bit `XXHASH3` checksum of the part. This checksum is present if the multipart upload request
+     * was created with the `XXHASH3` checksum algorithm. For more information, see Checking object integrity [^1] in the
+     * *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash3;
+
+    /**
+     * The Base64 encoded, 128-bit `XXHASH128` checksum of the part. This checksum is present if the multipart upload
+     * request was created with the `XXHASH128` checksum algorithm. For more information, see Checking object integrity [^1]
+     * in the *Amazon S3 User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumXxhash128;
+
+    /**
      * Part number that identifies the part. This is a positive integer between 1 and 10,000.
      *
      * > - **General purpose buckets** - In `CompleteMultipartUpload`, when a additional checksum (including
@@ -92,6 +147,11 @@ final class CompletedPart
      *   ChecksumCRC64NVME?: string|null,
      *   ChecksumSHA1?: string|null,
      *   ChecksumSHA256?: string|null,
+     *   ChecksumSHA512?: string|null,
+     *   ChecksumMD5?: string|null,
+     *   ChecksumXXHASH64?: string|null,
+     *   ChecksumXXHASH3?: string|null,
+     *   ChecksumXXHASH128?: string|null,
      *   PartNumber?: int|null,
      * } $input
      */
@@ -103,6 +163,11 @@ final class CompletedPart
         $this->checksumCrc64Nvme = $input['ChecksumCRC64NVME'] ?? null;
         $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
         $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
+        $this->checksumSha512 = $input['ChecksumSHA512'] ?? null;
+        $this->checksumMd5 = $input['ChecksumMD5'] ?? null;
+        $this->checksumXxhash64 = $input['ChecksumXXHASH64'] ?? null;
+        $this->checksumXxhash3 = $input['ChecksumXXHASH3'] ?? null;
+        $this->checksumXxhash128 = $input['ChecksumXXHASH128'] ?? null;
         $this->partNumber = $input['PartNumber'] ?? null;
     }
 
@@ -114,6 +179,11 @@ final class CompletedPart
      *   ChecksumCRC64NVME?: string|null,
      *   ChecksumSHA1?: string|null,
      *   ChecksumSHA256?: string|null,
+     *   ChecksumSHA512?: string|null,
+     *   ChecksumMD5?: string|null,
+     *   ChecksumXXHASH64?: string|null,
+     *   ChecksumXXHASH3?: string|null,
+     *   ChecksumXXHASH128?: string|null,
      *   PartNumber?: int|null,
      * }|CompletedPart $input
      */
@@ -137,6 +207,11 @@ final class CompletedPart
         return $this->checksumCrc64Nvme;
     }
 
+    public function getChecksumMd5(): ?string
+    {
+        return $this->checksumMd5;
+    }
+
     public function getChecksumSha1(): ?string
     {
         return $this->checksumSha1;
@@ -145,6 +220,26 @@ final class CompletedPart
     public function getChecksumSha256(): ?string
     {
         return $this->checksumSha256;
+    }
+
+    public function getChecksumSha512(): ?string
+    {
+        return $this->checksumSha512;
+    }
+
+    public function getChecksumXxhash128(): ?string
+    {
+        return $this->checksumXxhash128;
+    }
+
+    public function getChecksumXxhash3(): ?string
+    {
+        return $this->checksumXxhash3;
+    }
+
+    public function getChecksumXxhash64(): ?string
+    {
+        return $this->checksumXxhash64;
     }
 
     public function getEtag(): ?string
@@ -179,6 +274,21 @@ final class CompletedPart
         }
         if (null !== $v = $this->checksumSha256) {
             $node->appendChild($document->createElement('ChecksumSHA256', $v));
+        }
+        if (null !== $v = $this->checksumSha512) {
+            $node->appendChild($document->createElement('ChecksumSHA512', $v));
+        }
+        if (null !== $v = $this->checksumMd5) {
+            $node->appendChild($document->createElement('ChecksumMD5', $v));
+        }
+        if (null !== $v = $this->checksumXxhash64) {
+            $node->appendChild($document->createElement('ChecksumXXHASH64', $v));
+        }
+        if (null !== $v = $this->checksumXxhash3) {
+            $node->appendChild($document->createElement('ChecksumXXHASH3', $v));
+        }
+        if (null !== $v = $this->checksumXxhash128) {
+            $node->appendChild($document->createElement('ChecksumXXHASH128', $v));
         }
         if (null !== $v = $this->partNumber) {
             $node->appendChild($document->createElement('PartNumber', (string) $v));
