@@ -13,7 +13,6 @@ class StartMessageMoveTaskResultTest extends TestCase
 {
     public function testStartMessageMoveTaskResult(): void
     {
-
         // see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_StartMessageMoveTask.html
         $response = new SimpleMockedResponse(<<<JSON
         {
