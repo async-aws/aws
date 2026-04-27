@@ -36,9 +36,11 @@ use AsyncAws\Sqs\Exception\QueueDoesNotExistException;
 use AsyncAws\Sqs\Exception\QueueNameExistsException;
 use AsyncAws\Sqs\Exception\ReceiptHandleIsInvalidException;
 use AsyncAws\Sqs\Exception\RequestThrottledException;
+use AsyncAws\Sqs\Exception\ResourceNotFoundException;
 use AsyncAws\Sqs\Exception\TooManyEntriesInBatchRequestException;
 use AsyncAws\Sqs\Exception\UnsupportedOperationException;
 use AsyncAws\Sqs\Input\AddPermissionRequest;
+use AsyncAws\Sqs\Input\CancelMessageMoveTaskRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -47,21 +49,28 @@ use AsyncAws\Sqs\Input\DeleteMessageRequest;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
+use AsyncAws\Sqs\Input\ListDeadLetterSourceQueuesRequest;
+use AsyncAws\Sqs\Input\ListMessageMoveTasksRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 use AsyncAws\Sqs\Input\SendMessageBatchRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\Input\StartMessageMoveTaskRequest;
+use AsyncAws\Sqs\Result\CancelMessageMoveTaskResult;
 use AsyncAws\Sqs\Result\ChangeMessageVisibilityBatchResult;
 use AsyncAws\Sqs\Result\CreateQueueResult;
 use AsyncAws\Sqs\Result\DeleteMessageBatchResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
+use AsyncAws\Sqs\Result\ListDeadLetterSourceQueuesResult;
+use AsyncAws\Sqs\Result\ListMessageMoveTasksResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
 use AsyncAws\Sqs\Result\QueueExistsWaiter;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use AsyncAws\Sqs\Result\SendMessageBatchResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
+use AsyncAws\Sqs\Result\StartMessageMoveTaskResult;
 use AsyncAws\Sqs\ValueObject\ChangeMessageVisibilityBatchRequestEntry;
 use AsyncAws\Sqs\ValueObject\DeleteMessageBatchRequestEntry;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
@@ -125,6 +134,47 @@ class SqsClient extends AbstractApi
         ]]));
 
         return new Result($response);
+    }
+
+    /**
+     * Cancels a specified message movement task. A message movement can only be cancelled when the current status is
+     * RUNNING. Cancelling a message movement task does not revert the messages that have already been moved. It can only
+     * stop the messages that have not been moved yet.
+     *
+     * > - This action is currently limited to supporting message redrive from dead-letter queues (DLQs) [^1] only. In this
+     * >   context, the source queue is the dead-letter queue (DLQ), while the destination queue can be the original source
+     * >   queue (from which the messages were driven to the dead-letter-queue), or a custom destination queue.
+     * > - Only one active message movement task is supported per queue at any given time.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CancelMessageMoveTask.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#cancelmessagemovetask
+     *
+     * @param array{
+     *   TaskHandle: string,
+     *   '@region'?: string|null,
+     * }|CancelMessageMoveTaskRequest $input
+     *
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws RequestThrottledException
+     * @throws ResourceNotFoundException
+     * @throws UnsupportedOperationException
+     */
+    public function cancelMessageMoveTask($input): CancelMessageMoveTaskResult
+    {
+        $input = CancelMessageMoveTaskRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CancelMessageMoveTask', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
+
+        return new CancelMessageMoveTaskResult($response);
     }
 
     /**
@@ -545,6 +595,90 @@ class SqsClient extends AbstractApi
     }
 
     /**
+     * Returns a list of your queues that have the `RedrivePolicy` queue attribute configured with a dead-letter queue.
+     *
+     * The `ListDeadLetterSourceQueues` methods supports pagination. Set parameter `MaxResults` in the request to specify
+     * the maximum number of results to be returned in the response. If you do not set `MaxResults`, the response includes a
+     * maximum of 1,000 results. If you set `MaxResults` and there are additional results to display, the response includes
+     * a value for `NextToken`. Use `NextToken` as a parameter in your next request to `ListDeadLetterSourceQueues` to
+     * receive the next page of results.
+     *
+     * For more information about using dead-letter queues, see Using Amazon SQS Dead-Letter Queues [^1] in the *Amazon SQS
+     * Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListDeadLetterSourceQueues.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#listdeadlettersourcequeues
+     *
+     * @param array{
+     *   QueueUrl: string,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
+     *   '@region'?: string|null,
+     * }|ListDeadLetterSourceQueuesRequest $input
+     *
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws QueueDoesNotExistException
+     * @throws RequestThrottledException
+     * @throws UnsupportedOperationException
+     */
+    public function listDeadLetterSourceQueues($input): ListDeadLetterSourceQueuesResult
+    {
+        $input = ListDeadLetterSourceQueuesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListDeadLetterSourceQueues', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'QueueDoesNotExist' => QueueDoesNotExistException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
+
+        return new ListDeadLetterSourceQueuesResult($response, $this, $input);
+    }
+
+    /**
+     * Gets the most recent message movement tasks (up to 10) under a specific source queue.
+     *
+     * > - This action is currently limited to supporting message redrive from dead-letter queues (DLQs) [^1] only. In this
+     * >   context, the source queue is the dead-letter queue (DLQ), while the destination queue can be the original source
+     * >   queue (from which the messages were driven to the dead-letter-queue), or a custom destination queue.
+     * > - Only one active message movement task is supported per queue at any given time.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListMessageMoveTasks.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#listmessagemovetasks
+     *
+     * @param array{
+     *   SourceArn: string,
+     *   MaxResults?: int|null,
+     *   '@region'?: string|null,
+     * }|ListMessageMoveTasksRequest $input
+     *
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws RequestThrottledException
+     * @throws ResourceNotFoundException
+     * @throws UnsupportedOperationException
+     */
+    public function listMessageMoveTasks($input): ListMessageMoveTasksResult
+    {
+        $input = ListMessageMoveTasksRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListMessageMoveTasks', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
+
+        return new ListMessageMoveTasksResult($response);
+    }
+
+    /**
      * Returns a list of your queues in the current region. The response includes a maximum of 1,000 results. If you specify
      * a value for the optional `QueueNamePrefix` parameter, only queues with a name that begins with the specified value
      * are returned.
@@ -874,6 +1008,50 @@ class SqsClient extends AbstractApi
         ]]));
 
         return new SendMessageBatchResult($response);
+    }
+
+    /**
+     * Starts an asynchronous task to move messages from a specified source queue to a specified destination queue.
+     *
+     * > - This action is currently limited to supporting message redrive from queues that are configured as dead-letter
+     * >   queues (DLQs) [^1] of other Amazon SQS queues only. Non-SQS queue sources of dead-letter queues, such as Lambda
+     * >   or Amazon SNS topics, are currently not supported.
+     * > - In dead-letter queues redrive context, the `StartMessageMoveTask` the source queue is the DLQ, while the
+     * >   destination queue can be the original source queue (from which the messages were driven to the
+     * >   dead-letter-queue), or a custom destination queue.
+     * > - Only one active message movement task is supported per queue at any given time.
+     * >
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_StartMessageMoveTask.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#startmessagemovetask
+     *
+     * @param array{
+     *   SourceArn: string,
+     *   DestinationArn?: string|null,
+     *   MaxNumberOfMessagesPerSecond?: int|null,
+     *   '@region'?: string|null,
+     * }|StartMessageMoveTaskRequest $input
+     *
+     * @throws InvalidAddressException
+     * @throws InvalidSecurityException
+     * @throws RequestThrottledException
+     * @throws ResourceNotFoundException
+     * @throws UnsupportedOperationException
+     */
+    public function startMessageMoveTask($input): StartMessageMoveTaskResult
+    {
+        $input = StartMessageMoveTaskRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StartMessageMoveTask', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidAddress' => InvalidAddressException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+            'RequestThrottled' => RequestThrottledException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
+
+        return new StartMessageMoveTaskResult($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface

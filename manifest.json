@@ -713,6 +713,7 @@
             "api-reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference",
             "methods": [
                 "AddPermission",
+                "CancelMessageMoveTask",
                 "ChangeMessageVisibility",
                 "ChangeMessageVisibilityBatch",
                 "CreateQueue",
@@ -721,12 +722,15 @@
                 "DeleteQueue",
                 "GetQueueAttributes",
                 "GetQueueUrl",
+                "ListDeadLetterSourceQueues",
+                "ListMessageMoveTasks",
                 "ListQueues",
                 "PurgeQueue",
                 "QueueExists",
                 "ReceiveMessage",
                 "SendMessage",
-                "SendMessageBatch"
+                "SendMessageBatch",
+                "StartMessageMoveTask"
             ],
             "patches": {
                 "source": [
