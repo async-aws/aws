@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\AddPermissionRequest;
+use AsyncAws\Sqs\Input\CancelMessageMoveTaskRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -14,20 +15,27 @@ use AsyncAws\Sqs\Input\DeleteMessageRequest;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
+use AsyncAws\Sqs\Input\ListDeadLetterSourceQueuesRequest;
+use AsyncAws\Sqs\Input\ListMessageMoveTasksRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 use AsyncAws\Sqs\Input\SendMessageBatchRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\Input\StartMessageMoveTaskRequest;
+use AsyncAws\Sqs\Result\CancelMessageMoveTaskResult;
 use AsyncAws\Sqs\Result\ChangeMessageVisibilityBatchResult;
 use AsyncAws\Sqs\Result\CreateQueueResult;
 use AsyncAws\Sqs\Result\DeleteMessageBatchResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
+use AsyncAws\Sqs\Result\ListDeadLetterSourceQueuesResult;
+use AsyncAws\Sqs\Result\ListMessageMoveTasksResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use AsyncAws\Sqs\Result\SendMessageBatchResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
+use AsyncAws\Sqs\Result\StartMessageMoveTaskResult;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Sqs\ValueObject\ChangeMessageVisibilityBatchRequestEntry;
 use AsyncAws\Sqs\ValueObject\DeleteMessageBatchRequestEntry;
@@ -49,6 +57,19 @@ class SqsClientTest extends TestCase
         $result = $client->addPermission($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCancelMessageMoveTask(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CancelMessageMoveTaskRequest([
+            'TaskHandle' => 'eyJ0YXNrSWQiOiJkYz',
+        ]);
+        $result = $client->cancelMessageMoveTask($input);
+
+        self::assertInstanceOf(CancelMessageMoveTaskResult::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -167,6 +188,32 @@ class SqsClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testListDeadLetterSourceQueues(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListDeadLetterSourceQueuesRequest([
+            'QueueUrl' => 'https://sqs.us-east-1.amazonaws.com/177715257436/MyQueue',
+        ]);
+        $result = $client->listDeadLetterSourceQueues($input);
+
+        self::assertInstanceOf(ListDeadLetterSourceQueuesResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListMessageMoveTasks(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListMessageMoveTasksRequest([
+            'SourceArn' => 'arn:aws:sqs:us-east-1:555555555555:MyDeadLetterQueue',
+        ]);
+        $result = $client->listMessageMoveTasks($input);
+
+        self::assertInstanceOf(ListMessageMoveTasksResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testListQueues(): void
     {
         $client = new SqsClient([], new NullProvider(), new MockHttpClient());
@@ -233,6 +280,19 @@ class SqsClientTest extends TestCase
         $result = $client->sendMessageBatch($input);
 
         self::assertInstanceOf(SendMessageBatchResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testStartMessageMoveTask(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new StartMessageMoveTaskRequest([
+            'SourceArn' => 'arn:aws:sqs:us-east-1:555555555555:MyDeadLetterQueue',
+        ]);
+        $result = $client->startMessageMoveTask($input);
+
+        self::assertInstanceOf(StartMessageMoveTaskResult::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

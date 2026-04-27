@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Input\AddPermissionRequest;
+use AsyncAws\Sqs\Input\CancelMessageMoveTaskRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -14,11 +15,14 @@ use AsyncAws\Sqs\Input\DeleteMessageRequest;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
+use AsyncAws\Sqs\Input\ListDeadLetterSourceQueuesRequest;
+use AsyncAws\Sqs\Input\ListMessageMoveTasksRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 use AsyncAws\Sqs\Input\SendMessageBatchRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\Input\StartMessageMoveTaskRequest;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Sqs\ValueObject\ChangeMessageVisibilityBatchRequestEntry;
 use AsyncAws\Sqs\ValueObject\DeleteMessageBatchRequestEntry;
@@ -39,6 +43,20 @@ class SqsClientTest extends TestCase
         $result = $client->addPermission($input);
 
         $result->resolve();
+    }
+
+    public function testCancelMessageMoveTask(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CancelMessageMoveTaskRequest([
+            'TaskHandle' => 'abc123',
+        ]);
+        $result = $client->cancelMessageMoveTask($input);
+
+        $result->resolve();
+
+        self::assertSame(1337, $result->getApproximateNumberOfMessagesMoved());
     }
 
     public function testChangeMessageVisibility()
@@ -223,6 +241,39 @@ class SqsClientTest extends TestCase
         self::assertStringContainsString('foo', $queueUrl->getQueueUrl());
     }
 
+    public function testListDeadLetterSourceQueues(): void
+    {
+        $sqs = $this->getClient();
+
+        $sqs->createQueue(['QueueName' => 'foo'])->resolve();
+        $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
+        $input = new ListDeadLetterSourceQueuesRequest([
+            'QueueUrl' => $fooQueueUrl,
+            'NextToken' => 'token',
+            'MaxResults' => 1337,
+        ]);
+        $result = $sqs->listDeadLetterSourceQueues($input);
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getQueueUrls());
+        self::assertSame('newt_token', $result->getNextToken());
+    }
+
+    public function testListMessageMoveTasks(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListMessageMoveTasksRequest([
+            'SourceArn' => 'arn:aws:sqs:us-east-1:555555555555:MyDeadLetterQueue',
+            'MaxResults' => 5,
+        ]);
+        $result = $client->listMessageMoveTasks($input);
+
+        $result->resolve();
+
+        self::assertEquals('COMPLETED', $result->getResults()[0]->getStatus());
+    }
+
     public function testListQueues()
     {
         $sqs = $this->getClient();
@@ -344,6 +395,22 @@ class SqsClientTest extends TestCase
         self::assertCount(0, $result->getFailed());
         self::assertCount(1, $result->getSuccessful());
         self::assertNotNull($result->getSuccessful()[0]->getMessageId());
+    }
+
+    public function testStartMessageMoveTask(): void
+    {
+        $client = $this->getClient();
+
+        $input = new StartMessageMoveTaskRequest([
+            'SourceArn' => 'arn:aws:sqs:us-east-1:555555555555:MyDeadLetterQueue',
+            'DestinationArn' => 'arn:aws:sqs:us-east-1:555555555555:MyQueue',
+            'MaxNumberOfMessagesPerSecond' => 5,
+        ]);
+        $result = $client->startMessageMoveTask($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getTaskHandle());
     }
 
     private function getClient(): SqsClient
