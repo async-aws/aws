@@ -65,6 +65,10 @@ final class SignRequest extends Input
      * - ED25519_SHA_512 signing algorithm requires KMS `MessageType:RAW`
      * - ED25519_PH_SHA_512 signing algorithm requires KMS `MessageType:DIGEST`
      *
+     * ! When you specify the ED25519_PH_SHA_512 signing algorithm with `MessageType:DIGEST`, KMS still performs the SHA-512
+     * ! prehash described in Step 1 of Section 7.8.1 in FIPS 186-5 [^1]. This means the input is hashed twice: once by you
+     * ! and once by KMS.
+     *
      * When the value of `MessageType` is `DIGEST`, the length of the `Message` value must match the length of hashed
      * messages for the specified signing algorithm.
      *
@@ -79,9 +83,10 @@ final class SignRequest extends Input
      * - Signing algorithms that end in SHA_384 use the SHA_384 hashing algorithm.
      * - Signing algorithms that end in SHA_512 use the SHA_512 hashing algorithm.
      * - Signing algorithms that end in SHAKE_256 use the SHAKE_256 hashing algorithm.
-     * - SM2DSA uses the SM3 hashing algorithm. For details, see Offline verification with SM2 key pairs [^1].
+     * - SM2DSA uses the SM3 hashing algorithm. For details, see Offline verification with SM2 key pairs [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/offline-operations.html#key-spec-sm-offline-verification
+     * [^1]: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf#page=39
+     * [^2]: https://docs.aws.amazon.com/kms/latest/developerguide/offline-operations.html#key-spec-sm-offline-verification
      *
      * @var MessageType::*|null
      */

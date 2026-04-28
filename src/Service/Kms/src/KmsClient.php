@@ -405,10 +405,11 @@ class KmsClient extends AbstractApi
      * The KMS key that you use for this operation must be in a compatible key state. For details, see Key states of KMS
      * keys [^8] in the *Key Management Service Developer Guide*.
      *
-     * **Cross-account use**: Yes. If you use the `KeyId` parameter to identify a KMS key in a different Amazon Web Services
-     * account, specify the key ARN or the alias ARN of the KMS key.
+     * **Cross-account use**: Yes. To specify a KMS key in a different Amazon Web Services account, use the key ARN [^9] or
+     * alias ARN [^10]. A short key ID [^11] is also acceptable when decrypting symmetric ciphertexts, though using a full
+     * key ARN is recommended to be more explicit about the intended KMS key.
      *
-     * **Required permissions**: kms:Decrypt [^9] (key policy)
+     * **Required permissions**: kms:Decrypt [^12] (key policy)
      *
      * **Related operations:**
      *
@@ -418,7 +419,7 @@ class KmsClient extends AbstractApi
      * - ReEncrypt
      *
      * **Eventual consistency**: The KMS API follows an eventual consistency model. For more information, see KMS eventual
-     * consistency [^10].
+     * consistency [^13].
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html
      * [^2]: https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/
@@ -428,8 +429,11 @@ class KmsClient extends AbstractApi
      * [^6]: https://docs.aws.amazon.com/enclaves/latest/user/developing-applications.html#sdk
      * [^7]: https://docs.aws.amazon.com/kms/latest/developerguide/cryptographic-attestation.html
      * [^8]: https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html
-     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
-     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
+     * [^9]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
+     * [^10]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-alias-ARN
+     * [^11]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-id
+     * [^12]: https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html
+     * [^13]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt

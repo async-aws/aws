@@ -68,7 +68,7 @@ final class DecryptRequest extends Input
      * practice. This practice ensures that you use the KMS key that you intend.
      *
      * To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN. When using an alias name, prefix it with
-     * `"alias/"`. To specify a KMS key in a different Amazon Web Services account, you must use the key ARN or alias ARN.
+     * `"alias/"`. To specify a KMS key in a different Amazon Web Services account, you should use the key ARN or alias ARN.
      *
      * For example:
      *
