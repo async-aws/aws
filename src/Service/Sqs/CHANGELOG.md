@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.9.0
+
 ### Added
 
 - Added features for `StartMessageMoveTask`, `ListMessageMoveTasks`, `CancelMessageMoveTask` and `ListDeadLetterSourceQueues`
