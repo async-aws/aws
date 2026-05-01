@@ -270,9 +270,10 @@ class FirehoseClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
+            case 'us-isob-west-1':
                 return [
-                    'endpoint' => 'https://firehose.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
+                    'endpoint' => "https://firehose.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];
