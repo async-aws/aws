@@ -209,6 +209,7 @@ final class UpdateTableInput extends Input
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -249,6 +250,7 @@ final class UpdateTableInput extends Input
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateTableInput $input
      */
     public static function create($input): self

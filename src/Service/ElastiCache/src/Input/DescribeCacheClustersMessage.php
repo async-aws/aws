@@ -65,6 +65,7 @@ final class DescribeCacheClustersMessage extends Input
      *   ShowCacheNodeInfo?: bool|null,
      *   ShowCacheClustersNotInReplicationGroups?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -85,6 +86,7 @@ final class DescribeCacheClustersMessage extends Input
      *   ShowCacheNodeInfo?: bool|null,
      *   ShowCacheClustersNotInReplicationGroups?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeCacheClustersMessage $input
      */
     public static function create($input): self

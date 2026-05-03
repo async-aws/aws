@@ -110,6 +110,7 @@ final class StartSessionRequest extends Input
      *   Tags?: array<Tag|array>|null,
      *   CopyWorkGroupTags?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -140,6 +141,7 @@ final class StartSessionRequest extends Input
      *   Tags?: array<Tag|array>|null,
      *   CopyWorkGroupTags?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartSessionRequest $input
      */
     public static function create($input): self

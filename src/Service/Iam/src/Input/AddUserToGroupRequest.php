@@ -42,6 +42,7 @@ final class AddUserToGroupRequest extends Input
      *   GroupName?: string,
      *   UserName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -56,6 +57,7 @@ final class AddUserToGroupRequest extends Input
      *   GroupName?: string,
      *   UserName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AddUserToGroupRequest $input
      */
     public static function create($input): self

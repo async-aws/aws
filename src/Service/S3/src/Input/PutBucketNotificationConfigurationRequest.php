@@ -48,6 +48,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   SkipDestinationValidation?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -66,6 +67,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   SkipDestinationValidation?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutBucketNotificationConfigurationRequest $input
      */
     public static function create($input): self

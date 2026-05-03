@@ -151,6 +151,7 @@ final class SendEmailRequest extends Input
      *   TenantName?: string|null,
      *   ListManagementOptions?: ListManagementOptions|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -185,6 +186,7 @@ final class SendEmailRequest extends Input
      *   TenantName?: string|null,
      *   ListManagementOptions?: ListManagementOptions|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SendEmailRequest $input
      */
     public static function create($input): self

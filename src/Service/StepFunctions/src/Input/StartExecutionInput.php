@@ -100,6 +100,7 @@ final class StartExecutionInput extends Input
      *   input?: string|null,
      *   traceHeader?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -118,6 +119,7 @@ final class StartExecutionInput extends Input
      *   input?: string|null,
      *   traceHeader?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartExecutionInput $input
      */
     public static function create($input): self

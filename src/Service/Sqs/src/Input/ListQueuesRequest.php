@@ -39,6 +39,7 @@ final class ListQueuesRequest extends Input
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class ListQueuesRequest extends Input
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListQueuesRequest $input
      */
     public static function create($input): self

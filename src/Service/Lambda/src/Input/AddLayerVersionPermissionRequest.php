@@ -81,6 +81,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *   OrganizationId?: string|null,
      *   RevisionId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -105,6 +106,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *   OrganizationId?: string|null,
      *   RevisionId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AddLayerVersionPermissionRequest $input
      */
     public static function create($input): self

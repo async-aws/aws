@@ -149,6 +149,7 @@ final class CreateBucketRequest extends Input
      *   ObjectOwnership?: ObjectOwnership::*|null,
      *   BucketNamespace?: BucketNamespace::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -181,6 +182,7 @@ final class CreateBucketRequest extends Input
      *   ObjectOwnership?: ObjectOwnership::*|null,
      *   BucketNamespace?: BucketNamespace::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateBucketRequest $input
      */
     public static function create($input): self

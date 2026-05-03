@@ -34,6 +34,7 @@ final class GetBucketLifecycleConfigurationRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -48,6 +49,7 @@ final class GetBucketLifecycleConfigurationRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetBucketLifecycleConfigurationRequest $input
      */
     public static function create($input): self

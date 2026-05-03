@@ -64,6 +64,7 @@ final class HeadBucketRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -78,6 +79,7 @@ final class HeadBucketRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|HeadBucketRequest $input
      */
     public static function create($input): self

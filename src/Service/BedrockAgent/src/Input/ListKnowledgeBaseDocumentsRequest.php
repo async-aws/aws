@@ -51,6 +51,7 @@ final class ListKnowledgeBaseDocumentsRequest extends Input
      *   maxResults?: int|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class ListKnowledgeBaseDocumentsRequest extends Input
      *   maxResults?: int|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListKnowledgeBaseDocumentsRequest $input
      */
     public static function create($input): self

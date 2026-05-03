@@ -171,6 +171,7 @@ final class CreateTopicInput extends Input
      *   Tags?: array<Tag|array>|null,
      *   DataProtectionPolicy?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -189,6 +190,7 @@ final class CreateTopicInput extends Input
      *   Tags?: array<Tag|array>|null,
      *   DataProtectionPolicy?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateTopicInput $input
      */
     public static function create($input): self

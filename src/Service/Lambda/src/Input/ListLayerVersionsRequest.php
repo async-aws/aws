@@ -65,6 +65,7 @@ final class ListLayerVersionsRequest extends Input
      *   MaxItems?: int|null,
      *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -85,6 +86,7 @@ final class ListLayerVersionsRequest extends Input
      *   MaxItems?: int|null,
      *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListLayerVersionsRequest $input
      */
     public static function create($input): self

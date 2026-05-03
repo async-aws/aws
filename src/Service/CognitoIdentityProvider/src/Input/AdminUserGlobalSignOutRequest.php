@@ -37,6 +37,7 @@ final class AdminUserGlobalSignOutRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -51,6 +52,7 @@ final class AdminUserGlobalSignOutRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminUserGlobalSignOutRequest $input
      */
     public static function create($input): self

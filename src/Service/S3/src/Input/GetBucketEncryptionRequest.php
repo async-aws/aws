@@ -43,6 +43,7 @@ final class GetBucketEncryptionRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -57,6 +58,7 @@ final class GetBucketEncryptionRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetBucketEncryptionRequest $input
      */
     public static function create($input): self

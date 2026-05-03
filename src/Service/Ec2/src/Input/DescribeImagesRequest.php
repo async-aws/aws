@@ -163,6 +163,7 @@ final class DescribeImagesRequest extends Input
      *   DryRun?: bool|null,
      *   Filters?: array<Filter|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -191,6 +192,7 @@ final class DescribeImagesRequest extends Input
      *   DryRun?: bool|null,
      *   Filters?: array<Filter|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeImagesRequest $input
      */
     public static function create($input): self

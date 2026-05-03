@@ -73,6 +73,7 @@ final class GetObjectTaggingRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -93,6 +94,7 @@ final class GetObjectTaggingRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetObjectTaggingRequest $input
      */
     public static function create($input): self

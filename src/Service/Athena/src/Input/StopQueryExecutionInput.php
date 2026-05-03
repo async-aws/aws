@@ -21,6 +21,7 @@ final class StopQueryExecutionInput extends Input
      * @param array{
      *   QueryExecutionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -33,6 +34,7 @@ final class StopQueryExecutionInput extends Input
      * @param array{
      *   QueryExecutionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StopQueryExecutionInput $input
      */
     public static function create($input): self

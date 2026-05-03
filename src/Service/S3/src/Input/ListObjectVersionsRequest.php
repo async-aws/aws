@@ -106,6 +106,7 @@ final class ListObjectVersionsRequest extends Input
      *   RequestPayer?: RequestPayer::*|null,
      *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -136,6 +137,7 @@ final class ListObjectVersionsRequest extends Input
      *   RequestPayer?: RequestPayer::*|null,
      *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListObjectVersionsRequest $input
      */
     public static function create($input): self

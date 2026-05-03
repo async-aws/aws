@@ -95,6 +95,7 @@ final class IndexFacesRequest extends Input
      *   MaxFaces?: int|null,
      *   QualityFilter?: QualityFilter::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -117,6 +118,7 @@ final class IndexFacesRequest extends Input
      *   MaxFaces?: int|null,
      *   QualityFilter?: QualityFilter::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|IndexFacesRequest $input
      */
     public static function create($input): self

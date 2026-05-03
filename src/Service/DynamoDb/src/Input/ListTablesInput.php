@@ -31,6 +31,7 @@ final class ListTablesInput extends Input
      *   ExclusiveStartTableName?: string|null,
      *   Limit?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -45,6 +46,7 @@ final class ListTablesInput extends Input
      *   ExclusiveStartTableName?: string|null,
      *   Limit?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListTablesInput $input
      */
     public static function create($input): self

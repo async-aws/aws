@@ -43,6 +43,7 @@ final class ListRepositoriesInput extends Input
      *   sortBy?: SortByEnum::*|null,
      *   order?: OrderEnum::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -59,6 +60,7 @@ final class ListRepositoriesInput extends Input
      *   sortBy?: SortByEnum::*|null,
      *   order?: OrderEnum::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListRepositoriesInput $input
      */
     public static function create($input): self

@@ -70,6 +70,7 @@ final class ListImagesRequest extends Input
      *   nextToken?: string|null,
      *   includeDeprecated?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -92,6 +93,7 @@ final class ListImagesRequest extends Input
      *   nextToken?: string|null,
      *   includeDeprecated?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListImagesRequest $input
      */
     public static function create($input): self

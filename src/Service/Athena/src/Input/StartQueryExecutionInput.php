@@ -100,6 +100,7 @@ final class StartQueryExecutionInput extends Input
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
      *   EngineConfiguration?: EngineConfiguration|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -126,6 +127,7 @@ final class StartQueryExecutionInput extends Input
      *   ResultReuseConfiguration?: ResultReuseConfiguration|array|null,
      *   EngineConfiguration?: EngineConfiguration|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartQueryExecutionInput $input
      */
     public static function create($input): self

@@ -32,6 +32,7 @@ final class CreateLogStreamRequest extends Input
      *   logGroupName?: string,
      *   logStreamName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -46,6 +47,7 @@ final class CreateLogStreamRequest extends Input
      *   logGroupName?: string,
      *   logStreamName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateLogStreamRequest $input
      */
     public static function create($input): self

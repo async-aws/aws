@@ -22,6 +22,7 @@ final class PutTraceSegmentsRequest extends Input
      * @param array{
      *   TraceSegmentDocuments?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class PutTraceSegmentsRequest extends Input
      * @param array{
      *   TraceSegmentDocuments?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutTraceSegmentsRequest $input
      */
     public static function create($input): self

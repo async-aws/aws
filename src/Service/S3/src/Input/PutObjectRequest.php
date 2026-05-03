@@ -724,6 +724,7 @@ final class PutObjectRequest extends Input
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -826,6 +827,7 @@ final class PutObjectRequest extends Input
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutObjectRequest $input
      */
     public static function create($input): self

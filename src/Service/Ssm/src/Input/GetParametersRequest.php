@@ -41,6 +41,7 @@ final class GetParametersRequest extends Input
      *   Names?: string[],
      *   WithDecryption?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class GetParametersRequest extends Input
      *   Names?: string[],
      *   WithDecryption?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetParametersRequest $input
      */
     public static function create($input): self

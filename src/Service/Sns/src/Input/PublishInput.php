@@ -177,6 +177,7 @@ final class PublishInput extends Input
      *   MessageDeduplicationId?: string|null,
      *   MessageGroupId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -211,6 +212,7 @@ final class PublishInput extends Input
      *   MessageDeduplicationId?: string|null,
      *   MessageGroupId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PublishInput $input
      */
     public static function create($input): self

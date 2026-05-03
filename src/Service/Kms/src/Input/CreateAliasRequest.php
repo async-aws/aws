@@ -59,6 +59,7 @@ final class CreateAliasRequest extends Input
      *   AliasName?: string,
      *   TargetKeyId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class CreateAliasRequest extends Input
      *   AliasName?: string,
      *   TargetKeyId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateAliasRequest $input
      */
     public static function create($input): self

@@ -126,6 +126,7 @@ final class PutSecretValueRequest extends Input
      *   VersionStages?: string[]|null,
      *   RotationToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -148,6 +149,7 @@ final class PutSecretValueRequest extends Input
      *   VersionStages?: string[]|null,
      *   RotationToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutSecretValueRequest $input
      */
     public static function create($input): self

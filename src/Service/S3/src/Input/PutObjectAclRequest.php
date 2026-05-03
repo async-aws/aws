@@ -175,6 +175,7 @@ final class PutObjectAclRequest extends Input
      *   VersionId?: string|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -213,6 +214,7 @@ final class PutObjectAclRequest extends Input
      *   VersionId?: string|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutObjectAclRequest $input
      */
     public static function create($input): self

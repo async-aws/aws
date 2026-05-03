@@ -50,6 +50,7 @@ final class PutRecordsInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -68,6 +69,7 @@ final class PutRecordsInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutRecordsInput $input
      */
     public static function create($input): self

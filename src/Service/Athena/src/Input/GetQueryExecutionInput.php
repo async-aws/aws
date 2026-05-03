@@ -22,6 +22,7 @@ final class GetQueryExecutionInput extends Input
      * @param array{
      *   QueryExecutionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetQueryExecutionInput extends Input
      * @param array{
      *   QueryExecutionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetQueryExecutionInput $input
      */
     public static function create($input): self

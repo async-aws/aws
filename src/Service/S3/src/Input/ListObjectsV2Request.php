@@ -170,6 +170,7 @@ final class ListObjectsV2Request extends Input
      *   ExpectedBucketOwner?: string|null,
      *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -202,6 +203,7 @@ final class ListObjectsV2Request extends Input
      *   ExpectedBucketOwner?: string|null,
      *   OptionalObjectAttributes?: array<OptionalObjectAttributes::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListObjectsV2Request $input
      */
     public static function create($input): self

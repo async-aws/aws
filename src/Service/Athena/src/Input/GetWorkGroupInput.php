@@ -22,6 +22,7 @@ final class GetWorkGroupInput extends Input
      * @param array{
      *   WorkGroup?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetWorkGroupInput extends Input
      * @param array{
      *   WorkGroup?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetWorkGroupInput $input
      */
     public static function create($input): self

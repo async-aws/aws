@@ -36,6 +36,7 @@ final class PutRepositoryTriggersInput extends Input
      *   repositoryName?: string,
      *   triggers?: array<RepositoryTrigger|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -50,6 +51,7 @@ final class PutRepositoryTriggersInput extends Input
      *   repositoryName?: string,
      *   triggers?: array<RepositoryTrigger|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutRepositoryTriggersInput $input
      */
     public static function create($input): self

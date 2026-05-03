@@ -577,6 +577,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -649,6 +650,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateMultipartUploadRequest $input
      */
     public static function create($input): self

@@ -53,6 +53,7 @@ final class UpdateUserRequest extends Input
      *   NewPath?: string|null,
      *   NewUserName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class UpdateUserRequest extends Input
      *   NewPath?: string|null,
      *   NewUserName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateUserRequest $input
      */
     public static function create($input): self

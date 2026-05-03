@@ -151,6 +151,7 @@ final class DeleteObjectRequest extends Input
      *   IfMatchLastModifiedTime?: \DateTimeImmutable|string|null,
      *   IfMatchSize?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -181,6 +182,7 @@ final class DeleteObjectRequest extends Input
      *   IfMatchLastModifiedTime?: \DateTimeImmutable|string|null,
      *   IfMatchSize?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteObjectRequest $input
      */
     public static function create($input): self

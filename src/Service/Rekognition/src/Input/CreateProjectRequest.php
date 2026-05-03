@@ -49,6 +49,7 @@ final class CreateProjectRequest extends Input
      *   AutoUpdate?: ProjectAutoUpdate::*|null,
      *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -67,6 +68,7 @@ final class CreateProjectRequest extends Input
      *   AutoUpdate?: ProjectAutoUpdate::*|null,
      *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateProjectRequest $input
      */
     public static function create($input): self

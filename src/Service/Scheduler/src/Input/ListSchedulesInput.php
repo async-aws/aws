@@ -54,6 +54,7 @@ final class ListSchedulesInput extends Input
      *   NextToken?: string|null,
      *   State?: ScheduleState::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -74,6 +75,7 @@ final class ListSchedulesInput extends Input
      *   NextToken?: string|null,
      *   State?: ScheduleState::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListSchedulesInput $input
      */
     public static function create($input): self

@@ -105,6 +105,7 @@ final class ListVectorsInput extends Input
      *   returnData?: bool|null,
      *   returnMetadata?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -133,6 +134,7 @@ final class ListVectorsInput extends Input
      *   returnData?: bool|null,
      *   returnMetadata?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListVectorsInput $input
      */
     public static function create($input): self

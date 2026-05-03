@@ -25,6 +25,7 @@ final class DeleteSuppressedDestinationRequest extends Input
      * @param array{
      *   EmailAddress?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class DeleteSuppressedDestinationRequest extends Input
      * @param array{
      *   EmailAddress?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteSuppressedDestinationRequest $input
      */
     public static function create($input): self

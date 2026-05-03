@@ -50,6 +50,7 @@ final class ListImageBuildVersionsRequest extends Input
      *   maxResults?: int|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -68,6 +69,7 @@ final class ListImageBuildVersionsRequest extends Input
      *   maxResults?: int|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListImageBuildVersionsRequest $input
      */
     public static function create($input): self

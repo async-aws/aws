@@ -51,6 +51,7 @@ final class GetQueryResultsInput extends Input
      *   MaxResults?: int|null,
      *   QueryResultType?: QueryResultType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class GetQueryResultsInput extends Input
      *   MaxResults?: int|null,
      *   QueryResultType?: QueryResultType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetQueryResultsInput $input
      */
     public static function create($input): self

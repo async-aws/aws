@@ -32,6 +32,7 @@ final class DeleteSnapshotRequest extends Input
      *   SnapshotId?: string,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -46,6 +47,7 @@ final class DeleteSnapshotRequest extends Input
      *   SnapshotId?: string,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteSnapshotRequest $input
      */
     public static function create($input): self

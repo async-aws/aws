@@ -36,6 +36,7 @@ final class CreateInvalidationRequest extends Input
      *   DistributionId?: string,
      *   InvalidationBatch?: InvalidationBatch|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -50,6 +51,7 @@ final class CreateInvalidationRequest extends Input
      *   DistributionId?: string,
      *   InvalidationBatch?: InvalidationBatch|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateInvalidationRequest $input
      */
     public static function create($input): self

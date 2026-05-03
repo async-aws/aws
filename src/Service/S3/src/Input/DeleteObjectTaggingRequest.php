@@ -66,6 +66,7 @@ final class DeleteObjectTaggingRequest extends Input
      *   VersionId?: string|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -84,6 +85,7 @@ final class DeleteObjectTaggingRequest extends Input
      *   VersionId?: string|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteObjectTaggingRequest $input
      */
     public static function create($input): self

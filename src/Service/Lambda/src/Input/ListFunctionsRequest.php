@@ -48,6 +48,7 @@ final class ListFunctionsRequest extends Input
      *   Marker?: string|null,
      *   MaxItems?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -66,6 +67,7 @@ final class ListFunctionsRequest extends Input
      *   Marker?: string|null,
      *   MaxItems?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListFunctionsRequest $input
      */
     public static function create($input): self

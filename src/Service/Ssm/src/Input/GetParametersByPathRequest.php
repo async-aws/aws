@@ -77,6 +77,7 @@ final class GetParametersByPathRequest extends Input
      *   MaxResults?: int|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -99,6 +100,7 @@ final class GetParametersByPathRequest extends Input
      *   MaxResults?: int|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetParametersByPathRequest $input
      */
     public static function create($input): self

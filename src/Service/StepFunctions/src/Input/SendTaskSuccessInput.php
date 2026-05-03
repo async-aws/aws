@@ -36,6 +36,7 @@ final class SendTaskSuccessInput extends Input
      *   taskToken?: string,
      *   output?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -50,6 +51,7 @@ final class SendTaskSuccessInput extends Input
      *   taskToken?: string,
      *   output?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SendTaskSuccessInput $input
      */
     public static function create($input): self

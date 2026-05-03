@@ -83,6 +83,7 @@ final class CreateLogGroupRequest extends Input
      *   logGroupClass?: LogGroupClass::*|null,
      *   deletionProtectionEnabled?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -103,6 +104,7 @@ final class CreateLogGroupRequest extends Input
      *   logGroupClass?: LogGroupClass::*|null,
      *   deletionProtectionEnabled?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateLogGroupRequest $input
      */
     public static function create($input): self

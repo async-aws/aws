@@ -143,6 +143,7 @@ final class SignUpRequest extends Input
      *   UserContextData?: UserContextDataType|array|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -171,6 +172,7 @@ final class SignUpRequest extends Input
      *   UserContextData?: UserContextDataType|array|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SignUpRequest $input
      */
     public static function create($input): self

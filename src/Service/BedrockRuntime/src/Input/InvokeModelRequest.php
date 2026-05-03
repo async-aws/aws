@@ -123,6 +123,7 @@ final class InvokeModelRequest extends Input
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   serviceTier?: ServiceTierType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -151,6 +152,7 @@ final class InvokeModelRequest extends Input
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   serviceTier?: ServiceTierType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|InvokeModelRequest $input
      */
     public static function create($input): self

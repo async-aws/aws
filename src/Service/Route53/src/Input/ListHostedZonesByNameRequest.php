@@ -50,6 +50,7 @@ final class ListHostedZonesByNameRequest extends Input
      *   HostedZoneId?: string|null,
      *   MaxItems?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -66,6 +67,7 @@ final class ListHostedZonesByNameRequest extends Input
      *   HostedZoneId?: string|null,
      *   MaxItems?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListHostedZonesByNameRequest $input
      */
     public static function create($input): self

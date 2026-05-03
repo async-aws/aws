@@ -62,6 +62,7 @@ final class GetVectorsInput extends Input
      *   returnData?: bool|null,
      *   returnMetadata?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -84,6 +85,7 @@ final class GetVectorsInput extends Input
      *   returnData?: bool|null,
      *   returnMetadata?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetVectorsInput $input
      */
     public static function create($input): self

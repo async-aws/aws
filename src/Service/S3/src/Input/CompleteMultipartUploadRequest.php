@@ -320,6 +320,7 @@ final class CompleteMultipartUploadRequest extends Input
      *   SSECustomerKey?: string|null,
      *   SSECustomerKeyMD5?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -376,6 +377,7 @@ final class CompleteMultipartUploadRequest extends Input
      *   SSECustomerKey?: string|null,
      *   SSECustomerKeyMD5?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CompleteMultipartUploadRequest $input
      */
     public static function create($input): self

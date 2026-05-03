@@ -46,6 +46,7 @@ final class DescribeStreamConsumerInput extends Input
      *   ConsumerARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -64,6 +65,7 @@ final class DescribeStreamConsumerInput extends Input
      *   ConsumerARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeStreamConsumerInput $input
      */
     public static function create($input): self

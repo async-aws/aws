@@ -98,6 +98,7 @@ final class AbortMultipartUploadRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   IfMatchInitiatedTime?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -120,6 +121,7 @@ final class AbortMultipartUploadRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   IfMatchInitiatedTime?: \DateTimeImmutable|string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AbortMultipartUploadRequest $input
      */
     public static function create($input): self

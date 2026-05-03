@@ -32,6 +32,7 @@ final class StartSchemaCreationRequest extends Input
      *   apiId?: string,
      *   definition?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -46,6 +47,7 @@ final class StartSchemaCreationRequest extends Input
      *   apiId?: string,
      *   definition?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartSchemaCreationRequest $input
      */
     public static function create($input): self

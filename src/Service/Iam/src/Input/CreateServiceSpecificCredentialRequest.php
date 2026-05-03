@@ -48,6 +48,7 @@ final class CreateServiceSpecificCredentialRequest extends Input
      *   ServiceName?: string,
      *   CredentialAgeDays?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -64,6 +65,7 @@ final class CreateServiceSpecificCredentialRequest extends Input
      *   ServiceName?: string,
      *   CredentialAgeDays?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateServiceSpecificCredentialRequest $input
      */
     public static function create($input): self

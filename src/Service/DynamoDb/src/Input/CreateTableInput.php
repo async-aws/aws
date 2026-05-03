@@ -287,6 +287,7 @@ final class CreateTableInput extends Input
      *   GlobalTableSourceArn?: string|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -331,6 +332,7 @@ final class CreateTableInput extends Input
      *   GlobalTableSourceArn?: string|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateTableInput $input
      */
     public static function create($input): self

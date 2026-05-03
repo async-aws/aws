@@ -47,6 +47,7 @@ final class DeregisterImageRequest extends Input
      *   DeleteAssociatedSnapshots?: bool|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -63,6 +64,7 @@ final class DeregisterImageRequest extends Input
      *   DeleteAssociatedSnapshots?: bool|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeregisterImageRequest $input
      */
     public static function create($input): self

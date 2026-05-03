@@ -97,6 +97,7 @@ final class QueryRequest extends Input
      *   MaxRows?: int|null,
      *   QueryInsights?: QueryInsights|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -117,6 +118,7 @@ final class QueryRequest extends Input
      *   MaxRows?: int|null,
      *   QueryInsights?: QueryInsights|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|QueryRequest $input
      */
     public static function create($input): self

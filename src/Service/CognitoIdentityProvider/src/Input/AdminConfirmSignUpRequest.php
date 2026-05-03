@@ -65,6 +65,7 @@ final class AdminConfirmSignUpRequest extends Input
      *   Username?: string,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -81,6 +82,7 @@ final class AdminConfirmSignUpRequest extends Input
      *   Username?: string,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminConfirmSignUpRequest $input
      */
     public static function create($input): self

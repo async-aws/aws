@@ -91,6 +91,7 @@ final class CreateHostedZoneRequest extends Input
      *   HostedZoneConfig?: HostedZoneConfig|array|null,
      *   DelegationSetId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -111,6 +112,7 @@ final class CreateHostedZoneRequest extends Input
      *   HostedZoneConfig?: HostedZoneConfig|array|null,
      *   DelegationSetId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateHostedZoneRequest $input
      */
     public static function create($input): self

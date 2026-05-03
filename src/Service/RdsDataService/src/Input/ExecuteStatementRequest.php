@@ -135,6 +135,7 @@ final class ExecuteStatementRequest extends Input
      *   resultSetOptions?: ResultSetOptions|array|null,
      *   formatRecordsAs?: RecordsFormatType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -167,6 +168,7 @@ final class ExecuteStatementRequest extends Input
      *   resultSetOptions?: ResultSetOptions|array|null,
      *   formatRecordsAs?: RecordsFormatType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ExecuteStatementRequest $input
      */
     public static function create($input): self

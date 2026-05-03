@@ -39,6 +39,7 @@ final class DeleteScheduleInput extends Input
      *   GroupName?: string|null,
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class DeleteScheduleInput extends Input
      *   GroupName?: string|null,
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteScheduleInput $input
      */
     public static function create($input): self

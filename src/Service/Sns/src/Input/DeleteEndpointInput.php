@@ -25,6 +25,7 @@ final class DeleteEndpointInput extends Input
      * @param array{
      *   EndpointArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class DeleteEndpointInput extends Input
      * @param array{
      *   EndpointArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteEndpointInput $input
      */
     public static function create($input): self

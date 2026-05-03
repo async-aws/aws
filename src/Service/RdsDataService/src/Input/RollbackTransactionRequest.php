@@ -45,6 +45,7 @@ final class RollbackTransactionRequest extends Input
      *   secretArn?: string,
      *   transactionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -61,6 +62,7 @@ final class RollbackTransactionRequest extends Input
      *   secretArn?: string,
      *   transactionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|RollbackTransactionRequest $input
      */
     public static function create($input): self

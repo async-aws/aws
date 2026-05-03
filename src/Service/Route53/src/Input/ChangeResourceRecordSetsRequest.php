@@ -36,6 +36,7 @@ final class ChangeResourceRecordSetsRequest extends Input
      *   HostedZoneId?: string,
      *   ChangeBatch?: ChangeBatch|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -50,6 +51,7 @@ final class ChangeResourceRecordSetsRequest extends Input
      *   HostedZoneId?: string,
      *   ChangeBatch?: ChangeBatch|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ChangeResourceRecordSetsRequest $input
      */
     public static function create($input): self
