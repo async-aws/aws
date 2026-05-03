@@ -113,6 +113,7 @@ final class GetMetricDataInput extends Input
      *   MaxDatapoints?: int|null,
      *   LabelOptions?: LabelOptions|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -137,6 +138,7 @@ final class GetMetricDataInput extends Input
      *   MaxDatapoints?: int|null,
      *   LabelOptions?: LabelOptions|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetMetricDataInput $input
      */
     public static function create($input): self

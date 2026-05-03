@@ -44,6 +44,7 @@ final class DescribeStacksInput extends Input
      *   StackName?: string|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -58,6 +59,7 @@ final class DescribeStacksInput extends Input
      *   StackName?: string|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeStacksInput $input
      */
     public static function create($input): self

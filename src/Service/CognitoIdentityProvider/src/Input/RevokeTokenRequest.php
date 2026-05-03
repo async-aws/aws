@@ -40,6 +40,7 @@ final class RevokeTokenRequest extends Input
      *   ClientId?: string,
      *   ClientSecret?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -56,6 +57,7 @@ final class RevokeTokenRequest extends Input
      *   ClientId?: string,
      *   ClientSecret?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|RevokeTokenRequest $input
      */
     public static function create($input): self

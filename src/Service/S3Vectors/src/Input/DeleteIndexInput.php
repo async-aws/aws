@@ -35,6 +35,7 @@ final class DeleteIndexInput extends Input
      *   indexName?: string|null,
      *   indexArn?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -51,6 +52,7 @@ final class DeleteIndexInput extends Input
      *   indexName?: string|null,
      *   indexArn?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteIndexInput $input
      */
     public static function create($input): self

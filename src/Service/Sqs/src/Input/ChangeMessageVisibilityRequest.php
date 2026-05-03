@@ -45,6 +45,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *   ReceiptHandle?: string,
      *   VisibilityTimeout?: int,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -61,6 +62,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *   ReceiptHandle?: string,
      *   VisibilityTimeout?: int,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ChangeMessageVisibilityRequest $input
      */
     public static function create($input): self

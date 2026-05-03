@@ -114,6 +114,7 @@ final class PutObjectTaggingRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -140,6 +141,7 @@ final class PutObjectTaggingRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   RequestPayer?: RequestPayer::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutObjectTaggingRequest $input
      */
     public static function create($input): self

@@ -35,6 +35,7 @@ final class DeleteMessageBatchRequest extends Input
      *   QueueUrl?: string,
      *   Entries?: array<DeleteMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class DeleteMessageBatchRequest extends Input
      *   QueueUrl?: string,
      *   Entries?: array<DeleteMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteMessageBatchRequest $input
      */
     public static function create($input): self

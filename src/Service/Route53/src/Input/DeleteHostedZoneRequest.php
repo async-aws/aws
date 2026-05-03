@@ -25,6 +25,7 @@ final class DeleteHostedZoneRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class DeleteHostedZoneRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteHostedZoneRequest $input
      */
     public static function create($input): self

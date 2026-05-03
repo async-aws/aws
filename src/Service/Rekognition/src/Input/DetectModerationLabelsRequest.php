@@ -57,6 +57,7 @@ final class DetectModerationLabelsRequest extends Input
      *   HumanLoopConfig?: HumanLoopConfig|array|null,
      *   ProjectVersion?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -75,6 +76,7 @@ final class DetectModerationLabelsRequest extends Input
      *   HumanLoopConfig?: HumanLoopConfig|array|null,
      *   ProjectVersion?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DetectModerationLabelsRequest $input
      */
     public static function create($input): self

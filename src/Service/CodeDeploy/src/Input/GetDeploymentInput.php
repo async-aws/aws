@@ -25,6 +25,7 @@ final class GetDeploymentInput extends Input
      * @param array{
      *   deploymentId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class GetDeploymentInput extends Input
      * @param array{
      *   deploymentId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetDeploymentInput $input
      */
     public static function create($input): self

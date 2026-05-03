@@ -340,6 +340,7 @@ final class QueryInput extends Input
      *   ExpressionAttributeNames?: array<string, string>|null,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -408,6 +409,7 @@ final class QueryInput extends Input
      *   ExpressionAttributeNames?: array<string, string>|null,
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|QueryInput $input
      */
     public static function create($input): self

@@ -41,6 +41,7 @@ final class GetAliasRequest extends Input
      *   FunctionName?: string,
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class GetAliasRequest extends Input
      *   FunctionName?: string,
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetAliasRequest $input
      */
     public static function create($input): self

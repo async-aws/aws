@@ -33,6 +33,7 @@ final class PutRecordBatchInput extends Input
      *   DeliveryStreamName?: string,
      *   Records?: array<Record|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -47,6 +48,7 @@ final class PutRecordBatchInput extends Input
      *   DeliveryStreamName?: string,
      *   Records?: array<Record|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutRecordBatchInput $input
      */
     public static function create($input): self

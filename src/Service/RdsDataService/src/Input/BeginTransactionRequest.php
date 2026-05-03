@@ -51,6 +51,7 @@ final class BeginTransactionRequest extends Input
      *   database?: string|null,
      *   schema?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class BeginTransactionRequest extends Input
      *   database?: string|null,
      *   schema?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|BeginTransactionRequest $input
      */
     public static function create($input): self

@@ -25,6 +25,7 @@ final class CancelJobRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class CancelJobRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CancelJobRequest $input
      */
     public static function create($input): self

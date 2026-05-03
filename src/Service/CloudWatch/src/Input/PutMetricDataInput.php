@@ -82,6 +82,7 @@ final class PutMetricDataInput extends Input
      *   EntityMetricData?: array<EntityMetricData|array>|null,
      *   StrictEntityValidation?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -100,6 +101,7 @@ final class PutMetricDataInput extends Input
      *   EntityMetricData?: array<EntityMetricData|array>|null,
      *   StrictEntityValidation?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutMetricDataInput $input
      */
     public static function create($input): self

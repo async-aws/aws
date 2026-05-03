@@ -112,6 +112,21 @@ class Operation
         return null;
     }
 
+    public function hasStreamingOutputPayload(): bool
+    {
+        $output = $this->getOutput();
+        if (null === $output) {
+            return false;
+        }
+
+        $payload = $output->getPayload();
+        if (null === $payload) {
+            return false;
+        }
+
+        return $output->getMember($payload)->isStreaming();
+    }
+
     /**
      * @return ExceptionShape[]
      */

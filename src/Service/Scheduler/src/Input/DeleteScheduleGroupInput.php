@@ -31,6 +31,7 @@ final class DeleteScheduleGroupInput extends Input
      *   ClientToken?: string|null,
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -45,6 +46,7 @@ final class DeleteScheduleGroupInput extends Input
      *   ClientToken?: string|null,
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteScheduleGroupInput $input
      */
     public static function create($input): self

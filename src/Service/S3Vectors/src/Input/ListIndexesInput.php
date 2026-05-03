@@ -51,6 +51,7 @@ final class ListIndexesInput extends Input
      *   nextToken?: string|null,
      *   prefix?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -71,6 +72,7 @@ final class ListIndexesInput extends Input
      *   nextToken?: string|null,
      *   prefix?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListIndexesInput $input
      */
     public static function create($input): self

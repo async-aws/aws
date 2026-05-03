@@ -123,6 +123,7 @@ final class FilterLogEventsRequest extends Input
      *   interleaved?: bool|null,
      *   unmask?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -155,6 +156,7 @@ final class FilterLogEventsRequest extends Input
      *   interleaved?: bool|null,
      *   unmask?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|FilterLogEventsRequest $input
      */
     public static function create($input): self

@@ -45,6 +45,7 @@ final class StartMessageMoveTaskRequest extends Input
      *   DestinationArn?: string|null,
      *   MaxNumberOfMessagesPerSecond?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -61,6 +62,7 @@ final class StartMessageMoveTaskRequest extends Input
      *   DestinationArn?: string|null,
      *   MaxNumberOfMessagesPerSecond?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartMessageMoveTaskRequest $input
      */
     public static function create($input): self

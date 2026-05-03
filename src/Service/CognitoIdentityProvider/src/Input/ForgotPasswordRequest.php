@@ -102,6 +102,7 @@ final class ForgotPasswordRequest extends Input
      *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -124,6 +125,7 @@ final class ForgotPasswordRequest extends Input
      *   AnalyticsMetadata?: AnalyticsMetadataType|array|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ForgotPasswordRequest $input
      */
     public static function create($input): self

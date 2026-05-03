@@ -42,6 +42,7 @@ final class DeleteResolverRequest extends Input
      *   typeName?: string,
      *   fieldName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -58,6 +59,7 @@ final class DeleteResolverRequest extends Input
      *   typeName?: string,
      *   fieldName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteResolverRequest $input
      */
     public static function create($input): self

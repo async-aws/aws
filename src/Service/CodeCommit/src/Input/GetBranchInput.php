@@ -30,6 +30,7 @@ final class GetBranchInput extends Input
      *   repositoryName?: string|null,
      *   branchName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -44,6 +45,7 @@ final class GetBranchInput extends Input
      *   repositoryName?: string|null,
      *   branchName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetBranchInput $input
      */
     public static function create($input): self

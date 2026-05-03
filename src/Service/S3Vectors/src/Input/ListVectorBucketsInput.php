@@ -35,6 +35,7 @@ final class ListVectorBucketsInput extends Input
      *   nextToken?: string|null,
      *   prefix?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -51,6 +52,7 @@ final class ListVectorBucketsInput extends Input
      *   nextToken?: string|null,
      *   prefix?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListVectorBucketsInput $input
      */
     public static function create($input): self

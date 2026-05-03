@@ -22,6 +22,7 @@ final class GetScheduleGroupInput extends Input
      * @param array{
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetScheduleGroupInput extends Input
      * @param array{
      *   Name?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetScheduleGroupInput $input
      */
     public static function create($input): self

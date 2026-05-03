@@ -22,6 +22,7 @@ final class BatchGetBuildsInput extends Input
      * @param array{
      *   ids?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class BatchGetBuildsInput extends Input
      * @param array{
      *   ids?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|BatchGetBuildsInput $input
      */
     public static function create($input): self

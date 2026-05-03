@@ -142,6 +142,7 @@ final class GetMetricStatisticsInput extends Input
      *   ExtendedStatistics?: string[]|null,
      *   Unit?: StandardUnit::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -170,6 +171,7 @@ final class GetMetricStatisticsInput extends Input
      *   ExtendedStatistics?: string[]|null,
      *   Unit?: StandardUnit::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetMetricStatisticsInput $input
      */
     public static function create($input): self

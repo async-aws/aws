@@ -169,6 +169,7 @@ final class SendMessageRequest extends Input
      *   MessageDeduplicationId?: string|null,
      *   MessageGroupId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -205,6 +206,7 @@ final class SendMessageRequest extends Input
      *   MessageDeduplicationId?: string|null,
      *   MessageGroupId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SendMessageRequest $input
      */
     public static function create($input): self

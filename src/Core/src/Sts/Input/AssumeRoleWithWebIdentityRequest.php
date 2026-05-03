@@ -161,6 +161,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   Policy?: string|null,
      *   DurationSeconds?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -185,6 +186,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   Policy?: string|null,
      *   DurationSeconds?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AssumeRoleWithWebIdentityRequest $input
      */
     public static function create($input): self

@@ -80,6 +80,7 @@ final class SearchPlaceIndexForPositionRequest extends Input
      *   Language?: string|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -100,6 +101,7 @@ final class SearchPlaceIndexForPositionRequest extends Input
      *   Language?: string|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SearchPlaceIndexForPositionRequest $input
      */
     public static function create($input): self

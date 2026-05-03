@@ -39,6 +39,7 @@ final class ListThingTypesRequest extends Input
      *   maxResults?: int|null,
      *   thingTypeName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class ListThingTypesRequest extends Input
      *   maxResults?: int|null,
      *   thingTypeName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListThingTypesRequest $input
      */
     public static function create($input): self

@@ -43,6 +43,7 @@ final class StartImagePipelineExecutionRequest extends Input
      *   clientToken?: string,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -59,6 +60,7 @@ final class StartImagePipelineExecutionRequest extends Input
      *   clientToken?: string,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartImagePipelineExecutionRequest $input
      */
     public static function create($input): self

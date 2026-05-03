@@ -35,6 +35,7 @@ final class PutEventsRequest extends Input
      *   Entries?: array<PutEventsRequestEntry|array>,
      *   EndpointId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class PutEventsRequest extends Input
      *   Entries?: array<PutEventsRequestEntry|array>,
      *   EndpointId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutEventsRequest $input
      */
     public static function create($input): self

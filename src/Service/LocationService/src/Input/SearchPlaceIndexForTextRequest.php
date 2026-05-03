@@ -138,6 +138,7 @@ final class SearchPlaceIndexForTextRequest extends Input
      *   FilterCategories?: string[]|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -166,6 +167,7 @@ final class SearchPlaceIndexForTextRequest extends Input
      *   FilterCategories?: string[]|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SearchPlaceIndexForTextRequest $input
      */
     public static function create($input): self

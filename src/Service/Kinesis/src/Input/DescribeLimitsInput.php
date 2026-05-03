@@ -11,6 +11,7 @@ final class DescribeLimitsInput extends Input
     /**
      * @param array{
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -21,6 +22,7 @@ final class DescribeLimitsInput extends Input
     /**
      * @param array{
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeLimitsInput $input
      */
     public static function create($input): self

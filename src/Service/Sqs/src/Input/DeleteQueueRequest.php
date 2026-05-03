@@ -24,6 +24,7 @@ final class DeleteQueueRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -36,6 +37,7 @@ final class DeleteQueueRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteQueueRequest $input
      */
     public static function create($input): self

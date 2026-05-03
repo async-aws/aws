@@ -11,6 +11,7 @@ final class GetCallerIdentityRequest extends Input
     /**
      * @param array{
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -21,6 +22,7 @@ final class GetCallerIdentityRequest extends Input
     /**
      * @param array{
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetCallerIdentityRequest $input
      */
     public static function create($input): self

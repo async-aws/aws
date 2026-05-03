@@ -51,6 +51,7 @@ final class GetTableMetadataInput extends Input
      *   TableName?: string,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class GetTableMetadataInput extends Input
      *   TableName?: string,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetTableMetadataInput $input
      */
     public static function create($input): self

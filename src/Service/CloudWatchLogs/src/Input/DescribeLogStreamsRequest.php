@@ -85,6 +85,7 @@ final class DescribeLogStreamsRequest extends Input
      *   nextToken?: string|null,
      *   limit?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -109,6 +110,7 @@ final class DescribeLogStreamsRequest extends Input
      *   nextToken?: string|null,
      *   limit?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeLogStreamsRequest $input
      */
     public static function create($input): self

@@ -41,6 +41,7 @@ final class ListGroupsRequest extends Input
      *   Limit?: int|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -57,6 +58,7 @@ final class ListGroupsRequest extends Input
      *   Limit?: int|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListGroupsRequest $input
      */
     public static function create($input): self

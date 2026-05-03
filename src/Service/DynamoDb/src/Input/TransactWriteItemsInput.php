@@ -65,6 +65,7 @@ final class TransactWriteItemsInput extends Input
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
      *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -83,6 +84,7 @@ final class TransactWriteItemsInput extends Input
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
      *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|TransactWriteItemsInput $input
      */
     public static function create($input): self

@@ -33,6 +33,7 @@ final class ListSubscriptionsByTopicInput extends Input
      *   TopicArn?: string,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -47,6 +48,7 @@ final class ListSubscriptionsByTopicInput extends Input
      *   TopicArn?: string,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListSubscriptionsByTopicInput $input
      */
     public static function create($input): self

@@ -67,6 +67,7 @@ final class ListThingsRequest extends Input
      *   thingTypeName?: string|null,
      *   usePrefixAttributeValue?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -89,6 +90,7 @@ final class ListThingsRequest extends Input
      *   thingTypeName?: string|null,
      *   usePrefixAttributeValue?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListThingsRequest $input
      */
     public static function create($input): self

@@ -40,6 +40,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      *   lifecycleEventHookExecutionId?: string|null,
      *   status?: LifecycleEventStatus::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -56,6 +57,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      *   lifecycleEventHookExecutionId?: string|null,
      *   status?: LifecycleEventStatus::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      */
     public static function create($input): self

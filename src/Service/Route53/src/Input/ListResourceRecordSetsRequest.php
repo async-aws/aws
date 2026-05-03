@@ -83,6 +83,7 @@ final class ListResourceRecordSetsRequest extends Input
      *   StartRecordIdentifier?: string|null,
      *   MaxItems?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -103,6 +104,7 @@ final class ListResourceRecordSetsRequest extends Input
      *   StartRecordIdentifier?: string|null,
      *   MaxItems?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListResourceRecordSetsRequest $input
      */
     public static function create($input): self

@@ -88,6 +88,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *   UserAttributes?: array<AttributeType|array>,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -106,6 +107,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *   UserAttributes?: array<AttributeType|array>,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminUpdateUserAttributesRequest $input
      */
     public static function create($input): self

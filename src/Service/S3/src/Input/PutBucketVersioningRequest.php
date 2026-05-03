@@ -88,6 +88,7 @@ final class PutBucketVersioningRequest extends Input
      *   VersioningConfiguration?: VersioningConfiguration|array,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -110,6 +111,7 @@ final class PutBucketVersioningRequest extends Input
      *   VersioningConfiguration?: VersioningConfiguration|array,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutBucketVersioningRequest $input
      */
     public static function create($input): self

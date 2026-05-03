@@ -84,6 +84,7 @@ final class BatchGetItemInput extends Input
      *   RequestItems?: array<string, KeysAndAttributes|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -103,6 +104,7 @@ final class BatchGetItemInput extends Input
      *   RequestItems?: array<string, KeysAndAttributes|array>,
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|BatchGetItemInput $input
      */
     public static function create($input): self

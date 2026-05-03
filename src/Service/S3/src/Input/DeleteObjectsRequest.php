@@ -142,6 +142,7 @@ final class DeleteObjectsRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -166,6 +167,7 @@ final class DeleteObjectsRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteObjectsRequest $input
      */
     public static function create($input): self

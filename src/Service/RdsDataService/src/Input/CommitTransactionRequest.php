@@ -45,6 +45,7 @@ final class CommitTransactionRequest extends Input
      *   secretArn?: string,
      *   transactionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -61,6 +62,7 @@ final class CommitTransactionRequest extends Input
      *   secretArn?: string,
      *   transactionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CommitTransactionRequest $input
      */
     public static function create($input): self

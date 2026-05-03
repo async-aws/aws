@@ -72,6 +72,7 @@ final class CreateStreamInput extends Input
      *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -94,6 +95,7 @@ final class CreateStreamInput extends Input
      *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateStreamInput $input
      */
     public static function create($input): self

@@ -62,6 +62,7 @@ final class StartCalculationExecutionRequest extends Input
      *   CodeBlock?: string|null,
      *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -82,6 +83,7 @@ final class StartCalculationExecutionRequest extends Input
      *   CodeBlock?: string|null,
      *   ClientRequestToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartCalculationExecutionRequest $input
      */
     public static function create($input): self

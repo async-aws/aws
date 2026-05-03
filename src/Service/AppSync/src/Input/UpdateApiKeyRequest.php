@@ -49,6 +49,7 @@ final class UpdateApiKeyRequest extends Input
      *   description?: string|null,
      *   expires?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -67,6 +68,7 @@ final class UpdateApiKeyRequest extends Input
      *   description?: string|null,
      *   expires?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateApiKeyRequest $input
      */
     public static function create($input): self

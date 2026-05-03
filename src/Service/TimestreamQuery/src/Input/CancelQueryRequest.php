@@ -22,6 +22,7 @@ final class CancelQueryRequest extends Input
      * @param array{
      *   QueryId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class CancelQueryRequest extends Input
      * @param array{
      *   QueryId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CancelQueryRequest $input
      */
     public static function create($input): self

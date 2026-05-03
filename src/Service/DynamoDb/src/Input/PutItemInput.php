@@ -214,6 +214,7 @@ final class PutItemInput extends Input
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -264,6 +265,7 @@ final class PutItemInput extends Input
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutItemInput $input
      */
     public static function create($input): self

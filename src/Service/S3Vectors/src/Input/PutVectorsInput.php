@@ -49,6 +49,7 @@ final class PutVectorsInput extends Input
      *   indexArn?: string|null,
      *   vectors?: array<PutInputVector|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -67,6 +68,7 @@ final class PutVectorsInput extends Input
      *   indexArn?: string|null,
      *   vectors?: array<PutInputVector|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutVectorsInput $input
      */
     public static function create($input): self

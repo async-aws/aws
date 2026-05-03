@@ -77,6 +77,7 @@ final class GetDifferencesInput extends Input
      *   MaxResults?: int|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -101,6 +102,7 @@ final class GetDifferencesInput extends Input
      *   MaxResults?: int|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetDifferencesInput $input
      */
     public static function create($input): self

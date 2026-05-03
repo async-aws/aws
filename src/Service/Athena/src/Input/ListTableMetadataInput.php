@@ -66,6 +66,7 @@ final class ListTableMetadataInput extends Input
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -88,6 +89,7 @@ final class ListTableMetadataInput extends Input
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListTableMetadataInput $input
      */
     public static function create($input): self

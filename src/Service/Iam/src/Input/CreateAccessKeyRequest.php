@@ -24,6 +24,7 @@ final class CreateAccessKeyRequest extends Input
      * @param array{
      *   UserName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -36,6 +37,7 @@ final class CreateAccessKeyRequest extends Input
      * @param array{
      *   UserName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateAccessKeyRequest $input
      */
     public static function create($input): self

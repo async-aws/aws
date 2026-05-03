@@ -116,6 +116,9 @@ class InputGenerator
             if ('region' === $member->getName()) {
                 throw new \RuntimeException('Member conflict with "@region" parameter.');
             }
+            if ('responseBuffer' === $member->getName()) {
+                throw new \RuntimeException('Member conflict with "@responseBuffer" parameter.');
+            }
             $memberShape = $member->getShape();
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
             foreach ($memberClassNames as $memberClassName) {
@@ -280,7 +283,12 @@ class InputGenerator
             ->setReturnType('self')
             ->setBody('return $input instanceof self ? $input : new self($input);');
         $createMethod->addParameter('input');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, true, true, false, ['  \'@region\'?: string|null,']);
+        $pseudoOptions = ['  \'@region\'?: string|null,', '  \'@responseBuffer\'?: bool,'];
+        if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\\Core\\')) {
+            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.30');
+        }
+
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, true, true, false, $pseudoOptions);
         $createMethod->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());
@@ -288,7 +296,7 @@ class InputGenerator
 
         $constructorBody .= 'parent::__construct($input);';
         $constructor = $classBuilder->addMethod('__construct');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  \'@region\'?: string|null,']);
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, $pseudoOptions);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());

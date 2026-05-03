@@ -56,6 +56,7 @@ final class ListTagsForStreamInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -76,6 +77,7 @@ final class ListTagsForStreamInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListTagsForStreamInput $input
      */
     public static function create($input): self

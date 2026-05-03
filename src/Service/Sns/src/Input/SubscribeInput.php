@@ -133,6 +133,7 @@ final class SubscribeInput extends Input
      *   Attributes?: array<string, string>|null,
      *   ReturnSubscriptionArn?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -153,6 +154,7 @@ final class SubscribeInput extends Input
      *   Attributes?: array<string, string>|null,
      *   ReturnSubscriptionArn?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SubscribeInput $input
      */
     public static function create($input): self

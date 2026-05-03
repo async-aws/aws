@@ -109,6 +109,7 @@ final class CreateTokenRequest extends Input
      *   redirectUri?: string|null,
      *   codeVerifier?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -137,6 +138,7 @@ final class CreateTokenRequest extends Input
      *   redirectUri?: string|null,
      *   codeVerifier?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateTokenRequest $input
      */
     public static function create($input): self

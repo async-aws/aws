@@ -22,6 +22,7 @@ final class GetSessionRequest extends Input
      * @param array{
      *   SessionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetSessionRequest extends Input
      * @param array{
      *   SessionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetSessionRequest $input
      */
     public static function create($input): self

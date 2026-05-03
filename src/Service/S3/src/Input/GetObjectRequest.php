@@ -320,6 +320,7 @@ final class GetObjectRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumMode?: ChecksumMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -372,6 +373,7 @@ final class GetObjectRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumMode?: ChecksumMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetObjectRequest $input
      */
     public static function create($input): self

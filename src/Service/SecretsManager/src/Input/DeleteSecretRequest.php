@@ -59,6 +59,7 @@ final class DeleteSecretRequest extends Input
      *   RecoveryWindowInDays?: int|null,
      *   ForceDeleteWithoutRecovery?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -75,6 +76,7 @@ final class DeleteSecretRequest extends Input
      *   RecoveryWindowInDays?: int|null,
      *   ForceDeleteWithoutRecovery?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteSecretRequest $input
      */
     public static function create($input): self

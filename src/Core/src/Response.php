@@ -17,6 +17,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Exception\UnparsableResponse;
+use AsyncAws\Core\Stream\ResponseBodyNonBufferedStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Psr\Log\LoggerInterface;
@@ -103,9 +104,14 @@ final class Response
     private $exceptionMapping;
 
     /**
+     * @var bool
+     */
+    private $responseBuffer;
+
+    /**
      * @param array<string, class-string<HttpException>> $exceptionMapping
      */
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, ?AwsErrorFactoryInterface $awsErrorFactory = null, ?EndpointCache $endpointCache = null, ?Request $request = null, bool $debug = false, array $exceptionMapping = [])
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, ?AwsErrorFactoryInterface $awsErrorFactory = null, ?EndpointCache $endpointCache = null, ?Request $request = null, bool $debug = false, array $exceptionMapping = [], bool $responseBuffer = true)
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
@@ -115,6 +121,7 @@ final class Response
         $this->request = $request;
         $this->debug = $debug;
         $this->exceptionMapping = $exceptionMapping;
+        $this->responseBuffer = $responseBuffer;
     }
 
     public function __destruct()
@@ -166,12 +173,18 @@ final class Response
                 // Network exception
                 $this->logger->debug('AsyncAws HTTP request could not be sent due network issues');
             } else {
+                if ($this->responseBuffer) {
+                    $body = $this->httpResponse->getContent(false);
+                    $this->bodyDownloaded = true;
+                } else {
+                    $body = '[response body omitted because buffering is disabled]';
+                }
+
                 $this->logger->debug('AsyncAws HTTP response received with status code {status_code}', [
                     'status_code' => $httpStatusCode,
                     'headers' => json_encode($this->httpResponse->getHeaders(false)),
-                    'body' => $this->httpResponse->getContent(false),
+                    'body' => $body,
                 ]);
-                $this->bodyDownloaded = true;
             }
         }
 
@@ -373,6 +386,15 @@ final class Response
         }
 
         try {
+            if (!$this->responseBuffer) {
+                $toStream = [$this->httpResponse, 'toStream'];
+                if (!\is_callable($toStream)) {
+                    throw new RuntimeException('The HTTP response does not support non-buffered streaming.');
+                }
+
+                return new ResponseBodyNonBufferedStream($toStream(false));
+            }
+
             return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
         } finally {
             $this->bodyDownloaded = true;

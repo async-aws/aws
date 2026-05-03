@@ -68,6 +68,7 @@ final class GetObjectAclRequest extends Input
      *   RequestPayer?: RequestPayer::*|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -88,6 +89,7 @@ final class GetObjectAclRequest extends Input
      *   RequestPayer?: RequestPayer::*|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetObjectAclRequest $input
      */
     public static function create($input): self

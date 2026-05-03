@@ -73,6 +73,7 @@ final class PutBucketTaggingRequest extends Input
      *   Tagging?: Tagging|array,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -93,6 +94,7 @@ final class PutBucketTaggingRequest extends Input
      *   Tagging?: Tagging|array,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutBucketTaggingRequest $input
      */
     public static function create($input): self

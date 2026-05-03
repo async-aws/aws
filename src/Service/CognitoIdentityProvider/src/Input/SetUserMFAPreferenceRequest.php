@@ -72,6 +72,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *   WebAuthnMfaSettings?: WebAuthnMfaSettingsType|array|null,
      *   AccessToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -92,6 +93,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *   WebAuthnMfaSettings?: WebAuthnMfaSettingsType|array|null,
      *   AccessToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SetUserMFAPreferenceRequest $input
      */
     public static function create($input): self

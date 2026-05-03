@@ -158,6 +158,7 @@ final class GetQueueAttributesRequest extends Input
      *   QueueUrl?: string,
      *   AttributeNames?: array<QueueAttributeName::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -172,6 +173,7 @@ final class GetQueueAttributesRequest extends Input
      *   QueueUrl?: string,
      *   AttributeNames?: array<QueueAttributeName::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetQueueAttributesRequest $input
      */
     public static function create($input): self

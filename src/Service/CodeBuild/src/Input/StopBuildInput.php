@@ -22,6 +22,7 @@ final class StopBuildInput extends Input
      * @param array{
      *   id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class StopBuildInput extends Input
      * @param array{
      *   id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StopBuildInput $input
      */
     public static function create($input): self

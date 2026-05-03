@@ -201,6 +201,7 @@ final class AdminInitiateAuthRequest extends Input
      *   ContextData?: ContextDataType|array|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -227,6 +228,7 @@ final class AdminInitiateAuthRequest extends Input
      *   ContextData?: ContextDataType|array|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminInitiateAuthRequest $input
      */
     public static function create($input): self
