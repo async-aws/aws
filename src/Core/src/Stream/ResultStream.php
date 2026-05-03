@@ -6,6 +6,10 @@ namespace AsyncAws\Core\Stream;
 
 /**
  * Stream for a Result.
+ *
+ * Most implementations buffer responses into temporary storage so content can be
+ * replayed. Some operations can opt into non-buffered response streams; those
+ * streams are one-shot and non-rewindable.
  */
 interface ResultStream
 {
@@ -22,12 +26,12 @@ interface ResultStream
     public function getChunks(): iterable;
 
     /**
-     * Download content into a temporary resource and return a string.
+     * Download content and return a string.
      */
     public function getContentAsString(): string;
 
     /**
-     * Download content into a resource and then return that resource.
+     * Return content as a resource.
      *
      * @return resource
      */

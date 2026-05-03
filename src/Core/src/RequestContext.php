@@ -18,6 +18,7 @@ final class RequestContext
         'expirationDate' => true,
         'currentDate' => true,
         'exceptionMapping' => true,
+        'responseBuffer' => true,
         'usesEndpointDiscovery' => true,
         'requiresEndpointDiscovery' => true,
     ];
@@ -58,12 +59,18 @@ final class RequestContext
     private $exceptionMapping = [];
 
     /**
+     * @var bool
+     */
+    private $responseBuffer = true;
+
+    /**
      * @param array{
      *  operation?: string|null,
      *  region?: string|null,
      *  expirationDate?: \DateTimeImmutable|null,
      *  currentDate?: \DateTimeImmutable|null,
      *  exceptionMapping?: array<string, class-string<HttpException>>,
+     *  responseBuffer?: bool,
      *  usesEndpointDiscovery?: bool,
      *  requiresEndpointDiscovery?: bool,
      * } $options
@@ -105,6 +112,11 @@ final class RequestContext
     public function getExceptionMapping(): array
     {
         return $this->exceptionMapping;
+    }
+
+    public function shouldBufferResponse(): bool
+    {
+        return $this->responseBuffer;
     }
 
     public function usesEndpointDiscovery(): bool

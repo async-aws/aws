@@ -15,11 +15,17 @@ abstract class Input
     public $region;
 
     /**
-     * @param array{'@region'?: ?string,...} $input
+     * @var bool
+     */
+    private $responseBuffer = true;
+
+    /**
+     * @param array{'@region'?: ?string, '@responseBuffer'?: bool, ...} $input
      */
     protected function __construct(array $input)
     {
         $this->region = $input['@region'] ?? null;
+        $this->responseBuffer = $input['@responseBuffer'] ?? true;
     }
 
     public function setRegion(?string $region): void
@@ -30,6 +36,11 @@ abstract class Input
     public function getRegion(): ?string
     {
         return $this->region;
+    }
+
+    public function shouldBufferResponse(): bool
+    {
+        return $this->responseBuffer;
     }
 
     abstract public function request(): Request;

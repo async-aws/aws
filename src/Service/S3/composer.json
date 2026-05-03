@@ -16,7 +16,7 @@
         "ext-filter": "*",
         "ext-hash": "*",
         "ext-simplexml": "*",
-        "async-aws/core": "^1.22"
+        "async-aws/core": "^1.30"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5.42",
