@@ -766,6 +766,13 @@ class RekognitionClient extends AbstractApi
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
+            case 'eu-isoe-west-1':
+                return [
+                    'endpoint' => 'https://rekognition.eu-isoe-west-1.cloud.adc-e.uk',
+                    'signRegion' => 'eu-isoe-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isof-east-1':
             case 'us-isof-south-1':
                 return [
