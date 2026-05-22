@@ -4,7 +4,6 @@
 
 ### Added
 
-- AWS api-change: Adding new BDD representation of endpoint ruleset
 - AWS api-change: Supporting Request Metadata for Invoke Model and Invoke Model with Response Stream
 
 ## 1.2.0
