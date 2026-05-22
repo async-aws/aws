@@ -59,6 +59,7 @@ class BedrockRuntimeClient extends AbstractApi
      *   guardrailVersion?: string|null,
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   serviceTier?: ServiceTierType::*|null,
+     *   requestMetadata?: string|null,
      *   '@region'?: string|null,
      * }|InvokeModelRequest $input
      *

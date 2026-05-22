@@ -112,6 +112,13 @@ final class InvokeModelRequest extends Input
     private $serviceTier;
 
     /**
+     * Key-value pairs that you can use to filter invocation logs.
+     *
+     * @var string|null
+     */
+    private $requestMetadata;
+
+    /**
      * @param array{
      *   body?: string|null,
      *   contentType?: string|null,
@@ -122,6 +129,7 @@ final class InvokeModelRequest extends Input
      *   guardrailVersion?: string|null,
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   serviceTier?: ServiceTierType::*|null,
+     *   requestMetadata?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -136,6 +144,7 @@ final class InvokeModelRequest extends Input
         $this->guardrailVersion = $input['guardrailVersion'] ?? null;
         $this->performanceConfigLatency = $input['performanceConfigLatency'] ?? null;
         $this->serviceTier = $input['serviceTier'] ?? null;
+        $this->requestMetadata = $input['requestMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -150,6 +159,7 @@ final class InvokeModelRequest extends Input
      *   guardrailVersion?: string|null,
      *   performanceConfigLatency?: PerformanceConfigLatency::*|null,
      *   serviceTier?: ServiceTierType::*|null,
+     *   requestMetadata?: string|null,
      *   '@region'?: string|null,
      * }|InvokeModelRequest $input
      */
@@ -194,6 +204,11 @@ final class InvokeModelRequest extends Input
     public function getPerformanceConfigLatency(): ?string
     {
         return $this->performanceConfigLatency;
+    }
+
+    public function getRequestMetadata(): ?string
+    {
+        return $this->requestMetadata;
     }
 
     /**
@@ -254,6 +269,9 @@ final class InvokeModelRequest extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "serviceTier" for "%s". The value "%s" is not a valid "ServiceTierType".', __CLASS__, $this->serviceTier));
             }
             $headers['X-Amzn-Bedrock-Service-Tier'] = $this->serviceTier;
+        }
+        if (null !== $this->requestMetadata) {
+            $headers['X-Amzn-Bedrock-Request-Metadata'] = $this->requestMetadata;
         }
 
         // Prepare query
@@ -322,6 +340,13 @@ final class InvokeModelRequest extends Input
     public function setPerformanceConfigLatency(?string $value): self
     {
         $this->performanceConfigLatency = $value;
+
+        return $this;
+    }
+
+    public function setRequestMetadata(?string $value): self
+    {
+        $this->requestMetadata = $value;
 
         return $this;
     }
