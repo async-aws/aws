@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release introduces support for Tenant Suppression Lists
+- AWS api-change: Adding new BDD representation of endpoint ruleset
+
 ## 1.14.2
 
 ### Changed

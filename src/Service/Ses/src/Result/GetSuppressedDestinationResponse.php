@@ -41,6 +41,7 @@ class GetSuppressedDestinationResponse extends Result
             'Reason' => !SuppressionListReason::exists((string) $json['Reason']) ? SuppressionListReason::UNKNOWN_TO_SDK : (string) $json['Reason'],
             'LastUpdateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateTime'])),
             'Attributes' => empty($json['Attributes']) ? null : $this->populateResultSuppressedDestinationAttributes($json['Attributes']),
+            'TenantName' => isset($json['TenantName']) ? (string) $json['TenantName'] : null,
         ]);
     }
 
