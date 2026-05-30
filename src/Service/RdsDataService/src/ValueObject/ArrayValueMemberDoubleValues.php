@@ -7,7 +7,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ArrayValueMemberDoubleValues extends ArrayValue
 {
     /**
-     * An array of floating-point numbers.
+     * An array of floating-point numbers. Can contain null values.
      *
      * @var float[]
      */

@@ -7,7 +7,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ArrayValueMemberStringValues extends ArrayValue
 {
     /**
-     * An array of strings.
+     * An array of strings. Can contain null values.
      *
      * @var string[]
      */

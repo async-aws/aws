@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release introduces support for Tenant Suppression Lists
+
 ## 1.14.2
 
 ### Changed

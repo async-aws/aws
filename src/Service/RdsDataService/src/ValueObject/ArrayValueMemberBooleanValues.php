@@ -7,7 +7,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ArrayValueMemberBooleanValues extends ArrayValue
 {
     /**
-     * An array of Boolean values.
+     * An array of Boolean values. Can contain null values.
      *
      * @var bool[]
      */
