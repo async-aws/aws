@@ -28,7 +28,7 @@
         "phpunit/phpunit": "^11.5.42",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/error-handler": "^7.3.2 || ^8.0",
-        "symfony/framework-bundle": "^5.4.45 || ^6.4.13 || ^7.1.6",
+        "symfony/framework-bundle": "^5.4.45 || ^6.4.13 || ^7.1.6 || ^8.0",
         "symfony/phpunit-bridge": "^7.3.2 || ^8.0",
         "symfony/runtime": "^7.3.2 || ^8.0"
     },
