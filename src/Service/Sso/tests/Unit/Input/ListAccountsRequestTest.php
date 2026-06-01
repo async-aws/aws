@@ -9,22 +9,18 @@ class ListAccountsRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListAccountsRequest([
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
-            'accessToken' => 'change me',
+            'nextToken' => 'eyJuZXh0VG9rZW4iOm51bGx9',
+            'maxResults' => 25,
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
         ]);
 
         // see https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_ListAccounts.html
         $expected = '
-            GET / HTTP/1.0
+            GET /assignment/accounts?next_token=eyJuZXh0VG9rZW4iOm51bGx9&max_result=25 HTTP/1.0
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
+            Accept: application/json
+            x-amz-sso_bearer_token: eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

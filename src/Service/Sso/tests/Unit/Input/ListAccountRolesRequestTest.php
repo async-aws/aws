@@ -9,23 +9,19 @@ class ListAccountRolesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListAccountRolesRequest([
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
-            'accessToken' => 'change me',
-            'accountId' => 'change me',
+            'nextToken' => 'eyJuZXh0VG9rZW4iOm51bGx9',
+            'maxResults' => 50,
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
+            'accountId' => '123456789011',
         ]);
 
         // see https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_ListAccountRoles.html
         $expected = '
-            GET / HTTP/1.0
+            GET /assignment/roles?next_token=eyJuZXh0VG9rZW4iOm51bGx9&max_result=50&account_id=123456789011 HTTP/1.0
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
+            Accept: application/json
+            x-amz-sso_bearer_token: eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

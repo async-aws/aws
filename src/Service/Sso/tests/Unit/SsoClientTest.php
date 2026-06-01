@@ -35,8 +35,8 @@ class SsoClientTest extends TestCase
         $client = new SsoClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListAccountRolesRequest([
-            'accessToken' => 'change me',
-            'accountId' => 'change me',
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
+            'accountId' => '123456789011',
         ]);
         $result = $client->listAccountRoles($input);
 
@@ -49,7 +49,7 @@ class SsoClientTest extends TestCase
         $client = new SsoClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListAccountsRequest([
-            'accessToken' => 'change me',
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
         ]);
         $result = $client->listAccounts($input);
 

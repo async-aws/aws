@@ -13,8 +13,6 @@ class RegisterClientResponseTest extends TestCase
 {
     public function testRegisterClientResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "clientId": "_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID",
@@ -26,11 +24,11 @@ class RegisterClientResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new RegisterClientResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getClientId());
-        self::assertSame('changeIt', $result->getClientSecret());
-        self::assertSame(1337, $result->getClientIdIssuedAt());
-        self::assertSame(1337, $result->getClientSecretExpiresAt());
-        self::assertSame('changeIt', $result->getAuthorizationEndpoint());
-        self::assertSame('changeIt', $result->getTokenEndpoint());
+        self::assertSame('_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID', $result->getClientId());
+        self::assertSame('VERYLONGSECRETeyJraWQiOiJrZXktMTU2NDAyODA5OSIsImFsZyI6IkhTMzg0In0', $result->getClientSecret());
+        self::assertSame(1579725929, $result->getClientIdIssuedAt());
+        self::assertSame(1587584729, $result->getClientSecretExpiresAt());
+        self::assertNull($result->getAuthorizationEndpoint());
+        self::assertNull($result->getTokenEndpoint());
     }
 }

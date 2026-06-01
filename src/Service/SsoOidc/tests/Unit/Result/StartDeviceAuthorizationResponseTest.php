@@ -13,8 +13,6 @@ class StartDeviceAuthorizationResponseTest extends TestCase
 {
     public function testStartDeviceAuthorizationResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "deviceCode": "yJraWQiOiJrZXktMTU2Njk2ODA4OCIsImFsZyI6IkhTMzIn0EXAMPLEDEVICECODE",
@@ -28,11 +26,11 @@ class StartDeviceAuthorizationResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new StartDeviceAuthorizationResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getDeviceCode());
-        self::assertSame('changeIt', $result->getUserCode());
-        self::assertSame('changeIt', $result->getVerificationUri());
-        self::assertSame('changeIt', $result->getVerificationUriComplete());
-        self::assertSame(1337, $result->getExpiresIn());
-        self::assertSame(1337, $result->getInterval());
+        self::assertSame('yJraWQiOiJrZXktMTU2Njk2ODA4OCIsImFsZyI6IkhTMzIn0EXAMPLEDEVICECODE', $result->getDeviceCode());
+        self::assertSame('makdfsk83yJraWQiOiJrZXktMTU2Njk2sImFsZyI6IkhTMzIn0EXAMPLEUSERCODE', $result->getUserCode());
+        self::assertSame('https://directory-alias-example.awsapps.com/start/#/device', $result->getVerificationUri());
+        self::assertSame('https://directory-alias-example.awsapps.com/start/#/device?user_code=makdfsk83yJraWQiOiJrZXktMTU2Njk2sImFsZyI6IkhTMzIn0EXAMPLEUSERCODE', $result->getVerificationUriComplete());
+        self::assertSame(1579729529, $result->getExpiresIn());
+        self::assertSame(1, $result->getInterval());
     }
 }

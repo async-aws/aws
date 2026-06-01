@@ -15,17 +15,31 @@ class ListAccountRolesResponseTest extends TestCase
 {
     public function testListAccountRolesResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_ListAccountRoles.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "nextToken": "eyJuZXh0VG9rZW4iOm51bGx9",
+            "roleList": [
+                {
+                    "roleName": "AdministratorAccess",
+                    "accountId": "123456789011"
+                },
+                {
+                    "roleName": "ReadOnlyAccess",
+                    "accountId": "123456789011"
+                }
+            ]
         }');
 
         $client = new MockHttpClient($response);
         $result = new ListAccountRolesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new SsoClient(), new ListAccountRolesRequest([]));
 
-        self::assertSame('changeIt', $result->getNextToken());
-        // self::assertTODO(expected, $result->getRoleList());
+        self::assertSame('eyJuZXh0VG9rZW4iOm51bGx9', $result->getNextToken());
+
+        $roleList = iterator_to_array($result->getRoleList(true));
+        self::assertCount(2, $roleList);
+        self::assertSame('AdministratorAccess', $roleList[0]->getRoleName());
+        self::assertSame('123456789011', $roleList[0]->getAccountId());
+        self::assertSame('ReadOnlyAccess', $roleList[1]->getRoleName());
+        self::assertSame('123456789011', $roleList[1]->getAccountId());
     }
 }

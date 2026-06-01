@@ -15,9 +15,9 @@ class SsoClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetRoleCredentialsRequest([
-            'roleName' => 'change me',
-            'accountId' => 'change me',
-            'accessToken' => 'change me',
+            'roleName' => 'AdministratorAccess',
+            'accountId' => '123456789011',
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
         ]);
         $result = $client->getRoleCredentials($input);
 
@@ -30,16 +30,16 @@ class SsoClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new ListAccountRolesRequest([
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
-            'accessToken' => 'change me',
-            'accountId' => 'change me',
+            'nextToken' => 'eyJuZXh0VG9rZW4iOm51bGx9',
+            'maxResults' => 50,
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
+            'accountId' => '123456789011',
         ]);
         $result = $client->listAccountRoles($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertSame('eyJuZXh0VG9rZW4iOm51bGx9', $result->getNextToken());
         // self::assertTODO(expected, $result->getRoleList());
     }
 
@@ -48,15 +48,15 @@ class SsoClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new ListAccountsRequest([
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
-            'accessToken' => 'change me',
+            'nextToken' => 'eyJuZXh0VG9rZW4iOm51bGx9',
+            'maxResults' => 25,
+            'accessToken' => 'eyJlbmMiOiJBMjU2R0NNIn0EXAMPLEACCESSTOKEN',
         ]);
         $result = $client->listAccounts($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertSame('eyJuZXh0VG9rZW4iOm51bGx9', $result->getNextToken());
         // self::assertTODO(expected, $result->getAccountList());
     }
 

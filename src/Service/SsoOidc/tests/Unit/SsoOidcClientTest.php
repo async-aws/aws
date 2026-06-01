@@ -20,9 +20,9 @@ class SsoOidcClientTest extends TestCase
         $client = new SsoOidcClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateTokenRequest([
-            'clientId' => 'change me',
-            'clientSecret' => 'change me',
-            'grantType' => 'change me',
+            'clientId' => '_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID',
+            'clientSecret' => 'VERYLONGSECRETeyJraWQiOiJrZXktMTU2NDAyODA5OSIsImFsZyI6IkhTMzg0In0',
+            'grantType' => 'urn:ietf:params:oauth:grant-type:device_code',
         ]);
         $result = $client->createToken($input);
 
@@ -35,8 +35,8 @@ class SsoOidcClientTest extends TestCase
         $client = new SsoOidcClient([], new NullProvider(), new MockHttpClient());
 
         $input = new RegisterClientRequest([
-            'clientName' => 'change me',
-            'clientType' => 'change me',
+            'clientName' => 'My IDE Plugin',
+            'clientType' => 'public',
         ]);
         $result = $client->registerClient($input);
 
@@ -49,9 +49,9 @@ class SsoOidcClientTest extends TestCase
         $client = new SsoOidcClient([], new NullProvider(), new MockHttpClient());
 
         $input = new StartDeviceAuthorizationRequest([
-            'clientId' => 'change me',
-            'clientSecret' => 'change me',
-            'startUrl' => 'change me',
+            'clientId' => '_yzkThXVzLWVhc3QtMQEXAMPLECLIENTID',
+            'clientSecret' => 'VERYLONGSECRETeyJraWQiOiJrZXktMTU2NDAyODA5OSIsImFsZyI6IkhTMzg0In0',
+            'startUrl' => 'https://identitycenter.amazonaws.com/ssoins-111111111111',
         ]);
         $result = $client->startDeviceAuthorization($input);
 
