@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added operations `ListAccountRoles` and `ListAccountRoles`.
+
 ## 1.6.0
 
 ### Added
