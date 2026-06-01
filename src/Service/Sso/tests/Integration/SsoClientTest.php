@@ -4,6 +4,8 @@ namespace AsyncAws\Sso\Tests\Integration;
 
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sso\Input\GetRoleCredentialsRequest;
+use AsyncAws\Sso\Input\ListAccountRolesRequest;
+use AsyncAws\Sso\Input\ListAccountsRequest;
 use AsyncAws\Sso\SsoClient;
 
 class SsoClientTest extends TestCase
@@ -21,6 +23,41 @@ class SsoClientTest extends TestCase
 
         $result->resolve();
         // self::assertTODO(expected, $result->getRoleCredentials());
+    }
+
+    public function testListAccountRoles(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListAccountRolesRequest([
+            'nextToken' => 'change me',
+            'maxResults' => 1337,
+            'accessToken' => 'change me',
+            'accountId' => 'change me',
+        ]);
+        $result = $client->listAccountRoles($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextToken());
+        // self::assertTODO(expected, $result->getRoleList());
+    }
+
+    public function testListAccounts(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListAccountsRequest([
+            'nextToken' => 'change me',
+            'maxResults' => 1337,
+            'accessToken' => 'change me',
+        ]);
+        $result = $client->listAccounts($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextToken());
+        // self::assertTODO(expected, $result->getAccountList());
     }
 
     private function getClient(): SsoClient

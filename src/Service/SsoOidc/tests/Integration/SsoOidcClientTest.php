@@ -5,6 +5,8 @@ namespace AsyncAws\SsoOidc\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\SsoOidc\Input\CreateTokenRequest;
+use AsyncAws\SsoOidc\Input\RegisterClientRequest;
+use AsyncAws\SsoOidc\Input\StartDeviceAuthorizationRequest;
 use AsyncAws\SsoOidc\SsoOidcClient;
 
 class SsoOidcClientTest extends TestCase
@@ -33,6 +35,52 @@ class SsoOidcClientTest extends TestCase
         self::assertSame(1337, $result->getExpiresIn());
         self::assertSame('changeIt', $result->getRefreshToken());
         self::assertSame('changeIt', $result->getIdToken());
+    }
+
+    public function testRegisterClient(): void
+    {
+        $client = $this->getClient();
+
+        $input = new RegisterClientRequest([
+            'clientName' => 'change me',
+            'clientType' => 'change me',
+            'scopes' => ['change me'],
+            'redirectUris' => ['change me'],
+            'grantTypes' => ['change me'],
+            'issuerUrl' => 'change me',
+            'entitledApplicationArn' => 'change me',
+        ]);
+        $result = $client->registerClient($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getClientId());
+        self::assertSame('changeIt', $result->getClientSecret());
+        self::assertSame(1337, $result->getClientIdIssuedAt());
+        self::assertSame(1337, $result->getClientSecretExpiresAt());
+        self::assertSame('changeIt', $result->getAuthorizationEndpoint());
+        self::assertSame('changeIt', $result->getTokenEndpoint());
+    }
+
+    public function testStartDeviceAuthorization(): void
+    {
+        $client = $this->getClient();
+
+        $input = new StartDeviceAuthorizationRequest([
+            'clientId' => 'change me',
+            'clientSecret' => 'change me',
+            'startUrl' => 'change me',
+        ]);
+        $result = $client->startDeviceAuthorization($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getDeviceCode());
+        self::assertSame('changeIt', $result->getUserCode());
+        self::assertSame('changeIt', $result->getVerificationUri());
+        self::assertSame('changeIt', $result->getVerificationUriComplete());
+        self::assertSame(1337, $result->getExpiresIn());
+        self::assertSame(1337, $result->getInterval());
     }
 
     private function getClient(): SsoOidcClient

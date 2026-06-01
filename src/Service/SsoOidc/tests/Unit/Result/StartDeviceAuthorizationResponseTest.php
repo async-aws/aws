@@ -1,0 +1,38 @@
+<?php
+
+namespace AsyncAws\SsoOidc\Tests\Unit\Result;
+
+use AsyncAws\Core\Response;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
+use AsyncAws\SsoOidc\Result\StartDeviceAuthorizationResponse;
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\MockHttpClient;
+
+class StartDeviceAuthorizationResponseTest extends TestCase
+{
+    public function testStartDeviceAuthorizationResponse(): void
+    {
+        self::fail('Not implemented');
+
+        // see example-1.json from SDK
+        $response = new SimpleMockedResponse('{
+            "deviceCode": "yJraWQiOiJrZXktMTU2Njk2ODA4OCIsImFsZyI6IkhTMzIn0EXAMPLEDEVICECODE",
+            "expiresIn": 1579729529,
+            "interval": 1,
+            "userCode": "makdfsk83yJraWQiOiJrZXktMTU2Njk2sImFsZyI6IkhTMzIn0EXAMPLEUSERCODE",
+            "verificationUri": "https:\\/\\/directory-alias-example.awsapps.com\\/start\\/#\\/device",
+            "verificationUriComplete": "https:\\/\\/directory-alias-example.awsapps.com\\/start\\/#\\/device?user_code=makdfsk83yJraWQiOiJrZXktMTU2Njk2sImFsZyI6IkhTMzIn0EXAMPLEUSERCODE"
+        }');
+
+        $client = new MockHttpClient($response);
+        $result = new StartDeviceAuthorizationResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertSame('changeIt', $result->getDeviceCode());
+        self::assertSame('changeIt', $result->getUserCode());
+        self::assertSame('changeIt', $result->getVerificationUri());
+        self::assertSame('changeIt', $result->getVerificationUriComplete());
+        self::assertSame(1337, $result->getExpiresIn());
+        self::assertSame(1337, $result->getInterval());
+    }
+}
