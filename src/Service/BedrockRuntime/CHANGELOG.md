@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
 ### Added
 
 - AWS api-change: Supporting Request Metadata for Invoke Model and Invoke Model with Response Stream
