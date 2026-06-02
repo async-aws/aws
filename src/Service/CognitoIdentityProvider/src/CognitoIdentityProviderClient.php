@@ -25,6 +25,7 @@ use AsyncAws\CognitoIdentityProvider\Exception\InvalidUserPoolConfigurationExcep
 use AsyncAws\CognitoIdentityProvider\Exception\LimitExceededException;
 use AsyncAws\CognitoIdentityProvider\Exception\MFAMethodNotFoundException;
 use AsyncAws\CognitoIdentityProvider\Exception\NotAuthorizedException;
+use AsyncAws\CognitoIdentityProvider\Exception\OperationNotEnabledException;
 use AsyncAws\CognitoIdentityProvider\Exception\PasswordHistoryPolicyViolationException;
 use AsyncAws\CognitoIdentityProvider\Exception\PasswordResetRequiredException;
 use AsyncAws\CognitoIdentityProvider\Exception\PreconditionNotMetException;
@@ -143,6 +144,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -154,6 +156,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -201,6 +204,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidParameterException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyFailedAttemptsException
      * @throws TooManyRequestsException
@@ -217,6 +221,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidParameterException' => InvalidParameterException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyFailedAttemptsException' => TooManyFailedAttemptsException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -297,6 +302,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleAccessPolicyException
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PreconditionNotMetException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
@@ -318,6 +324,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PreconditionNotMetException' => PreconditionNotMetException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -359,6 +366,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -370,6 +378,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -407,6 +416,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -418,6 +428,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -454,6 +465,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -465,6 +477,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -504,6 +517,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -515,6 +529,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -582,6 +597,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidUserPoolConfigurationException
      * @throws MFAMethodNotFoundException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
@@ -604,6 +620,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
             'MFAMethodNotFoundException' => MFAMethodNotFoundException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -649,6 +666,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -660,6 +678,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -722,6 +741,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
@@ -740,6 +760,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
@@ -802,6 +823,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidParameterException
      * @throws InvalidPasswordException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordHistoryPolicyViolationException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
@@ -815,6 +837,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidPasswordException' => InvalidPasswordException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -881,6 +904,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleAccessPolicyException
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
@@ -899,6 +923,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
@@ -956,6 +981,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UserNotFoundException
@@ -967,6 +993,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UserNotFoundException' => UserNotFoundException::class,
@@ -1005,6 +1032,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws SoftwareTokenMFANotFoundException
      */
@@ -1017,6 +1045,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
         ]]));
@@ -1053,6 +1082,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidPasswordException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordHistoryPolicyViolationException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
@@ -1070,6 +1100,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidPasswordException' => InvalidPasswordException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
@@ -1116,6 +1147,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidPasswordException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordHistoryPolicyViolationException
      * @throws ResourceNotFoundException
      * @throws TooManyFailedAttemptsException
@@ -1138,6 +1170,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidPasswordException' => InvalidPasswordException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyFailedAttemptsException' => TooManyFailedAttemptsException::class,
@@ -1192,6 +1225,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidParameterException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyFailedAttemptsException
      * @throws TooManyRequestsException
@@ -1212,6 +1246,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidParameterException' => InvalidParameterException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyFailedAttemptsException' => TooManyFailedAttemptsException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -1258,6 +1293,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidParameterException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      */
@@ -1270,6 +1306,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidParameterException' => InvalidParameterException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
@@ -1333,6 +1370,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
@@ -1353,6 +1391,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
@@ -1388,6 +1427,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
@@ -1402,6 +1442,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -1464,6 +1505,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws InvalidUserPoolConfigurationException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
@@ -1486,6 +1528,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -1528,6 +1571,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      */
@@ -1538,6 +1582,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
@@ -1579,6 +1624,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      */
@@ -1589,6 +1635,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
         ]]));
@@ -1646,6 +1693,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
@@ -1666,6 +1714,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
@@ -1736,6 +1785,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidUserPoolConfigurationException
      * @throws MFAMethodNotFoundException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordHistoryPolicyViolationException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
@@ -1764,6 +1814,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
             'MFAMethodNotFoundException' => MFAMethodNotFoundException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordHistoryPolicyViolationException' => PasswordHistoryPolicyViolationException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
@@ -1803,6 +1854,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws ForbiddenException
      * @throws InternalErrorException
      * @throws InvalidParameterException
+     * @throws OperationNotEnabledException
      * @throws TooManyRequestsException
      * @throws UnauthorizedException
      * @throws UnsupportedOperationException
@@ -1815,6 +1867,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'ForbiddenException' => ForbiddenException::class,
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnauthorizedException' => UnauthorizedException::class,
             'UnsupportedOperationException' => UnsupportedOperationException::class,
@@ -1859,6 +1912,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidParameterException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
      * @throws UserNotConfirmedException
@@ -1872,6 +1926,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidParameterException' => InvalidParameterException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
@@ -1937,6 +1992,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws LimitExceededException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws ResourceNotFoundException
      * @throws TooManyRequestsException
      * @throws UnexpectedLambdaException
@@ -1958,6 +2014,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'LimitExceededException' => LimitExceededException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
             'UnexpectedLambdaException' => UnexpectedLambdaException::class,
@@ -1998,6 +2055,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidParameterException
      * @throws InvalidUserPoolConfigurationException
      * @throws NotAuthorizedException
+     * @throws OperationNotEnabledException
      * @throws PasswordResetRequiredException
      * @throws ResourceNotFoundException
      * @throws SoftwareTokenMFANotFoundException
@@ -2016,6 +2074,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidParameterException' => InvalidParameterException::class,
             'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
             'NotAuthorizedException' => NotAuthorizedException::class,
+            'OperationNotEnabledException' => OperationNotEnabledException::class,
             'PasswordResetRequiredException' => PasswordResetRequiredException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
