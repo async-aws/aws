@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fixed tests on Symfony 8.1
+
 ## 1.17.0
 
 ### Added

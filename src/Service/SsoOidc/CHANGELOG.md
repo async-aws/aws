@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added operations `RegisterClient` and `StartDeviceAuthorization`.
+
 ## 1.3.0
 
 ### Added

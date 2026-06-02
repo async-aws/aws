@@ -786,7 +786,9 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sso/2019-06-10/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference",
             "methods": [
-                "GetRoleCredentials"
+                "GetRoleCredentials",
+                "ListAccountRoles",
+                "ListAccounts"
             ]
         },
         "SsoOidc": {
@@ -796,7 +798,9 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sso-oidc/2019-06-10/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference",
             "methods": [
-                "CreateToken"
+                "CreateToken",
+                "RegisterClient",
+                "StartDeviceAuthorization"
             ]
         },
         "Sts": {

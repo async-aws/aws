@@ -12,7 +12,11 @@ use AsyncAws\Sso\Exception\ResourceNotFoundException;
 use AsyncAws\Sso\Exception\TooManyRequestsException;
 use AsyncAws\Sso\Exception\UnauthorizedException;
 use AsyncAws\Sso\Input\GetRoleCredentialsRequest;
+use AsyncAws\Sso\Input\ListAccountRolesRequest;
+use AsyncAws\Sso\Input\ListAccountsRequest;
 use AsyncAws\Sso\Result\GetRoleCredentialsResponse;
+use AsyncAws\Sso\Result\ListAccountRolesResponse;
+use AsyncAws\Sso\Result\ListAccountsResponse;
 
 class SsoClient extends AbstractApi
 {
@@ -45,6 +49,73 @@ class SsoClient extends AbstractApi
         ]]));
 
         return new GetRoleCredentialsResponse($response);
+    }
+
+    /**
+     * Lists all roles that are assigned to the user for a given AWS account.
+     *
+     * @see https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_ListAccountRoles.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-portal.sso-2019-06-10.html#listaccountroles
+     *
+     * @param array{
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
+     *   accessToken: string,
+     *   accountId: string,
+     *   '@region'?: string|null,
+     * }|ListAccountRolesRequest $input
+     *
+     * @throws InvalidRequestException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     */
+    public function listAccountRoles($input): ListAccountRolesResponse
+    {
+        $input = ListAccountRolesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListAccountRoles', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'UnauthorizedException' => UnauthorizedException::class,
+        ]]));
+
+        return new ListAccountRolesResponse($response, $this, $input);
+    }
+
+    /**
+     * Lists all AWS accounts assigned to the user. These AWS accounts are assigned by the administrator of the account. For
+     * more information, see Assign User Access [^1] in the *IAM Identity Center User Guide*. This operation returns a
+     * paginated response.
+     *
+     * [^1]: https://docs.aws.amazon.com/singlesignon/latest/userguide/useraccess.html#assignusers
+     *
+     * @see https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_ListAccounts.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-portal.sso-2019-06-10.html#listaccounts
+     *
+     * @param array{
+     *   nextToken?: string|null,
+     *   maxResults?: int|null,
+     *   accessToken: string,
+     *   '@region'?: string|null,
+     * }|ListAccountsRequest $input
+     *
+     * @throws InvalidRequestException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     */
+    public function listAccounts($input): ListAccountsResponse
+    {
+        $input = ListAccountsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListAccounts', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidRequestException' => InvalidRequestException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'UnauthorizedException' => UnauthorizedException::class,
+        ]]));
+
+        return new ListAccountsResponse($response, $this, $input);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
