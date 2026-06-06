@@ -250,7 +250,6 @@ use AsyncAws\MediaConvert\Enum\HlsAudioOnlyHeader;
 use AsyncAws\MediaConvert\Enum\HlsAudioTrackType;
 use AsyncAws\MediaConvert\Enum\HlsCaptionLanguageSetting;
 use AsyncAws\MediaConvert\Enum\HlsCaptionSegmentLengthControl;
-use AsyncAws\MediaConvert\Enum\HlsClearLead;
 use AsyncAws\MediaConvert\Enum\HlsClientCache;
 use AsyncAws\MediaConvert\Enum\HlsCodecSpecification;
 use AsyncAws\MediaConvert\Enum\HlsDescriptiveVideoServiceFlag;
@@ -489,6 +488,7 @@ use AsyncAws\MediaConvert\ValueObject\CmafAdditionalManifest;
 use AsyncAws\MediaConvert\ValueObject\CmafEncryptionSettings;
 use AsyncAws\MediaConvert\ValueObject\CmafGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\CmafImageBasedTrickPlaySettings;
+use AsyncAws\MediaConvert\ValueObject\CmafImageBasedTrickPlayVariant;
 use AsyncAws\MediaConvert\ValueObject\CmfcSettings;
 use AsyncAws\MediaConvert\ValueObject\ColorConversion3DLUTSetting;
 use AsyncAws\MediaConvert\ValueObject\ColorCorrector;
@@ -497,6 +497,7 @@ use AsyncAws\MediaConvert\ValueObject\DashAdditionalManifest;
 use AsyncAws\MediaConvert\ValueObject\DashIsoEncryptionSettings;
 use AsyncAws\MediaConvert\ValueObject\DashIsoGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\DashIsoImageBasedTrickPlaySettings;
+use AsyncAws\MediaConvert\ValueObject\DashIsoImageBasedTrickPlayVariant;
 use AsyncAws\MediaConvert\ValueObject\Deinterlacer;
 use AsyncAws\MediaConvert\ValueObject\DestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\DolbyVision;
@@ -536,6 +537,7 @@ use AsyncAws\MediaConvert\ValueObject\HlsCaptionLanguageMapping;
 use AsyncAws\MediaConvert\ValueObject\HlsEncryptionSettings;
 use AsyncAws\MediaConvert\ValueObject\HlsGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\HlsImageBasedTrickPlaySettings;
+use AsyncAws\MediaConvert\ValueObject\HlsImageBasedTrickPlayVariant;
 use AsyncAws\MediaConvert\ValueObject\HlsRenditionGroupSettings;
 use AsyncAws\MediaConvert\ValueObject\HlsSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
@@ -1065,7 +1067,7 @@ class GetJobResponse extends Result
     private function populateResultCmafEncryptionSettings(array $json): CmafEncryptionSettings
     {
         return new CmafEncryptionSettings([
-            'ClearLead' => isset($json['clearLead']) ? (!HlsClearLead::exists((string) $json['clearLead']) ? HlsClearLead::UNKNOWN_TO_SDK : (string) $json['clearLead']) : null,
+            'ClearLeadSegments' => isset($json['clearLeadSegments']) ? (int) $json['clearLeadSegments'] : null,
             'ConstantInitializationVector' => isset($json['constantInitializationVector']) ? (string) $json['constantInitializationVector'] : null,
             'EncryptionMethod' => isset($json['encryptionMethod']) ? (!CmafEncryptionType::exists((string) $json['encryptionMethod']) ? CmafEncryptionType::UNKNOWN_TO_SDK : (string) $json['encryptionMethod']) : null,
             'InitializationVectorInManifest' => isset($json['initializationVectorInManifest']) ? (!CmafInitializationVectorInManifest::exists((string) $json['initializationVectorInManifest']) ? CmafInitializationVectorInManifest::UNKNOWN_TO_SDK : (string) $json['initializationVectorInManifest']) : null,
@@ -1090,6 +1092,7 @@ class GetJobResponse extends Result
             'FragmentLength' => isset($json['fragmentLength']) ? (int) $json['fragmentLength'] : null,
             'ImageBasedTrickPlay' => isset($json['imageBasedTrickPlay']) ? (!CmafImageBasedTrickPlay::exists((string) $json['imageBasedTrickPlay']) ? CmafImageBasedTrickPlay::UNKNOWN_TO_SDK : (string) $json['imageBasedTrickPlay']) : null,
             'ImageBasedTrickPlaySettings' => empty($json['imageBasedTrickPlaySettings']) ? null : $this->populateResultCmafImageBasedTrickPlaySettings($json['imageBasedTrickPlaySettings']),
+            'ImageBasedTrickPlayVariants' => !isset($json['imageBasedTrickPlayVariants']) ? null : $this->populateResult__listOfCmafImageBasedTrickPlayVariant($json['imageBasedTrickPlayVariants']),
             'ManifestCompression' => isset($json['manifestCompression']) ? (!CmafManifestCompression::exists((string) $json['manifestCompression']) ? CmafManifestCompression::UNKNOWN_TO_SDK : (string) $json['manifestCompression']) : null,
             'ManifestDurationFormat' => isset($json['manifestDurationFormat']) ? (!CmafManifestDurationFormat::exists((string) $json['manifestDurationFormat']) ? CmafManifestDurationFormat::UNKNOWN_TO_SDK : (string) $json['manifestDurationFormat']) : null,
             'MinBufferTime' => isset($json['minBufferTime']) ? (int) $json['minBufferTime'] : null,
@@ -1112,6 +1115,18 @@ class GetJobResponse extends Result
     private function populateResultCmafImageBasedTrickPlaySettings(array $json): CmafImageBasedTrickPlaySettings
     {
         return new CmafImageBasedTrickPlaySettings([
+            'IntervalCadence' => isset($json['intervalCadence']) ? (!CmafIntervalCadence::exists((string) $json['intervalCadence']) ? CmafIntervalCadence::UNKNOWN_TO_SDK : (string) $json['intervalCadence']) : null,
+            'ThumbnailHeight' => isset($json['thumbnailHeight']) ? (int) $json['thumbnailHeight'] : null,
+            'ThumbnailInterval' => isset($json['thumbnailInterval']) ? (float) $json['thumbnailInterval'] : null,
+            'ThumbnailWidth' => isset($json['thumbnailWidth']) ? (int) $json['thumbnailWidth'] : null,
+            'TileHeight' => isset($json['tileHeight']) ? (int) $json['tileHeight'] : null,
+            'TileWidth' => isset($json['tileWidth']) ? (int) $json['tileWidth'] : null,
+        ]);
+    }
+
+    private function populateResultCmafImageBasedTrickPlayVariant(array $json): CmafImageBasedTrickPlayVariant
+    {
+        return new CmafImageBasedTrickPlayVariant([
             'IntervalCadence' => isset($json['intervalCadence']) ? (!CmafIntervalCadence::exists((string) $json['intervalCadence']) ? CmafIntervalCadence::UNKNOWN_TO_SDK : (string) $json['intervalCadence']) : null,
             'ThumbnailHeight' => isset($json['thumbnailHeight']) ? (int) $json['thumbnailHeight'] : null,
             'ThumbnailInterval' => isset($json['thumbnailInterval']) ? (float) $json['thumbnailInterval'] : null,
@@ -1218,6 +1233,7 @@ class GetJobResponse extends Result
             'HbbtvCompliance' => isset($json['hbbtvCompliance']) ? (!DashIsoHbbtvCompliance::exists((string) $json['hbbtvCompliance']) ? DashIsoHbbtvCompliance::UNKNOWN_TO_SDK : (string) $json['hbbtvCompliance']) : null,
             'ImageBasedTrickPlay' => isset($json['imageBasedTrickPlay']) ? (!DashIsoImageBasedTrickPlay::exists((string) $json['imageBasedTrickPlay']) ? DashIsoImageBasedTrickPlay::UNKNOWN_TO_SDK : (string) $json['imageBasedTrickPlay']) : null,
             'ImageBasedTrickPlaySettings' => empty($json['imageBasedTrickPlaySettings']) ? null : $this->populateResultDashIsoImageBasedTrickPlaySettings($json['imageBasedTrickPlaySettings']),
+            'ImageBasedTrickPlayVariants' => !isset($json['imageBasedTrickPlayVariants']) ? null : $this->populateResult__listOfDashIsoImageBasedTrickPlayVariant($json['imageBasedTrickPlayVariants']),
             'MinBufferTime' => isset($json['minBufferTime']) ? (int) $json['minBufferTime'] : null,
             'MinFinalSegmentLength' => isset($json['minFinalSegmentLength']) ? (float) $json['minFinalSegmentLength'] : null,
             'MpdManifestBandwidthType' => isset($json['mpdManifestBandwidthType']) ? (!DashIsoMpdManifestBandwidthType::exists((string) $json['mpdManifestBandwidthType']) ? DashIsoMpdManifestBandwidthType::UNKNOWN_TO_SDK : (string) $json['mpdManifestBandwidthType']) : null,
@@ -1234,6 +1250,18 @@ class GetJobResponse extends Result
     private function populateResultDashIsoImageBasedTrickPlaySettings(array $json): DashIsoImageBasedTrickPlaySettings
     {
         return new DashIsoImageBasedTrickPlaySettings([
+            'IntervalCadence' => isset($json['intervalCadence']) ? (!DashIsoIntervalCadence::exists((string) $json['intervalCadence']) ? DashIsoIntervalCadence::UNKNOWN_TO_SDK : (string) $json['intervalCadence']) : null,
+            'ThumbnailHeight' => isset($json['thumbnailHeight']) ? (int) $json['thumbnailHeight'] : null,
+            'ThumbnailInterval' => isset($json['thumbnailInterval']) ? (float) $json['thumbnailInterval'] : null,
+            'ThumbnailWidth' => isset($json['thumbnailWidth']) ? (int) $json['thumbnailWidth'] : null,
+            'TileHeight' => isset($json['tileHeight']) ? (int) $json['tileHeight'] : null,
+            'TileWidth' => isset($json['tileWidth']) ? (int) $json['tileWidth'] : null,
+        ]);
+    }
+
+    private function populateResultDashIsoImageBasedTrickPlayVariant(array $json): DashIsoImageBasedTrickPlayVariant
+    {
+        return new DashIsoImageBasedTrickPlayVariant([
             'IntervalCadence' => isset($json['intervalCadence']) ? (!DashIsoIntervalCadence::exists((string) $json['intervalCadence']) ? DashIsoIntervalCadence::UNKNOWN_TO_SDK : (string) $json['intervalCadence']) : null,
             'ThumbnailHeight' => isset($json['thumbnailHeight']) ? (int) $json['thumbnailHeight'] : null,
             'ThumbnailInterval' => isset($json['thumbnailInterval']) ? (float) $json['thumbnailInterval'] : null,
@@ -1750,6 +1778,7 @@ class GetJobResponse extends Result
             'Encryption' => empty($json['encryption']) ? null : $this->populateResultHlsEncryptionSettings($json['encryption']),
             'ImageBasedTrickPlay' => isset($json['imageBasedTrickPlay']) ? (!HlsImageBasedTrickPlay::exists((string) $json['imageBasedTrickPlay']) ? HlsImageBasedTrickPlay::UNKNOWN_TO_SDK : (string) $json['imageBasedTrickPlay']) : null,
             'ImageBasedTrickPlaySettings' => empty($json['imageBasedTrickPlaySettings']) ? null : $this->populateResultHlsImageBasedTrickPlaySettings($json['imageBasedTrickPlaySettings']),
+            'ImageBasedTrickPlayVariants' => !isset($json['imageBasedTrickPlayVariants']) ? null : $this->populateResult__listOfHlsImageBasedTrickPlayVariant($json['imageBasedTrickPlayVariants']),
             'ManifestCompression' => isset($json['manifestCompression']) ? (!HlsManifestCompression::exists((string) $json['manifestCompression']) ? HlsManifestCompression::UNKNOWN_TO_SDK : (string) $json['manifestCompression']) : null,
             'ManifestDurationFormat' => isset($json['manifestDurationFormat']) ? (!HlsManifestDurationFormat::exists((string) $json['manifestDurationFormat']) ? HlsManifestDurationFormat::UNKNOWN_TO_SDK : (string) $json['manifestDurationFormat']) : null,
             'MinFinalSegmentLength' => isset($json['minFinalSegmentLength']) ? (float) $json['minFinalSegmentLength'] : null,
@@ -1773,6 +1802,18 @@ class GetJobResponse extends Result
     private function populateResultHlsImageBasedTrickPlaySettings(array $json): HlsImageBasedTrickPlaySettings
     {
         return new HlsImageBasedTrickPlaySettings([
+            'IntervalCadence' => isset($json['intervalCadence']) ? (!HlsIntervalCadence::exists((string) $json['intervalCadence']) ? HlsIntervalCadence::UNKNOWN_TO_SDK : (string) $json['intervalCadence']) : null,
+            'ThumbnailHeight' => isset($json['thumbnailHeight']) ? (int) $json['thumbnailHeight'] : null,
+            'ThumbnailInterval' => isset($json['thumbnailInterval']) ? (float) $json['thumbnailInterval'] : null,
+            'ThumbnailWidth' => isset($json['thumbnailWidth']) ? (int) $json['thumbnailWidth'] : null,
+            'TileHeight' => isset($json['tileHeight']) ? (int) $json['tileHeight'] : null,
+            'TileWidth' => isset($json['tileWidth']) ? (int) $json['tileWidth'] : null,
+        ]);
+    }
+
+    private function populateResultHlsImageBasedTrickPlayVariant(array $json): HlsImageBasedTrickPlayVariant
+    {
+        return new HlsImageBasedTrickPlayVariant([
             'IntervalCadence' => isset($json['intervalCadence']) ? (!HlsIntervalCadence::exists((string) $json['intervalCadence']) ? HlsIntervalCadence::UNKNOWN_TO_SDK : (string) $json['intervalCadence']) : null,
             'ThumbnailHeight' => isset($json['thumbnailHeight']) ? (int) $json['thumbnailHeight'] : null,
             'ThumbnailInterval' => isset($json['thumbnailInterval']) ? (float) $json['thumbnailInterval'] : null,
@@ -3081,6 +3122,19 @@ class GetJobResponse extends Result
     }
 
     /**
+     * @return CmafImageBasedTrickPlayVariant[]
+     */
+    private function populateResult__listOfCmafImageBasedTrickPlayVariant(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultCmafImageBasedTrickPlayVariant($item);
+        }
+
+        return $items;
+    }
+
+    /**
      * @return ColorConversion3DLUTSetting[]
      */
     private function populateResult__listOfColorConversion3DLUTSetting(array $json): array
@@ -3101,6 +3155,19 @@ class GetJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultDashAdditionalManifest($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return DashIsoImageBasedTrickPlayVariant[]
+     */
+    private function populateResult__listOfDashIsoImageBasedTrickPlayVariant(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultDashIsoImageBasedTrickPlayVariant($item);
         }
 
         return $items;
@@ -3210,6 +3277,19 @@ class GetJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultHlsCaptionLanguageMapping($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return HlsImageBasedTrickPlayVariant[]
+     */
+    private function populateResult__listOfHlsImageBasedTrickPlayVariant(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultHlsImageBasedTrickPlayVariant($item);
         }
 
         return $items;

@@ -119,9 +119,11 @@ final class DashIsoGroupSettings
     /**
      * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
      * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled thumbnails
-     * and full-resolution images of single frames. MediaConvert adds an entry in the .mpd manifest for each set of images
-     * that you generate. A common application for these images is Roku trick mode. The thumbnails and full-frame images
-     * that MediaConvert creates with this feature are compatible with this Roku specification:
+     * and full-resolution images of single frames. Choose Advanced to customize thumbnail and tile settings for a single
+     * trick play variant. Choose Variants to specify multiple trick play variants, each with its own thumbnail and tile
+     * settings. MediaConvert adds an entry in the .mpd manifest for each set of images that you generate. A common
+     * application for these images is Roku trick mode. The thumbnails and full-frame images that MediaConvert creates with
+     * this feature are compatible with this Roku specification:
      * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
      * @var DashIsoImageBasedTrickPlay::*|null
@@ -134,6 +136,14 @@ final class DashIsoGroupSettings
      * @var DashIsoImageBasedTrickPlaySettings|null
      */
     private $imageBasedTrickPlaySettings;
+
+    /**
+     * Specify multiple image-based trick play variants. Each entry creates a separate set of JPEG tile images with its own
+     * resolution, tile layout, and cadence settings. Set imageBasedTrickPlay to VARIANTS when using this setting.
+     *
+     * @var DashIsoImageBasedTrickPlayVariant[]|null
+     */
+    private $imageBasedTrickPlayVariants;
 
     /**
      * Minimum time of initially buffered media that is needed to ensure smooth playout.
@@ -258,6 +268,7 @@ final class DashIsoGroupSettings
      *   HbbtvCompliance?: DashIsoHbbtvCompliance::*|null,
      *   ImageBasedTrickPlay?: DashIsoImageBasedTrickPlay::*|null,
      *   ImageBasedTrickPlaySettings?: DashIsoImageBasedTrickPlaySettings|array|null,
+     *   ImageBasedTrickPlayVariants?: array<DashIsoImageBasedTrickPlayVariant|array>|null,
      *   MinBufferTime?: int|null,
      *   MinFinalSegmentLength?: float|null,
      *   MpdManifestBandwidthType?: DashIsoMpdManifestBandwidthType::*|null,
@@ -284,6 +295,7 @@ final class DashIsoGroupSettings
         $this->hbbtvCompliance = $input['HbbtvCompliance'] ?? null;
         $this->imageBasedTrickPlay = $input['ImageBasedTrickPlay'] ?? null;
         $this->imageBasedTrickPlaySettings = isset($input['ImageBasedTrickPlaySettings']) ? DashIsoImageBasedTrickPlaySettings::create($input['ImageBasedTrickPlaySettings']) : null;
+        $this->imageBasedTrickPlayVariants = isset($input['ImageBasedTrickPlayVariants']) ? array_map([DashIsoImageBasedTrickPlayVariant::class, 'create'], $input['ImageBasedTrickPlayVariants']) : null;
         $this->minBufferTime = $input['MinBufferTime'] ?? null;
         $this->minFinalSegmentLength = $input['MinFinalSegmentLength'] ?? null;
         $this->mpdManifestBandwidthType = $input['MpdManifestBandwidthType'] ?? null;
@@ -310,6 +322,7 @@ final class DashIsoGroupSettings
      *   HbbtvCompliance?: DashIsoHbbtvCompliance::*|null,
      *   ImageBasedTrickPlay?: DashIsoImageBasedTrickPlay::*|null,
      *   ImageBasedTrickPlaySettings?: DashIsoImageBasedTrickPlaySettings|array|null,
+     *   ImageBasedTrickPlayVariants?: array<DashIsoImageBasedTrickPlayVariant|array>|null,
      *   MinBufferTime?: int|null,
      *   MinFinalSegmentLength?: float|null,
      *   MpdManifestBandwidthType?: DashIsoMpdManifestBandwidthType::*|null,
@@ -400,6 +413,14 @@ final class DashIsoGroupSettings
     public function getImageBasedTrickPlaySettings(): ?DashIsoImageBasedTrickPlaySettings
     {
         return $this->imageBasedTrickPlaySettings;
+    }
+
+    /**
+     * @return DashIsoImageBasedTrickPlayVariant[]
+     */
+    public function getImageBasedTrickPlayVariants(): array
+    {
+        return $this->imageBasedTrickPlayVariants ?? [];
     }
 
     public function getMinBufferTime(): ?int
@@ -535,6 +556,14 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->imageBasedTrickPlaySettings) {
             $payload['imageBasedTrickPlaySettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->imageBasedTrickPlayVariants) {
+            $index = -1;
+            $payload['imageBasedTrickPlayVariants'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['imageBasedTrickPlayVariants'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->minBufferTime) {
             $payload['minBufferTime'] = $v;

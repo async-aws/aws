@@ -6,7 +6,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\CmafEncryptionType;
 use AsyncAws\MediaConvert\Enum\CmafInitializationVectorInManifest;
 use AsyncAws\MediaConvert\Enum\CmafKeyProviderType;
-use AsyncAws\MediaConvert\Enum\HlsClearLead;
 
 /**
  * Settings for CMAF encryption.
@@ -14,19 +13,20 @@ use AsyncAws\MediaConvert\Enum\HlsClearLead;
 final class CmafEncryptionSettings
 {
     /**
-     * Enable Clear Lead DRM to reduce video startup latency by leaving the first segment unencrypted while DRM license
-     * retrieval occurs in parallel. This optimization allows immediate playback startup while maintaining content
-     * protection for the remainder of the stream. When enabled, the first output segment remains fully unencrypted, and
-     * encryption begins at the start of the second segment. The HLS manifest will omit #EXT-X-KEY tags during the clear
-     * segment and insert the first #EXT-X-KEY immediately before the first encrypted fragment. This feature is supported
-     * exclusively for CMAF HLS (fMP4) outputs and is compatible with all existing key provider integrations (SPEKE v1,
-     * SPEKE v2, and Static Key encryption). Supported codecs: H.264, H.265, and AV1 video codecs, and AAC audio codec.
-     * Choose Enabled to activate Clear Lead DRM optimization. Choose Disabled to use standard encryption where all segments
-     * are encrypted from the beginning.
+     * Reduce video startup latency by leaving initial segments unencrypted while DRM license retrieval occurs in parallel.
+     * This optimization allows immediate playback startup while maintaining content protection for the remainder of the
+     * stream. Specify the number of initial segments to leave unencrypted. Omit this field to disable Clear Lead. The HLS
+     * manifest will omit #EXT-X-KEY tags during clear segments and insert the first #EXT-X-KEY immediately before the first
+     * encrypted segment. Because encryption is applied at the fragment level, the actual duration of unencrypted content
+     * may be slightly longer than expected if the segment length is not evenly divisible by the fragment length. In such
+     * cases, encryption begins at the next fragment boundary after the specified clear lead segments, rather than at the
+     * exact segment boundary. This feature is supported exclusively for CMAF HLS (fMP4) outputs and is compatible with all
+     * existing key provider integrations (SPEKE v1, SPEKE v2, and Static Key encryption). Supported codecs: H.264, H.265,
+     * and AV1 video codecs, and AAC audio codec.
      *
-     * @var HlsClearLead::*|null
+     * @var int|null
      */
-    private $clearLead;
+    private $clearLeadSegments;
 
     /**
      * This is a 128-bit, 16-byte hex value represented by a 32-character text string. If this parameter is not set then the
@@ -77,7 +77,7 @@ final class CmafEncryptionSettings
 
     /**
      * @param array{
-     *   ClearLead?: HlsClearLead::*|null,
+     *   ClearLeadSegments?: int|null,
      *   ConstantInitializationVector?: string|null,
      *   EncryptionMethod?: CmafEncryptionType::*|null,
      *   InitializationVectorInManifest?: CmafInitializationVectorInManifest::*|null,
@@ -88,7 +88,7 @@ final class CmafEncryptionSettings
      */
     public function __construct(array $input)
     {
-        $this->clearLead = $input['ClearLead'] ?? null;
+        $this->clearLeadSegments = $input['ClearLeadSegments'] ?? null;
         $this->constantInitializationVector = $input['ConstantInitializationVector'] ?? null;
         $this->encryptionMethod = $input['EncryptionMethod'] ?? null;
         $this->initializationVectorInManifest = $input['InitializationVectorInManifest'] ?? null;
@@ -99,7 +99,7 @@ final class CmafEncryptionSettings
 
     /**
      * @param array{
-     *   ClearLead?: HlsClearLead::*|null,
+     *   ClearLeadSegments?: int|null,
      *   ConstantInitializationVector?: string|null,
      *   EncryptionMethod?: CmafEncryptionType::*|null,
      *   InitializationVectorInManifest?: CmafInitializationVectorInManifest::*|null,
@@ -113,12 +113,9 @@ final class CmafEncryptionSettings
         return $input instanceof self ? $input : new self($input);
     }
 
-    /**
-     * @return HlsClearLead::*|null
-     */
-    public function getClearLead(): ?string
+    public function getClearLeadSegments(): ?int
     {
-        return $this->clearLead;
+        return $this->clearLeadSegments;
     }
 
     public function getConstantInitializationVector(): ?string
@@ -166,12 +163,8 @@ final class CmafEncryptionSettings
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->clearLead) {
-            if (!HlsClearLead::exists($v)) {
-                /** @psalm-suppress NoValue */
-                throw new InvalidArgument(\sprintf('Invalid parameter "clearLead" for "%s". The value "%s" is not a valid "HlsClearLead".', __CLASS__, $v));
-            }
-            $payload['clearLead'] = $v;
+        if (null !== $v = $this->clearLeadSegments) {
+            $payload['clearLeadSegments'] = $v;
         }
         if (null !== $v = $this->constantInitializationVector) {
             $payload['constantInitializationVector'] = $v;
