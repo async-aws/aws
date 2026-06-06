@@ -6,9 +6,10 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\DashIsoIntervalCadence;
 
 /**
- * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED.
+ * Settings for one image-based trick play variant. Each variant produces its own set of JPEG tile images and
+ * corresponding manifest entries.
  */
-final class DashIsoImageBasedTrickPlaySettings
+final class DashIsoImageBasedTrickPlayVariant
 {
     /**
      * The cadence MediaConvert follows for generating thumbnails. If set to FOLLOW_IFRAME, MediaConvert generates
@@ -89,7 +90,7 @@ final class DashIsoImageBasedTrickPlaySettings
      *   ThumbnailWidth?: int|null,
      *   TileHeight?: int|null,
      *   TileWidth?: int|null,
-     * }|DashIsoImageBasedTrickPlaySettings $input
+     * }|DashIsoImageBasedTrickPlayVariant $input
      */
     public static function create($input): self
     {

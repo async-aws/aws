@@ -3,12 +3,13 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\MediaConvert\Enum\DashIsoIntervalCadence;
+use AsyncAws\MediaConvert\Enum\HlsIntervalCadence;
 
 /**
- * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED.
+ * Settings for one image-based trick play variant. Each variant produces its own set of JPEG tile images and
+ * corresponding manifest entries.
  */
-final class DashIsoImageBasedTrickPlaySettings
+final class HlsImageBasedTrickPlayVariant
 {
     /**
      * The cadence MediaConvert follows for generating thumbnails. If set to FOLLOW_IFRAME, MediaConvert generates
@@ -17,7 +18,7 @@ final class DashIsoImageBasedTrickPlaySettings
      * MediaConvert generates thumbnail playlist entries that align exactly with video segment boundaries.
      * FOLLOW_SEGMENTATION requires 1x1 tiling.
      *
-     * @var DashIsoIntervalCadence::*|null
+     * @var HlsIntervalCadence::*|null
      */
     private $intervalCadence;
 
@@ -63,7 +64,7 @@ final class DashIsoImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: DashIsoIntervalCadence::*|null,
+     *   IntervalCadence?: HlsIntervalCadence::*|null,
      *   ThumbnailHeight?: int|null,
      *   ThumbnailInterval?: float|null,
      *   ThumbnailWidth?: int|null,
@@ -83,13 +84,13 @@ final class DashIsoImageBasedTrickPlaySettings
 
     /**
      * @param array{
-     *   IntervalCadence?: DashIsoIntervalCadence::*|null,
+     *   IntervalCadence?: HlsIntervalCadence::*|null,
      *   ThumbnailHeight?: int|null,
      *   ThumbnailInterval?: float|null,
      *   ThumbnailWidth?: int|null,
      *   TileHeight?: int|null,
      *   TileWidth?: int|null,
-     * }|DashIsoImageBasedTrickPlaySettings $input
+     * }|HlsImageBasedTrickPlayVariant $input
      */
     public static function create($input): self
     {
@@ -97,7 +98,7 @@ final class DashIsoImageBasedTrickPlaySettings
     }
 
     /**
-     * @return DashIsoIntervalCadence::*|null
+     * @return HlsIntervalCadence::*|null
      */
     public function getIntervalCadence(): ?string
     {
@@ -136,9 +137,9 @@ final class DashIsoImageBasedTrickPlaySettings
     {
         $payload = [];
         if (null !== $v = $this->intervalCadence) {
-            if (!DashIsoIntervalCadence::exists($v)) {
+            if (!HlsIntervalCadence::exists($v)) {
                 /** @psalm-suppress NoValue */
-                throw new InvalidArgument(\sprintf('Invalid parameter "intervalCadence" for "%s". The value "%s" is not a valid "DashIsoIntervalCadence".', __CLASS__, $v));
+                throw new InvalidArgument(\sprintf('Invalid parameter "intervalCadence" for "%s". The value "%s" is not a valid "HlsIntervalCadence".', __CLASS__, $v));
             }
             $payload['intervalCadence'] = $v;
         }

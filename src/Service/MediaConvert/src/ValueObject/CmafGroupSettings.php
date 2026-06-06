@@ -120,12 +120,13 @@ final class CmafGroupSettings
     /**
      * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
      * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled thumbnails
-     * and full-resolution images of single frames. When you enable Write HLS manifest, MediaConvert creates a child
-     * manifest for each set of images that you generate and adds corresponding entries to the parent manifest. When you
-     * enable Write DASH manifest, MediaConvert adds an entry in the .mpd manifest for each set of images that you generate.
-     * A common application for these images is Roku trick mode. The thumbnails and full-frame images that MediaConvert
-     * creates with this feature are compatible with this Roku specification:
-     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
+     * and full-resolution images of single frames. Choose Advanced to customize thumbnail and tile settings for a single
+     * trick play variant. Choose Variants to specify multiple trick play variants, each with its own thumbnail and tile
+     * settings. When you enable Write HLS manifest, MediaConvert creates a child manifest for each set of images that you
+     * generate and adds corresponding entries to the parent manifest. When you enable Write DASH manifest, MediaConvert
+     * adds an entry in the .mpd manifest for each set of images that you generate. A common application for these images is
+     * Roku trick mode. The thumbnails and full-frame images that MediaConvert creates with this feature are compatible with
+     * this Roku specification: https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
      * @var CmafImageBasedTrickPlay::*|null
      */
@@ -137,6 +138,14 @@ final class CmafGroupSettings
      * @var CmafImageBasedTrickPlaySettings|null
      */
     private $imageBasedTrickPlaySettings;
+
+    /**
+     * Specify multiple image-based trick play variants. Each entry creates a separate set of JPEG tile images with its own
+     * resolution, tile layout, and cadence settings. Set imageBasedTrickPlay to VARIANTS when using this setting.
+     *
+     * @var CmafImageBasedTrickPlayVariant[]|null
+     */
+    private $imageBasedTrickPlayVariants;
 
     /**
      * When set to GZIP, compresses HLS playlist.
@@ -307,6 +316,7 @@ final class CmafGroupSettings
      *   FragmentLength?: int|null,
      *   ImageBasedTrickPlay?: CmafImageBasedTrickPlay::*|null,
      *   ImageBasedTrickPlaySettings?: CmafImageBasedTrickPlaySettings|array|null,
+     *   ImageBasedTrickPlayVariants?: array<CmafImageBasedTrickPlayVariant|array>|null,
      *   ManifestCompression?: CmafManifestCompression::*|null,
      *   ManifestDurationFormat?: CmafManifestDurationFormat::*|null,
      *   MinBufferTime?: int|null,
@@ -339,6 +349,7 @@ final class CmafGroupSettings
         $this->fragmentLength = $input['FragmentLength'] ?? null;
         $this->imageBasedTrickPlay = $input['ImageBasedTrickPlay'] ?? null;
         $this->imageBasedTrickPlaySettings = isset($input['ImageBasedTrickPlaySettings']) ? CmafImageBasedTrickPlaySettings::create($input['ImageBasedTrickPlaySettings']) : null;
+        $this->imageBasedTrickPlayVariants = isset($input['ImageBasedTrickPlayVariants']) ? array_map([CmafImageBasedTrickPlayVariant::class, 'create'], $input['ImageBasedTrickPlayVariants']) : null;
         $this->manifestCompression = $input['ManifestCompression'] ?? null;
         $this->manifestDurationFormat = $input['ManifestDurationFormat'] ?? null;
         $this->minBufferTime = $input['MinBufferTime'] ?? null;
@@ -371,6 +382,7 @@ final class CmafGroupSettings
      *   FragmentLength?: int|null,
      *   ImageBasedTrickPlay?: CmafImageBasedTrickPlay::*|null,
      *   ImageBasedTrickPlaySettings?: CmafImageBasedTrickPlaySettings|array|null,
+     *   ImageBasedTrickPlayVariants?: array<CmafImageBasedTrickPlayVariant|array>|null,
      *   ManifestCompression?: CmafManifestCompression::*|null,
      *   ManifestDurationFormat?: CmafManifestDurationFormat::*|null,
      *   MinBufferTime?: int|null,
@@ -467,6 +479,14 @@ final class CmafGroupSettings
     public function getImageBasedTrickPlaySettings(): ?CmafImageBasedTrickPlaySettings
     {
         return $this->imageBasedTrickPlaySettings;
+    }
+
+    /**
+     * @return CmafImageBasedTrickPlayVariant[]
+     */
+    public function getImageBasedTrickPlayVariants(): array
+    {
+        return $this->imageBasedTrickPlayVariants ?? [];
     }
 
     /**
@@ -650,6 +670,14 @@ final class CmafGroupSettings
         }
         if (null !== $v = $this->imageBasedTrickPlaySettings) {
             $payload['imageBasedTrickPlaySettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->imageBasedTrickPlayVariants) {
+            $index = -1;
+            $payload['imageBasedTrickPlayVariants'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['imageBasedTrickPlayVariants'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->manifestCompression) {
             if (!CmafManifestCompression::exists($v)) {

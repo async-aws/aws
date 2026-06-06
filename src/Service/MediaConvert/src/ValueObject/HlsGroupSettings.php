@@ -139,10 +139,12 @@ final class HlsGroupSettings
     /**
      * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
      * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled thumbnails
-     * and full-resolution images of single frames. MediaConvert creates a child manifest for each set of images that you
-     * generate and adds corresponding entries to the parent manifest. A common application for these images is Roku trick
-     * mode. The thumbnails and full-frame images that MediaConvert creates with this feature are compatible with this Roku
-     * specification: https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
+     * and full-resolution images of single frames. Choose Advanced to customize thumbnail and tile settings for a single
+     * trick play variant. Choose Variants to specify multiple trick play variants, each with its own thumbnail and tile
+     * settings. MediaConvert creates a child manifest for each set of images that you generate and adds corresponding
+     * entries to the parent manifest. A common application for these images is Roku trick mode. The thumbnails and
+     * full-frame images that MediaConvert creates with this feature are compatible with this Roku specification:
+     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md.
      *
      * @var HlsImageBasedTrickPlay::*|null
      */
@@ -154,6 +156,14 @@ final class HlsGroupSettings
      * @var HlsImageBasedTrickPlaySettings|null
      */
     private $imageBasedTrickPlaySettings;
+
+    /**
+     * Specify multiple image-based trick play variants. Each entry creates a separate set of JPEG tile images with its own
+     * resolution, tile layout, and cadence settings. Set imageBasedTrickPlay to VARIANTS when using this setting.
+     *
+     * @var HlsImageBasedTrickPlayVariant[]|null
+     */
+    private $imageBasedTrickPlayVariants;
 
     /**
      * When set to GZIP, compresses HLS playlist.
@@ -330,6 +340,7 @@ final class HlsGroupSettings
      *   Encryption?: HlsEncryptionSettings|array|null,
      *   ImageBasedTrickPlay?: HlsImageBasedTrickPlay::*|null,
      *   ImageBasedTrickPlaySettings?: HlsImageBasedTrickPlaySettings|array|null,
+     *   ImageBasedTrickPlayVariants?: array<HlsImageBasedTrickPlayVariant|array>|null,
      *   ManifestCompression?: HlsManifestCompression::*|null,
      *   ManifestDurationFormat?: HlsManifestDurationFormat::*|null,
      *   MinFinalSegmentLength?: float|null,
@@ -366,6 +377,7 @@ final class HlsGroupSettings
         $this->encryption = isset($input['Encryption']) ? HlsEncryptionSettings::create($input['Encryption']) : null;
         $this->imageBasedTrickPlay = $input['ImageBasedTrickPlay'] ?? null;
         $this->imageBasedTrickPlaySettings = isset($input['ImageBasedTrickPlaySettings']) ? HlsImageBasedTrickPlaySettings::create($input['ImageBasedTrickPlaySettings']) : null;
+        $this->imageBasedTrickPlayVariants = isset($input['ImageBasedTrickPlayVariants']) ? array_map([HlsImageBasedTrickPlayVariant::class, 'create'], $input['ImageBasedTrickPlayVariants']) : null;
         $this->manifestCompression = $input['ManifestCompression'] ?? null;
         $this->manifestDurationFormat = $input['ManifestDurationFormat'] ?? null;
         $this->minFinalSegmentLength = $input['MinFinalSegmentLength'] ?? null;
@@ -402,6 +414,7 @@ final class HlsGroupSettings
      *   Encryption?: HlsEncryptionSettings|array|null,
      *   ImageBasedTrickPlay?: HlsImageBasedTrickPlay::*|null,
      *   ImageBasedTrickPlaySettings?: HlsImageBasedTrickPlaySettings|array|null,
+     *   ImageBasedTrickPlayVariants?: array<HlsImageBasedTrickPlayVariant|array>|null,
      *   ManifestCompression?: HlsManifestCompression::*|null,
      *   ManifestDurationFormat?: HlsManifestDurationFormat::*|null,
      *   MinFinalSegmentLength?: float|null,
@@ -529,6 +542,14 @@ final class HlsGroupSettings
     public function getImageBasedTrickPlaySettings(): ?HlsImageBasedTrickPlaySettings
     {
         return $this->imageBasedTrickPlaySettings;
+    }
+
+    /**
+     * @return HlsImageBasedTrickPlayVariant[]
+     */
+    public function getImageBasedTrickPlayVariants(): array
+    {
+        return $this->imageBasedTrickPlayVariants ?? [];
     }
 
     /**
@@ -743,6 +764,14 @@ final class HlsGroupSettings
         }
         if (null !== $v = $this->imageBasedTrickPlaySettings) {
             $payload['imageBasedTrickPlaySettings'] = $v->requestBody();
+        }
+        if (null !== $v = $this->imageBasedTrickPlayVariants) {
+            $index = -1;
+            $payload['imageBasedTrickPlayVariants'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['imageBasedTrickPlayVariants'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->manifestCompression) {
             if (!HlsManifestCompression::exists($v)) {
