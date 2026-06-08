@@ -14,3 +14,8 @@ parameters:
         - identifier: missingType.iterableValue
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
         - '#^Dead catch - JsonException is never thrown in the try block\.$#'
+        # BaseBundle conditionally extends the modern AbstractBundle, which only exists on Symfony 8.1+.
+        # On older Symfony that parent is unknown, so PHPStan cannot resolve the inherited parent::build().
+        -
+            message: '#^Call to an undefined static method AsyncAws\\Symfony\\Bundle\\BaseBundle::build\(\)\.$#'
+            path: src/Integration/Symfony/Bundle/src/AsyncAwsBundle.php
