@@ -25,7 +25,7 @@
         "nette/php-generator": "^3.6 || ^4.1",
         "nette/utils": "^3.0 || ^4.0",
         "nyholm/symfony-bundle-test": "^3.0",
-        "phpstan/phpstan": "~2.0.0",
+        "phpstan/phpstan": "~2.2.0",
         "phpunit/phpunit": "^11.5.42",
         "psalm/phar": "~6.13.1",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",

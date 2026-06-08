@@ -164,8 +164,10 @@ class ResultMockFactory
     /**
      * Try to add some values to the properties not defined in $data.
      *
-     * @param \ReflectionClass<object> $reflectionClass
-     * @param array<string, mixed>     $data
+     * @template T of object
+     *
+     * @param \ReflectionClass<T>  $reflectionClass
+     * @param array<string, mixed> $data
      *
      * @throws \ReflectionException
      */
@@ -221,7 +223,9 @@ class ResultMockFactory
     /**
      * Set input and aws client to handle pagination.
      *
-     * @param \ReflectionClass<object> $reflectionClass
+     * @template T of object
+     *
+     * @param \ReflectionClass<T> $reflectionClass
      */
     private static function addPropertiesOnResult(\ReflectionClass $reflectionClass, object $object, string $class): void
     {
