@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fixed deprecation warnings on Symfony 8.1
 - Fixed tests on Symfony 8.1
 
 ## 1.17.0
