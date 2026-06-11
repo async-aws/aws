@@ -22,6 +22,7 @@ use AsyncAws\Ec2\Input\DescribeImagesRequest;
 use AsyncAws\Ec2\ValueObject\BlockDeviceMapping;
 use AsyncAws\Ec2\ValueObject\EbsBlockDevice;
 use AsyncAws\Ec2\ValueObject\Image;
+use AsyncAws\Ec2\ValueObject\ImageWatermark;
 use AsyncAws\Ec2\ValueObject\ProductCode;
 use AsyncAws\Ec2\ValueObject\StateReason;
 use AsyncAws\Ec2\ValueObject\Tag;
@@ -184,6 +185,7 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
             'SourceImageId' => (null !== $v = $xml->sourceImageId[0]) ? (string) $v : null,
             'SourceImageRegion' => (null !== $v = $xml->sourceImageRegion[0]) ? (string) $v : null,
             'FreeTierEligible' => (null !== $v = $xml->freeTierEligible[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'ImageWatermarks' => (0 === ($v = $xml->imageWatermarkSet)->count()) ? null : $this->populateResultImageWatermarkList($v),
             'ImageId' => (null !== $v = $xml->imageId[0]) ? (string) $v : null,
             'ImageLocation' => (null !== $v = $xml->imageLocation[0]) ? (string) $v : null,
             'State' => (null !== $v = $xml->imageState[0]) ? (!ImageState::exists((string) $xml->imageState) ? ImageState::UNKNOWN_TO_SDK : (string) $xml->imageState) : null,
@@ -207,6 +209,30 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
         $items = [];
         foreach ($xml->item as $item) {
             $items[] = $this->populateResultImage($item);
+        }
+
+        return $items;
+    }
+
+    private function populateResultImageWatermark(\SimpleXMLElement $xml): ImageWatermark
+    {
+        return new ImageWatermark([
+            'WatermarkKey' => (null !== $v = $xml->watermarkKey[0]) ? (string) $v : null,
+            'SourceImageRegion' => (null !== $v = $xml->sourceImageRegion[0]) ? (string) $v : null,
+            'SourceImageId' => (null !== $v = $xml->sourceImageId[0]) ? (string) $v : null,
+            'SourceImageCreationTime' => (null !== $v = $xml->sourceImageCreationTime[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'WatermarkCreationTime' => (null !== $v = $xml->watermarkCreationTime[0]) ? new \DateTimeImmutable((string) $v) : null,
+        ]);
+    }
+
+    /**
+     * @return ImageWatermark[]
+     */
+    private function populateResultImageWatermarkList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->item as $item) {
+            $items[] = $this->populateResultImageWatermark($item);
         }
 
         return $items;
