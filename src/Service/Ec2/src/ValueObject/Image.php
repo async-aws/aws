@@ -236,6 +236,13 @@ final class Image
     private $freeTierEligible;
 
     /**
+     * The watermarks attached to the AMI.
+     *
+     * @var ImageWatermark[]|null
+     */
+    private $imageWatermarks;
+
+    /**
      * The ID of the AMI.
      *
      * @var string|null
@@ -348,6 +355,7 @@ final class Image
      *   SourceImageId?: string|null,
      *   SourceImageRegion?: string|null,
      *   FreeTierEligible?: bool|null,
+     *   ImageWatermarks?: array<ImageWatermark|array>|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
      *   State?: ImageState::*|null,
@@ -389,6 +397,7 @@ final class Image
         $this->sourceImageId = $input['SourceImageId'] ?? null;
         $this->sourceImageRegion = $input['SourceImageRegion'] ?? null;
         $this->freeTierEligible = $input['FreeTierEligible'] ?? null;
+        $this->imageWatermarks = isset($input['ImageWatermarks']) ? array_map([ImageWatermark::class, 'create'], $input['ImageWatermarks']) : null;
         $this->imageId = $input['ImageId'] ?? null;
         $this->imageLocation = $input['ImageLocation'] ?? null;
         $this->state = $input['State'] ?? null;
@@ -430,6 +439,7 @@ final class Image
      *   SourceImageId?: string|null,
      *   SourceImageRegion?: string|null,
      *   FreeTierEligible?: bool|null,
+     *   ImageWatermarks?: array<ImageWatermark|array>|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
      *   State?: ImageState::*|null,
@@ -537,6 +547,14 @@ final class Image
     public function getImageType(): ?string
     {
         return $this->imageType;
+    }
+
+    /**
+     * @return ImageWatermark[]
+     */
+    public function getImageWatermarks(): array
+    {
+        return $this->imageWatermarks ?? [];
     }
 
     /**
