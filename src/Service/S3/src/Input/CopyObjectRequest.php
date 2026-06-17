@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\AnnotationDirective;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\MetadataDirective;
 use AsyncAws\S3\Enum\ObjectCannedACL;
@@ -256,7 +257,7 @@ final class CopyObjectRequest extends Input
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var string|null
+     * @var \DateTimeImmutable|null
      */
     private $expires;
 
@@ -403,6 +404,33 @@ final class CopyObjectRequest extends Input
      * @var TaggingDirective::*|null
      */
     private $taggingDirective;
+
+    /**
+     * Specifies whether you want to copy annotations from the source object or exclude them. If this header isn't
+     * specified, `COPY` is the default behavior.
+     *
+     * Valid Values: `COPY | EXCLUDE`
+     *
+     * You can specify this directive as either an HTTP header (`x-amz-object-annotation-directive`) or as a query string
+     * parameter. Use the query string form when generating presigned URLs that need to control annotation copy behavior.
+     *
+     * When set to `COPY`, you must have `s3:GetObjectAnnotation` permission on the source object and
+     * `s3:PutObjectAnnotation` permission on the destination. Each annotation copied is billed as a separate PUT request.
+     * If annotations on the source are modified during the copy, Amazon S3 returns a retryable error.
+     *
+     * > For directory buckets, annotations are not supported. Use `EXCLUDE` to copy objects to directory buckets without
+     * > errors. If you specify `COPY` for a directory bucket, the request returns HTTP 501 (Not Implemented).
+     *
+     * > When you copy objects using multipart upload (for example, when the Amazon Web Services CLI or Amazon Web Services
+     * > SDKs use Transfer Manager for objects larger than approximately 8 MB), annotations are not copied by default. To
+     * > include annotations, specify `--copy-props default` in the Amazon Web Services CLI or the equivalent SDK
+     * > configuration. With this opt-in, the SDK reads source annotations, completes the multipart upload, and then writes
+     * > each annotation to the destination. Between the upload completion and the last annotation write, the destination
+     * > object exists without all its annotations.
+     *
+     * @var AnnotationDirective::*|null
+     */
+    private $annotationDirective;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3. Unrecognized or unsupported values
@@ -744,7 +772,7 @@ final class CopyObjectRequest extends Input
      *   CopySourceIfModifiedSince?: \DateTimeImmutable|string|null,
      *   CopySourceIfNoneMatch?: string|null,
      *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -755,6 +783,7 @@ final class CopyObjectRequest extends Input
      *   Metadata?: array<string, string>|null,
      *   MetadataDirective?: MetadataDirective::*|null,
      *   TaggingDirective?: TaggingDirective::*|null,
+     *   AnnotationDirective?: AnnotationDirective::*|null,
      *   ServerSideEncryption?: ServerSideEncryption::*|null,
      *   StorageClass?: StorageClass::*|null,
      *   WebsiteRedirectLocation?: string|null,
@@ -792,7 +821,7 @@ final class CopyObjectRequest extends Input
         $this->copySourceIfModifiedSince = !isset($input['CopySourceIfModifiedSince']) ? null : ($input['CopySourceIfModifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfModifiedSince'] : new \DateTimeImmutable($input['CopySourceIfModifiedSince']));
         $this->copySourceIfNoneMatch = $input['CopySourceIfNoneMatch'] ?? null;
         $this->copySourceIfUnmodifiedSince = !isset($input['CopySourceIfUnmodifiedSince']) ? null : ($input['CopySourceIfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfUnmodifiedSince'] : new \DateTimeImmutable($input['CopySourceIfUnmodifiedSince']));
-        $this->expires = $input['Expires'] ?? null;
+        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -803,6 +832,7 @@ final class CopyObjectRequest extends Input
         $this->metadata = $input['Metadata'] ?? null;
         $this->metadataDirective = $input['MetadataDirective'] ?? null;
         $this->taggingDirective = $input['TaggingDirective'] ?? null;
+        $this->annotationDirective = $input['AnnotationDirective'] ?? null;
         $this->serverSideEncryption = $input['ServerSideEncryption'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
         $this->websiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
@@ -840,7 +870,7 @@ final class CopyObjectRequest extends Input
      *   CopySourceIfModifiedSince?: \DateTimeImmutable|string|null,
      *   CopySourceIfNoneMatch?: string|null,
      *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -851,6 +881,7 @@ final class CopyObjectRequest extends Input
      *   Metadata?: array<string, string>|null,
      *   MetadataDirective?: MetadataDirective::*|null,
      *   TaggingDirective?: TaggingDirective::*|null,
+     *   AnnotationDirective?: AnnotationDirective::*|null,
      *   ServerSideEncryption?: ServerSideEncryption::*|null,
      *   StorageClass?: StorageClass::*|null,
      *   WebsiteRedirectLocation?: string|null,
@@ -884,6 +915,14 @@ final class CopyObjectRequest extends Input
     public function getAcl(): ?string
     {
         return $this->acl;
+    }
+
+    /**
+     * @return AnnotationDirective::*|null
+     */
+    public function getAnnotationDirective(): ?string
+    {
+        return $this->annotationDirective;
     }
 
     public function getBucket(): ?string
@@ -979,7 +1018,7 @@ final class CopyObjectRequest extends Input
         return $this->expectedSourceBucketOwner;
     }
 
-    public function getExpires(): ?string
+    public function getExpires(): ?\DateTimeImmutable
     {
         return $this->expires;
     }
@@ -1176,7 +1215,7 @@ final class CopyObjectRequest extends Input
             $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires;
+            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -1209,6 +1248,13 @@ final class CopyObjectRequest extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "TaggingDirective" for "%s". The value "%s" is not a valid "TaggingDirective".', __CLASS__, $this->taggingDirective));
             }
             $headers['x-amz-tagging-directive'] = $this->taggingDirective;
+        }
+        if (null !== $this->annotationDirective) {
+            if (!AnnotationDirective::exists($this->annotationDirective)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "AnnotationDirective" for "%s". The value "%s" is not a valid "AnnotationDirective".', __CLASS__, $this->annotationDirective));
+            }
+            $headers['x-amz-object-annotation-directive'] = $this->annotationDirective;
         }
         if (null !== $this->serverSideEncryption) {
             if (!ServerSideEncryption::exists($this->serverSideEncryption)) {
@@ -1321,6 +1367,16 @@ final class CopyObjectRequest extends Input
     public function setAcl(?string $value): self
     {
         $this->acl = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param AnnotationDirective::*|null $value
+     */
+    public function setAnnotationDirective(?string $value): self
+    {
+        $this->annotationDirective = $value;
 
         return $this;
     }
@@ -1454,7 +1510,7 @@ final class CopyObjectRequest extends Input
         return $this;
     }
 
-    public function setExpires(?string $value): self
+    public function setExpires(?\DateTimeImmutable $value): self
     {
         $this->expires = $value;
 

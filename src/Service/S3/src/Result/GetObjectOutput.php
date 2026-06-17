@@ -272,7 +272,7 @@ class GetObjectOutput extends Result
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var string|null
+     * @var \DateTimeImmutable|null
      */
     private $expires;
 
@@ -584,7 +584,7 @@ class GetObjectOutput extends Result
         return $this->expiration;
     }
 
-    public function getExpires(): ?string
+    public function getExpires(): ?\DateTimeImmutable
     {
         $this->initialize();
 
@@ -768,7 +768,7 @@ class GetObjectOutput extends Result
         $this->contentLanguage = $headers['content-language'][0] ?? null;
         $this->contentRange = $headers['content-range'][0] ?? null;
         $this->contentType = $headers['content-type'][0] ?? null;
-        $this->expires = $headers['expires'][0] ?? null;
+        $this->expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
         $this->websiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
