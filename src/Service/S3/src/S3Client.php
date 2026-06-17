@@ -8,6 +8,7 @@ use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\AnnotationDirective;
 use AsyncAws\S3\Enum\BucketCannedACL;
 use AsyncAws\S3\Enum\BucketNamespace;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
@@ -557,7 +558,7 @@ class S3Client extends AbstractApi
      *   CopySourceIfModifiedSince?: \DateTimeImmutable|string|null,
      *   CopySourceIfNoneMatch?: string|null,
      *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -568,6 +569,7 @@ class S3Client extends AbstractApi
      *   Metadata?: array<string, string>|null,
      *   MetadataDirective?: MetadataDirective::*|null,
      *   TaggingDirective?: TaggingDirective::*|null,
+     *   AnnotationDirective?: AnnotationDirective::*|null,
      *   ServerSideEncryption?: ServerSideEncryption::*|null,
      *   StorageClass?: StorageClass::*|null,
      *   WebsiteRedirectLocation?: string|null,
@@ -941,7 +943,7 @@ class S3Client extends AbstractApi
      *   ContentEncoding?: string|null,
      *   ContentLanguage?: string|null,
      *   ContentType?: string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -3028,7 +3030,7 @@ class S3Client extends AbstractApi
      *   ChecksumXXHASH64?: string|null,
      *   ChecksumXXHASH3?: string|null,
      *   ChecksumXXHASH128?: string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   IfMatch?: string|null,
      *   IfNoneMatch?: string|null,
      *   GrantFullControl?: string|null,

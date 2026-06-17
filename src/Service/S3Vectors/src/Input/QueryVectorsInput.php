@@ -76,6 +76,13 @@ final class QueryVectorsInput extends Input
     private $returnDistance;
 
     /**
+     * Pagination token from a previous request. The value of this field is empty for an initial request.
+     *
+     * @var string|null
+     */
+    private $nextToken;
+
+    /**
      * @param array{
      *   vectorBucketName?: string|null,
      *   indexName?: string|null,
@@ -85,6 +92,7 @@ final class QueryVectorsInput extends Input
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
+     *   nextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -98,6 +106,7 @@ final class QueryVectorsInput extends Input
         $this->filter = $input['filter'] ?? null;
         $this->returnMetadata = $input['returnMetadata'] ?? null;
         $this->returnDistance = $input['returnDistance'] ?? null;
+        $this->nextToken = $input['nextToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -111,6 +120,7 @@ final class QueryVectorsInput extends Input
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
+     *   nextToken?: string|null,
      *   '@region'?: string|null,
      * }|QueryVectorsInput $input
      */
@@ -135,6 +145,11 @@ final class QueryVectorsInput extends Input
     public function getIndexName(): ?string
     {
         return $this->indexName;
+    }
+
+    public function getNextToken(): ?string
+    {
+        return $this->nextToken;
     }
 
     public function getQueryVector(): ?VectorData
@@ -211,6 +226,13 @@ final class QueryVectorsInput extends Input
         return $this;
     }
 
+    public function setNextToken(?string $value): self
+    {
+        $this->nextToken = $value;
+
+        return $this;
+    }
+
     public function setQueryVector(?VectorData $value): self
     {
         $this->queryVector = $value;
@@ -274,6 +296,9 @@ final class QueryVectorsInput extends Input
         }
         if (null !== $v = $this->returnDistance) {
             $payload['returnDistance'] = (bool) $v;
+        }
+        if (null !== $v = $this->nextToken) {
+            $payload['nextToken'] = $v;
         }
 
         return $payload;

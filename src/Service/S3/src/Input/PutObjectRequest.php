@@ -321,7 +321,7 @@ final class PutObjectRequest extends Input
      *
      * [^1]: https://www.rfc-editor.org/rfc/rfc7234#section-5.3
      *
-     * @var string|null
+     * @var \DateTimeImmutable|null
      */
     private $expires;
 
@@ -698,7 +698,7 @@ final class PutObjectRequest extends Input
      *   ChecksumXXHASH64?: string|null,
      *   ChecksumXXHASH3?: string|null,
      *   ChecksumXXHASH128?: string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   IfMatch?: string|null,
      *   IfNoneMatch?: string|null,
      *   GrantFullControl?: string|null,
@@ -749,7 +749,7 @@ final class PutObjectRequest extends Input
         $this->checksumXxhash64 = $input['ChecksumXXHASH64'] ?? null;
         $this->checksumXxhash3 = $input['ChecksumXXHASH3'] ?? null;
         $this->checksumXxhash128 = $input['ChecksumXXHASH128'] ?? null;
-        $this->expires = $input['Expires'] ?? null;
+        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->ifMatch = $input['IfMatch'] ?? null;
         $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
@@ -800,7 +800,7 @@ final class PutObjectRequest extends Input
      *   ChecksumXXHASH64?: string|null,
      *   ChecksumXXHASH3?: string|null,
      *   ChecksumXXHASH128?: string|null,
-     *   Expires?: string|null,
+     *   Expires?: \DateTimeImmutable|string|null,
      *   IfMatch?: string|null,
      *   IfNoneMatch?: string|null,
      *   GrantFullControl?: string|null,
@@ -957,7 +957,7 @@ final class PutObjectRequest extends Input
         return $this->expectedBucketOwner;
     }
 
-    public function getExpires(): ?string
+    public function getExpires(): ?\DateTimeImmutable
     {
         return $this->expires;
     }
@@ -1163,7 +1163,7 @@ final class PutObjectRequest extends Input
             $headers['x-amz-checksum-xxhash128'] = $this->checksumXxhash128;
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires;
+            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
         }
         if (null !== $this->ifMatch) {
             $headers['If-Match'] = $this->ifMatch;
@@ -1449,7 +1449,7 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
-    public function setExpires(?string $value): self
+    public function setExpires(?\DateTimeImmutable $value): self
     {
         $this->expires = $value;
 

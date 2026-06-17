@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Amazon S3 Vectors now supports paginated QueryVectors requests, returning up to 10,000 results per query.
+
 ## 2.0.2
 
 ### Fixed

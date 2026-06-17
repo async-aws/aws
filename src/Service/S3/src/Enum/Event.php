@@ -13,6 +13,9 @@ final class Event
     public const S3_LIFECYCLE_EXPIRATION_DELETE_MARKER_CREATED = 's3:LifecycleExpiration:DeleteMarkerCreated';
     public const S3_LIFECYCLE_TRANSITION = 's3:LifecycleTransition';
     public const S3_OBJECT_ACL_PUT = 's3:ObjectAcl:Put';
+    public const S3_OBJECT_ANNOTATION_ALL = 's3:ObjectAnnotation:*';
+    public const S3_OBJECT_ANNOTATION_DELETE = 's3:ObjectAnnotation:Delete';
+    public const S3_OBJECT_ANNOTATION_PUT = 's3:ObjectAnnotation:Put';
     public const S3_OBJECT_CREATED_ALL = 's3:ObjectCreated:*';
     public const S3_OBJECT_CREATED_COMPLETE_MULTIPART_UPLOAD = 's3:ObjectCreated:CompleteMultipartUpload';
     public const S3_OBJECT_CREATED_COPY = 's3:ObjectCreated:Copy';
@@ -47,6 +50,9 @@ final class Event
             self::S3_LIFECYCLE_EXPIRATION_DELETE_MARKER_CREATED => true,
             self::S3_LIFECYCLE_TRANSITION => true,
             self::S3_OBJECT_ACL_PUT => true,
+            self::S3_OBJECT_ANNOTATION_ALL => true,
+            self::S3_OBJECT_ANNOTATION_DELETE => true,
+            self::S3_OBJECT_ANNOTATION_PUT => true,
             self::S3_OBJECT_CREATED_ALL => true,
             self::S3_OBJECT_CREATED_COMPLETE_MULTIPART_UPLOAD => true,
             self::S3_OBJECT_CREATED_COPY => true,
