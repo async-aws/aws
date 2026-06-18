@@ -34,10 +34,18 @@ final class DocumentMetadata
     private $s3Location;
 
     /**
+     * Access control list for the document. Used when metadata type is IN_LINE_ATTRIBUTE.
+     *
+     * @var DocumentAccessControlEntry[]|null
+     */
+    private $accessControlList;
+
+    /**
      * @param array{
      *   type: MetadataSourceType::*,
      *   inlineAttributes?: array<MetadataAttribute|array>|null,
      *   s3Location?: CustomS3Location|array|null,
+     *   accessControlList?: array<DocumentAccessControlEntry|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -45,6 +53,7 @@ final class DocumentMetadata
         $this->type = $input['type'] ?? $this->throwException(new InvalidArgument('Missing required field "type".'));
         $this->inlineAttributes = isset($input['inlineAttributes']) ? array_map([MetadataAttribute::class, 'create'], $input['inlineAttributes']) : null;
         $this->s3Location = isset($input['s3Location']) ? CustomS3Location::create($input['s3Location']) : null;
+        $this->accessControlList = isset($input['accessControlList']) ? array_map([DocumentAccessControlEntry::class, 'create'], $input['accessControlList']) : null;
     }
 
     /**
@@ -52,11 +61,20 @@ final class DocumentMetadata
      *   type: MetadataSourceType::*,
      *   inlineAttributes?: array<MetadataAttribute|array>|null,
      *   s3Location?: CustomS3Location|array|null,
+     *   accessControlList?: array<DocumentAccessControlEntry|array>|null,
      * }|DocumentMetadata $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return DocumentAccessControlEntry[]
+     */
+    public function getAccessControlList(): array
+    {
+        return $this->accessControlList ?? [];
     }
 
     /**
@@ -102,6 +120,14 @@ final class DocumentMetadata
         }
         if (null !== $v = $this->s3Location) {
             $payload['s3Location'] = $v->requestBody();
+        }
+        if (null !== $v = $this->accessControlList) {
+            $index = -1;
+            $payload['accessControlList'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['accessControlList'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;
