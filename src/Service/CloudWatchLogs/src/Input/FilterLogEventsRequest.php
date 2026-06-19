@@ -89,6 +89,22 @@ final class FilterLogEventsRequest extends Input
     private $limit;
 
     /**
+     * If the value is true, the earliest log events are returned first. If the value is false, the latest log events are
+     * returned first. The default value is true.
+     *
+     * The `startFromHead` parameter sets the sort direction on the first request. On subsequent requests, the `nextToken`
+     * determines the sort direction. To continue paginating in the same direction, provide the returned `nextToken`. If you
+     * provide both `nextToken` and `startFromHead`, the direction of the `nextToken` is used.
+     *
+     * > Setting `startFromHead` to `false` is supported only when `startTime` is on or after `Jan 1, 2024 00:00:00 UTC`. A
+     * > request with `startFromHead` set to `false` and a `startTime` before this date returns an
+     * > `InvalidParameterException`.
+     *
+     * @var bool|null
+     */
+    private $startFromHead;
+
+    /**
      * If the value is true, the operation attempts to provide responses that contain events from multiple log streams
      * within the log group, interleaved in a single response. If the value is false, all the matched log events in the
      * first log stream are searched first, then those in the next log stream, and so on.
@@ -120,6 +136,7 @@ final class FilterLogEventsRequest extends Input
      *   filterPattern?: string|null,
      *   nextToken?: string|null,
      *   limit?: int|null,
+     *   startFromHead?: bool|null,
      *   interleaved?: bool|null,
      *   unmask?: bool|null,
      *   '@region'?: string|null,
@@ -136,6 +153,7 @@ final class FilterLogEventsRequest extends Input
         $this->filterPattern = $input['filterPattern'] ?? null;
         $this->nextToken = $input['nextToken'] ?? null;
         $this->limit = $input['limit'] ?? null;
+        $this->startFromHead = $input['startFromHead'] ?? null;
         $this->interleaved = $input['interleaved'] ?? null;
         $this->unmask = $input['unmask'] ?? null;
         parent::__construct($input);
@@ -152,6 +170,7 @@ final class FilterLogEventsRequest extends Input
      *   filterPattern?: string|null,
      *   nextToken?: string|null,
      *   limit?: int|null,
+     *   startFromHead?: bool|null,
      *   interleaved?: bool|null,
      *   unmask?: bool|null,
      *   '@region'?: string|null,
@@ -213,6 +232,11 @@ final class FilterLogEventsRequest extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    public function getStartFromHead(): ?bool
+    {
+        return $this->startFromHead;
     }
 
     public function getStartTime(): ?int
@@ -321,6 +345,13 @@ final class FilterLogEventsRequest extends Input
         return $this;
     }
 
+    public function setStartFromHead(?bool $value): self
+    {
+        $this->startFromHead = $value;
+
+        return $this;
+    }
+
     public function setStartTime(?int $value): self
     {
         $this->startTime = $value;
@@ -369,6 +400,9 @@ final class FilterLogEventsRequest extends Input
         }
         if (null !== $v = $this->limit) {
             $payload['limit'] = $v;
+        }
+        if (null !== $v = $this->startFromHead) {
+            $payload['startFromHead'] = (bool) $v;
         }
         if (null !== $v = $this->interleaved) {
             @trigger_error(\sprintf('The property "interleaved" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);

@@ -12,6 +12,9 @@ use AsyncAws\Lambda\Enum\FunctionVersion;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\Exception\CodeArtifactUserDeletedException;
+use AsyncAws\Lambda\Exception\CodeArtifactUserFailedException;
+use AsyncAws\Lambda\Exception\CodeArtifactUserPendingException;
 use AsyncAws\Lambda\Exception\CodeSigningConfigNotFoundException;
 use AsyncAws\Lambda\Exception\CodeStorageExceededException;
 use AsyncAws\Lambda\Exception\CodeVerificationFailedException;
@@ -24,6 +27,7 @@ use AsyncAws\Lambda\Exception\EFSMountConnectivityException;
 use AsyncAws\Lambda\Exception\EFSMountFailureException;
 use AsyncAws\Lambda\Exception\EFSMountTimeoutException;
 use AsyncAws\Lambda\Exception\ENILimitReachedException;
+use AsyncAws\Lambda\Exception\ENINotReadyException;
 use AsyncAws\Lambda\Exception\InvalidCodeSignatureException;
 use AsyncAws\Lambda\Exception\InvalidParameterValueException;
 use AsyncAws\Lambda\Exception\InvalidRequestContentException;
@@ -35,6 +39,7 @@ use AsyncAws\Lambda\Exception\KMSAccessDeniedException;
 use AsyncAws\Lambda\Exception\KMSDisabledException;
 use AsyncAws\Lambda\Exception\KMSInvalidStateException;
 use AsyncAws\Lambda\Exception\KMSNotFoundException;
+use AsyncAws\Lambda\Exception\ModeNotSupportedException;
 use AsyncAws\Lambda\Exception\NoPublishedVersionException;
 use AsyncAws\Lambda\Exception\PolicyLengthExceededException;
 use AsyncAws\Lambda\Exception\PreconditionFailedException;
@@ -48,8 +53,10 @@ use AsyncAws\Lambda\Exception\S3FilesMountFailureException;
 use AsyncAws\Lambda\Exception\S3FilesMountTimeoutException;
 use AsyncAws\Lambda\Exception\SerializedRequestEntityTooLargeException;
 use AsyncAws\Lambda\Exception\ServiceException;
+use AsyncAws\Lambda\Exception\ServiceQuotaExceededException;
 use AsyncAws\Lambda\Exception\SnapStartException;
 use AsyncAws\Lambda\Exception\SnapStartNotReadyException;
+use AsyncAws\Lambda\Exception\SnapStartRegenerationFailureException;
 use AsyncAws\Lambda\Exception\SnapStartTimeoutException;
 use AsyncAws\Lambda\Exception\SubnetIPAddressLimitReachedException;
 use AsyncAws\Lambda\Exception\TooManyRequestsException;
@@ -306,6 +313,9 @@ class LambdaClient extends AbstractApi
      *   '@region'?: string|null,
      * }|InvocationRequest $input
      *
+     * @throws CodeArtifactUserDeletedException
+     * @throws CodeArtifactUserFailedException
+     * @throws CodeArtifactUserPendingException
      * @throws DurableExecutionAlreadyStartedException
      * @throws EC2AccessDeniedException
      * @throws EC2ThrottledException
@@ -315,6 +325,7 @@ class LambdaClient extends AbstractApi
      * @throws EFSMountFailureException
      * @throws EFSMountTimeoutException
      * @throws ENILimitReachedException
+     * @throws ENINotReadyException
      * @throws InvalidParameterValueException
      * @throws InvalidRequestContentException
      * @throws InvalidRuntimeException
@@ -325,6 +336,7 @@ class LambdaClient extends AbstractApi
      * @throws KMSDisabledException
      * @throws KMSInvalidStateException
      * @throws KMSNotFoundException
+     * @throws ModeNotSupportedException
      * @throws NoPublishedVersionException
      * @throws RecursiveInvocationException
      * @throws RequestTooLargeException
@@ -336,8 +348,10 @@ class LambdaClient extends AbstractApi
      * @throws S3FilesMountTimeoutException
      * @throws SerializedRequestEntityTooLargeException
      * @throws ServiceException
+     * @throws ServiceQuotaExceededException
      * @throws SnapStartException
      * @throws SnapStartNotReadyException
+     * @throws SnapStartRegenerationFailureException
      * @throws SnapStartTimeoutException
      * @throws SubnetIPAddressLimitReachedException
      * @throws TooManyRequestsException
@@ -347,6 +361,9 @@ class LambdaClient extends AbstractApi
     {
         $input = InvocationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Invoke', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'CodeArtifactUserDeletedException' => CodeArtifactUserDeletedException::class,
+            'CodeArtifactUserFailedException' => CodeArtifactUserFailedException::class,
+            'CodeArtifactUserPendingException' => CodeArtifactUserPendingException::class,
             'DurableExecutionAlreadyStartedException' => DurableExecutionAlreadyStartedException::class,
             'EC2AccessDeniedException' => EC2AccessDeniedException::class,
             'EC2ThrottledException' => EC2ThrottledException::class,
@@ -356,6 +373,7 @@ class LambdaClient extends AbstractApi
             'EFSMountFailureException' => EFSMountFailureException::class,
             'EFSMountTimeoutException' => EFSMountTimeoutException::class,
             'ENILimitReachedException' => ENILimitReachedException::class,
+            'ENINotReadyException' => ENINotReadyException::class,
             'InvalidParameterValueException' => InvalidParameterValueException::class,
             'InvalidRequestContentException' => InvalidRequestContentException::class,
             'InvalidRuntimeException' => InvalidRuntimeException::class,
@@ -366,6 +384,7 @@ class LambdaClient extends AbstractApi
             'KMSDisabledException' => KMSDisabledException::class,
             'KMSInvalidStateException' => KMSInvalidStateException::class,
             'KMSNotFoundException' => KMSNotFoundException::class,
+            'ModeNotSupportedException' => ModeNotSupportedException::class,
             'NoPublishedVersionException' => NoPublishedVersionException::class,
             'RecursiveInvocationException' => RecursiveInvocationException::class,
             'RequestTooLargeException' => RequestTooLargeException::class,
@@ -377,8 +396,10 @@ class LambdaClient extends AbstractApi
             'S3FilesMountTimeoutException' => S3FilesMountTimeoutException::class,
             'SerializedRequestEntityTooLargeException' => SerializedRequestEntityTooLargeException::class,
             'ServiceException' => ServiceException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'SnapStartException' => SnapStartException::class,
             'SnapStartNotReadyException' => SnapStartNotReadyException::class,
+            'SnapStartRegenerationFailureException' => SnapStartRegenerationFailureException::class,
             'SnapStartTimeoutException' => SnapStartTimeoutException::class,
             'SubnetIPAddressLimitReachedException' => SubnetIPAddressLimitReachedException::class,
             'TooManyRequestsException' => TooManyRequestsException::class,
@@ -505,11 +526,11 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
      * @param array{
+     *   CompatibleArchitecture?: Architecture::*|null,
      *   CompatibleRuntime?: Runtime::*|null,
      *   LayerName: string,
      *   Marker?: string|null,
      *   MaxItems?: int|null,
-     *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      *
@@ -580,9 +601,9 @@ class LambdaClient extends AbstractApi
      *   LayerName: string,
      *   Description?: string|null,
      *   Content: LayerVersionContentInput|array,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
-     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      *

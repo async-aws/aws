@@ -157,9 +157,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
             'Version' => isset($json['Version']) ? (int) $json['Version'] : null,
             'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
             'CreatedDate' => isset($json['CreatedDate']) ? (string) $json['CreatedDate'] : null,
+            'CompatibleArchitectures' => !isset($json['CompatibleArchitectures']) ? null : $this->populateResultCompatibleArchitectures($json['CompatibleArchitectures']),
             'CompatibleRuntimes' => !isset($json['CompatibleRuntimes']) ? null : $this->populateResultCompatibleRuntimes($json['CompatibleRuntimes']),
             'LicenseInfo' => isset($json['LicenseInfo']) ? (string) $json['LicenseInfo'] : null,
-            'CompatibleArchitectures' => !isset($json['CompatibleArchitectures']) ? null : $this->populateResultCompatibleArchitectures($json['CompatibleArchitectures']),
         ]);
     }
 }

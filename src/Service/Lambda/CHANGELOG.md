@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Converging and fixing existing documentation gaps in Lambda SDK
+
 ## 2.15.0
 
 ### Added
