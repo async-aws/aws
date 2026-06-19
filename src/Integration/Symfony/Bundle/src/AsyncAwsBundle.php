@@ -8,6 +8,9 @@ use AsyncAws\Symfony\Bundle\DependencyInjection\Compiler\InjectCasterPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * @psalm-suppress DeprecatedInterface
+ */
 class AsyncAwsBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
