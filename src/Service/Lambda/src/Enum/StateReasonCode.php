@@ -40,6 +40,7 @@ final class StateReasonCode
     public const KMSKEY_ACCESS_DENIED = 'KMSKeyAccessDenied';
     public const KMSKEY_NOT_FOUND = 'KMSKeyNotFound';
     public const RESTORING = 'Restoring';
+    public const SERVICE_QUOTA_EXCEEDED_EXCEPTION = 'ServiceQuotaExceededException';
     public const SUBNET_OUT_OF_IPADDRESSES = 'SubnetOutOfIPAddresses';
     public const VCPU_LIMIT_EXCEEDED = 'VcpuLimitExceeded';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
@@ -86,6 +87,7 @@ final class StateReasonCode
             self::KMSKEY_ACCESS_DENIED => true,
             self::KMSKEY_NOT_FOUND => true,
             self::RESTORING => true,
+            self::SERVICE_QUOTA_EXCEEDED_EXCEPTION => true,
             self::SUBNET_OUT_OF_IPADDRESSES => true,
             self::VCPU_LIMIT_EXCEEDED => true,
         ][$value]);

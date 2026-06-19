@@ -95,6 +95,52 @@ final class EventSourceMappingConfiguration
     private $filterCriteria;
 
     /**
+     * An object that contains details about an error related to filter criteria encryption.
+     *
+     * @var FilterCriteriaError|null
+     */
+    private $filterCriteriaError;
+
+    /**
+     * The ARN of the Key Management Service (KMS) customer managed key that Lambda uses to encrypt your function's filter
+     * criteria [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics
+     *
+     * @var string|null
+     */
+    private $kmsKeyArn;
+
+    /**
+     * The metrics configuration for your event source. For more information, see Event source mapping metrics [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics
+     *
+     * @var EventSourceMappingMetricsConfig|null
+     */
+    private $metricsConfig;
+
+    /**
+     * (Amazon MSK, and self-managed Apache Kafka only) The logging configuration for your event source. For more
+     * information, see Event source mapping logging [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/esm-logging.html
+     *
+     * @var EventSourceMappingLoggingConfig|null
+     */
+    private $loggingConfig;
+
+    /**
+     * (Amazon SQS only) The scaling configuration for the event source. For more information, see Configuring maximum
+     * concurrency for Amazon SQS event sources [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency
+     *
+     * @var ScalingConfig|null
+     */
+    private $scalingConfig;
+
+    /**
      * The ARN of the Lambda function.
      *
      * @var string|null
@@ -226,16 +272,6 @@ final class EventSourceMappingConfiguration
     private $selfManagedKafkaEventSourceConfig;
 
     /**
-     * (Amazon SQS only) The scaling configuration for the event source. For more information, see Configuring maximum
-     * concurrency for Amazon SQS event sources [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency
-     *
-     * @var ScalingConfig|null
-     */
-    private $scalingConfig;
-
-    /**
      * Specific configuration settings for a DocumentDB event source.
      *
      * @var DocumentDBEventSourceConfig|null
@@ -243,47 +279,11 @@ final class EventSourceMappingConfiguration
     private $documentDbEventSourceConfig;
 
     /**
-     * The ARN of the Key Management Service (KMS) customer managed key that Lambda uses to encrypt your function's filter
-     * criteria [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics
-     *
-     * @var string|null
-     */
-    private $kmsKeyArn;
-
-    /**
-     * An object that contains details about an error related to filter criteria encryption.
-     *
-     * @var FilterCriteriaError|null
-     */
-    private $filterCriteriaError;
-
-    /**
      * The Amazon Resource Name (ARN) of the event source mapping.
      *
      * @var string|null
      */
     private $eventSourceMappingArn;
-
-    /**
-     * The metrics configuration for your event source. For more information, see Event source mapping metrics [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics
-     *
-     * @var EventSourceMappingMetricsConfig|null
-     */
-    private $metricsConfig;
-
-    /**
-     * (Amazon MSK, and self-managed Apache Kafka only) The logging configuration for your event source. For more
-     * information, see Event source mapping logging [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/esm-logging.html
-     *
-     * @var EventSourceMappingLoggingConfig|null
-     */
-    private $loggingConfig;
 
     /**
      * (Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The provisioned mode configuration for the event source.
@@ -305,6 +305,11 @@ final class EventSourceMappingConfiguration
      *   ParallelizationFactor?: int|null,
      *   EventSourceArn?: string|null,
      *   FilterCriteria?: FilterCriteria|array|null,
+     *   FilterCriteriaError?: FilterCriteriaError|array|null,
+     *   KMSKeyArn?: string|null,
+     *   MetricsConfig?: EventSourceMappingMetricsConfig|array|null,
+     *   LoggingConfig?: EventSourceMappingLoggingConfig|array|null,
+     *   ScalingConfig?: ScalingConfig|array|null,
      *   FunctionArn?: string|null,
      *   LastModified?: \DateTimeImmutable|null,
      *   LastProcessingResult?: string|null,
@@ -322,13 +327,8 @@ final class EventSourceMappingConfiguration
      *   FunctionResponseTypes?: array<FunctionResponseType::*>|null,
      *   AmazonManagedKafkaEventSourceConfig?: AmazonManagedKafkaEventSourceConfig|array|null,
      *   SelfManagedKafkaEventSourceConfig?: SelfManagedKafkaEventSourceConfig|array|null,
-     *   ScalingConfig?: ScalingConfig|array|null,
      *   DocumentDBEventSourceConfig?: DocumentDBEventSourceConfig|array|null,
-     *   KMSKeyArn?: string|null,
-     *   FilterCriteriaError?: FilterCriteriaError|array|null,
      *   EventSourceMappingArn?: string|null,
-     *   MetricsConfig?: EventSourceMappingMetricsConfig|array|null,
-     *   LoggingConfig?: EventSourceMappingLoggingConfig|array|null,
      *   ProvisionedPollerConfig?: ProvisionedPollerConfig|array|null,
      * } $input
      */
@@ -342,6 +342,11 @@ final class EventSourceMappingConfiguration
         $this->parallelizationFactor = $input['ParallelizationFactor'] ?? null;
         $this->eventSourceArn = $input['EventSourceArn'] ?? null;
         $this->filterCriteria = isset($input['FilterCriteria']) ? FilterCriteria::create($input['FilterCriteria']) : null;
+        $this->filterCriteriaError = isset($input['FilterCriteriaError']) ? FilterCriteriaError::create($input['FilterCriteriaError']) : null;
+        $this->kmsKeyArn = $input['KMSKeyArn'] ?? null;
+        $this->metricsConfig = isset($input['MetricsConfig']) ? EventSourceMappingMetricsConfig::create($input['MetricsConfig']) : null;
+        $this->loggingConfig = isset($input['LoggingConfig']) ? EventSourceMappingLoggingConfig::create($input['LoggingConfig']) : null;
+        $this->scalingConfig = isset($input['ScalingConfig']) ? ScalingConfig::create($input['ScalingConfig']) : null;
         $this->functionArn = $input['FunctionArn'] ?? null;
         $this->lastModified = $input['LastModified'] ?? null;
         $this->lastProcessingResult = $input['LastProcessingResult'] ?? null;
@@ -359,13 +364,8 @@ final class EventSourceMappingConfiguration
         $this->functionResponseTypes = $input['FunctionResponseTypes'] ?? null;
         $this->amazonManagedKafkaEventSourceConfig = isset($input['AmazonManagedKafkaEventSourceConfig']) ? AmazonManagedKafkaEventSourceConfig::create($input['AmazonManagedKafkaEventSourceConfig']) : null;
         $this->selfManagedKafkaEventSourceConfig = isset($input['SelfManagedKafkaEventSourceConfig']) ? SelfManagedKafkaEventSourceConfig::create($input['SelfManagedKafkaEventSourceConfig']) : null;
-        $this->scalingConfig = isset($input['ScalingConfig']) ? ScalingConfig::create($input['ScalingConfig']) : null;
         $this->documentDbEventSourceConfig = isset($input['DocumentDBEventSourceConfig']) ? DocumentDBEventSourceConfig::create($input['DocumentDBEventSourceConfig']) : null;
-        $this->kmsKeyArn = $input['KMSKeyArn'] ?? null;
-        $this->filterCriteriaError = isset($input['FilterCriteriaError']) ? FilterCriteriaError::create($input['FilterCriteriaError']) : null;
         $this->eventSourceMappingArn = $input['EventSourceMappingArn'] ?? null;
-        $this->metricsConfig = isset($input['MetricsConfig']) ? EventSourceMappingMetricsConfig::create($input['MetricsConfig']) : null;
-        $this->loggingConfig = isset($input['LoggingConfig']) ? EventSourceMappingLoggingConfig::create($input['LoggingConfig']) : null;
         $this->provisionedPollerConfig = isset($input['ProvisionedPollerConfig']) ? ProvisionedPollerConfig::create($input['ProvisionedPollerConfig']) : null;
     }
 
@@ -379,6 +379,11 @@ final class EventSourceMappingConfiguration
      *   ParallelizationFactor?: int|null,
      *   EventSourceArn?: string|null,
      *   FilterCriteria?: FilterCriteria|array|null,
+     *   FilterCriteriaError?: FilterCriteriaError|array|null,
+     *   KMSKeyArn?: string|null,
+     *   MetricsConfig?: EventSourceMappingMetricsConfig|array|null,
+     *   LoggingConfig?: EventSourceMappingLoggingConfig|array|null,
+     *   ScalingConfig?: ScalingConfig|array|null,
      *   FunctionArn?: string|null,
      *   LastModified?: \DateTimeImmutable|null,
      *   LastProcessingResult?: string|null,
@@ -396,13 +401,8 @@ final class EventSourceMappingConfiguration
      *   FunctionResponseTypes?: array<FunctionResponseType::*>|null,
      *   AmazonManagedKafkaEventSourceConfig?: AmazonManagedKafkaEventSourceConfig|array|null,
      *   SelfManagedKafkaEventSourceConfig?: SelfManagedKafkaEventSourceConfig|array|null,
-     *   ScalingConfig?: ScalingConfig|array|null,
      *   DocumentDBEventSourceConfig?: DocumentDBEventSourceConfig|array|null,
-     *   KMSKeyArn?: string|null,
-     *   FilterCriteriaError?: FilterCriteriaError|array|null,
      *   EventSourceMappingArn?: string|null,
-     *   MetricsConfig?: EventSourceMappingMetricsConfig|array|null,
-     *   LoggingConfig?: EventSourceMappingLoggingConfig|array|null,
      *   ProvisionedPollerConfig?: ProvisionedPollerConfig|array|null,
      * }|EventSourceMappingConfiguration $input
      */

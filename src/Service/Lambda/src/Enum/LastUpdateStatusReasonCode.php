@@ -36,6 +36,7 @@ final class LastUpdateStatusReasonCode
     public const INVALID_ZIP_FILE_EXCEPTION = 'InvalidZipFileException';
     public const KMSKEY_ACCESS_DENIED = 'KMSKeyAccessDenied';
     public const KMSKEY_NOT_FOUND = 'KMSKeyNotFound';
+    public const SERVICE_QUOTA_EXCEEDED_EXCEPTION = 'ServiceQuotaExceededException';
     public const SUBNET_OUT_OF_IPADDRESSES = 'SubnetOutOfIPAddresses';
     public const VCPU_LIMIT_EXCEEDED = 'VcpuLimitExceeded';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
@@ -78,6 +79,7 @@ final class LastUpdateStatusReasonCode
             self::INVALID_ZIP_FILE_EXCEPTION => true,
             self::KMSKEY_ACCESS_DENIED => true,
             self::KMSKEY_NOT_FOUND => true,
+            self::SERVICE_QUOTA_EXCEEDED_EXCEPTION => true,
             self::SUBNET_OUT_OF_IPADDRESSES => true,
             self::VCPU_LIMIT_EXCEEDED => true,
         ][$value]);

@@ -12,6 +12,15 @@ use AsyncAws\Lambda\Enum\Runtime;
 final class ListLayerVersionsRequest extends Input
 {
     /**
+     * The compatible instruction set architecture [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var Architecture::*|null
+     */
+    private $compatibleArchitecture;
+
+    /**
      * A runtime identifier.
      *
      * The following list includes deprecated runtimes. For more information, see Runtime use after deprecation [^1].
@@ -49,41 +58,32 @@ final class ListLayerVersionsRequest extends Input
     private $maxItems;
 
     /**
-     * The compatible instruction set architecture [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
-     *
-     * @var Architecture::*|null
-     */
-    private $compatibleArchitecture;
-
-    /**
      * @param array{
+     *   CompatibleArchitecture?: Architecture::*|null,
      *   CompatibleRuntime?: Runtime::*|null,
      *   LayerName?: string,
      *   Marker?: string|null,
      *   MaxItems?: int|null,
-     *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
+        $this->compatibleArchitecture = $input['CompatibleArchitecture'] ?? null;
         $this->compatibleRuntime = $input['CompatibleRuntime'] ?? null;
         $this->layerName = $input['LayerName'] ?? null;
         $this->marker = $input['Marker'] ?? null;
         $this->maxItems = $input['MaxItems'] ?? null;
-        $this->compatibleArchitecture = $input['CompatibleArchitecture'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
+     *   CompatibleArchitecture?: Architecture::*|null,
      *   CompatibleRuntime?: Runtime::*|null,
      *   LayerName?: string,
      *   Marker?: string|null,
      *   MaxItems?: int|null,
-     *   CompatibleArchitecture?: Architecture::*|null,
      *   '@region'?: string|null,
      * }|ListLayerVersionsRequest $input
      */
@@ -136,6 +136,13 @@ final class ListLayerVersionsRequest extends Input
 
         // Prepare query
         $query = [];
+        if (null !== $this->compatibleArchitecture) {
+            if (!Architecture::exists($this->compatibleArchitecture)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitecture" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $this->compatibleArchitecture));
+            }
+            $query['CompatibleArchitecture'] = $this->compatibleArchitecture;
+        }
         if (null !== $this->compatibleRuntime) {
             if (!Runtime::exists($this->compatibleRuntime)) {
                 /** @psalm-suppress NoValue */
@@ -148,13 +155,6 @@ final class ListLayerVersionsRequest extends Input
         }
         if (null !== $this->maxItems) {
             $query['MaxItems'] = (string) $this->maxItems;
-        }
-        if (null !== $this->compatibleArchitecture) {
-            if (!Architecture::exists($this->compatibleArchitecture)) {
-                /** @psalm-suppress NoValue */
-                throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitecture" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $this->compatibleArchitecture));
-            }
-            $query['CompatibleArchitecture'] = $this->compatibleArchitecture;
         }
 
         // Prepare URI

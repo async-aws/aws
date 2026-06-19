@@ -272,20 +272,6 @@ class FunctionConfiguration extends Result
     private $fileSystemConfigs;
 
     /**
-     * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
-     *
-     * @var PackageType::*|null
-     */
-    private $packageType;
-
-    /**
-     * The function's image configuration values.
-     *
-     * @var ImageConfigResponse|null
-     */
-    private $imageConfigResponse;
-
-    /**
      * The ARN of the signing profile version.
      *
      * @var string|null
@@ -298,6 +284,20 @@ class FunctionConfiguration extends Result
      * @var string|null
      */
     private $signingJobArn;
+
+    /**
+     * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
+     *
+     * @var PackageType::*|null
+     */
+    private $packageType;
+
+    /**
+     * The function's image configuration values.
+     *
+     * @var ImageConfigResponse|null
+     */
+    private $imageConfigResponse;
 
     /**
      * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
@@ -342,6 +342,14 @@ class FunctionConfiguration extends Result
     private $loggingConfig;
 
     /**
+     * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
+     * dedicated infrastructure per unique tenant.
+     *
+     * @var TenancyConfig|null
+     */
+    private $tenancyConfig;
+
+    /**
      * Configuration for the capacity provider that manages compute resources for Lambda functions.
      *
      * @var CapacityProviderConfig|null
@@ -361,14 +369,6 @@ class FunctionConfiguration extends Result
      * @var DurableConfig|null
      */
     private $durableConfig;
-
-    /**
-     * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
-     * dedicated infrastructure per unique tenant.
-     *
-     * @var TenancyConfig|null
-     */
-    private $tenancyConfig;
 
     /**
      * @return list<Architecture::*>
@@ -708,19 +708,19 @@ class FunctionConfiguration extends Result
         $this->lastUpdateStatusReason = isset($data['LastUpdateStatusReason']) ? (string) $data['LastUpdateStatusReason'] : null;
         $this->lastUpdateStatusReasonCode = isset($data['LastUpdateStatusReasonCode']) ? (!LastUpdateStatusReasonCode::exists((string) $data['LastUpdateStatusReasonCode']) ? LastUpdateStatusReasonCode::UNKNOWN_TO_SDK : (string) $data['LastUpdateStatusReasonCode']) : null;
         $this->fileSystemConfigs = empty($data['FileSystemConfigs']) ? [] : $this->populateResultFileSystemConfigList($data['FileSystemConfigs']);
-        $this->packageType = isset($data['PackageType']) ? (!PackageType::exists((string) $data['PackageType']) ? PackageType::UNKNOWN_TO_SDK : (string) $data['PackageType']) : null;
-        $this->imageConfigResponse = empty($data['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($data['ImageConfigResponse']);
         $this->signingProfileVersionArn = isset($data['SigningProfileVersionArn']) ? (string) $data['SigningProfileVersionArn'] : null;
         $this->signingJobArn = isset($data['SigningJobArn']) ? (string) $data['SigningJobArn'] : null;
+        $this->packageType = isset($data['PackageType']) ? (!PackageType::exists((string) $data['PackageType']) ? PackageType::UNKNOWN_TO_SDK : (string) $data['PackageType']) : null;
+        $this->imageConfigResponse = empty($data['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($data['ImageConfigResponse']);
         $this->architectures = empty($data['Architectures']) ? [] : $this->populateResultArchitecturesList($data['Architectures']);
         $this->ephemeralStorage = empty($data['EphemeralStorage']) ? null : $this->populateResultEphemeralStorage($data['EphemeralStorage']);
         $this->snapStart = empty($data['SnapStart']) ? null : $this->populateResultSnapStartResponse($data['SnapStart']);
         $this->runtimeVersionConfig = empty($data['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($data['RuntimeVersionConfig']);
         $this->loggingConfig = empty($data['LoggingConfig']) ? null : $this->populateResultLoggingConfig($data['LoggingConfig']);
+        $this->tenancyConfig = empty($data['TenancyConfig']) ? null : $this->populateResultTenancyConfig($data['TenancyConfig']);
         $this->capacityProviderConfig = empty($data['CapacityProviderConfig']) ? null : $this->populateResultCapacityProviderConfig($data['CapacityProviderConfig']);
         $this->configSha256 = isset($data['ConfigSha256']) ? (string) $data['ConfigSha256'] : null;
         $this->durableConfig = empty($data['DurableConfig']) ? null : $this->populateResultDurableConfig($data['DurableConfig']);
-        $this->tenancyConfig = empty($data['TenancyConfig']) ? null : $this->populateResultTenancyConfig($data['TenancyConfig']);
     }
 
     /**

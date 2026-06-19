@@ -247,7 +247,8 @@ class CloudWatchLogsClient extends AbstractApi
      * limit, but it might return fewer events than the limit. This is the expected API behavior.
      *
      * The returned log events are sorted by event timestamp, the timestamp when the event was ingested by CloudWatch Logs,
-     * and the ID of the `PutLogEvents` request.
+     * and the ID of the `PutLogEvents` request. By default, the events are returned in ascending timestamp order (oldest
+     * first). To return events in descending timestamp order (newest first), set the `startFromHead` parameter to `false`.
      *
      * If you are using CloudWatch cross-account observability, you can use this operation in a monitoring account and view
      * data from the linked source accounts. For more information, see CloudWatch cross-account observability [^1].
@@ -272,6 +273,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   filterPattern?: string|null,
      *   nextToken?: string|null,
      *   limit?: int|null,
+     *   startFromHead?: bool|null,
      *   interleaved?: bool|null,
      *   unmask?: bool|null,
      *   '@region'?: string|null,

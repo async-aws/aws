@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added optional startFromHead parameter to FilterLogEvents enabling descending timestamp order (newest first) when set to false. Default true preserves existing ascending order. Reverse sorting requires a startTime on or after Jan 1, 2024.
+
 ## 2.9.0
 
 ### Added

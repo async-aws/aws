@@ -244,20 +244,6 @@ final class FunctionConfiguration
     private $fileSystemConfigs;
 
     /**
-     * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
-     *
-     * @var PackageType::*|null
-     */
-    private $packageType;
-
-    /**
-     * The function's image configuration values.
-     *
-     * @var ImageConfigResponse|null
-     */
-    private $imageConfigResponse;
-
-    /**
      * The ARN of the signing profile version.
      *
      * @var string|null
@@ -270,6 +256,20 @@ final class FunctionConfiguration
      * @var string|null
      */
     private $signingJobArn;
+
+    /**
+     * The type of deployment package. Set to `Image` for container image and set `Zip` for .zip file archive.
+     *
+     * @var PackageType::*|null
+     */
+    private $packageType;
+
+    /**
+     * The function's image configuration values.
+     *
+     * @var ImageConfigResponse|null
+     */
+    private $imageConfigResponse;
 
     /**
      * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
@@ -314,6 +314,14 @@ final class FunctionConfiguration
     private $loggingConfig;
 
     /**
+     * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
+     * dedicated infrastructure per unique tenant.
+     *
+     * @var TenancyConfig|null
+     */
+    private $tenancyConfig;
+
+    /**
      * Configuration for the capacity provider that manages compute resources for Lambda functions.
      *
      * @var CapacityProviderConfig|null
@@ -333,14 +341,6 @@ final class FunctionConfiguration
      * @var DurableConfig|null
      */
     private $durableConfig;
-
-    /**
-     * The function's tenant isolation configuration settings. Determines whether the Lambda function runs on a shared or
-     * dedicated infrastructure per unique tenant.
-     *
-     * @var TenancyConfig|null
-     */
-    private $tenancyConfig;
 
     /**
      * @param array{
@@ -371,19 +371,19 @@ final class FunctionConfiguration
      *   LastUpdateStatusReason?: string|null,
      *   LastUpdateStatusReasonCode?: LastUpdateStatusReasonCode::*|null,
      *   FileSystemConfigs?: array<FileSystemConfig|array>|null,
-     *   PackageType?: PackageType::*|null,
-     *   ImageConfigResponse?: ImageConfigResponse|array|null,
      *   SigningProfileVersionArn?: string|null,
      *   SigningJobArn?: string|null,
+     *   PackageType?: PackageType::*|null,
+     *   ImageConfigResponse?: ImageConfigResponse|array|null,
      *   Architectures?: array<Architecture::*>|null,
      *   EphemeralStorage?: EphemeralStorage|array|null,
      *   SnapStart?: SnapStartResponse|array|null,
      *   RuntimeVersionConfig?: RuntimeVersionConfig|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   TenancyConfig?: TenancyConfig|array|null,
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   ConfigSha256?: string|null,
      *   DurableConfig?: DurableConfig|array|null,
-     *   TenancyConfig?: TenancyConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -415,19 +415,19 @@ final class FunctionConfiguration
         $this->lastUpdateStatusReason = $input['LastUpdateStatusReason'] ?? null;
         $this->lastUpdateStatusReasonCode = $input['LastUpdateStatusReasonCode'] ?? null;
         $this->fileSystemConfigs = isset($input['FileSystemConfigs']) ? array_map([FileSystemConfig::class, 'create'], $input['FileSystemConfigs']) : null;
-        $this->packageType = $input['PackageType'] ?? null;
-        $this->imageConfigResponse = isset($input['ImageConfigResponse']) ? ImageConfigResponse::create($input['ImageConfigResponse']) : null;
         $this->signingProfileVersionArn = $input['SigningProfileVersionArn'] ?? null;
         $this->signingJobArn = $input['SigningJobArn'] ?? null;
+        $this->packageType = $input['PackageType'] ?? null;
+        $this->imageConfigResponse = isset($input['ImageConfigResponse']) ? ImageConfigResponse::create($input['ImageConfigResponse']) : null;
         $this->architectures = $input['Architectures'] ?? null;
         $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
         $this->snapStart = isset($input['SnapStart']) ? SnapStartResponse::create($input['SnapStart']) : null;
         $this->runtimeVersionConfig = isset($input['RuntimeVersionConfig']) ? RuntimeVersionConfig::create($input['RuntimeVersionConfig']) : null;
         $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
+        $this->tenancyConfig = isset($input['TenancyConfig']) ? TenancyConfig::create($input['TenancyConfig']) : null;
         $this->capacityProviderConfig = isset($input['CapacityProviderConfig']) ? CapacityProviderConfig::create($input['CapacityProviderConfig']) : null;
         $this->configSha256 = $input['ConfigSha256'] ?? null;
         $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
-        $this->tenancyConfig = isset($input['TenancyConfig']) ? TenancyConfig::create($input['TenancyConfig']) : null;
     }
 
     /**
@@ -459,19 +459,19 @@ final class FunctionConfiguration
      *   LastUpdateStatusReason?: string|null,
      *   LastUpdateStatusReasonCode?: LastUpdateStatusReasonCode::*|null,
      *   FileSystemConfigs?: array<FileSystemConfig|array>|null,
-     *   PackageType?: PackageType::*|null,
-     *   ImageConfigResponse?: ImageConfigResponse|array|null,
      *   SigningProfileVersionArn?: string|null,
      *   SigningJobArn?: string|null,
+     *   PackageType?: PackageType::*|null,
+     *   ImageConfigResponse?: ImageConfigResponse|array|null,
      *   Architectures?: array<Architecture::*>|null,
      *   EphemeralStorage?: EphemeralStorage|array|null,
      *   SnapStart?: SnapStartResponse|array|null,
      *   RuntimeVersionConfig?: RuntimeVersionConfig|array|null,
      *   LoggingConfig?: LoggingConfig|array|null,
+     *   TenancyConfig?: TenancyConfig|array|null,
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   ConfigSha256?: string|null,
      *   DurableConfig?: DurableConfig|array|null,
-     *   TenancyConfig?: TenancyConfig|array|null,
      * }|FunctionConfiguration $input
      */
     public static function create($input): self

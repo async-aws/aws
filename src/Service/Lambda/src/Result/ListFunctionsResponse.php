@@ -260,19 +260,19 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             'LastUpdateStatusReason' => isset($json['LastUpdateStatusReason']) ? (string) $json['LastUpdateStatusReason'] : null,
             'LastUpdateStatusReasonCode' => isset($json['LastUpdateStatusReasonCode']) ? (!LastUpdateStatusReasonCode::exists((string) $json['LastUpdateStatusReasonCode']) ? LastUpdateStatusReasonCode::UNKNOWN_TO_SDK : (string) $json['LastUpdateStatusReasonCode']) : null,
             'FileSystemConfigs' => !isset($json['FileSystemConfigs']) ? null : $this->populateResultFileSystemConfigList($json['FileSystemConfigs']),
-            'PackageType' => isset($json['PackageType']) ? (!PackageType::exists((string) $json['PackageType']) ? PackageType::UNKNOWN_TO_SDK : (string) $json['PackageType']) : null,
-            'ImageConfigResponse' => empty($json['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($json['ImageConfigResponse']),
             'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
             'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
+            'PackageType' => isset($json['PackageType']) ? (!PackageType::exists((string) $json['PackageType']) ? PackageType::UNKNOWN_TO_SDK : (string) $json['PackageType']) : null,
+            'ImageConfigResponse' => empty($json['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($json['ImageConfigResponse']),
             'Architectures' => !isset($json['Architectures']) ? null : $this->populateResultArchitecturesList($json['Architectures']),
             'EphemeralStorage' => empty($json['EphemeralStorage']) ? null : $this->populateResultEphemeralStorage($json['EphemeralStorage']),
             'SnapStart' => empty($json['SnapStart']) ? null : $this->populateResultSnapStartResponse($json['SnapStart']),
             'RuntimeVersionConfig' => empty($json['RuntimeVersionConfig']) ? null : $this->populateResultRuntimeVersionConfig($json['RuntimeVersionConfig']),
             'LoggingConfig' => empty($json['LoggingConfig']) ? null : $this->populateResultLoggingConfig($json['LoggingConfig']),
+            'TenancyConfig' => empty($json['TenancyConfig']) ? null : $this->populateResultTenancyConfig($json['TenancyConfig']),
             'CapacityProviderConfig' => empty($json['CapacityProviderConfig']) ? null : $this->populateResultCapacityProviderConfig($json['CapacityProviderConfig']),
             'ConfigSha256' => isset($json['ConfigSha256']) ? (string) $json['ConfigSha256'] : null,
             'DurableConfig' => empty($json['DurableConfig']) ? null : $this->populateResultDurableConfig($json['DurableConfig']),
-            'TenancyConfig' => empty($json['TenancyConfig']) ? null : $this->populateResultTenancyConfig($json['TenancyConfig']),
         ]);
     }
 

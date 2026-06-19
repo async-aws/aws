@@ -55,6 +55,15 @@ class PublishLayerVersionResponse extends Result
     private $version;
 
     /**
+     * A list of compatible instruction set architectures [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var list<Architecture::*>
+     */
+    private $compatibleArchitectures;
+
+    /**
      * The layer's compatible runtimes.
      *
      * The following list includes deprecated runtimes. For more information, see Runtime use after deprecation [^1].
@@ -74,15 +83,6 @@ class PublishLayerVersionResponse extends Result
      * @var string|null
      */
     private $licenseInfo;
-
-    /**
-     * A list of compatible instruction set architectures [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
-     *
-     * @var list<Architecture::*>
-     */
-    private $compatibleArchitectures;
 
     /**
      * @return list<Architecture::*>
@@ -163,9 +163,9 @@ class PublishLayerVersionResponse extends Result
         $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
         $this->createdDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
         $this->version = isset($data['Version']) ? (int) $data['Version'] : null;
+        $this->compatibleArchitectures = empty($data['CompatibleArchitectures']) ? [] : $this->populateResultCompatibleArchitectures($data['CompatibleArchitectures']);
         $this->compatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($data['CompatibleRuntimes']);
         $this->licenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
-        $this->compatibleArchitectures = empty($data['CompatibleArchitectures']) ? [] : $this->populateResultCompatibleArchitectures($data['CompatibleArchitectures']);
     }
 
     /**

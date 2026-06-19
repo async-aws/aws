@@ -41,6 +41,15 @@ final class LayerVersionsListItem
     private $createdDate;
 
     /**
+     * A list of compatible instruction set architectures [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var list<Architecture::*>|null
+     */
+    private $compatibleArchitectures;
+
+    /**
      * The layer's compatible runtimes.
      *
      * The following list includes deprecated runtimes. For more information, see Runtime use after deprecation [^1].
@@ -62,23 +71,14 @@ final class LayerVersionsListItem
     private $licenseInfo;
 
     /**
-     * A list of compatible instruction set architectures [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
-     *
-     * @var list<Architecture::*>|null
-     */
-    private $compatibleArchitectures;
-
-    /**
      * @param array{
      *   LayerVersionArn?: string|null,
      *   Version?: int|null,
      *   Description?: string|null,
      *   CreatedDate?: string|null,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
-     *   CompatibleArchitectures?: array<Architecture::*>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -87,9 +87,9 @@ final class LayerVersionsListItem
         $this->version = $input['Version'] ?? null;
         $this->description = $input['Description'] ?? null;
         $this->createdDate = $input['CreatedDate'] ?? null;
+        $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
         $this->compatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
         $this->licenseInfo = $input['LicenseInfo'] ?? null;
-        $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
     }
 
     /**
@@ -98,9 +98,9 @@ final class LayerVersionsListItem
      *   Version?: int|null,
      *   Description?: string|null,
      *   CreatedDate?: string|null,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
-     *   CompatibleArchitectures?: array<Architecture::*>|null,
      * }|LayerVersionsListItem $input
      */
     public static function create($input): self

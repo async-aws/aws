@@ -38,6 +38,15 @@ final class PublishLayerVersionRequest extends Input
     private $content;
 
     /**
+     * A list of compatible instruction set architectures [^1].
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var list<Architecture::*>|null
+     */
+    private $compatibleArchitectures;
+
+    /**
      * A list of compatible function runtimes [^1]. Used for filtering with ListLayers and ListLayerVersions.
      *
      * The following list includes deprecated runtimes. For more information, see Runtime deprecation policy [^2].
@@ -63,22 +72,13 @@ final class PublishLayerVersionRequest extends Input
     private $licenseInfo;
 
     /**
-     * A list of compatible instruction set architectures [^1].
-     *
-     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
-     *
-     * @var list<Architecture::*>|null
-     */
-    private $compatibleArchitectures;
-
-    /**
      * @param array{
      *   LayerName?: string,
      *   Description?: string|null,
      *   Content?: LayerVersionContentInput|array,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
-     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -87,9 +87,9 @@ final class PublishLayerVersionRequest extends Input
         $this->layerName = $input['LayerName'] ?? null;
         $this->description = $input['Description'] ?? null;
         $this->content = isset($input['Content']) ? LayerVersionContentInput::create($input['Content']) : null;
+        $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
         $this->compatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
         $this->licenseInfo = $input['LicenseInfo'] ?? null;
-        $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
         parent::__construct($input);
     }
 
@@ -98,9 +98,9 @@ final class PublishLayerVersionRequest extends Input
      *   LayerName?: string,
      *   Description?: string|null,
      *   Content?: LayerVersionContentInput|array,
+     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
-     *   CompatibleArchitectures?: array<Architecture::*>|null,
      *   '@region'?: string|null,
      * }|PublishLayerVersionRequest $input
      */
@@ -234,6 +234,18 @@ final class PublishLayerVersionRequest extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Content'] = $v->requestBody();
+        if (null !== $v = $this->compatibleArchitectures) {
+            $index = -1;
+            $payload['CompatibleArchitectures'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!Architecture::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
+                    throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitectures" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $listValue));
+                }
+                $payload['CompatibleArchitectures'][$index] = $listValue;
+            }
+        }
         if (null !== $v = $this->compatibleRuntimes) {
             $index = -1;
             $payload['CompatibleRuntimes'] = [];
@@ -248,18 +260,6 @@ final class PublishLayerVersionRequest extends Input
         }
         if (null !== $v = $this->licenseInfo) {
             $payload['LicenseInfo'] = $v;
-        }
-        if (null !== $v = $this->compatibleArchitectures) {
-            $index = -1;
-            $payload['CompatibleArchitectures'] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                if (!Architecture::exists($listValue)) {
-                    /** @psalm-suppress NoValue */
-                    throw new InvalidArgument(\sprintf('Invalid parameter "CompatibleArchitectures" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $listValue));
-                }
-                $payload['CompatibleArchitectures'][$index] = $listValue;
-            }
         }
 
         return $payload;
