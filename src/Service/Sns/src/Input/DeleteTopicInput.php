@@ -22,6 +22,7 @@ final class DeleteTopicInput extends Input
      * @param array{
      *   TopicArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class DeleteTopicInput extends Input
      * @param array{
      *   TopicArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteTopicInput $input
      */
     public static function create($input): self

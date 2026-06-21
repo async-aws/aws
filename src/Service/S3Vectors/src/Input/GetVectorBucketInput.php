@@ -27,6 +27,7 @@ final class GetVectorBucketInput extends Input
      *   vectorBucketName?: string|null,
      *   vectorBucketArn?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -41,6 +42,7 @@ final class GetVectorBucketInput extends Input
      *   vectorBucketName?: string|null,
      *   vectorBucketArn?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetVectorBucketInput $input
      */
     public static function create($input): self

@@ -34,6 +34,7 @@ final class DeleteMessageRequest extends Input
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -48,6 +49,7 @@ final class DeleteMessageRequest extends Input
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteMessageRequest $input
      */
     public static function create($input): self

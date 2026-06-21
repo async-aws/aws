@@ -27,6 +27,7 @@ final class DeleteUserRequest extends Input
      * @param array{
      *   UserName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -39,6 +40,7 @@ final class DeleteUserRequest extends Input
      * @param array{
      *   UserName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteUserRequest $input
      */
     public static function create($input): self

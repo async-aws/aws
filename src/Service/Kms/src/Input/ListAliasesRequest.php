@@ -52,6 +52,7 @@ final class ListAliasesRequest extends Input
      *   Limit?: int|null,
      *   Marker?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -68,6 +69,7 @@ final class ListAliasesRequest extends Input
      *   Limit?: int|null,
      *   Marker?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListAliasesRequest $input
      */
     public static function create($input): self

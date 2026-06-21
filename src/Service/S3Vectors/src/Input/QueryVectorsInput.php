@@ -94,6 +94,7 @@ final class QueryVectorsInput extends Input
      *   returnDistance?: bool|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -122,6 +123,7 @@ final class QueryVectorsInput extends Input
      *   returnDistance?: bool|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|QueryVectorsInput $input
      */
     public static function create($input): self

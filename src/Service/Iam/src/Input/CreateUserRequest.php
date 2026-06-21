@@ -76,6 +76,7 @@ final class CreateUserRequest extends Input
      *   PermissionsBoundary?: string|null,
      *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -94,6 +95,7 @@ final class CreateUserRequest extends Input
      *   PermissionsBoundary?: string|null,
      *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateUserRequest $input
      */
     public static function create($input): self

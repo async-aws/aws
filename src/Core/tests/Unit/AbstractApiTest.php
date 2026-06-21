@@ -6,12 +6,15 @@ namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\EndpointDiscovery\EndpointInterface;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Stream\StringStream;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -56,6 +59,34 @@ class AbstractApiTest extends TestCase
 
         $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')), new RequestContext(['requiresEndpointDiscovery' => true]));
         $response->cancel();
+    }
+
+    public function testGetResponseDoesNotDisableBufferingByDefault(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertNotSame(false, $options['buffer'] ?? null);
+
+            return new SimpleMockedResponse('OK');
+        });
+        $api = new DummyApi([], new NullProvider(), $httpClient);
+
+        $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')), new RequestContext());
+
+        self::assertTrue($response->resolve());
+    }
+
+    public function testGetResponseCanDisableBuffering(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertSame(false, $options['buffer'] ?? null);
+
+            return new SimpleMockedResponse('OK');
+        });
+        $api = new DummyApi([], new NullProvider(), $httpClient);
+
+        $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')), new RequestContext(['responseBuffer' => false]));
+
+        self::assertTrue($response->resolve());
     }
 }
 

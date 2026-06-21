@@ -140,6 +140,7 @@ final class SignRequest extends Input
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -162,6 +163,7 @@ final class SignRequest extends Input
      *   SigningAlgorithm?: SigningAlgorithmSpec::*,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SignRequest $input
      */
     public static function create($input): self

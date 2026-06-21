@@ -199,6 +199,7 @@ final class DeleteItemInput extends Input
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -249,6 +250,7 @@ final class DeleteItemInput extends Input
      *   ExpressionAttributeValues?: array<string, AttributeValue|array>|null,
      *   ReturnValuesOnConditionCheckFailure?: ReturnValuesOnConditionCheckFailure::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteItemInput $input
      */
     public static function create($input): self

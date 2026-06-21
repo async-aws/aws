@@ -32,6 +32,7 @@ final class AssociateSoftwareTokenRequest extends Input
      *   AccessToken?: string|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -46,6 +47,7 @@ final class AssociateSoftwareTokenRequest extends Input
      *   AccessToken?: string|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AssociateSoftwareTokenRequest $input
      */
     public static function create($input): self

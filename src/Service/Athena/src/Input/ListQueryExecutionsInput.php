@@ -38,6 +38,7 @@ final class ListQueryExecutionsInput extends Input
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -54,6 +55,7 @@ final class ListQueryExecutionsInput extends Input
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListQueryExecutionsInput $input
      */
     public static function create($input): self

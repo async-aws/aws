@@ -121,6 +121,7 @@ final class ListShardsInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -147,6 +148,7 @@ final class ListShardsInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListShardsInput $input
      */
     public static function create($input): self

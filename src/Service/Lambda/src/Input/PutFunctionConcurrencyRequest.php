@@ -41,6 +41,7 @@ final class PutFunctionConcurrencyRequest extends Input
      *   FunctionName?: string,
      *   ReservedConcurrentExecutions?: int,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class PutFunctionConcurrencyRequest extends Input
      *   FunctionName?: string,
      *   ReservedConcurrentExecutions?: int,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutFunctionConcurrencyRequest $input
      */
     public static function create($input): self

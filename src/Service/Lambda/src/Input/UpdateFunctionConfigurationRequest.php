@@ -262,6 +262,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -314,6 +315,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateFunctionConfigurationRequest $input
      */
     public static function create($input): self

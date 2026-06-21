@@ -25,6 +25,7 @@ final class DeleteParametersRequest extends Input
      * @param array{
      *   Names?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class DeleteParametersRequest extends Input
      * @param array{
      *   Names?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteParametersRequest $input
      */
     public static function create($input): self

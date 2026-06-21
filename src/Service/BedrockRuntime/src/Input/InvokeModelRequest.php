@@ -131,6 +131,7 @@ final class InvokeModelRequest extends Input
      *   serviceTier?: ServiceTierType::*|null,
      *   requestMetadata?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -161,6 +162,7 @@ final class InvokeModelRequest extends Input
      *   serviceTier?: ServiceTierType::*|null,
      *   requestMetadata?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|InvokeModelRequest $input
      */
     public static function create($input): self

@@ -36,6 +36,7 @@ final class ListScheduleGroupsInput extends Input
      *   NamePrefix?: string|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -52,6 +53,7 @@ final class ListScheduleGroupsInput extends Input
      *   NamePrefix?: string|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListScheduleGroupsInput $input
      */
     public static function create($input): self

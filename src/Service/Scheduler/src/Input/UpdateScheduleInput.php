@@ -158,6 +158,7 @@ final class UpdateScheduleInput extends Input
      *   State?: ScheduleState::*|null,
      *   Target?: Target|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -194,6 +195,7 @@ final class UpdateScheduleInput extends Input
      *   State?: ScheduleState::*|null,
      *   Target?: Target|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateScheduleInput $input
      */
     public static function create($input): self

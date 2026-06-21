@@ -53,6 +53,7 @@ final class GetSecretValueRequest extends Input
      *   VersionId?: string|null,
      *   VersionStage?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class GetSecretValueRequest extends Input
      *   VersionId?: string|null,
      *   VersionStage?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetSecretValueRequest $input
      */
     public static function create($input): self

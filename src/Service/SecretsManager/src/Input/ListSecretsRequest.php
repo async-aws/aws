@@ -68,6 +68,7 @@ final class ListSecretsRequest extends Input
      *   SortOrder?: SortOrderType::*|null,
      *   SortBy?: SortByType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -90,6 +91,7 @@ final class ListSecretsRequest extends Input
      *   SortOrder?: SortOrderType::*|null,
      *   SortBy?: SortByType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListSecretsRequest $input
      */
     public static function create($input): self

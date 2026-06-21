@@ -112,6 +112,7 @@ final class DescribeLogGroupsRequest extends Input
      *   logGroupClass?: LogGroupClass::*|null,
      *   logGroupIdentifiers?: string[]|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -138,6 +139,7 @@ final class DescribeLogGroupsRequest extends Input
      *   logGroupClass?: LogGroupClass::*|null,
      *   logGroupIdentifiers?: string[]|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeLogGroupsRequest $input
      */
     public static function create($input): self

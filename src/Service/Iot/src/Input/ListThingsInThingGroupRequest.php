@@ -47,6 +47,7 @@ final class ListThingsInThingGroupRequest extends Input
      *   nextToken?: string|null,
      *   maxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -65,6 +66,7 @@ final class ListThingsInThingGroupRequest extends Input
      *   nextToken?: string|null,
      *   maxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListThingsInThingGroupRequest $input
      */
     public static function create($input): self

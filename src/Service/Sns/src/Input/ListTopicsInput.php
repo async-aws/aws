@@ -19,6 +19,7 @@ final class ListTopicsInput extends Input
      * @param array{
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -31,6 +32,7 @@ final class ListTopicsInput extends Input
      * @param array{
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListTopicsInput $input
      */
     public static function create($input): self

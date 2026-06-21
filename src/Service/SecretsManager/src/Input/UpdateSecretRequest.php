@@ -125,6 +125,7 @@ final class UpdateSecretRequest extends Input
      *   SecretString?: string|null,
      *   Type?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -149,6 +150,7 @@ final class UpdateSecretRequest extends Input
      *   SecretString?: string|null,
      *   Type?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateSecretRequest $input
      */
     public static function create($input): self

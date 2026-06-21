@@ -32,6 +32,7 @@ final class PrepareQueryRequest extends Input
      *   QueryString?: string,
      *   ValidateOnly?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -46,6 +47,7 @@ final class PrepareQueryRequest extends Input
      *   QueryString?: string,
      *   ValidateOnly?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PrepareQueryRequest $input
      */
     public static function create($input): self

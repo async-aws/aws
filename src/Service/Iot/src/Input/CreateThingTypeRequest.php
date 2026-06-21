@@ -44,6 +44,7 @@ final class CreateThingTypeRequest extends Input
      *   thingTypeProperties?: ThingTypeProperties|array|null,
      *   tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -60,6 +61,7 @@ final class CreateThingTypeRequest extends Input
      *   thingTypeProperties?: ThingTypeProperties|array|null,
      *   tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateThingTypeRequest $input
      */
     public static function create($input): self

@@ -47,6 +47,7 @@ final class CreateVectorBucketInput extends Input
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -63,6 +64,7 @@ final class CreateVectorBucketInput extends Input
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateVectorBucketInput $input
      */
     public static function create($input): self

@@ -163,6 +163,7 @@ final class CreateJobRequest extends Input
      *   Tags?: array<string, string>|null,
      *   UserMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -201,6 +202,7 @@ final class CreateJobRequest extends Input
      *   Tags?: array<string, string>|null,
      *   UserMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateJobRequest $input
      */
     public static function create($input): self

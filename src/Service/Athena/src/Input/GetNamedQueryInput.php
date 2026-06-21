@@ -22,6 +22,7 @@ final class GetNamedQueryInput extends Input
      * @param array{
      *   NamedQueryId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetNamedQueryInput extends Input
      * @param array{
      *   NamedQueryId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetNamedQueryInput $input
      */
     public static function create($input): self

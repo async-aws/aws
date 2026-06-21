@@ -41,6 +41,7 @@ final class GetDatabaseInput extends Input
      *   DatabaseName?: string,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -57,6 +58,7 @@ final class GetDatabaseInput extends Input
      *   DatabaseName?: string,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetDatabaseInput $input
      */
     public static function create($input): self

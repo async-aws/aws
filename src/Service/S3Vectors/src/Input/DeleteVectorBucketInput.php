@@ -27,6 +27,7 @@ final class DeleteVectorBucketInput extends Input
      *   vectorBucketName?: string|null,
      *   vectorBucketArn?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -41,6 +42,7 @@ final class DeleteVectorBucketInput extends Input
      *   vectorBucketName?: string|null,
      *   vectorBucketArn?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteVectorBucketInput $input
      */
     public static function create($input): self

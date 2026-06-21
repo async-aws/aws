@@ -295,6 +295,7 @@ final class UploadPartRequest extends Input
      *   RequestPayer?: RequestPayer::*|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -351,6 +352,7 @@ final class UploadPartRequest extends Input
      *   RequestPayer?: RequestPayer::*|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UploadPartRequest $input
      */
     public static function create($input): self

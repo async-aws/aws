@@ -170,6 +170,7 @@ final class CalculateRouteMatrixRequest extends Input
      *   TruckModeOptions?: CalculateRouteTruckModeOptions|array|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -200,6 +201,7 @@ final class CalculateRouteMatrixRequest extends Input
      *   TruckModeOptions?: CalculateRouteTruckModeOptions|array|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CalculateRouteMatrixRequest $input
      */
     public static function create($input): self

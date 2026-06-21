@@ -58,6 +58,7 @@ final class ListHostedZonesRequest extends Input
      *   DelegationSetId?: string|null,
      *   HostedZoneType?: HostedZoneType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -76,6 +77,7 @@ final class ListHostedZonesRequest extends Input
      *   DelegationSetId?: string|null,
      *   HostedZoneType?: HostedZoneType::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListHostedZonesRequest $input
      */
     public static function create($input): self

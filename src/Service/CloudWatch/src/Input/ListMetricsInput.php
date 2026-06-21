@@ -80,6 +80,7 @@ final class ListMetricsInput extends Input
      *   IncludeLinkedAccounts?: bool|null,
      *   OwningAccount?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -104,6 +105,7 @@ final class ListMetricsInput extends Input
      *   IncludeLinkedAccounts?: bool|null,
      *   OwningAccount?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListMetricsInput $input
      */
     public static function create($input): self

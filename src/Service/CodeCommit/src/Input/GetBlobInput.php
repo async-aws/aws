@@ -35,6 +35,7 @@ final class GetBlobInput extends Input
      *   repositoryName?: string,
      *   blobId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class GetBlobInput extends Input
      *   repositoryName?: string,
      *   blobId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetBlobInput $input
      */
     public static function create($input): self

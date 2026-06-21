@@ -45,6 +45,7 @@ final class GetRoleCredentialsRequest extends Input
      *   accountId?: string,
      *   accessToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -61,6 +62,7 @@ final class GetRoleCredentialsRequest extends Input
      *   accountId?: string,
      *   accessToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetRoleCredentialsRequest $input
      */
     public static function create($input): self

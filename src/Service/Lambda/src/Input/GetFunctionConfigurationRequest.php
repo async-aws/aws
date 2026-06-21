@@ -39,6 +39,7 @@ final class GetFunctionConfigurationRequest extends Input
      *   FunctionName?: string,
      *   Qualifier?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -53,6 +54,7 @@ final class GetFunctionConfigurationRequest extends Input
      *   FunctionName?: string,
      *   Qualifier?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetFunctionConfigurationRequest $input
      */
     public static function create($input): self

@@ -22,6 +22,7 @@ final class GetCalculationExecutionStatusRequest extends Input
      * @param array{
      *   CalculationExecutionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetCalculationExecutionStatusRequest extends Input
      * @param array{
      *   CalculationExecutionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetCalculationExecutionStatusRequest $input
      */
     public static function create($input): self

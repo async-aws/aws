@@ -71,6 +71,7 @@ final class SearchFacesByImageRequest extends Input
      *   FaceMatchThreshold?: float|null,
      *   QualityFilter?: QualityFilter::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -91,6 +92,7 @@ final class SearchFacesByImageRequest extends Input
      *   FaceMatchThreshold?: float|null,
      *   QualityFilter?: QualityFilter::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SearchFacesByImageRequest $input
      */
     public static function create($input): self

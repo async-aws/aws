@@ -113,6 +113,7 @@ final class EncryptRequest extends Input
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -135,6 +136,7 @@ final class EncryptRequest extends Input
      *   EncryptionAlgorithm?: EncryptionAlgorithmSpec::*|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|EncryptRequest $input
      */
     public static function create($input): self

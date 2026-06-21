@@ -25,6 +25,7 @@ final class DescribeStackDriftDetectionStatusInput extends Input
      * @param array{
      *   StackDriftDetectionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class DescribeStackDriftDetectionStatusInput extends Input
      * @param array{
      *   StackDriftDetectionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeStackDriftDetectionStatusInput $input
      */
     public static function create($input): self

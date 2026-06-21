@@ -23,6 +23,7 @@ final class GetCelebrityInfoRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -35,6 +36,7 @@ final class GetCelebrityInfoRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetCelebrityInfoRequest $input
      */
     public static function create($input): self

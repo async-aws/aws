@@ -55,6 +55,7 @@ final class AdminSetUserPasswordRequest extends Input
      *   Password?: string,
      *   Permanent?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class AdminSetUserPasswordRequest extends Input
      *   Password?: string,
      *   Permanent?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminSetUserPasswordRequest $input
      */
     public static function create($input): self

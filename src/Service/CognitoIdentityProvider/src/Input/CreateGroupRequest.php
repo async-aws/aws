@@ -70,6 +70,7 @@ final class CreateGroupRequest extends Input
      *   RoleArn?: string|null,
      *   Precedence?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -90,6 +91,7 @@ final class CreateGroupRequest extends Input
      *   RoleArn?: string|null,
      *   Precedence?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateGroupRequest $input
      */
     public static function create($input): self

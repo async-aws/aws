@@ -40,6 +40,7 @@ final class CreateScheduleGroupInput extends Input
      *   Name?: string,
      *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -56,6 +57,7 @@ final class CreateScheduleGroupInput extends Input
      *   Name?: string,
      *   Tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateScheduleGroupInput $input
      */
     public static function create($input): self

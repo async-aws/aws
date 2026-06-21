@@ -42,6 +42,7 @@ final class DeleteUserPolicyRequest extends Input
      *   UserName?: string,
      *   PolicyName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -56,6 +57,7 @@ final class DeleteUserPolicyRequest extends Input
      *   UserName?: string,
      *   PolicyName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteUserPolicyRequest $input
      */
     public static function create($input): self

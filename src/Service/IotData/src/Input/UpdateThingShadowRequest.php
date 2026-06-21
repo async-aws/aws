@@ -43,6 +43,7 @@ final class UpdateThingShadowRequest extends Input
      *   shadowName?: string|null,
      *   payload?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -59,6 +60,7 @@ final class UpdateThingShadowRequest extends Input
      *   shadowName?: string|null,
      *   payload?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateThingShadowRequest $input
      */
     public static function create($input): self

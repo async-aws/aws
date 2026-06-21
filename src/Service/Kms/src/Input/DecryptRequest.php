@@ -158,6 +158,7 @@ final class DecryptRequest extends Input
      *   DryRun?: bool|null,
      *   DryRunModifiers?: array<DryRunModifierType::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -184,6 +185,7 @@ final class DecryptRequest extends Input
      *   DryRun?: bool|null,
      *   DryRunModifiers?: array<DryRunModifierType::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DecryptRequest $input
      */
     public static function create($input): self

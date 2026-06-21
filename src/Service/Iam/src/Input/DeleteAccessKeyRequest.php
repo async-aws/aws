@@ -40,6 +40,7 @@ final class DeleteAccessKeyRequest extends Input
      *   UserName?: string|null,
      *   AccessKeyId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -54,6 +55,7 @@ final class DeleteAccessKeyRequest extends Input
      *   UserName?: string|null,
      *   AccessKeyId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteAccessKeyRequest $input
      */
     public static function create($input): self

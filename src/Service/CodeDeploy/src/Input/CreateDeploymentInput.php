@@ -147,6 +147,7 @@ final class CreateDeploymentInput extends Input
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -179,6 +180,7 @@ final class CreateDeploymentInput extends Input
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateDeploymentInput $input
      */
     public static function create($input): self

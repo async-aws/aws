@@ -109,6 +109,7 @@ final class ListUsersRequest extends Input
      *   PaginationToken?: string|null,
      *   Filter?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -129,6 +130,7 @@ final class ListUsersRequest extends Input
      *   PaginationToken?: string|null,
      *   Filter?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListUsersRequest $input
      */
     public static function create($input): self

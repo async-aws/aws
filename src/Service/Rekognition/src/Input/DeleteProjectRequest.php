@@ -22,6 +22,7 @@ final class DeleteProjectRequest extends Input
      * @param array{
      *   ProjectArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class DeleteProjectRequest extends Input
      * @param array{
      *   ProjectArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteProjectRequest $input
      */
     public static function create($input): self

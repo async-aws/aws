@@ -27,6 +27,7 @@ final class RecognizeCelebritiesRequest extends Input
      * @param array{
      *   Image?: Image|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -39,6 +40,7 @@ final class RecognizeCelebritiesRequest extends Input
      * @param array{
      *   Image?: Image|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|RecognizeCelebritiesRequest $input
      */
     public static function create($input): self

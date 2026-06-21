@@ -31,6 +31,7 @@ final class ListMessageMoveTasksRequest extends Input
      *   SourceArn?: string,
      *   MaxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -45,6 +46,7 @@ final class ListMessageMoveTasksRequest extends Input
      *   SourceArn?: string,
      *   MaxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListMessageMoveTasksRequest $input
      */
     public static function create($input): self

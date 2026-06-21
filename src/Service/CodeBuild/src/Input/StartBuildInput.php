@@ -382,6 +382,7 @@ final class StartBuildInput extends Input
      *   fleetOverride?: ProjectFleet|array|null,
      *   autoRetryLimitOverride?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -458,6 +459,7 @@ final class StartBuildInput extends Input
      *   fleetOverride?: ProjectFleet|array|null,
      *   autoRetryLimitOverride?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartBuildInput $input
      */
     public static function create($input): self

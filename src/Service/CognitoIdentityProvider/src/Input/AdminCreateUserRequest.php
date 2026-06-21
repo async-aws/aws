@@ -186,6 +186,7 @@ final class AdminCreateUserRequest extends Input
      *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -214,6 +215,7 @@ final class AdminCreateUserRequest extends Input
      *   DesiredDeliveryMediums?: array<DeliveryMediumType::*>|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminCreateUserRequest $input
      */
     public static function create($input): self

@@ -43,6 +43,7 @@ final class GetKnowledgeBaseDocumentsRequest extends Input
      *   dataSourceId?: string,
      *   documentIdentifiers?: array<DocumentIdentifier|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -59,6 +60,7 @@ final class GetKnowledgeBaseDocumentsRequest extends Input
      *   dataSourceId?: string,
      *   documentIdentifiers?: array<DocumentIdentifier|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetKnowledgeBaseDocumentsRequest $input
      */
     public static function create($input): self
