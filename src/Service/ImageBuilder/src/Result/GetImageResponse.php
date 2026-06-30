@@ -171,6 +171,22 @@ class GetImageResponse extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
+    private function populateResultAmiWatermarksList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
     private function populateResultComponentConfiguration(array $json): ComponentConfiguration
     {
         return new ComponentConfiguration([
@@ -443,6 +459,7 @@ class GetImageResponse extends Result
             'workingDirectory' => isset($json['workingDirectory']) ? (string) $json['workingDirectory'] : null,
             'additionalInstanceConfiguration' => empty($json['additionalInstanceConfiguration']) ? null : $this->populateResultAdditionalInstanceConfiguration($json['additionalInstanceConfiguration']),
             'amiTags' => !isset($json['amiTags']) ? null : $this->populateResultTagMap($json['amiTags']),
+            'amiWatermarks' => !isset($json['amiWatermarks']) ? null : $this->populateResultAmiWatermarksList($json['amiWatermarks']),
         ]);
     }
 

@@ -126,6 +126,14 @@ final class ImageRecipe
     private $amiTags;
 
     /**
+     * The AMI watermark names attached to the output AMI from this recipe. AMI watermarks are lineage markers that
+     * automatically propagate to derivative AMIs when the source AMI is copied or distributed.
+     *
+     * @var string[]|null
+     */
+    private $amiWatermarks;
+
+    /**
      * @param array{
      *   arn?: string|null,
      *   type?: ImageType::*|null,
@@ -142,6 +150,7 @@ final class ImageRecipe
      *   workingDirectory?: string|null,
      *   additionalInstanceConfiguration?: AdditionalInstanceConfiguration|array|null,
      *   amiTags?: array<string, string>|null,
+     *   amiWatermarks?: string[]|null,
      * } $input
      */
     public function __construct(array $input)
@@ -161,6 +170,7 @@ final class ImageRecipe
         $this->workingDirectory = $input['workingDirectory'] ?? null;
         $this->additionalInstanceConfiguration = isset($input['additionalInstanceConfiguration']) ? AdditionalInstanceConfiguration::create($input['additionalInstanceConfiguration']) : null;
         $this->amiTags = $input['amiTags'] ?? null;
+        $this->amiWatermarks = $input['amiWatermarks'] ?? null;
     }
 
     /**
@@ -180,6 +190,7 @@ final class ImageRecipe
      *   workingDirectory?: string|null,
      *   additionalInstanceConfiguration?: AdditionalInstanceConfiguration|array|null,
      *   amiTags?: array<string, string>|null,
+     *   amiWatermarks?: string[]|null,
      * }|ImageRecipe $input
      */
     public static function create($input): self
@@ -198,6 +209,14 @@ final class ImageRecipe
     public function getAmiTags(): array
     {
         return $this->amiTags ?? [];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAmiWatermarks(): array
+    {
+        return $this->amiWatermarks ?? [];
     }
 
     public function getArn(): ?string

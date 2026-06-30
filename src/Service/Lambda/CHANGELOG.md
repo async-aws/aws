@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Converging and fixing existing documentation gaps in Lambda SDK
+- AWS api-change: Lambda now supports self-managed S3 buckets for Lambda code storage giving you the option for Lambda to reference a copy of your source code from your own S3 buckets. This allows you to maintain a single copy of your source code and manage your own code storage limits.
 
 ## 2.15.0
 
