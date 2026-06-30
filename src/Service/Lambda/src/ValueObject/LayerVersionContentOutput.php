@@ -45,12 +45,18 @@ final class LayerVersionContentOutput
     private $signingJobArn;
 
     /**
+     * @var ResolvedS3Object|null
+     */
+    private $resolvedS3Object;
+
+    /**
      * @param array{
      *   Location?: string|null,
      *   CodeSha256?: string|null,
      *   CodeSize?: int|null,
      *   SigningProfileVersionArn?: string|null,
      *   SigningJobArn?: string|null,
+     *   ResolvedS3Object?: ResolvedS3Object|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -60,6 +66,7 @@ final class LayerVersionContentOutput
         $this->codeSize = $input['CodeSize'] ?? null;
         $this->signingProfileVersionArn = $input['SigningProfileVersionArn'] ?? null;
         $this->signingJobArn = $input['SigningJobArn'] ?? null;
+        $this->resolvedS3Object = isset($input['ResolvedS3Object']) ? ResolvedS3Object::create($input['ResolvedS3Object']) : null;
     }
 
     /**
@@ -69,6 +76,7 @@ final class LayerVersionContentOutput
      *   CodeSize?: int|null,
      *   SigningProfileVersionArn?: string|null,
      *   SigningJobArn?: string|null,
+     *   ResolvedS3Object?: ResolvedS3Object|array|null,
      * }|LayerVersionContentOutput $input
      */
     public static function create($input): self
@@ -89,6 +97,11 @@ final class LayerVersionContentOutput
     public function getLocation(): ?string
     {
         return $this->location;
+    }
+
+    public function getResolvedS3Object(): ?ResolvedS3Object
+    {
+        return $this->resolvedS3Object;
     }
 
     public function getSigningJobArn(): ?string

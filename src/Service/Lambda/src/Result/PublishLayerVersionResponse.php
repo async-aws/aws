@@ -7,6 +7,7 @@ use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentOutput;
+use AsyncAws\Lambda\ValueObject\ResolvedS3Object;
 
 class PublishLayerVersionResponse extends Result
 {
@@ -214,6 +215,16 @@ class PublishLayerVersionResponse extends Result
             'CodeSize' => isset($json['CodeSize']) ? (int) $json['CodeSize'] : null,
             'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
             'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
+            'ResolvedS3Object' => empty($json['ResolvedS3Object']) ? null : $this->populateResultResolvedS3Object($json['ResolvedS3Object']),
+        ]);
+    }
+
+    private function populateResultResolvedS3Object(array $json): ResolvedS3Object
+    {
+        return new ResolvedS3Object([
+            'S3Bucket' => isset($json['S3Bucket']) ? (string) $json['S3Bucket'] : null,
+            'S3Key' => isset($json['S3Key']) ? (string) $json['S3Key'] : null,
+            'S3ObjectVersion' => isset($json['S3ObjectVersion']) ? (string) $json['S3ObjectVersion'] : null,
         ]);
     }
 }
