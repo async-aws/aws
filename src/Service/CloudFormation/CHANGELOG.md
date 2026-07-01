@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.2.0
+
 ### Added
 
 - AWS api-change: AWS CloudFormation adds a DeploymentConfig parameter to enable Express mode, which completes stack operations as soon as resource configuration is applied. Also adds a DisableValidation parameter to skip pre-deployment validation, which now runs automatically on CreateStack and UpdateStak.

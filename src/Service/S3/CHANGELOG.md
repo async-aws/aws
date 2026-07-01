@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.4.0
+
 ### Added
 
 - AWS api-change: Added support for annotations. You can now attach up to 1000 annotations (up to 1 MB each) directly to objects and create, retrieve, list, and delete them using new annotation APIs. Also added support for configuring an annotation table in S3 Metadata.

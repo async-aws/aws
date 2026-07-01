@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.13.0
+
 ### Added
 
 - AWS api-change: Adds support for host kernel selection for on-demand builds.

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.15.0
+
 ### Added
 
 - AWS api-change: Adds support for configurable number of Clear Lead segments at the beginning of encrypted output. Adds support for multiple trickplay variants.

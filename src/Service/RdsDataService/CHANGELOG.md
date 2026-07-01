@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.3
+
 ### Changed
 
 - AWS enhancement: Documentation updates.

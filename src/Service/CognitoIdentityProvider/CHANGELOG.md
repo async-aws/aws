@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.18.0
+
 ### Added
 
 - AWS api-change: Add support for multi-region replication, enabling synchronization of user data and configurations to a secondary user pool in a standby Region. Add support for customer managed keys (CMK) in AWS KMS for encrypting user pool data at rest.

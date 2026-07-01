@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 2.16.0
+
 ### Added
 
 - AWS api-change: Converging and fixing existing documentation gaps in Lambda SDK

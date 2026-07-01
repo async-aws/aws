@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.17.1
+
 ### Fixed
 
 - Fixed deprecation warnings on Symfony 8.1

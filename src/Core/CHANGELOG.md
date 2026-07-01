@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.29.1
+
 ### Changed
 
 - ResultMockFactory: add generic `@template` annotations for more precise static analysis

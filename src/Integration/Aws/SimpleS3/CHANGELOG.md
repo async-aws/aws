@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.2
+
 ### Changed
 
 - Use PartSize as threshold for multipart upload

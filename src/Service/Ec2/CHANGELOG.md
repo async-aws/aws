@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
 ### Added
 
 - AWS api-change: This release adds support for AMI Watermark which a structured identifier that helps in tracking AMI provenance
