@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\ValueObject;
 
 use AsyncAws\CodeBuild\Enum\ComputeType;
 use AsyncAws\CodeBuild\Enum\EnvironmentType;
+use AsyncAws\CodeBuild\Enum\HostKernel;
 use AsyncAws\CodeBuild\Enum\ImagePullCredentialsType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
@@ -182,6 +183,21 @@ final class ProjectEnvironment
     private $dockerServer;
 
     /**
+     * The host operating system kernel used for on-demand builds in the build project. The host kernel does not affect the
+     * build environment operating system, which is determined by the image you specify. Valid values are:
+     *
+     * - `LINUX_KERNEL_4`: Runs on an Amazon Linux 2 host (kernel 4.x).
+     * - `LINUX_KERNEL_6`: Runs on an Amazon Linux 2023 host (kernel 6.x).
+     * - `LINUX_KERNEL_LATEST`: Runs on the latest supported host kernel.
+     *
+     * This setting applies to the `LINUX_CONTAINER`, `ARM_CONTAINER`, `LINUX_EC2`, and `ARM_EC2` environment types. It is
+     * not applicable to Windows, Lambda, or Mac environment types.
+     *
+     * @var HostKernel::*|null
+     */
+    private $hostKernel;
+
+    /**
      * @param array{
      *   type: EnvironmentType::*,
      *   image: string,
@@ -194,6 +210,7 @@ final class ProjectEnvironment
      *   registryCredential?: RegistryCredential|array|null,
      *   imagePullCredentialsType?: ImagePullCredentialsType::*|null,
      *   dockerServer?: DockerServer|array|null,
+     *   hostKernel?: HostKernel::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -209,6 +226,7 @@ final class ProjectEnvironment
         $this->registryCredential = isset($input['registryCredential']) ? RegistryCredential::create($input['registryCredential']) : null;
         $this->imagePullCredentialsType = $input['imagePullCredentialsType'] ?? null;
         $this->dockerServer = isset($input['dockerServer']) ? DockerServer::create($input['dockerServer']) : null;
+        $this->hostKernel = $input['hostKernel'] ?? null;
     }
 
     /**
@@ -224,6 +242,7 @@ final class ProjectEnvironment
      *   registryCredential?: RegistryCredential|array|null,
      *   imagePullCredentialsType?: ImagePullCredentialsType::*|null,
      *   dockerServer?: DockerServer|array|null,
+     *   hostKernel?: HostKernel::*|null,
      * }|ProjectEnvironment $input
      */
     public static function create($input): self
@@ -265,6 +284,14 @@ final class ProjectEnvironment
     public function getFleet(): ?ProjectFleet
     {
         return $this->fleet;
+    }
+
+    /**
+     * @return HostKernel::*|null
+     */
+    public function getHostKernel(): ?string
+    {
+        return $this->hostKernel;
     }
 
     public function getImage(): string

@@ -102,6 +102,13 @@ final class Stack
     private $disableRollback;
 
     /**
+     * The deployment configuration for the stack, including the deployment mode used for stack operations.
+     *
+     * @var DeploymentConfig|null
+     */
+    private $deploymentConfig;
+
+    /**
      * Amazon SNS topic Amazon Resource Names (ARNs) to which stack related events are published.
      *
      * @var string[]|null
@@ -245,6 +252,7 @@ final class Stack
      *   StackStatus: StackStatus::*,
      *   StackStatusReason?: string|null,
      *   DisableRollback?: bool|null,
+     *   DeploymentConfig?: DeploymentConfig|array|null,
      *   NotificationARNs?: string[]|null,
      *   TimeoutInMinutes?: int|null,
      *   Capabilities?: array<Capability::*>|null,
@@ -275,6 +283,7 @@ final class Stack
         $this->stackStatus = $input['StackStatus'] ?? $this->throwException(new InvalidArgument('Missing required field "StackStatus".'));
         $this->stackStatusReason = $input['StackStatusReason'] ?? null;
         $this->disableRollback = $input['DisableRollback'] ?? null;
+        $this->deploymentConfig = isset($input['DeploymentConfig']) ? DeploymentConfig::create($input['DeploymentConfig']) : null;
         $this->notificationArns = $input['NotificationARNs'] ?? null;
         $this->timeoutInMinutes = $input['TimeoutInMinutes'] ?? null;
         $this->capabilities = $input['Capabilities'] ?? null;
@@ -305,6 +314,7 @@ final class Stack
      *   StackStatus: StackStatus::*,
      *   StackStatusReason?: string|null,
      *   DisableRollback?: bool|null,
+     *   DeploymentConfig?: DeploymentConfig|array|null,
      *   NotificationARNs?: string[]|null,
      *   TimeoutInMinutes?: int|null,
      *   Capabilities?: array<Capability::*>|null,
@@ -355,6 +365,11 @@ final class Stack
     public function getDeletionTime(): ?\DateTimeImmutable
     {
         return $this->deletionTime;
+    }
+
+    public function getDeploymentConfig(): ?DeploymentConfig
+    {
+        return $this->deploymentConfig;
     }
 
     public function getDescription(): ?string
