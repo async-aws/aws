@@ -36,6 +36,8 @@ final class DockerServer
     /**
      * A DockerServerStatus object to use for this docker server.
      *
+     * > Note that `status` is only an output and cannot be passed in as an input.
+     *
      * @var DockerServerStatus|null
      */
     private $status;

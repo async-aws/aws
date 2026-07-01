@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild;
 
 use AsyncAws\CodeBuild\Enum\ComputeType;
 use AsyncAws\CodeBuild\Enum\EnvironmentType;
+use AsyncAws\CodeBuild\Enum\HostKernel;
 use AsyncAws\CodeBuild\Enum\ImagePullCredentialsType;
 use AsyncAws\CodeBuild\Enum\SourceType;
 use AsyncAws\CodeBuild\Exception\AccountLimitExceededException;
@@ -102,6 +103,7 @@ class CodeBuildClient extends AbstractApi
      *   debugSessionEnabled?: bool|null,
      *   fleetOverride?: ProjectFleet|array|null,
      *   autoRetryLimitOverride?: int|null,
+     *   hostKernelOverride?: HostKernel::*|null,
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      *

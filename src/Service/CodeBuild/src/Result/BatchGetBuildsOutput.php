@@ -11,6 +11,7 @@ use AsyncAws\CodeBuild\Enum\CredentialProviderType;
 use AsyncAws\CodeBuild\Enum\EnvironmentType;
 use AsyncAws\CodeBuild\Enum\EnvironmentVariableType;
 use AsyncAws\CodeBuild\Enum\FileSystemType;
+use AsyncAws\CodeBuild\Enum\HostKernel;
 use AsyncAws\CodeBuild\Enum\ImagePullCredentialsType;
 use AsyncAws\CodeBuild\Enum\LogsConfigStatusType;
 use AsyncAws\CodeBuild\Enum\MachineType;
@@ -424,6 +425,7 @@ class BatchGetBuildsOutput extends Result
             'registryCredential' => empty($json['registryCredential']) ? null : $this->populateResultRegistryCredential($json['registryCredential']),
             'imagePullCredentialsType' => isset($json['imagePullCredentialsType']) ? (!ImagePullCredentialsType::exists((string) $json['imagePullCredentialsType']) ? ImagePullCredentialsType::UNKNOWN_TO_SDK : (string) $json['imagePullCredentialsType']) : null,
             'dockerServer' => empty($json['dockerServer']) ? null : $this->populateResultDockerServer($json['dockerServer']),
+            'hostKernel' => isset($json['hostKernel']) ? (!HostKernel::exists((string) $json['hostKernel']) ? HostKernel::UNKNOWN_TO_SDK : (string) $json['hostKernel']) : null,
         ]);
     }
 

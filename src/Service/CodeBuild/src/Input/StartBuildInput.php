@@ -4,6 +4,7 @@ namespace AsyncAws\CodeBuild\Input;
 
 use AsyncAws\CodeBuild\Enum\ComputeType;
 use AsyncAws\CodeBuild\Enum\EnvironmentType;
+use AsyncAws\CodeBuild\Enum\HostKernel;
 use AsyncAws\CodeBuild\Enum\ImagePullCredentialsType;
 use AsyncAws\CodeBuild\Enum\SourceType;
 use AsyncAws\CodeBuild\ValueObject\BuildStatusConfig;
@@ -347,6 +348,13 @@ final class StartBuildInput extends Input
     private $autoRetryLimitOverride;
 
     /**
+     * The host operating system kernel for this build that overrides the one specified in the build project.
+     *
+     * @var HostKernel::*|null
+     */
+    private $hostKernelOverride;
+
+    /**
      * @param array{
      *   projectName?: string,
      *   secondarySourcesOverride?: array<ProjectSource|array>|null,
@@ -381,6 +389,7 @@ final class StartBuildInput extends Input
      *   debugSessionEnabled?: bool|null,
      *   fleetOverride?: ProjectFleet|array|null,
      *   autoRetryLimitOverride?: int|null,
+     *   hostKernelOverride?: HostKernel::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -419,6 +428,7 @@ final class StartBuildInput extends Input
         $this->debugSessionEnabled = $input['debugSessionEnabled'] ?? null;
         $this->fleetOverride = isset($input['fleetOverride']) ? ProjectFleet::create($input['fleetOverride']) : null;
         $this->autoRetryLimitOverride = $input['autoRetryLimitOverride'] ?? null;
+        $this->hostKernelOverride = $input['hostKernelOverride'] ?? null;
         parent::__construct($input);
     }
 
@@ -457,6 +467,7 @@ final class StartBuildInput extends Input
      *   debugSessionEnabled?: bool|null,
      *   fleetOverride?: ProjectFleet|array|null,
      *   autoRetryLimitOverride?: int|null,
+     *   hostKernelOverride?: HostKernel::*|null,
      *   '@region'?: string|null,
      * }|StartBuildInput $input
      */
@@ -542,6 +553,14 @@ final class StartBuildInput extends Input
     public function getGitSubmodulesConfigOverride(): ?GitSubmodulesConfig
     {
         return $this->gitSubmodulesConfigOverride;
+    }
+
+    /**
+     * @return HostKernel::*|null
+     */
+    public function getHostKernelOverride(): ?string
+    {
+        return $this->hostKernelOverride;
     }
 
     public function getIdempotencyToken(): ?string
@@ -783,6 +802,16 @@ final class StartBuildInput extends Input
     public function setGitSubmodulesConfigOverride(?GitSubmodulesConfig $value): self
     {
         $this->gitSubmodulesConfigOverride = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param HostKernel::*|null $value
+     */
+    public function setHostKernelOverride(?string $value): self
+    {
+        $this->hostKernelOverride = $value;
 
         return $this;
     }
@@ -1073,6 +1102,13 @@ final class StartBuildInput extends Input
         }
         if (null !== $v = $this->autoRetryLimitOverride) {
             $payload['autoRetryLimitOverride'] = $v;
+        }
+        if (null !== $v = $this->hostKernelOverride) {
+            if (!HostKernel::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "hostKernelOverride" for "%s". The value "%s" is not a valid "HostKernel".', __CLASS__, $v));
+            }
+            $payload['hostKernelOverride'] = $v;
         }
 
         return $payload;

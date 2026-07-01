@@ -5,11 +5,13 @@ namespace AsyncAws\CloudFormation\Result;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Enum\DeletionMode;
+use AsyncAws\CloudFormation\Enum\DeploymentConfigMode;
 use AsyncAws\CloudFormation\Enum\DetailedStatus;
 use AsyncAws\CloudFormation\Enum\OperationType;
 use AsyncAws\CloudFormation\Enum\StackDriftStatus;
 use AsyncAws\CloudFormation\Enum\StackStatus;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\ValueObject\DeploymentConfig;
 use AsyncAws\CloudFormation\ValueObject\OperationEntry;
 use AsyncAws\CloudFormation\ValueObject\Output;
 use AsyncAws\CloudFormation\ValueObject\Parameter;
@@ -129,6 +131,14 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         }
 
         return $items;
+    }
+
+    private function populateResultDeploymentConfig(\SimpleXMLElement $xml): DeploymentConfig
+    {
+        return new DeploymentConfig([
+            'Mode' => (null !== $v = $xml->Mode[0]) ? (!DeploymentConfigMode::exists((string) $xml->Mode) ? DeploymentConfigMode::UNKNOWN_TO_SDK : (string) $xml->Mode) : null,
+            'DisableRollback' => (null !== $v = $xml->DisableRollback[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
     }
 
     /**
@@ -255,6 +265,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
             'StackStatus' => !StackStatus::exists((string) $xml->StackStatus) ? StackStatus::UNKNOWN_TO_SDK : (string) $xml->StackStatus,
             'StackStatusReason' => (null !== $v = $xml->StackStatusReason[0]) ? (string) $v : null,
             'DisableRollback' => (null !== $v = $xml->DisableRollback[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'DeploymentConfig' => 0 === $xml->DeploymentConfig->count() ? null : $this->populateResultDeploymentConfig($xml->DeploymentConfig),
             'NotificationARNs' => (0 === ($v = $xml->NotificationARNs)->count()) ? null : $this->populateResultNotificationARNs($v),
             'TimeoutInMinutes' => (null !== $v = $xml->TimeoutInMinutes[0]) ? (int) (string) $v : null,
             'Capabilities' => (0 === ($v = $xml->Capabilities)->count()) ? null : $this->populateResultCapabilities($v),
