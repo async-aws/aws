@@ -32,6 +32,15 @@ final class VideoPreprocessor
     private $dolbyVision;
 
     /**
+     * Enable integer-second duration normalization. When enabled, the output duration is adjusted to land on an exact
+     * integer-second boundary. The adjustment method (trim, compress, or pad) is chosen automatically based on how far the
+     * input duration is from the nearest integer second.
+     *
+     * @var DurationControl|null
+     */
+    private $durationControl;
+
+    /**
      * Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
      *
      * @var Hdr10Plus|null
@@ -76,6 +85,7 @@ final class VideoPreprocessor
      *   ColorCorrector?: ColorCorrector|array|null,
      *   Deinterlacer?: Deinterlacer|array|null,
      *   DolbyVision?: DolbyVision|array|null,
+     *   DurationControl?: DurationControl|array|null,
      *   Hdr10Plus?: Hdr10Plus|array|null,
      *   ImageInserter?: ImageInserter|array|null,
      *   NoiseReducer?: NoiseReducer|array|null,
@@ -88,6 +98,7 @@ final class VideoPreprocessor
         $this->colorCorrector = isset($input['ColorCorrector']) ? ColorCorrector::create($input['ColorCorrector']) : null;
         $this->deinterlacer = isset($input['Deinterlacer']) ? Deinterlacer::create($input['Deinterlacer']) : null;
         $this->dolbyVision = isset($input['DolbyVision']) ? DolbyVision::create($input['DolbyVision']) : null;
+        $this->durationControl = isset($input['DurationControl']) ? DurationControl::create($input['DurationControl']) : null;
         $this->hdr10Plus = isset($input['Hdr10Plus']) ? Hdr10Plus::create($input['Hdr10Plus']) : null;
         $this->imageInserter = isset($input['ImageInserter']) ? ImageInserter::create($input['ImageInserter']) : null;
         $this->noiseReducer = isset($input['NoiseReducer']) ? NoiseReducer::create($input['NoiseReducer']) : null;
@@ -100,6 +111,7 @@ final class VideoPreprocessor
      *   ColorCorrector?: ColorCorrector|array|null,
      *   Deinterlacer?: Deinterlacer|array|null,
      *   DolbyVision?: DolbyVision|array|null,
+     *   DurationControl?: DurationControl|array|null,
      *   Hdr10Plus?: Hdr10Plus|array|null,
      *   ImageInserter?: ImageInserter|array|null,
      *   NoiseReducer?: NoiseReducer|array|null,
@@ -125,6 +137,11 @@ final class VideoPreprocessor
     public function getDolbyVision(): ?DolbyVision
     {
         return $this->dolbyVision;
+    }
+
+    public function getDurationControl(): ?DurationControl
+    {
+        return $this->durationControl;
     }
 
     public function getHdr10Plus(): ?Hdr10Plus
@@ -166,6 +183,9 @@ final class VideoPreprocessor
         }
         if (null !== $v = $this->dolbyVision) {
             $payload['dolbyVision'] = $v->requestBody();
+        }
+        if (null !== $v = $this->durationControl) {
+            $payload['durationControl'] = $v->requestBody();
         }
         if (null !== $v = $this->hdr10Plus) {
             $payload['hdr10Plus'] = $v->requestBody();
