@@ -192,6 +192,7 @@ use AsyncAws\MediaConvert\Enum\H264CodecProfile;
 use AsyncAws\MediaConvert\Enum\H264DynamicSubGop;
 use AsyncAws\MediaConvert\Enum\H264EndOfStreamMarkers;
 use AsyncAws\MediaConvert\Enum\H264EntropyEncoding;
+use AsyncAws\MediaConvert\Enum\H264ExplicitWeightedPrediction;
 use AsyncAws\MediaConvert\Enum\H264FieldEncoding;
 use AsyncAws\MediaConvert\Enum\H264FlickerAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H264FramerateControl;
@@ -505,6 +506,7 @@ use AsyncAws\MediaConvert\ValueObject\Deinterlacer;
 use AsyncAws\MediaConvert\ValueObject\DestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\DolbyVision;
 use AsyncAws\MediaConvert\ValueObject\DolbyVisionLevel6Metadata;
+use AsyncAws\MediaConvert\ValueObject\DurationControl;
 use AsyncAws\MediaConvert\ValueObject\DvbNitSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbSdtSettings;
 use AsyncAws\MediaConvert\ValueObject\DvbSubDestinationSettings;
@@ -1373,6 +1375,15 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         ]);
     }
 
+    private function populateResultDurationControl(array $json): DurationControl
+    {
+        return new DurationControl([
+            'IntegerDurationMaximumCompressionDenominator' => isset($json['integerDurationMaximumCompressionDenominator']) ? (int) $json['integerDurationMaximumCompressionDenominator'] : null,
+            'IntegerDurationMaximumCompressionNumerator' => isset($json['integerDurationMaximumCompressionNumerator']) ? (int) $json['integerDurationMaximumCompressionNumerator'] : null,
+            'IntegerDurationTrimThresholdMilliseconds' => isset($json['integerDurationTrimThresholdMilliseconds']) ? (int) $json['integerDurationTrimThresholdMilliseconds'] : null,
+        ]);
+    }
+
     private function populateResultDvbNitSettings(array $json): DvbNitSettings
     {
         return new DvbNitSettings([
@@ -1663,6 +1674,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'DynamicSubGop' => isset($json['dynamicSubGop']) ? (!H264DynamicSubGop::exists((string) $json['dynamicSubGop']) ? H264DynamicSubGop::UNKNOWN_TO_SDK : (string) $json['dynamicSubGop']) : null,
             'EndOfStreamMarkers' => isset($json['endOfStreamMarkers']) ? (!H264EndOfStreamMarkers::exists((string) $json['endOfStreamMarkers']) ? H264EndOfStreamMarkers::UNKNOWN_TO_SDK : (string) $json['endOfStreamMarkers']) : null,
             'EntropyEncoding' => isset($json['entropyEncoding']) ? (!H264EntropyEncoding::exists((string) $json['entropyEncoding']) ? H264EntropyEncoding::UNKNOWN_TO_SDK : (string) $json['entropyEncoding']) : null,
+            'ExplicitWeightedPrediction' => isset($json['explicitWeightedPrediction']) ? (!H264ExplicitWeightedPrediction::exists((string) $json['explicitWeightedPrediction']) ? H264ExplicitWeightedPrediction::UNKNOWN_TO_SDK : (string) $json['explicitWeightedPrediction']) : null,
             'FieldEncoding' => isset($json['fieldEncoding']) ? (!H264FieldEncoding::exists((string) $json['fieldEncoding']) ? H264FieldEncoding::UNKNOWN_TO_SDK : (string) $json['fieldEncoding']) : null,
             'FlickerAdaptiveQuantization' => isset($json['flickerAdaptiveQuantization']) ? (!H264FlickerAdaptiveQuantization::exists((string) $json['flickerAdaptiveQuantization']) ? H264FlickerAdaptiveQuantization::UNKNOWN_TO_SDK : (string) $json['flickerAdaptiveQuantization']) : null,
             'FramerateControl' => isset($json['framerateControl']) ? (!H264FramerateControl::exists((string) $json['framerateControl']) ? H264FramerateControl::UNKNOWN_TO_SDK : (string) $json['framerateControl']) : null,
@@ -2922,6 +2934,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'ColorCorrector' => empty($json['colorCorrector']) ? null : $this->populateResultColorCorrector($json['colorCorrector']),
             'Deinterlacer' => empty($json['deinterlacer']) ? null : $this->populateResultDeinterlacer($json['deinterlacer']),
             'DolbyVision' => empty($json['dolbyVision']) ? null : $this->populateResultDolbyVision($json['dolbyVision']),
+            'DurationControl' => empty($json['durationControl']) ? null : $this->populateResultDurationControl($json['durationControl']),
             'Hdr10Plus' => empty($json['hdr10Plus']) ? null : $this->populateResultHdr10Plus($json['hdr10Plus']),
             'ImageInserter' => empty($json['imageInserter']) ? null : $this->populateResultImageInserter($json['imageInserter']),
             'NoiseReducer' => empty($json['noiseReducer']) ? null : $this->populateResultNoiseReducer($json['noiseReducer']),

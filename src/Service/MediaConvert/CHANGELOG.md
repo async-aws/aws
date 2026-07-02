@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Adds support for integer-second duration normalization and the option to disable explicit weighted prediction.
+
 ## 1.15.0
 
 ### Added

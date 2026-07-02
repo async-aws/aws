@@ -10,6 +10,7 @@ use AsyncAws\MediaConvert\Enum\H264CodecProfile;
 use AsyncAws\MediaConvert\Enum\H264DynamicSubGop;
 use AsyncAws\MediaConvert\Enum\H264EndOfStreamMarkers;
 use AsyncAws\MediaConvert\Enum\H264EntropyEncoding;
+use AsyncAws\MediaConvert\Enum\H264ExplicitWeightedPrediction;
 use AsyncAws\MediaConvert\Enum\H264FieldEncoding;
 use AsyncAws\MediaConvert\Enum\H264FlickerAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\H264FramerateControl;
@@ -110,6 +111,14 @@ final class H264Settings
      * @var H264EntropyEncoding::*|null
      */
     private $entropyEncoding;
+
+    /**
+     * Enable or disable explicit weighted prediction for the H.264 encoder. Weighted prediction improves compression
+     * efficiency for content with fading or brightness changes between frames.
+     *
+     * @var H264ExplicitWeightedPrediction::*|null
+     */
+    private $explicitWeightedPrediction;
 
     /**
      * The video encoding method for your MPEG-4 AVC output. Keep the default value, PAFF, to have MediaConvert use PAFF
@@ -538,6 +547,7 @@ final class H264Settings
      *   DynamicSubGop?: H264DynamicSubGop::*|null,
      *   EndOfStreamMarkers?: H264EndOfStreamMarkers::*|null,
      *   EntropyEncoding?: H264EntropyEncoding::*|null,
+     *   ExplicitWeightedPrediction?: H264ExplicitWeightedPrediction::*|null,
      *   FieldEncoding?: H264FieldEncoding::*|null,
      *   FlickerAdaptiveQuantization?: H264FlickerAdaptiveQuantization::*|null,
      *   FramerateControl?: H264FramerateControl::*|null,
@@ -588,6 +598,7 @@ final class H264Settings
         $this->dynamicSubGop = $input['DynamicSubGop'] ?? null;
         $this->endOfStreamMarkers = $input['EndOfStreamMarkers'] ?? null;
         $this->entropyEncoding = $input['EntropyEncoding'] ?? null;
+        $this->explicitWeightedPrediction = $input['ExplicitWeightedPrediction'] ?? null;
         $this->fieldEncoding = $input['FieldEncoding'] ?? null;
         $this->flickerAdaptiveQuantization = $input['FlickerAdaptiveQuantization'] ?? null;
         $this->framerateControl = $input['FramerateControl'] ?? null;
@@ -638,6 +649,7 @@ final class H264Settings
      *   DynamicSubGop?: H264DynamicSubGop::*|null,
      *   EndOfStreamMarkers?: H264EndOfStreamMarkers::*|null,
      *   EntropyEncoding?: H264EntropyEncoding::*|null,
+     *   ExplicitWeightedPrediction?: H264ExplicitWeightedPrediction::*|null,
      *   FieldEncoding?: H264FieldEncoding::*|null,
      *   FlickerAdaptiveQuantization?: H264FlickerAdaptiveQuantization::*|null,
      *   FramerateControl?: H264FramerateControl::*|null,
@@ -739,6 +751,14 @@ final class H264Settings
     public function getEntropyEncoding(): ?string
     {
         return $this->entropyEncoding;
+    }
+
+    /**
+     * @return H264ExplicitWeightedPrediction::*|null
+     */
+    public function getExplicitWeightedPrediction(): ?string
+    {
+        return $this->explicitWeightedPrediction;
     }
 
     /**
@@ -1050,6 +1070,13 @@ final class H264Settings
                 throw new InvalidArgument(\sprintf('Invalid parameter "entropyEncoding" for "%s". The value "%s" is not a valid "H264EntropyEncoding".', __CLASS__, $v));
             }
             $payload['entropyEncoding'] = $v;
+        }
+        if (null !== $v = $this->explicitWeightedPrediction) {
+            if (!H264ExplicitWeightedPrediction::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "explicitWeightedPrediction" for "%s". The value "%s" is not a valid "H264ExplicitWeightedPrediction".', __CLASS__, $v));
+            }
+            $payload['explicitWeightedPrediction'] = $v;
         }
         if (null !== $v = $this->fieldEncoding) {
             if (!H264FieldEncoding::exists($v)) {
