@@ -6,9 +6,15 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Ses\Input\CreateEmailIdentityRequest;
+use AsyncAws\Ses\Input\GetEmailIdentityRequest;
 use AsyncAws\Ses\Input\GetSuppressedDestinationRequest;
+use AsyncAws\Ses\Input\PutEmailIdentityDkimSigningAttributesRequest;
 use AsyncAws\Ses\Input\SendEmailRequest;
+use AsyncAws\Ses\Result\CreateEmailIdentityResponse;
+use AsyncAws\Ses\Result\GetEmailIdentityResponse;
 use AsyncAws\Ses\Result\GetSuppressedDestinationResponse;
+use AsyncAws\Ses\Result\PutEmailIdentityDkimSigningAttributesResponse;
 use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Ses\ValueObject\Body;
@@ -24,6 +30,32 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class SesClientTest extends TestCase
 {
+    public function testCreateEmailIdentity(): void
+    {
+        $client = new SesClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateEmailIdentityRequest([
+            'EmailIdentity' => 'change me',
+        ]);
+        $result = $client->createEmailIdentity($input);
+
+        self::assertInstanceOf(CreateEmailIdentityResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetEmailIdentity(): void
+    {
+        $client = new SesClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetEmailIdentityRequest([
+            'EmailIdentity' => 'change me',
+        ]);
+        $result = $client->getEmailIdentity($input);
+
+        self::assertInstanceOf(GetEmailIdentityResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testGetSuppressedDestination(): void
     {
         $client = new SesClient([], new NullProvider(), new MockHttpClient());
@@ -34,6 +66,20 @@ class SesClientTest extends TestCase
         $result = $client->getSuppressedDestination($input);
 
         self::assertInstanceOf(GetSuppressedDestinationResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutEmailIdentityDkimSigningAttributes(): void
+    {
+        $client = new SesClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutEmailIdentityDkimSigningAttributesRequest([
+            'EmailIdentity' => 'change me',
+            'SigningAttributesOrigin' => 'change me',
+        ]);
+        $result = $client->putEmailIdentityDkimSigningAttributes($input);
+
+        self::assertInstanceOf(PutEmailIdentityDkimSigningAttributesResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
