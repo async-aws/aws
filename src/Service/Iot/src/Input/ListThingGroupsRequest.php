@@ -52,6 +52,7 @@ final class ListThingGroupsRequest extends Input
      *   namePrefixFilter?: string|null,
      *   recursive?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -72,6 +73,7 @@ final class ListThingGroupsRequest extends Input
      *   namePrefixFilter?: string|null,
      *   recursive?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListThingGroupsRequest $input
      */
     public static function create($input): self

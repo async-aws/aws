@@ -11,6 +11,7 @@ final class DescribeEndpointsRequest extends Input
     /**
      * @param array{
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -21,6 +22,7 @@ final class DescribeEndpointsRequest extends Input
     /**
      * @param array{
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeEndpointsRequest $input
      */
     public static function create($input): self

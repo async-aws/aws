@@ -19,6 +19,7 @@ final class ListExportsInput extends Input
      * @param array{
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -31,6 +32,7 @@ final class ListExportsInput extends Input
      * @param array{
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListExportsInput $input
      */
     public static function create($input): self

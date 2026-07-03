@@ -391,6 +391,7 @@ final class StartBuildInput extends Input
      *   autoRetryLimitOverride?: int|null,
      *   hostKernelOverride?: HostKernel::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -469,6 +470,7 @@ final class StartBuildInput extends Input
      *   autoRetryLimitOverride?: int|null,
      *   hostKernelOverride?: HostKernel::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|StartBuildInput $input
      */
     public static function create($input): self

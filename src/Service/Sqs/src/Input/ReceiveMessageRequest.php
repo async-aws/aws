@@ -184,6 +184,7 @@ final class ReceiveMessageRequest extends Input
      *   WaitTimeSeconds?: int|null,
      *   ReceiveRequestAttemptId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -210,6 +211,7 @@ final class ReceiveMessageRequest extends Input
      *   WaitTimeSeconds?: int|null,
      *   ReceiveRequestAttemptId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ReceiveMessageRequest $input
      */
     public static function create($input): self

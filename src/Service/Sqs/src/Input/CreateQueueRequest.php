@@ -194,6 +194,7 @@ final class CreateQueueRequest extends Input
      *   Attributes?: array<QueueAttributeName::*, string>|null,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -210,6 +211,7 @@ final class CreateQueueRequest extends Input
      *   Attributes?: array<QueueAttributeName::*, string>|null,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateQueueRequest $input
      */
     public static function create($input): self

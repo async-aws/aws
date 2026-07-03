@@ -35,6 +35,7 @@ final class SendMessageBatchRequest extends Input
      *   QueueUrl?: string,
      *   Entries?: array<SendMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class SendMessageBatchRequest extends Input
      *   QueueUrl?: string,
      *   Entries?: array<SendMessageBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SendMessageBatchRequest $input
      */
     public static function create($input): self

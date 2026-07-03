@@ -25,6 +25,7 @@ final class UnsubscribeInput extends Input
      * @param array{
      *   SubscriptionArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class UnsubscribeInput extends Input
      * @param array{
      *   SubscriptionArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UnsubscribeInput $input
      */
     public static function create($input): self

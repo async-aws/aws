@@ -49,6 +49,7 @@ final class ListDatabasesInput extends Input
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -67,6 +68,7 @@ final class ListDatabasesInput extends Input
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListDatabasesInput $input
      */
     public static function create($input): self

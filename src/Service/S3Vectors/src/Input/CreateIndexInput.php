@@ -104,6 +104,7 @@ final class CreateIndexInput extends Input
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -132,6 +133,7 @@ final class CreateIndexInput extends Input
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
      *   tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateIndexInput $input
      */
     public static function create($input): self

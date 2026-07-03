@@ -46,6 +46,7 @@ final class DeleteVectorsInput extends Input
      *   indexArn?: string|null,
      *   keys?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -64,6 +65,7 @@ final class DeleteVectorsInput extends Input
      *   indexArn?: string|null,
      *   keys?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteVectorsInput $input
      */
     public static function create($input): self

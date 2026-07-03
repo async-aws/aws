@@ -37,6 +37,7 @@ final class UpdateTimeToLiveInput extends Input
      *   TableName?: string,
      *   TimeToLiveSpecification?: TimeToLiveSpecification|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -51,6 +52,7 @@ final class UpdateTimeToLiveInput extends Input
      *   TableName?: string,
      *   TimeToLiveSpecification?: TimeToLiveSpecification|array,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateTimeToLiveInput $input
      */
     public static function create($input): self

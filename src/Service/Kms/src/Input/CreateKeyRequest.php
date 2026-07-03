@@ -332,6 +332,7 @@ final class CreateKeyRequest extends Input
      *   MultiRegion?: bool|null,
      *   XksKeyId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -364,6 +365,7 @@ final class CreateKeyRequest extends Input
      *   MultiRegion?: bool|null,
      *   XksKeyId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateKeyRequest $input
      */
     public static function create($input): self

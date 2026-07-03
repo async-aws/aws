@@ -261,6 +261,7 @@ final class PutParameterRequest extends Input
      *   Policies?: string|null,
      *   DataType?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -293,6 +294,7 @@ final class PutParameterRequest extends Input
      *   Policies?: string|null,
      *   DataType?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutParameterRequest $input
      */
     public static function create($input): self

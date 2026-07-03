@@ -55,6 +55,7 @@ final class WriteRecordsRequest extends Input
      *   CommonAttributes?: Record|array|null,
      *   Records?: array<Record|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class WriteRecordsRequest extends Input
      *   CommonAttributes?: Record|array|null,
      *   Records?: array<Record|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|WriteRecordsRequest $input
      */
     public static function create($input): self

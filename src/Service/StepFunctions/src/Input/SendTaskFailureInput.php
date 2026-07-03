@@ -41,6 +41,7 @@ final class SendTaskFailureInput extends Input
      *   error?: string|null,
      *   cause?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -57,6 +58,7 @@ final class SendTaskFailureInput extends Input
      *   error?: string|null,
      *   cause?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SendTaskFailureInput $input
      */
     public static function create($input): self

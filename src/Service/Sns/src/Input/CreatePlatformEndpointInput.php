@@ -57,6 +57,7 @@ final class CreatePlatformEndpointInput extends Input
      *   CustomUserData?: string|null,
      *   Attributes?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -75,6 +76,7 @@ final class CreatePlatformEndpointInput extends Input
      *   CustomUserData?: string|null,
      *   Attributes?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreatePlatformEndpointInput $input
      */
     public static function create($input): self

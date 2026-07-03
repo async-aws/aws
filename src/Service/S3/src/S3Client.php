@@ -1742,6 +1742,7 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumMode?: ChecksumMode::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetObjectRequest $input
      *
      * @throws InvalidObjectStateException
@@ -1753,7 +1754,7 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InvalidObjectState' => InvalidObjectStateException::class,
             'NoSuchKey' => NoSuchKeyException::class,
-        ]]));
+        ], 'responseBuffer' => $input->shouldBufferResponse()]));
 
         return new GetObjectOutput($response);
     }

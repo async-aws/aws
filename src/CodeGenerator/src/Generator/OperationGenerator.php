@@ -118,7 +118,12 @@ class OperationGenerator
         $method->addComment('@see ' . $operation->getApiReferenceDocumentationUrl());
         $prefix = $operation->getService()->getEndpointPrefix();
         $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . strtolower($operation->getName()));
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  \'@region\'?: string|null,']);
+        $pseudoOptions = ['  \'@region\'?: string|null,'];
+        if ($operation->hasStreamingOutputPayload()) {
+            $pseudoOptions[] = '  \'@responseBuffer\'?: bool,';
+        }
+
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, $pseudoOptions);
         $method->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());
@@ -204,6 +209,14 @@ class OperationGenerator
         }
         if ($mapping) {
             $extra .= ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]";
+        }
+
+        if ($operation->hasStreamingOutputPayload()) {
+            if (0 !== strpos($classBuilder->getClassName()->getFqdn(), 'AsyncAws\\Core\\')) {
+                $this->requirementsRegistry->addRequirement('async-aws/core', '^1.30');
+            }
+
+            $extra .= ", 'responseBuffer' => \$input->shouldBufferResponse()";
         }
 
         if ($operation->requiresEndpointDiscovery()) {

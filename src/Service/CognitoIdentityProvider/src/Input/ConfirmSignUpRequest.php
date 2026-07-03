@@ -142,6 +142,7 @@ final class ConfirmSignUpRequest extends Input
      *   ClientMetadata?: array<string, string>|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -170,6 +171,7 @@ final class ConfirmSignUpRequest extends Input
      *   ClientMetadata?: array<string, string>|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ConfirmSignUpRequest $input
      */
     public static function create($input): self

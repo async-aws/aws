@@ -67,6 +67,7 @@ final class CreateRepositoryInput extends Input
      *   tags?: array<string, string>|null,
      *   kmsKeyId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -85,6 +86,7 @@ final class CreateRepositoryInput extends Input
      *   tags?: array<string, string>|null,
      *   kmsKeyId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateRepositoryInput $input
      */
     public static function create($input): self

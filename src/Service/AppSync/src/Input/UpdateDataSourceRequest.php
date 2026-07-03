@@ -139,6 +139,7 @@ final class UpdateDataSourceRequest extends Input
      *   eventBridgeConfig?: EventBridgeDataSourceConfig|array|null,
      *   metricsConfig?: DataSourceLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -175,6 +176,7 @@ final class UpdateDataSourceRequest extends Input
      *   eventBridgeConfig?: EventBridgeDataSourceConfig|array|null,
      *   metricsConfig?: DataSourceLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|UpdateDataSourceRequest $input
      */
     public static function create($input): self

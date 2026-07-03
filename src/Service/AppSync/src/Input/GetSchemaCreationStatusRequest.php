@@ -22,6 +22,7 @@ final class GetSchemaCreationStatusRequest extends Input
      * @param array{
      *   apiId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetSchemaCreationStatusRequest extends Input
      * @param array{
      *   apiId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetSchemaCreationStatusRequest $input
      */
     public static function create($input): self

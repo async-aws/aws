@@ -53,6 +53,7 @@ final class AddThingToThingGroupRequest extends Input
      *   thingArn?: string|null,
      *   overrideDynamicGroups?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class AddThingToThingGroupRequest extends Input
      *   thingArn?: string|null,
      *   overrideDynamicGroups?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AddThingToThingGroupRequest $input
      */
     public static function create($input): self

@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Tests\Unit\Result;
 
 use AsyncAws\Core\Response;
+use AsyncAws\Core\Stream\ResponseBodyNonBufferedStream;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectOutput;
 use PHPUnit\Framework\TestCase;
@@ -60,5 +61,24 @@ class GetObjectOutputTest extends TestCase
         self::assertArrayNotHasKey('x-amz-meta-tobias', $metadata);
         self::assertArrayHasKey('tobias', $metadata);
         self::assertEquals('nyholm', $metadata['tobias']);
+    }
+
+    public function testNonBufferedBodyStillPopulatesHeadersAndMetadata(): void
+    {
+        $headers = [
+            'last-modified' => 'Sat, 08 Feb 2020 15:55:28 GMT',
+            'etag' => '"9a0364b9e99bb480dd25e1f0284c8555"',
+            'x-amz-meta-tobias' => 'nyholm',
+            'content-type' => 'text/plain',
+            'content-length' => '7',
+        ];
+        $response = new SimpleMockedResponse('content', $headers);
+        $client = new MockHttpClient($response);
+        $result = new GetObjectOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger(), null, null, null, false, [], false));
+
+        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
+        self::assertEquals('nyholm', $result->getMetadata()['tobias']);
+        self::assertInstanceOf(ResponseBodyNonBufferedStream::class, $result->getBody());
+        self::assertSame('content', $result->getBody()->getContentAsString());
     }
 }

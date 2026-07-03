@@ -78,6 +78,7 @@ final class ListStreamConsumersInput extends Input
      *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -98,6 +99,7 @@ final class ListStreamConsumersInput extends Input
      *   StreamCreationTimestamp?: \DateTimeImmutable|string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListStreamConsumersInput $input
      */
     public static function create($input): self

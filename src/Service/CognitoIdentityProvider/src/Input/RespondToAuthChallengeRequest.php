@@ -270,6 +270,7 @@ final class RespondToAuthChallengeRequest extends Input
      *   UserContextData?: UserContextDataType|array|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -294,6 +295,7 @@ final class RespondToAuthChallengeRequest extends Input
      *   UserContextData?: UserContextDataType|array|null,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|RespondToAuthChallengeRequest $input
      */
     public static function create($input): self

@@ -137,6 +137,7 @@ final class GenerateDataKeyRequest extends Input
      *   Recipient?: RecipientInfo|array|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -161,6 +162,7 @@ final class GenerateDataKeyRequest extends Input
      *   Recipient?: RecipientInfo|array|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GenerateDataKeyRequest $input
      */
     public static function create($input): self

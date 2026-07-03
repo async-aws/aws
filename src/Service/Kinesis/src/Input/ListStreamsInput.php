@@ -37,6 +37,7 @@ final class ListStreamsInput extends Input
      *   ExclusiveStartStreamName?: string|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -53,6 +54,7 @@ final class ListStreamsInput extends Input
      *   ExclusiveStartStreamName?: string|null,
      *   NextToken?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListStreamsInput $input
      */
     public static function create($input): self

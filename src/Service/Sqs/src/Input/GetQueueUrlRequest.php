@@ -35,6 +35,7 @@ final class GetQueueUrlRequest extends Input
      *   QueueName?: string,
      *   QueueOwnerAWSAccountId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class GetQueueUrlRequest extends Input
      *   QueueName?: string,
      *   QueueOwnerAWSAccountId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetQueueUrlRequest $input
      */
     public static function create($input): self

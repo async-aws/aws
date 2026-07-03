@@ -82,6 +82,7 @@ use AsyncAws\S3\ValueObject\Tagging;
 use AsyncAws\S3\ValueObject\TopicConfiguration;
 use AsyncAws\S3\ValueObject\VersioningConfiguration;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class S3ClientTest extends TestCase
 {
@@ -342,6 +343,43 @@ class S3ClientTest extends TestCase
 
         self::assertInstanceOf(GetObjectOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetObjectDoesNotDisableResponseBufferingByDefault(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertSame('GET', $method);
+            self::assertNotSame(false, $options['buffer'] ?? null);
+
+            return new SimpleMockedResponse('content');
+        });
+        $client = new S3Client([], new NullProvider(), $httpClient);
+
+        $result = $client->getObject([
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
+        ]);
+
+        self::assertSame('content', $result->getBody()->getContentAsString());
+    }
+
+    public function testGetObjectCanDisableResponseBuffering(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertSame('GET', $method);
+            self::assertSame(false, $options['buffer'] ?? null);
+
+            return new SimpleMockedResponse('content');
+        });
+        $client = new S3Client([], new NullProvider(), $httpClient);
+
+        $result = $client->getObject([
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
+            '@responseBuffer' => false,
+        ]);
+
+        self::assertSame('content', $result->getBody()->getContentAsString());
     }
 
     public function testGetObjectAcl(): void

@@ -33,6 +33,7 @@ final class PublishBatchInput extends Input
      *   TopicArn?: string,
      *   PublishBatchRequestEntries?: array<PublishBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -47,6 +48,7 @@ final class PublishBatchInput extends Input
      *   TopicArn?: string,
      *   PublishBatchRequestEntries?: array<PublishBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PublishBatchInput $input
      */
     public static function create($input): self

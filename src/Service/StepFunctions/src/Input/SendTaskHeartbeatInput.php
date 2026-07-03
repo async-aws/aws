@@ -25,6 +25,7 @@ final class SendTaskHeartbeatInput extends Input
      * @param array{
      *   taskToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class SendTaskHeartbeatInput extends Input
      * @param array{
      *   taskToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|SendTaskHeartbeatInput $input
      */
     public static function create($input): self

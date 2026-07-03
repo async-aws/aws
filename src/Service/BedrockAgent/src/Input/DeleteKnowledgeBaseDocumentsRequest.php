@@ -55,6 +55,7 @@ final class DeleteKnowledgeBaseDocumentsRequest extends Input
      *   clientToken?: string|null,
      *   documentIdentifiers?: array<DocumentIdentifier|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class DeleteKnowledgeBaseDocumentsRequest extends Input
      *   clientToken?: string|null,
      *   documentIdentifiers?: array<DocumentIdentifier|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteKnowledgeBaseDocumentsRequest $input
      */
     public static function create($input): self

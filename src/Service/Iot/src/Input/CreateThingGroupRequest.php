@@ -48,6 +48,7 @@ final class CreateThingGroupRequest extends Input
      *   thingGroupProperties?: ThingGroupProperties|array|null,
      *   tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -66,6 +67,7 @@ final class CreateThingGroupRequest extends Input
      *   thingGroupProperties?: ThingGroupProperties|array|null,
      *   tags?: array<Tag|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateThingGroupRequest $input
      */
     public static function create($input): self

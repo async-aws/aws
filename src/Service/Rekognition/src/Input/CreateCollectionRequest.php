@@ -30,6 +30,7 @@ final class CreateCollectionRequest extends Input
      *   CollectionId?: string,
      *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -44,6 +45,7 @@ final class CreateCollectionRequest extends Input
      *   CollectionId?: string,
      *   Tags?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateCollectionRequest $input
      */
     public static function create($input): self

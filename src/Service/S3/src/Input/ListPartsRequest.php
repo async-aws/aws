@@ -143,6 +143,7 @@ final class ListPartsRequest extends Input
      *   SSECustomerKey?: string|null,
      *   SSECustomerKeyMD5?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -173,6 +174,7 @@ final class ListPartsRequest extends Input
      *   SSECustomerKey?: string|null,
      *   SSECustomerKeyMD5?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListPartsRequest $input
      */
     public static function create($input): self

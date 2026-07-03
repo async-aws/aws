@@ -121,6 +121,7 @@ final class GetItemInput extends Input
      *   ProjectionExpression?: string|null,
      *   ExpressionAttributeNames?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -151,6 +152,7 @@ final class GetItemInput extends Input
      *   ProjectionExpression?: string|null,
      *   ExpressionAttributeNames?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetItemInput $input
      */
     public static function create($input): self

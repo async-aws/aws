@@ -24,6 +24,7 @@ final class PurgeQueueRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -36,6 +37,7 @@ final class PurgeQueueRequest extends Input
      * @param array{
      *   QueueUrl?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PurgeQueueRequest $input
      */
     public static function create($input): self

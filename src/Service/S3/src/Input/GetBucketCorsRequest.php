@@ -41,6 +41,7 @@ final class GetBucketCorsRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -55,6 +56,7 @@ final class GetBucketCorsRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetBucketCorsRequest $input
      */
     public static function create($input): self

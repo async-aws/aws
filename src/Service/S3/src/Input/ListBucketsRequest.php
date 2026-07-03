@@ -63,6 +63,7 @@ final class ListBucketsRequest extends Input
      *   Prefix?: string|null,
      *   BucketRegion?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -81,6 +82,7 @@ final class ListBucketsRequest extends Input
      *   Prefix?: string|null,
      *   BucketRegion?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListBucketsRequest $input
      */
     public static function create($input): self

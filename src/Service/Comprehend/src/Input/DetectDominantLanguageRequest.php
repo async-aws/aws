@@ -22,6 +22,7 @@ final class DetectDominantLanguageRequest extends Input
      * @param array{
      *   Text?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class DetectDominantLanguageRequest extends Input
      * @param array{
      *   Text?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DetectDominantLanguageRequest $input
      */
     public static function create($input): self

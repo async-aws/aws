@@ -80,6 +80,7 @@ final class PutBucketLifecycleConfigurationRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   TransitionDefaultMinimumObjectSize?: TransitionDefaultMinimumObjectSize::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -100,6 +101,7 @@ final class PutBucketLifecycleConfigurationRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   TransitionDefaultMinimumObjectSize?: TransitionDefaultMinimumObjectSize::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutBucketLifecycleConfigurationRequest $input
      */
     public static function create($input): self

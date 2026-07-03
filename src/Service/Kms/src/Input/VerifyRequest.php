@@ -147,6 +147,7 @@ final class VerifyRequest extends Input
      *   GrantTokens?: string[]|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -171,6 +172,7 @@ final class VerifyRequest extends Input
      *   GrantTokens?: string[]|null,
      *   DryRun?: bool|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|VerifyRequest $input
      */
     public static function create($input): self

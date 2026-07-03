@@ -45,6 +45,7 @@ final class DetectFacesRequest extends Input
      *   Image?: Image|array,
      *   Attributes?: array<Attribute::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -59,6 +60,7 @@ final class DetectFacesRequest extends Input
      *   Image?: Image|array,
      *   Attributes?: array<Attribute::*>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DetectFacesRequest $input
      */
     public static function create($input): self

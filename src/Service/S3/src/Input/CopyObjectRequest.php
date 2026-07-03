@@ -804,6 +804,7 @@ final class CopyObjectRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   ExpectedSourceBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -902,6 +903,7 @@ final class CopyObjectRequest extends Input
      *   ExpectedBucketOwner?: string|null,
      *   ExpectedSourceBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CopyObjectRequest $input
      */
     public static function create($input): self

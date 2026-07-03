@@ -33,6 +33,7 @@ final class GetThingShadowRequest extends Input
      *   thingName?: string,
      *   shadowName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -47,6 +48,7 @@ final class GetThingShadowRequest extends Input
      *   thingName?: string,
      *   shadowName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetThingShadowRequest $input
      */
     public static function create($input): self

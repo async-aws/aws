@@ -35,6 +35,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
      *   QueueUrl?: string,
      *   Entries?: array<ChangeMessageVisibilityBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class ChangeMessageVisibilityBatchRequest extends Input
      *   QueueUrl?: string,
      *   Entries?: array<ChangeMessageVisibilityBatchRequestEntry|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ChangeMessageVisibilityBatchRequest $input
      */
     public static function create($input): self

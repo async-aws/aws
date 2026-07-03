@@ -65,6 +65,7 @@ final class AdminResetUserPasswordRequest extends Input
      *   Username?: string,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -81,6 +82,7 @@ final class AdminResetUserPasswordRequest extends Input
      *   Username?: string,
      *   ClientMetadata?: array<string, string>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AdminResetUserPasswordRequest $input
      */
     public static function create($input): self

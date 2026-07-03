@@ -26,6 +26,7 @@ final class DescribeTableInput extends Input
      * @param array{
      *   TableName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -38,6 +39,7 @@ final class DescribeTableInput extends Input
      * @param array{
      *   TableName?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DescribeTableInput $input
      */
     public static function create($input): self

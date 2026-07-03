@@ -20,6 +20,7 @@ final class GetAuthorizationTokenRequest extends Input
      * @param array{
      *   registryIds?: string[]|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -32,6 +33,7 @@ final class GetAuthorizationTokenRequest extends Input
      * @param array{
      *   registryIds?: string[]|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetAuthorizationTokenRequest $input
      */
     public static function create($input): self

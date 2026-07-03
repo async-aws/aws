@@ -55,6 +55,7 @@ final class IngestKnowledgeBaseDocumentsRequest extends Input
      *   clientToken?: string|null,
      *   documents?: array<KnowledgeBaseDocument|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class IngestKnowledgeBaseDocumentsRequest extends Input
      *   clientToken?: string|null,
      *   documents?: array<KnowledgeBaseDocument|array>,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|IngestKnowledgeBaseDocumentsRequest $input
      */
     public static function create($input): self

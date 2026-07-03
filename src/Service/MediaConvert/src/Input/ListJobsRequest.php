@@ -60,6 +60,7 @@ final class ListJobsRequest extends Input
      *   Queue?: string|null,
      *   Status?: JobStatus::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -80,6 +81,7 @@ final class ListJobsRequest extends Input
      *   Queue?: string|null,
      *   Status?: JobStatus::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListJobsRequest $input
      */
     public static function create($input): self

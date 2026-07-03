@@ -50,6 +50,7 @@ final class GetPublicKeyRequest extends Input
      *   KeyId?: string,
      *   GrantTokens?: string[]|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -64,6 +65,7 @@ final class GetPublicKeyRequest extends Input
      *   KeyId?: string,
      *   GrantTokens?: string[]|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetPublicKeyRequest $input
      */
     public static function create($input): self

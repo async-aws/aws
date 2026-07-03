@@ -26,6 +26,7 @@ final class GetChangeRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -38,6 +39,7 @@ final class GetChangeRequest extends Input
      * @param array{
      *   Id?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetChangeRequest $input
      */
     public static function create($input): self

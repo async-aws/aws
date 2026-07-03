@@ -80,6 +80,7 @@ final class PublishLayerVersionRequest extends Input
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -102,6 +103,7 @@ final class PublishLayerVersionRequest extends Input
      *   CompatibleRuntimes?: array<Runtime::*>|null,
      *   LicenseInfo?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PublishLayerVersionRequest $input
      */
     public static function create($input): self

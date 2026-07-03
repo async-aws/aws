@@ -30,6 +30,7 @@ final class DeleteThingGroupRequest extends Input
      *   thingGroupName?: string,
      *   expectedVersion?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -44,6 +45,7 @@ final class DeleteThingGroupRequest extends Input
      *   thingGroupName?: string,
      *   expectedVersion?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteThingGroupRequest $input
      */
     public static function create($input): self

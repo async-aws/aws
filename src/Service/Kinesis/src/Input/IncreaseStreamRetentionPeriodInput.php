@@ -49,6 +49,7 @@ final class IncreaseStreamRetentionPeriodInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -67,6 +68,7 @@ final class IncreaseStreamRetentionPeriodInput extends Input
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|IncreaseStreamRetentionPeriodInput $input
      */
     public static function create($input): self

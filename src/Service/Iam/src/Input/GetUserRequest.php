@@ -25,6 +25,7 @@ final class GetUserRequest extends Input
      * @param array{
      *   UserName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -37,6 +38,7 @@ final class GetUserRequest extends Input
      * @param array{
      *   UserName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetUserRequest $input
      */
     public static function create($input): self

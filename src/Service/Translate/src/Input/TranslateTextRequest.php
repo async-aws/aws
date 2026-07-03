@@ -85,6 +85,7 @@ final class TranslateTextRequest extends Input
      *   TargetLanguageCode?: string,
      *   Settings?: TranslationSettings|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -105,6 +106,7 @@ final class TranslateTextRequest extends Input
      *   TargetLanguageCode?: string,
      *   Settings?: TranslationSettings|array|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|TranslateTextRequest $input
      */
     public static function create($input): self

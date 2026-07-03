@@ -69,6 +69,7 @@ final class AddPermissionRequest extends Input
      *   AWSAccountIds?: string[],
      *   Actions?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -87,6 +88,7 @@ final class AddPermissionRequest extends Input
      *   AWSAccountIds?: string[],
      *   Actions?: string[],
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AddPermissionRequest $input
      */
     public static function create($input): self

@@ -22,6 +22,7 @@ final class GetImageRequest extends Input
      * @param array{
      *   imageBuildVersionArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class GetImageRequest extends Input
      * @param array{
      *   imageBuildVersionArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetImageRequest $input
      */
     public static function create($input): self

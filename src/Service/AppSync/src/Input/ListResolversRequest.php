@@ -49,6 +49,7 @@ final class ListResolversRequest extends Input
      *   nextToken?: string|null,
      *   maxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -67,6 +68,7 @@ final class ListResolversRequest extends Input
      *   nextToken?: string|null,
      *   maxResults?: int|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ListResolversRequest $input
      */
     public static function create($input): self

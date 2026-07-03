@@ -44,6 +44,7 @@ final class ChangePasswordRequest extends Input
      *   ProposedPassword?: string,
      *   AccessToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -60,6 +61,7 @@ final class ChangePasswordRequest extends Input
      *   ProposedPassword?: string,
      *   AccessToken?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|ChangePasswordRequest $input
      */
     public static function create($input): self

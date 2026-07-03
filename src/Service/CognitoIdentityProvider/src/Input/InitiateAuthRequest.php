@@ -196,6 +196,7 @@ final class InitiateAuthRequest extends Input
      *   UserContextData?: UserContextDataType|array|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -220,6 +221,7 @@ final class InitiateAuthRequest extends Input
      *   UserContextData?: UserContextDataType|array|null,
      *   Session?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|InitiateAuthRequest $input
      */
     public static function create($input): self

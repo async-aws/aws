@@ -151,6 +151,7 @@ final class CreateResolverRequest extends Input
      *   code?: string|null,
      *   metricsConfig?: ResolverLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -189,6 +190,7 @@ final class CreateResolverRequest extends Input
      *   code?: string|null,
      *   metricsConfig?: ResolverLevelMetricsConfig::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateResolverRequest $input
      */
     public static function create($input): self

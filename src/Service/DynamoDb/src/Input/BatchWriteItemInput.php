@@ -64,6 +64,7 @@ final class BatchWriteItemInput extends Input
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -85,6 +86,7 @@ final class BatchWriteItemInput extends Input
      *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*|null,
      *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|BatchWriteItemInput $input
      */
     public static function create($input): self

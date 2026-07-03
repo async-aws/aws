@@ -55,6 +55,7 @@ final class CreateThingRequest extends Input
      *   attributePayload?: AttributePayload|array|null,
      *   billingGroupName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class CreateThingRequest extends Input
      *   attributePayload?: AttributePayload|array|null,
      *   billingGroupName?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CreateThingRequest $input
      */
     public static function create($input): self

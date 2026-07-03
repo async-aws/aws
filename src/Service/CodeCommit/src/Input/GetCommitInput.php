@@ -35,6 +35,7 @@ final class GetCommitInput extends Input
      *   repositoryName?: string,
      *   commitId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class GetCommitInput extends Input
      *   repositoryName?: string,
      *   commitId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetCommitInput $input
      */
     public static function create($input): self

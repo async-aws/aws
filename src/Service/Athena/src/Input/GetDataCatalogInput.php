@@ -30,6 +30,7 @@ final class GetDataCatalogInput extends Input
      *   Name?: string,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -44,6 +45,7 @@ final class GetDataCatalogInput extends Input
      *   Name?: string,
      *   WorkGroup?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetDataCatalogInput $input
      */
     public static function create($input): self

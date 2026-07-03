@@ -22,6 +22,7 @@ final class DeleteImageRequest extends Input
      * @param array{
      *   imageBuildVersionArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class DeleteImageRequest extends Input
      * @param array{
      *   imageBuildVersionArn?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteImageRequest $input
      */
     public static function create($input): self

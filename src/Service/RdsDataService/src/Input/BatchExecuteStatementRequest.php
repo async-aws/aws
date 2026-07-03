@@ -96,6 +96,7 @@ final class BatchExecuteStatementRequest extends Input
      *   parameterSets?: array[]|null,
      *   transactionId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -122,6 +123,7 @@ final class BatchExecuteStatementRequest extends Input
      *   parameterSets?: array[]|null,
      *   transactionId?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|BatchExecuteStatementRequest $input
      */
     public static function create($input): self

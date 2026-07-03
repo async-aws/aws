@@ -22,6 +22,7 @@ final class DeleteCollectionRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -34,6 +35,7 @@ final class DeleteCollectionRequest extends Input
      * @param array{
      *   CollectionId?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|DeleteCollectionRequest $input
      */
     public static function create($input): self

@@ -65,6 +65,7 @@ final class PutUserPolicyRequest extends Input
      *   PolicyName?: string,
      *   PolicyDocument?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -81,6 +82,7 @@ final class PutUserPolicyRequest extends Input
      *   PolicyName?: string,
      *   PolicyDocument?: string,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|PutUserPolicyRequest $input
      */
     public static function create($input): self

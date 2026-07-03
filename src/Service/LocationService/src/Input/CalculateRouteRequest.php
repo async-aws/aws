@@ -215,6 +215,7 @@ final class CalculateRouteRequest extends Input
      *   OptimizeFor?: OptimizationMode::*|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -253,6 +254,7 @@ final class CalculateRouteRequest extends Input
      *   OptimizeFor?: OptimizationMode::*|null,
      *   Key?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|CalculateRouteRequest $input
      */
     public static function create($input): self

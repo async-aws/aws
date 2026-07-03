@@ -31,6 +31,7 @@ final class GetBucketVersioningRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -45,6 +46,7 @@ final class GetBucketVersioningRequest extends Input
      *   Bucket?: string,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|GetBucketVersioningRequest $input
      */
     public static function create($input): self

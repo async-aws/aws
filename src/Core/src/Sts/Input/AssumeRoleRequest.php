@@ -269,6 +269,7 @@ final class AssumeRoleRequest extends Input
      *   SourceIdentity?: string|null,
      *   ProvidedContexts?: array<ProvidedContext|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * } $input
      */
     public function __construct(array $input = [])
@@ -303,6 +304,7 @@ final class AssumeRoleRequest extends Input
      *   SourceIdentity?: string|null,
      *   ProvidedContexts?: array<ProvidedContext|array>|null,
      *   '@region'?: string|null,
+     *   '@responseBuffer'?: bool,
      * }|AssumeRoleRequest $input
      */
     public static function create($input): self
