@@ -9,21 +9,16 @@ class GetEmailIdentityRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new GetEmailIdentityRequest([
-            'EmailIdentity' => 'change me',
+            'EmailIdentity' => 'example.com',
         ]);
 
         // see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_GetEmailIdentity.html
         $expected = '
-            GET / HTTP/1.0
+            GET /v2/email/identities/example.com HTTP/1.1
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+            Accept: application/json
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

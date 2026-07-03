@@ -13,18 +13,18 @@ class PutEmailIdentityDkimSigningAttributesResponseTest extends TestCase
 {
     public function testPutEmailIdentityDkimSigningAttributesResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_PutEmailIdentityDkimSigningAttributes.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "DkimStatus": "PENDING",
+            "DkimTokens": ["token1", "token2", "token3"],
+            "SigningHostedZone": "us-east-1.ses.example.aws"
         }');
 
         $client = new MockHttpClient($response);
-        $result = new PutEmailIdentityDkimSigningAttributesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        $result = new PutEmailIdentityDkimSigningAttributesResponse(new Response($client->request('PUT', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getDkimStatus());
-        // self::assertTODO(expected, $result->getDkimTokens());
-        self::assertSame('changeIt', $result->getSigningHostedZone());
+        self::assertSame('PENDING', $result->getDkimStatus());
+        self::assertSame(['token1', 'token2', 'token3'], $result->getDkimTokens());
+        self::assertSame('us-east-1.ses.example.aws', $result->getSigningHostedZone());
     }
 }

@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Ses\Enum\DkimSigningAttributesOrigin;
 use AsyncAws\Ses\Input\CreateEmailIdentityRequest;
 use AsyncAws\Ses\Input\GetEmailIdentityRequest;
 use AsyncAws\Ses\Input\GetSuppressedDestinationRequest;
@@ -35,7 +36,7 @@ class SesClientTest extends TestCase
         $client = new SesClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateEmailIdentityRequest([
-            'EmailIdentity' => 'change me',
+            'EmailIdentity' => 'example.com',
         ]);
         $result = $client->createEmailIdentity($input);
 
@@ -48,7 +49,7 @@ class SesClientTest extends TestCase
         $client = new SesClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetEmailIdentityRequest([
-            'EmailIdentity' => 'change me',
+            'EmailIdentity' => 'example.com',
         ]);
         $result = $client->getEmailIdentity($input);
 
@@ -74,8 +75,8 @@ class SesClientTest extends TestCase
         $client = new SesClient([], new NullProvider(), new MockHttpClient());
 
         $input = new PutEmailIdentityDkimSigningAttributesRequest([
-            'EmailIdentity' => 'change me',
-            'SigningAttributesOrigin' => 'change me',
+            'EmailIdentity' => 'example.com',
+            'SigningAttributesOrigin' => DkimSigningAttributesOrigin::AWS_SES,
         ]);
         $result = $client->putEmailIdentityDkimSigningAttributes($input);
 

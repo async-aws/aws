@@ -13,18 +13,28 @@ class CreateEmailIdentityResponseTest extends TestCase
 {
     public function testCreateEmailIdentityResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_CreateEmailIdentity.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "IdentityType": "DOMAIN",
+            "VerifiedForSendingStatus": false,
+            "DkimAttributes": {
+                "SigningEnabled": true,
+                "Status": "PENDING",
+                "Tokens": ["token1", "token2", "token3"],
+                "SigningAttributesOrigin": "AWS_SES"
+            }
         }');
 
         $client = new MockHttpClient($response);
         $result = new CreateEmailIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getIdentityType());
+        self::assertSame('DOMAIN', $result->getIdentityType());
         self::assertFalse($result->getVerifiedForSendingStatus());
-        // self::assertTODO(expected, $result->getDkimAttributes());
+
+        $dkimAttributes = $result->getDkimAttributes();
+        self::assertTrue($dkimAttributes->getSigningEnabled());
+        self::assertSame('PENDING', $dkimAttributes->getStatus());
+        self::assertSame(['token1', 'token2', 'token3'], $dkimAttributes->getTokens());
+        self::assertSame('AWS_SES', $dkimAttributes->getSigningAttributesOrigin());
     }
 }
