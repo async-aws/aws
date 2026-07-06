@@ -4,6 +4,11 @@ namespace AsyncAws\Ses\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Ses\Enum\DkimSigningAttributesOrigin;
+use AsyncAws\Ses\Enum\DkimSigningKeyLength;
+use AsyncAws\Ses\Enum\DkimStatus;
+use AsyncAws\Ses\Enum\IdentityType;
+use AsyncAws\Ses\Enum\VerificationStatus;
 use AsyncAws\Ses\Input\CreateEmailIdentityRequest;
 use AsyncAws\Ses\Input\DeleteSuppressedDestinationRequest;
 use AsyncAws\Ses\Input\GetEmailIdentityRequest;
@@ -29,24 +34,24 @@ class SesClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateEmailIdentityRequest([
-            'EmailIdentity' => 'change me',
+            'EmailIdentity' => 'example.com',
             'Tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
+                'Key' => 'project',
+                'Value' => 'async-aws',
             ])],
             'DkimSigningAttributes' => new DkimSigningAttributes([
-                'DomainSigningSelector' => 'change me',
-                'DomainSigningPrivateKey' => 'change me',
-                'NextSigningKeyLength' => 'change me',
-                'DomainSigningAttributesOrigin' => 'change me',
+                'DomainSigningSelector' => 'example-selector',
+                'DomainSigningPrivateKey' => base64_encode('private-key'),
+                'NextSigningKeyLength' => DkimSigningKeyLength::RSA_2048_BIT,
+                'DomainSigningAttributesOrigin' => DkimSigningAttributesOrigin::EXTERNAL,
             ]),
-            'ConfigurationSetName' => 'change me',
+            'ConfigurationSetName' => 'my-configuration-set',
         ]);
         $result = $client->createEmailIdentity($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getIdentityType());
+        self::assertSame(IdentityType::DOMAIN, $result->getIdentityType());
         self::assertFalse($result->getVerifiedForSendingStatus());
         // self::assertTODO(expected, $result->getDkimAttributes());
     }
@@ -68,21 +73,21 @@ class SesClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetEmailIdentityRequest([
-            'EmailIdentity' => 'change me',
+            'EmailIdentity' => 'example.com',
         ]);
         $result = $client->getEmailIdentity($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getIdentityType());
+        self::assertSame(IdentityType::DOMAIN, $result->getIdentityType());
         self::assertFalse($result->getFeedbackForwardingStatus());
         self::assertFalse($result->getVerifiedForSendingStatus());
         // self::assertTODO(expected, $result->getDkimAttributes());
         // self::assertTODO(expected, $result->getMailFromAttributes());
         // self::assertTODO(expected, $result->getPolicies());
         // self::assertTODO(expected, $result->getTags());
-        self::assertSame('changeIt', $result->getConfigurationSetName());
-        self::assertSame('changeIt', $result->getVerificationStatus());
+        self::assertSame('my-configuration-set', $result->getConfigurationSetName());
+        self::assertSame(VerificationStatus::SUCCESS, $result->getVerificationStatus());
         // self::assertTODO(expected, $result->getVerificationInfo());
     }
 
@@ -107,22 +112,22 @@ class SesClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new PutEmailIdentityDkimSigningAttributesRequest([
-            'EmailIdentity' => 'change me',
-            'SigningAttributesOrigin' => 'change me',
+            'EmailIdentity' => 'example.com',
+            'SigningAttributesOrigin' => DkimSigningAttributesOrigin::EXTERNAL,
             'SigningAttributes' => new DkimSigningAttributes([
-                'DomainSigningSelector' => 'change me',
-                'DomainSigningPrivateKey' => 'change me',
-                'NextSigningKeyLength' => 'change me',
-                'DomainSigningAttributesOrigin' => 'change me',
+                'DomainSigningSelector' => 'example-selector',
+                'DomainSigningPrivateKey' => base64_encode('private-key'),
+                'NextSigningKeyLength' => DkimSigningKeyLength::RSA_2048_BIT,
+                'DomainSigningAttributesOrigin' => DkimSigningAttributesOrigin::EXTERNAL,
             ]),
         ]);
         $result = $client->putEmailIdentityDkimSigningAttributes($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getDkimStatus());
+        self::assertSame(DkimStatus::PENDING, $result->getDkimStatus());
         // self::assertTODO(expected, $result->getDkimTokens());
-        self::assertSame('changeIt', $result->getSigningHostedZone());
+        self::assertSame('example-hosted-zone', $result->getSigningHostedZone());
     }
 
     public function testSendEmail(): void
