@@ -3,13 +3,22 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * Configuration settings for durable functions [^1], including execution timeout and retention period for execution
- * history.
+ * Configuration settings for durable functions [^1], including execution timeout, retention period for execution
+ * history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your
+ * durable execution's payload data, including input, output, and error payloads.
  *
  * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
  */
 final class DurableConfig
 {
+    /**
+     * The ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's
+     * payload data, including input, output, and error payloads.
+     *
+     * @var string|null
+     */
+    private $kmsKeyArn;
+
     /**
      * The number of days to retain execution history after a durable execution completes. After this period, execution
      * history is no longer available through the GetDurableExecutionHistory API.
@@ -28,18 +37,21 @@ final class DurableConfig
 
     /**
      * @param array{
+     *   KMSKeyArn?: string|null,
      *   RetentionPeriodInDays?: int|null,
      *   ExecutionTimeout?: int|null,
      * } $input
      */
     public function __construct(array $input)
     {
+        $this->kmsKeyArn = $input['KMSKeyArn'] ?? null;
         $this->retentionPeriodInDays = $input['RetentionPeriodInDays'] ?? null;
         $this->executionTimeout = $input['ExecutionTimeout'] ?? null;
     }
 
     /**
      * @param array{
+     *   KMSKeyArn?: string|null,
      *   RetentionPeriodInDays?: int|null,
      *   ExecutionTimeout?: int|null,
      * }|DurableConfig $input
@@ -54,6 +66,11 @@ final class DurableConfig
         return $this->executionTimeout;
     }
 
+    public function getKmsKeyArn(): ?string
+    {
+        return $this->kmsKeyArn;
+    }
+
     public function getRetentionPeriodInDays(): ?int
     {
         return $this->retentionPeriodInDays;
@@ -65,6 +82,9 @@ final class DurableConfig
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->kmsKeyArn) {
+            $payload['KMSKeyArn'] = $v;
+        }
         if (null !== $v = $this->retentionPeriodInDays) {
             $payload['RetentionPeriodInDays'] = $v;
         }

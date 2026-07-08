@@ -185,6 +185,7 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
             'SourceImageId' => (null !== $v = $xml->sourceImageId[0]) ? (string) $v : null,
             'SourceImageRegion' => (null !== $v = $xml->sourceImageRegion[0]) ? (string) $v : null,
             'FreeTierEligible' => (null !== $v = $xml->freeTierEligible[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+            'PublicSsmParameterName' => (null !== $v = $xml->publicSsmParameterName[0]) ? (string) $v : null,
             'ImageWatermarks' => (0 === ($v = $xml->imageWatermarkSet)->count()) ? null : $this->populateResultImageWatermarkList($v),
             'ImageId' => (null !== $v = $xml->imageId[0]) ? (string) $v : null,
             'ImageLocation' => (null !== $v = $xml->imageLocation[0]) ? (string) $v : null,
