@@ -113,6 +113,16 @@ final class DescribeImagesRequest extends Input
      * - `hypervisor` - The hypervisor type (`ovm` | `xen`).
      * - `image-allowed` - A Boolean that indicates whether the image meets the criteria specified for Allowed AMIs.
      * - `image-id` - The ID of the image.
+     * - `image-watermark.source-image-creation-time` - The creation date of the source AMI, in the ISO 8601 format in the
+     *   UTC time zone (`*YYYY*-*MM*-*DD*T*HH*:*MM*:*SS*.*ssssss*+*HH*:*MM*`). You can use a wildcard (`*`), for example,
+     *   `2021-09-29T*`, which matches an entire day.
+     * - `image-watermark.source-image-id` - The ID of the AMI to which the watermark was originally attached.
+     * - `image-watermark.source-image-region` - The Region where the watermark was originally attached.
+     * - `image-watermark.watermark-creation-time` - The date and time the watermark was attached to the AMI, in the ISO
+     *   8601 format in the UTC time zone (`*YYYY*-*MM*-*DD*T*HH*:*MM*:*SS*.*ssssss*+*HH*:*MM*`). You can use a wildcard
+     *   (`*`), for example, `2021-09-29T*`, which matches an entire day.
+     * - `image-watermark.watermark-key` - The watermark identifier, in `accountId:watermarkName` format (for example,
+     *   `123456789012:approvedAmi`).
      * - `image-type` - The image type (`machine` | `kernel` | `ramdisk`).
      * - `is-public` - A Boolean that indicates whether the image is public.
      * - `kernel-id` - The kernel ID.
@@ -126,6 +136,9 @@ final class DescribeImagesRequest extends Input
      * - `platform` - The platform. The only supported value is `windows`.
      * - `product-code` - The product code.
      * - `product-code.type` - The type of the product code (`marketplace`).
+     * - `public-ssm-parameter-name` - The name of a public Systems Manager parameter associated with the AMI. The parameter
+     *   must be in a trusted Amazon Web Services namespace under `aws/service/`. Returns all AMIs that have ever been
+     *   associated with the parameter, including previous versions.
      * - `ramdisk-id` - The RAM disk ID.
      * - `root-device-name` - The device name of the root device volume (for example, `/dev/sda1`).
      * - `root-device-type` - The type of the root device volume (`ebs` | `instance-store`).

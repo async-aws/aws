@@ -168,6 +168,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     private function populateResultDurableConfig(array $json): DurableConfig
     {
         return new DurableConfig([
+            'KMSKeyArn' => isset($json['KMSKeyArn']) ? (string) $json['KMSKeyArn'] : null,
             'RetentionPeriodInDays' => isset($json['RetentionPeriodInDays']) ? (int) $json['RetentionPeriodInDays'] : null,
             'ExecutionTimeout' => isset($json['ExecutionTimeout']) ? (int) $json['ExecutionTimeout'] : null,
         ]);

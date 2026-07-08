@@ -236,6 +236,13 @@ final class Image
     private $freeTierEligible;
 
     /**
+     * The name of the public Systems Manager parameter that resolves to this AMI, under the `aws/service/` namespace.
+     *
+     * @var string|null
+     */
+    private $publicSsmParameterName;
+
+    /**
      * The watermarks attached to the AMI.
      *
      * @var ImageWatermark[]|null
@@ -355,6 +362,7 @@ final class Image
      *   SourceImageId?: string|null,
      *   SourceImageRegion?: string|null,
      *   FreeTierEligible?: bool|null,
+     *   PublicSsmParameterName?: string|null,
      *   ImageWatermarks?: array<ImageWatermark|array>|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
@@ -397,6 +405,7 @@ final class Image
         $this->sourceImageId = $input['SourceImageId'] ?? null;
         $this->sourceImageRegion = $input['SourceImageRegion'] ?? null;
         $this->freeTierEligible = $input['FreeTierEligible'] ?? null;
+        $this->publicSsmParameterName = $input['PublicSsmParameterName'] ?? null;
         $this->imageWatermarks = isset($input['ImageWatermarks']) ? array_map([ImageWatermark::class, 'create'], $input['ImageWatermarks']) : null;
         $this->imageId = $input['ImageId'] ?? null;
         $this->imageLocation = $input['ImageLocation'] ?? null;
@@ -439,6 +448,7 @@ final class Image
      *   SourceImageId?: string|null,
      *   SourceImageRegion?: string|null,
      *   FreeTierEligible?: bool|null,
+     *   PublicSsmParameterName?: string|null,
      *   ImageWatermarks?: array<ImageWatermark|array>|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
@@ -609,6 +619,11 @@ final class Image
     public function getPublic(): ?bool
     {
         return $this->public;
+    }
+
+    public function getPublicSsmParameterName(): ?string
+    {
+        return $this->publicSsmParameterName;
     }
 
     public function getRamdiskId(): ?string

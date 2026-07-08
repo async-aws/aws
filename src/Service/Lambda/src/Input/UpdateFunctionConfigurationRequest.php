@@ -231,8 +231,11 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $capacityProviderConfig;
 
     /**
-     * Configuration settings for durable functions. Allows updating execution timeout and retention period for functions
-     * with durability enabled.
+     * Configuration settings for durable functions [^1], including execution timeout, retention period for execution
+     * history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your
+     * durable execution's payload data, including input, output, and error payloads.
+     *
+     * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
      *
      * @var DurableConfig|null
      */
