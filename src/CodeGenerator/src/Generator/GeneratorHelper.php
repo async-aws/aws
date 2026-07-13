@@ -52,6 +52,7 @@ class GeneratorHelper
             'PTS' => 'Pts',
             'RGB' => 'Rgb',
             'SMS' => 'Sms',
+            'SOA' => 'Soa',
             'SSE' => 'Sse',
             'STL' => 'Stl',
             'TTL' => 'Ttl',

@@ -7,27 +7,99 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Ses\Enum\DkimSigningAttributesOrigin;
 use AsyncAws\Ses\Exception\AccountSuspendedException;
+use AsyncAws\Ses\Exception\AlreadyExistsException;
 use AsyncAws\Ses\Exception\BadRequestException;
+use AsyncAws\Ses\Exception\ConcurrentModificationException;
 use AsyncAws\Ses\Exception\LimitExceededException;
 use AsyncAws\Ses\Exception\MailFromDomainNotVerifiedException;
 use AsyncAws\Ses\Exception\MessageRejectedException;
 use AsyncAws\Ses\Exception\NotFoundException;
 use AsyncAws\Ses\Exception\SendingPausedException;
 use AsyncAws\Ses\Exception\TooManyRequestsException;
+use AsyncAws\Ses\Input\CreateEmailIdentityRequest;
 use AsyncAws\Ses\Input\DeleteSuppressedDestinationRequest;
+use AsyncAws\Ses\Input\GetEmailIdentityRequest;
 use AsyncAws\Ses\Input\GetSuppressedDestinationRequest;
+use AsyncAws\Ses\Input\PutEmailIdentityDkimSigningAttributesRequest;
 use AsyncAws\Ses\Input\SendEmailRequest;
+use AsyncAws\Ses\Result\CreateEmailIdentityResponse;
 use AsyncAws\Ses\Result\DeleteSuppressedDestinationResponse;
+use AsyncAws\Ses\Result\GetEmailIdentityResponse;
 use AsyncAws\Ses\Result\GetSuppressedDestinationResponse;
+use AsyncAws\Ses\Result\PutEmailIdentityDkimSigningAttributesResponse;
 use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\ValueObject\Destination;
+use AsyncAws\Ses\ValueObject\DkimSigningAttributes;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\ListManagementOptions;
 use AsyncAws\Ses\ValueObject\MessageTag;
+use AsyncAws\Ses\ValueObject\Tag;
 
 class SesClient extends AbstractApi
 {
+    /**
+     * Starts the process of verifying an email identity. An *identity* is an email address or domain that you use when you
+     * send email. Before you can use an identity to send email, you first have to verify it. By verifying an identity, you
+     * demonstrate that you're the owner of the identity, and that you've given Amazon SES API v2 permission to send email
+     * from the identity.
+     *
+     * When you verify an email address, Amazon SES sends an email to the address. Your email address is verified as soon as
+     * you follow the link in the verification email.
+     *
+     * When you verify a domain without specifying the `DkimSigningAttributes` object, this operation provides a set of DKIM
+     * tokens. You can convert these tokens into CNAME records, which you then add to the DNS configuration for your domain.
+     * Your domain is verified when Amazon SES detects these records in the DNS configuration for your domain. This
+     * verification method is known as Easy DKIM [^1].
+     *
+     * Alternatively, you can perform the verification process by providing your own public-private key pair. This
+     * verification method is known as Bring Your Own DKIM (BYODKIM). To use BYODKIM, your call to the `CreateEmailIdentity`
+     * operation has to include the `DkimSigningAttributes` object. When you specify this object, you provide a selector (a
+     * component of the DNS record name that identifies the public key to use for DKIM authentication) and a private key.
+     *
+     * When you verify a domain, this operation provides a set of DKIM tokens, which you can convert into CNAME tokens. You
+     * add these CNAME tokens to the DNS configuration for your domain. Your domain is verified when Amazon SES detects
+     * these records in the DNS configuration for your domain. For some DNS providers, it can take 72 hours or more to
+     * complete the domain verification process.
+     *
+     * Additionally, you can associate an existing configuration set with the email identity that you're verifying.
+     *
+     * [^1]: https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html
+     *
+     * @see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_CreateEmailIdentity.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#createemailidentity
+     *
+     * @param array{
+     *   EmailIdentity: string,
+     *   Tags?: array<Tag|array>|null,
+     *   DkimSigningAttributes?: DkimSigningAttributes|array|null,
+     *   ConfigurationSetName?: string|null,
+     *   '@region'?: string|null,
+     * }|CreateEmailIdentityRequest $input
+     *
+     * @throws AlreadyExistsException
+     * @throws BadRequestException
+     * @throws ConcurrentModificationException
+     * @throws LimitExceededException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     */
+    public function createEmailIdentity($input): CreateEmailIdentityResponse
+    {
+        $input = CreateEmailIdentityRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateEmailIdentity', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AlreadyExistsException' => AlreadyExistsException::class,
+            'BadRequestException' => BadRequestException::class,
+            'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'NotFoundException' => NotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new CreateEmailIdentityResponse($response);
+    }
+
     /**
      * Removes an email address from the suppression list for your account or for a specific tenant. To target a tenant's
      * suppression list, specify the `TenantName` parameter. If you omit `TenantName`, the address is removed from the
@@ -59,6 +131,34 @@ class SesClient extends AbstractApi
     }
 
     /**
+     * Provides information about a specific identity, including the identity's verification status, sending authorization
+     * policies, its DKIM authentication status, and its custom Mail-From settings.
+     *
+     * @see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_GetEmailIdentity.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#getemailidentity
+     *
+     * @param array{
+     *   EmailIdentity: string,
+     *   '@region'?: string|null,
+     * }|GetEmailIdentityRequest $input
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     */
+    public function getEmailIdentity($input): GetEmailIdentityResponse
+    {
+        $input = GetEmailIdentityRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetEmailIdentity', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'NotFoundException' => NotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new GetEmailIdentityResponse($response);
+    }
+
+    /**
      * Retrieves information about a specific email address that's on the suppression list for your account or for a
      * specific tenant. To target a tenant's suppression list, specify the `TenantName` parameter. If you omit `TenantName`,
      * the operation targets the account-level suppression list.
@@ -86,6 +186,43 @@ class SesClient extends AbstractApi
         ]]));
 
         return new GetSuppressedDestinationResponse($response);
+    }
+
+    /**
+     * Used to configure or change the DKIM authentication settings for an email domain identity. You can use this operation
+     * to do any of the following:
+     *
+     * - Update the signing attributes for an identity that uses Bring Your Own DKIM (BYODKIM).
+     * - Update the key length that should be used for Easy DKIM.
+     * - Change from using no DKIM authentication to using Easy DKIM.
+     * - Change from using no DKIM authentication to using BYODKIM.
+     * - Change from using Easy DKIM to using BYODKIM.
+     * - Change from using BYODKIM to using Easy DKIM.
+     *
+     * @see https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_PutEmailIdentityDkimSigningAttributes.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#putemailidentitydkimsigningattributes
+     *
+     * @param array{
+     *   EmailIdentity: string,
+     *   SigningAttributesOrigin: DkimSigningAttributesOrigin::*,
+     *   SigningAttributes?: DkimSigningAttributes|array|null,
+     *   '@region'?: string|null,
+     * }|PutEmailIdentityDkimSigningAttributesRequest $input
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
+     * @throws TooManyRequestsException
+     */
+    public function putEmailIdentityDkimSigningAttributes($input): PutEmailIdentityDkimSigningAttributesResponse
+    {
+        $input = PutEmailIdentityDkimSigningAttributesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutEmailIdentityDkimSigningAttributes', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'NotFoundException' => NotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new PutEmailIdentityDkimSigningAttributesResponse($response);
     }
 
     /**
