@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: AWS Lambda Durable Functions now supports customer managed KMS keys. This allows customers to configure a KMS key in Durable Config to have all their durable execution data encrypted.
+- AWS api-change: Add Java 8, 11 and 17 on AL2023 (java8.al2023, java11.al2023, java17.al2023) support to AWS Lambda.
 
 ## 2.16.0
 
