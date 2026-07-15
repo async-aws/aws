@@ -6,6 +6,7 @@ final class StateReasonCode
 {
     public const CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED = 'CapacityProviderScalingLimitExceeded';
     public const CREATING = 'Creating';
+    public const DEPENDENCY_ERROR = 'DependencyError';
     public const DISABLED_KMSKEY = 'DisabledKMSKey';
     public const DISALLOWED_BY_VPC_ENCRYPTION_CONTROL = 'DisallowedByVpcEncryptionControl';
     public const DRAINING_DURABLE_EXECUTIONS = 'DrainingDurableExecutions';
@@ -53,6 +54,7 @@ final class StateReasonCode
         return isset([
             self::CAPACITY_PROVIDER_SCALING_LIMIT_EXCEEDED => true,
             self::CREATING => true,
+            self::DEPENDENCY_ERROR => true,
             self::DISABLED_KMSKEY => true,
             self::DISALLOWED_BY_VPC_ENCRYPTION_CONTROL => true,
             self::DRAINING_DURABLE_EXECUTIONS => true,
