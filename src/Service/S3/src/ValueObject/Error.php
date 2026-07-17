@@ -3,7 +3,11 @@
 namespace AsyncAws\S3\ValueObject;
 
 /**
+ * > For information about using the Amazon S3 API—including error handling—see the Amazon S3 Developer Guide [^1].
+ *
  * Container for all error elements.
+ *
+ * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/developerguide/Welcome.html
  */
 final class Error
 {

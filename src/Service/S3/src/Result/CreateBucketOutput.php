@@ -8,7 +8,10 @@ use AsyncAws\Core\Result;
 class CreateBucketOutput extends Result
 {
     /**
-     * A forward slash followed by the name of the bucket.
+     * A forward slash followed by the name of the bucket for all account regional namespace buckets and all global general
+     * purpose buckets created in us-east-1. For example, `/amzn-s3-demo-bucket`. For global general purpose buckets created
+     * in other Amazon Web Services Regions, the Location field is the global endpoint URL. For example,
+     * `http://amzn-s3-demo-bucket.s3.amazonaws.com/`.
      *
      * @var string|null
      */
