@@ -22,12 +22,10 @@ final class Transition
     private $date;
 
     /**
-     * Indicates the number of days after creation when objects are transitioned to the specified storage class. If the
-     * specified storage class is `INTELLIGENT_TIERING`, `GLACIER_IR`, `GLACIER`, or `DEEP_ARCHIVE`, valid values are `0` or
-     * positive integers. If the specified storage class is `STANDARD_IA` or `ONEZONE_IA`, valid values are positive
-     * integers greater than `30`. Be aware that some storage classes have a minimum storage duration and that you're
-     * charged for transitioning objects before their minimum storage duration. For more information, see Constraints and
-     * considerations for transitions [^1] in the *Amazon S3 User Guide*.
+     * Indicates the number of days after creation when objects are transitioned to the specified storage class. The value
+     * can be `0` or any positive integer. Be aware that some storage classes have a minimum storage duration and that
+     * you're charged for transitioning objects before their minimum storage duration. For more information, see Constraints
+     * and considerations for transitions [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html#lifecycle-configuration-constraints
      *
