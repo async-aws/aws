@@ -300,7 +300,7 @@ final class FunctionConfiguration
     private $snapStart;
 
     /**
-     * The ARN of the runtime and any errors that occurred.
+     * The ARN of the runtime and any errors that occured.
      *
      * @var RuntimeVersionConfig|null
      */

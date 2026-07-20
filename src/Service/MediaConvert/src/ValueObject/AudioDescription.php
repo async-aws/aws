@@ -93,7 +93,7 @@ final class AudioDescription
     /**
      * Specify the language for your output audio track. To follow the input language: Leave blank. When you do, also set
      * Language code control to Follow input. If no input language is detected MediaConvert will not write an output
-     * language code. To follow the input language, but fall back to a specified language code if there is no input language
+     * language code. To follow the input langauge, but fall back to a specified language code if there is no input language
      * to follow: Enter an ISO 639-2 three-letter language code in all capital letters. When you do, also set Language code
      * control to Follow input. To specify the language code: Enter an ISO 639 three-letter language code in all capital
      * letters. When you do, also set Language code control to Use configured.
@@ -104,7 +104,7 @@ final class AudioDescription
 
     /**
      * Specify which source for language code takes precedence for this audio track. When you choose Follow input, the
-     * service uses the language code from the input track if it's present. If there's no language code on the input track,
+     * service uses the language code from the input track if it's present. If there's no languge code on the input track,
      * the service uses the code that you specify in the setting Language code. When you choose Use configured, the service
      * uses the language code that you specify.
      *

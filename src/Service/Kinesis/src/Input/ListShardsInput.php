@@ -83,7 +83,7 @@ final class ListShardsInput extends Input
      * specify either the `ShardId` or the `Timestamp` optional properties.
      *
      * If you specify the `AFTER_SHARD_ID` type, you must also provide the value for the optional `ShardId` property. The
-     * `ShardId` property is identical in functionality to the `ExclusiveStartShardId` parameter of the `ListShards` API.
+     * `ShardId` property is identical in fuctionality to the `ExclusiveStartShardId` parameter of the `ListShards` API.
      * When `ShardId` property is specified, the response includes the shards starting with the shard whose ID immediately
      * follows the `ShardId` that you provided.
      *

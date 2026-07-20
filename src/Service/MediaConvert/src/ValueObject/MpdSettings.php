@@ -46,7 +46,7 @@ final class MpdSettings
     private $audioDuration;
 
     /**
-     * When enabled, a C2PA compliant manifest will be generated, signed and embedded in the output. For more information on
+     * When enabled, a C2PA compliant manifest will be generated, signed and embeded in the output. For more information on
      * C2PA, see https://c2pa.org/specifications/specifications/2.1/index.html.
      *
      * @var MpdC2paManifest::*|null

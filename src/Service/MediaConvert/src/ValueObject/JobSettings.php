@@ -60,7 +60,7 @@ final class JobSettings
 
     /**
      * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These inputs
-     * will be concatenated together to create the output.
+     * will be concantenated together to create the output.
      *
      * @var Input[]|null
      */

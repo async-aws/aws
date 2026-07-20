@@ -41,7 +41,7 @@ final class ClipLimits
      * Specify the Minimum YUV color sample limit. MediaConvert conforms any pixels in your input below the value that you
      * specify to typical limited range bounds. Enter an integer from 0 to 128. Leave blank to use the default value 64. The
      * value that you enter applies to 10-bit ranges. For 8-bit ranges, MediaConvert automatically scales this value down.
-     * When you specify a value for Minimum YUV, you must set Sample range conversion to Limited range clip.
+     * When you specify a value for Minumum YUV, you must set Sample range conversion to Limited range clip.
      *
      * @var int|null
      */

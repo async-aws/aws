@@ -103,7 +103,7 @@ final class VideoSelector
 
     /**
      * Use PID to select specific video data from an input file. Specify this value as an integer; the system automatically
-     * converts it to the hexadecimal value. For example, 257 selects PID 0x101. A PID, or packet identifier, is an
+     * converts it to the hexidecimal value. For example, 257 selects PID 0x101. A PID, or packet identifier, is an
      * identifier for a set of data in an MPEG-2 transport stream container.
      *
      * @var int|null

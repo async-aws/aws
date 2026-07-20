@@ -34,7 +34,7 @@ final class CaptionSelector
 
     /**
      * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file, specify the URI of the input captions
-     * source file. If your input captions are IMSC in an IMF package, use TrackSourceSettings instead of FileSourceSettings.
+     * source file. If your input captions are IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
      *
      * @var CaptionSourceSettings|null
      */

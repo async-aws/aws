@@ -34,7 +34,7 @@ final class CreateHostedZoneRequest extends Input
      * with this hosted zone.
      *
      * You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC with a hosted
-     * zone with this request, the parameters `VPCId` and `VPCRegion` are also required.
+     * zone with this request, the paramaters `VPCId` and `VPCRegion` are also required.
      *
      * To associate additional Amazon VPCs with the hosted zone, use AssociateVPCWithHostedZone [^1] after you create a
      * hosted zone.

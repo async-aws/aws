@@ -1470,7 +1470,7 @@ class S3Client extends AbstractApi
      * key name prefix, which is supported for general purpose buckets for backward compatibility. For the related API
      * description, see GetBucketLifecycle [^2].
      *
-     * > Lifecycle configurations for directory buckets only support expiring objects and cancelling multipart uploads.
+     * > Lifecyle configurations for directory buckets only support expiring objects and cancelling multipart uploads.
      * > Expiring of versioned objects, transitions and tag filters are not supported.
      *
      * - `Permissions`:
@@ -2578,7 +2578,7 @@ class S3Client extends AbstractApi
      *   previous version of the API supported filtering based only on an object key name prefix, which is supported for
      *   backward compatibility for general purpose buckets. For the related API description, see PutBucketLifecycle [^3].
      *
-     *   > Lifecycle configurations for directory buckets only support expiring objects and cancelling multipart uploads.
+     *   > Lifecyle configurations for directory buckets only support expiring objects and cancelling multipart uploads.
      *   > Expiring of versioned objects,transitions and tag filters are not supported.
      *
      *   A lifecycle rule consists of the following:
