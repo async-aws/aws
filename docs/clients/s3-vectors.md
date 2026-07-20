@@ -110,11 +110,11 @@ echo "Vectors uploaded" . PHP_EOL;
 ```php
 use AsyncAws\S3Vectors\S3VectorsClient;
 use AsyncAws\S3Vectors\Input\QueryVectorsInput;
-use AsyncAws\S3Vectors\ValueObject\VectorData;
+use AsyncAws\S3Vectors\ValueObject\VectorDataMemberFloat32;
 
 $client = new S3VectorsClient();
 
-$queryVector = new VectorData(['float32' => [1.23, 4.56 /* ... */]]);
+$queryVector = new VectorDataMemberFloat32(['float32' => [1.23, 4.56 /* ... */]]);
 
 $result = $client->queryVectors(new QueryVectorsInput([
     'vectorBucketName' => 'my-vector-bucket',

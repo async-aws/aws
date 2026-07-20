@@ -5,7 +5,7 @@ category: features
 # Waiter
 
 Similar to Official AWS PHP SDK, AsyncAws provides waiters to let you wait
-until an long operation finished.
+until a long operation finishes.
 
 To ease the development, the above code is wrapped in a helper called "waiter".
 

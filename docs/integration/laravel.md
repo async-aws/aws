@@ -10,7 +10,7 @@ Cache and Queue.
 
 ## Illuminate Cache
 
-Use DynamoDb as a Illuminate Cache store.
+Use DynamoDb as an Illuminate Cache store.
 
 ### Install
 

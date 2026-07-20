@@ -11,8 +11,8 @@ depends on where and how you run the code.
 ## How authentication works
 
 Each API client needs an Authentication provider. The provider will use some logic
-to return a `Credentials` object. It is a value object to store username and
-password (in simple terms).
+to return a `Credentials` object. It is a value object that stores an access
+key ID, secret key, and optional session token and expiration time.
 
 By default AsyncAws uses a ChainProvider that iterates over all providers and uses
 the first provider in the chain that returns credentials without an error.

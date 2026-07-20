@@ -1,7 +1,7 @@
 
 # Configuration
 
-There are some configuration you can pass to an API client. Use an instance of the
+There are some configuration options you can pass to an API client. Use an instance of the
 `Configuration` class or a plain array.
 
 ```php
@@ -37,10 +37,10 @@ The AWS region the client should be targeting.
 
 **Default:** 'false'
 
-When this is set to `true` we will write the full HTTP request and response as
-an `debug` log entry. Make sure you pass a logger to the `Client`.
+When this is set to `true`, AsyncAws writes the full HTTP request and response as
+a `debug` log entry. Make sure you pass a logger to the `Client`.
 
-> **Note**: This will have an negative impact on performance.
+> **Note**: This will have a negative impact on performance.
 
 ### profile
 
@@ -99,14 +99,14 @@ An identifier for the assumed role session
 
 ### containerCredentialsRelativeUri
 
-The relative path that is used to fetch credentials inside and ECS instance.
+The relative path that is used to fetch credentials inside an ECS instance.
 See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) for more information.
 
 ### endpointDiscoveryEnabled
 
 **Default:** 'false'
 
-Enable the endpoint discovery when the operation support it
+Enable endpoint discovery when the operation supports it.
 See [Endpoint discovery](https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoint-discovery.html) for more information.
 
 ### podIdentityCredentialsFullUri

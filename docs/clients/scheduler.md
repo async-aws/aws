@@ -188,6 +188,7 @@ echo $result->getScheduleArn();
 ### List the schedules
 
 ```php
+use AsyncAws\Scheduler\Enum\ScheduleState;
 use AsyncAws\Scheduler\Input\ListSchedulesInput;
 use AsyncAws\Scheduler\SchedulerClient;
 

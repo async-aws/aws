@@ -73,6 +73,7 @@ See [`GetKnowledgeBaseDocuments`](https://docs.aws.amazon.com/bedrock/latest/API
 ### Ingest knowledge base documents
 
 ```php
+use AsyncAws\BedrockAgent\BedrockAgentClient;
 use AsyncAws\BedrockAgent\Enum\ContentDataSourceType;
 use AsyncAws\BedrockAgent\Enum\MetadataSourceType;
 use AsyncAws\BedrockAgent\Input\IngestKnowledgeBaseDocumentsRequest;

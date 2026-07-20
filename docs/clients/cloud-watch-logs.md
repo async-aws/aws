@@ -33,10 +33,7 @@ use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
 
 $cloudWatchLogs = new CloudWatchLogsClient();
 
-// sequenceToken is not required for a new stream
-$currentSequenceToken = null;
-
-$result = $cloudWatchLogs->putLogEvents(new PutLogEventsRequest([
+$cloudWatchLogs->putLogEvents(new PutLogEventsRequest([
     'logGroupName' => 'company-website',
     'logStreamName' => 'frontend-api',
     'logEvents' => [
@@ -45,8 +42,5 @@ $result = $cloudWatchLogs->putLogEvents(new PutLogEventsRequest([
             'message' => 'an error occurred',
         ]),
     ],
-    'sequenceToken' => $currentSequenceToken,
 ]));
-
-$currentSequenceToken = $result->getNextSequenceToken();
 ```
