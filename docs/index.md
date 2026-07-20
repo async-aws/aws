@@ -19,7 +19,7 @@ The goals of this client are:
 
 1. **Async first.** Everything is asynchronous and responses are only downloaded
    if needed.
-1. **Not feature complete.** AsyncAws is currently covering around 40 AWS
+1. **Not feature complete.** AsyncAws currently covers around 40 AWS
    APIs (the most popular ones). We are happy to generate more features if needed.
    Just ask or [contribute](./contribute/index.md).
 1. **Only relevant updates.** Updates are great, but if changes are released multiple
@@ -72,14 +72,13 @@ a topic in the sidebar.
 
 The secret ingredient in creating asynchronous first is not implemented in this library.
 It actually comes from [Symfony's HTTP client](https://symfony.com/doc/current/components/http_client.html).
-They have implemented all the cool asynchronous features that this AWS library just
-take advantage of.
+It implements the asynchronous features that this AWS library takes advantage of.
 
 #### So what is this library really doing?
 
 Except for being a wrapper around Symfony's HTTP client and making sure the asynchronous
 features are properly used, AsyncAws also [handles authentication](./authentication/index.md),
-exceptions and provide input and result objects.
+exceptions, and provides input and result objects.
 
 Read more about [how to use asynchronous features](./features/async.md).
 

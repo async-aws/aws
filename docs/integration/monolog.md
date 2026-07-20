@@ -87,9 +87,8 @@ described in the [official documentation](https://docs.aws.amazon.com/AmazonClou
 The integration enforces a few limitations like the maximum batch size, maximum number of events per batch and
 chronological order of events; which should not be taken care of by the developer.
 
-Please note that CloudWatch Logs accepts only 5 requests per second (with 10,000 log items each) per log stream. Each
-PHP process will cause a new request, regardless of whether the 10,000 items limit was reached. If an application is
-expected to push log records at high rate, you should use different log streams.
+CloudWatch Logs throttles `PutLogEvents` requests according to a per-account quota. The quota can be increased through
+AWS Service Quotas. A batch can contain at most 10,000 log events.
 
 The AWS credentials should have at least the `logs:DescribeLogStreams` and `logs:PutLogEvents` permissions for the
 integration to work properly.

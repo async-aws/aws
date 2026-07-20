@@ -11,6 +11,7 @@ package: async-aws/cloud-watch
 
 ```php
 use AsyncAws\CloudWatch\CloudWatchClient;
+use AsyncAws\CloudWatch\Input\GetMetricDataInput;
 use AsyncAws\CloudWatch\ValueObject\MetricDataQuery;
 use DateTimeImmutable;
 

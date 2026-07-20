@@ -28,7 +28,7 @@ $input
 $sqs->sendMessage($input);
 ```
 
-The HTTP request is sent and a HTTP response is received. Everything works as expected.
+The HTTP request is sent and an HTTP response is received. Everything works as expected.
 
 A small bonus is that the full HTTP response is not downloaded. Only the first line
 with the status code is fetched from the server.
@@ -123,7 +123,7 @@ for more information.
 
 ## Advanced use cases
 
-The common use cases covers 90% of all code. Let's dig in to the advanced stuff.
+The common use cases cover 90% of all code. Let's dig into the advanced stuff.
 
 ### Using resolve-function
 
@@ -145,7 +145,7 @@ it will return `false`.
 
 Consider the following example. It is creating 10 Lambda `InvocationRequest`s and printing
 their result. The HTTP response that is downloaded first will be printed first. The order
-the requests are created do not matter.
+the requests are created does not matter.
 
 The `Result::wait()` function will iterate over provided results, and yield
 the response as soon as it has been resolved.

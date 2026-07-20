@@ -20,7 +20,7 @@ $client = new AwsClientFactory([
 
 ## Assuming a role
 
-You can tell the API client to use specific role by providing a ARN to 
+You can tell the API client to use a specific role by providing an ARN to
 the `roleArn` key. You can also specify a `roleSessionName`.
 
 ```php

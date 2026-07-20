@@ -141,9 +141,9 @@ Read more about [pagination](/features/pagination.md).
 
 ## Presign experience
 
-AWS allow pre-generating sign url that let user access to a resource
-without exposing the key. For instance, provide a link to download an S3 Object.
-AsyncAws provides a fancy way to generate such url by reusing the same objects
+AWS allows pre-generating signed URLs that let users access a resource
+without exposing credentials. For instance, provide a link to download an S3 object.
+AsyncAws provides a way to generate such a URL by reusing the same objects
 used in the standard way.
 
 ### AsyncAws
@@ -188,8 +188,8 @@ echo (string) $psr7->getUri();
 
 ```
 
-> **Note**: While official AWS PHP SDK provide methods to presign S3 methods only,
-> AsyncAws let you presign requests for every services.
+> **Note**: While the official AWS SDK for PHP provides methods to presign only S3 requests,
+> AsyncAws lets you presign requests for every service.
 
 Read more about [presign feature](/features/presign.md).
 

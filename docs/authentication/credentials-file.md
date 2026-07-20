@@ -4,7 +4,7 @@ category: authentication
 
 # Using the AWS Credentials File and Credential Profiles
 
-The AWS CLI stores configuration and credential in [plain text files](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+The AWS CLI stores configuration and credentials in [plain text files](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
 The format of the AWS credentials file should look something like the following.
 
@@ -45,7 +45,7 @@ role_arn = arn:aws:iam::123456789012:role/marketing
 source_profile = user1
 ```
 
-AWS also store Credentials in the `config` file that should like.
+AWS also stores credentials in the `config` file, which should look like this.
 
 ```ini
 ; ~/.aws/config:
@@ -60,7 +60,7 @@ aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 region=us-west-2
 ```
 
-The path to the `credentials` and `config` file can be *optionally* configured either with Configuration or env variables.
+The paths to the `credentials` and `config` files can optionally be configured through configuration or environment variables.
 
 ```shell
 export AWS_SHARED_CREDENTIALS_FILE=/path/to/shared_credentials_file

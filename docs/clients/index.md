@@ -4,7 +4,7 @@ category: clients
 
 # Clients overview
 
-AsyncAws has implemented the most popular API clients. On this page you find
+AsyncAws has implemented the most popular API clients. On this page, you can find
 some installation instructions and a complete list of clients.
 
 ## Install and configure
@@ -23,6 +23,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
 use AsyncAws\Core\HttpClient\AwsHttpClientFactory;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use Symfony\Component\HttpClient\HttpClient;
 
 $config = Configuration::create([
     'region' => 'eu-central-1',
@@ -30,7 +31,7 @@ $config = Configuration::create([
 $credentialProvider = new ConfigurationProvider();
 $httpClient = HttpClient::create(); // ... Instance of Symfony's HttpClientInterface
 // Or, to enable automatic retries on top of your own HttpClient
-// $httpClient = AwsHttpClientFactory::createRetryableClient($httpClient); T
+// $httpClient = AwsHttpClientFactory::createRetryableClient($httpClient);
 $logger = // ... A PSR-3 logger
 
 $dynamoDb = new DynamoDbClient($config, $credentialProvider, $httpClient, $logger);
@@ -121,8 +122,8 @@ function takes an Input object (or array) as parameter and will return a Result.
 See the API client's class to learn what operations are supported and what the input
 and output are.
 
-All Input objects for SQS is located in [`AsyncAws\Sqs\Input\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Input)
-and all Result objects are located in [`AsyncAws\Sqs\Result\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Result).
+All SQS input objects are located in [`AsyncAws\Sqs\Input\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Input)
+and all result objects are located in [`AsyncAws\Sqs\Result\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Result).
 
 Your IDE will also be helpful to discover function and how to use them. See example
 from PHPStorm:
@@ -135,7 +136,7 @@ Here is a list of supported clients. If there is a need for another client or a 
 operation, it can be automatically generated. See the [contribution guide](/contribute/index.md)
 for more information.
 
-| Api Client                                  | Package name                                                                                              |
+| API Client                                  | Package name                                                                                              |
 |---------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | [AppSync](./app-sync.md)                    | [async-aws/app-sync](https://packagist.org/packages/async-aws/app-sync)                                   |
 | [Athena](./athena.md)                       | [async-aws/athena](https://packagist.org/packages/async-aws/athena)                                       |
@@ -155,7 +156,7 @@ for more information.
 | [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)                                             |
 | [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cache](https://packagist.org/packages/async-aws/elasti-cache)                           |
 | [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)                           |
-| [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)                               |
+| [Firehose](./firehose.md)                   | [async-aws/firehose](https://packagist.org/packages/async-aws/firehose)                                   |
 | [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)                                             |
 | [ImageBuilder](./image-builder.md)          | [async-aws/image-builder](https://packagist.org/packages/async-aws/image-builder)                         |
 | [Iot](./iot.md)                             | [async-aws/iot](https://packagist.org/packages/async-aws/iot)                                             |
