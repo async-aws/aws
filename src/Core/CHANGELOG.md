@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix typos.
+
 ## 1.29.1
 
 ### Changed

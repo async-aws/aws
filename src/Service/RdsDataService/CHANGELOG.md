@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix typos.
+
 ## 3.0.3
 
 ### Changed
