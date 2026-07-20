@@ -28,7 +28,7 @@ $deployment = $codeDeploy->createDeployment(new CreateDeploymentInput([
     ],
 ]));
 
-echo 'DepoymentId: '. $deployment->getDeploymentId();
+echo 'DeploymentId: '. $deployment->getDeploymentId();
 
 ```
 

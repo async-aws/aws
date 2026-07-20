@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * The ARN of the runtime and any errors that occured.
+ * The ARN of the runtime and any errors that occurred.
  */
 final class RuntimeVersionConfig
 {

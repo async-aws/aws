@@ -3,7 +3,7 @@
 namespace AsyncAws\MediaConvert\Enum;
 
 /**
- * Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
+ * Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properties.
  */
 final class DolbyVisionLevel6Mode
 {

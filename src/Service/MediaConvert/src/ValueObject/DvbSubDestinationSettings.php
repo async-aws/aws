@@ -200,7 +200,7 @@ final class DvbSubDestinationSettings
     private $height;
 
     /**
-     * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits, representing
+     * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexadecimal digits, representing
      * red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a red value of
      * 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
      *

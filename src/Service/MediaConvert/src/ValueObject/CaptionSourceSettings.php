@@ -7,7 +7,7 @@ use AsyncAws\MediaConvert\Enum\CaptionSourceType;
 
 /**
  * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file, specify the URI of the input captions
- * source file. If your input captions are IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+ * source file. If your input captions are IMSC in an IMF package, use TrackSourceSettings instead of FileSourceSettings.
  */
 final class CaptionSourceSettings
 {
@@ -35,7 +35,7 @@ final class CaptionSourceSettings
     /**
      * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the input
      * caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
-     * FileSoureSettings.
+     * FileSourceSettings.
      *
      * @var FileSourceSettings|null
      */

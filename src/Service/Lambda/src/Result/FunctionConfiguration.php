@@ -328,7 +328,7 @@ class FunctionConfiguration extends Result
     private $snapStart;
 
     /**
-     * The ARN of the runtime and any errors that occured.
+     * The ARN of the runtime and any errors that occurred.
      *
      * @var RuntimeVersionConfig|null
      */

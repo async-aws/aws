@@ -65,7 +65,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
-- AWS api-change: remove trailling `/` in `ListFunctions` request
+- AWS api-change: remove trailing `/` in `ListFunctions` request
 
 ### Changed
 

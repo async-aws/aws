@@ -12,7 +12,7 @@ use AsyncAws\MediaConvert\Enum\FileSourceTimeDeltaUnits;
 /**
  * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the input
  * caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
- * FileSoureSettings.
+ * FileSourceSettings.
  */
 final class FileSourceSettings
 {

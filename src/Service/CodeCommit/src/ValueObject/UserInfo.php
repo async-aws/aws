@@ -22,7 +22,7 @@ final class UserInfo
     private $email;
 
     /**
-     * The date when the specified commit was commited, in timestamp format with GMT offset.
+     * The date when the specified commit was committed, in timestamp format with GMT offset.
      *
      * @var string|null
      */

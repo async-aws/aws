@@ -33,7 +33,7 @@ final class DolbyVision
     private $l6Metadata;
 
     /**
-     * Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
+     * Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properties.
      *
      * @var DolbyVisionLevel6Mode::*|null
      */

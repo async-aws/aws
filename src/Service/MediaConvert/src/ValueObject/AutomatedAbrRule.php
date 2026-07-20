@@ -11,7 +11,7 @@ use AsyncAws\MediaConvert\Enum\RuleType;
 final class AutomatedAbrRule
 {
     /**
-     * When customer adds the allowed renditions rule for auto ABR ladder, they are required to add at leat one rendition to
+     * When customer adds the allowed renditions rule for auto ABR ladder, they are required to add at least one rendition to
      * allowedRenditions list.
      *
      * @var AllowedRenditionSize[]|null
@@ -19,7 +19,7 @@ final class AutomatedAbrRule
     private $allowedRenditions;
 
     /**
-     * When customer adds the force include renditions rule for auto ABR ladder, they are required to add at leat one
+     * When customer adds the force include renditions rule for auto ABR ladder, they are required to add at least one
      * rendition to forceIncludeRenditions list.
      *
      * @var ForceIncludeRenditionSize[]|null

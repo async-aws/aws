@@ -10,7 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ManagedLoggingConfiguration
 {
     /**
-     * Enables mamanged log persistence.
+     * Enables managed log persistence.
      *
      * @var bool
      */

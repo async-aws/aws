@@ -49,7 +49,7 @@
 
 ### Added
 
-- AWS api-change: Addded InvalidResourceStateException.
+- AWS api-change: Added InvalidResourceStateException.
 
 ## 2.2.1
 

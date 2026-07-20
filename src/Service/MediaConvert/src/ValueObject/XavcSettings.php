@@ -125,7 +125,7 @@ final class XavcSettings
      * Ignore this setting unless your downstream workflow requires that you specify it explicitly. Otherwise, we recommend
      * that you adjust the softness of your output by using a lower value for the setting Sharpness or by enabling a noise
      * reducer filter. The Softness setting specifies the quantization matrices that the encoder uses. Keep the default
-     * value, 0, for flat quantization. Choose the value 1 or 16 to use the default JVT softening quantization matricies
+     * value, 0, for flat quantization. Choose the value 1 or 16 to use the default JVT softening quantization matrices
      * from the H.264 specification. Choose a value from 17 to 128 to use planar interpolation. Increasing values from 17 to
      * 128 result in increasing reduction of high-frequency data. The value 128 results in the softest video.
      *

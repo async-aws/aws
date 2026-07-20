@@ -17,7 +17,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * A route with a waypoint between the departure and destination position returns two legs with the positions snapped to
  * a nearby road:
  *
- * - Leg 1: The `StartPosition` is the departure position . The `EndPosition` is the waypoint positon.
+ * - Leg 1: The `StartPosition` is the departure position. The `EndPosition` is the waypoint position.
  * - Leg 2: The `StartPosition` is the waypoint position. The `EndPosition` is the destination position.
  *
  * [^1]: https://docs.aws.amazon.com/location/previous/developerguide/snap-to-nearby-road.html

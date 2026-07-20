@@ -23,7 +23,7 @@ final class ShardFilter
      * - `AT_LATEST` - the response includes only the currently open shards of the data stream.
      * - `AT_TIMESTAMP` - the response includes all shards whose start timestamp is less than or equal to the given
      *   timestamp and end timestamp is greater than or equal to the given timestamp or still open.
-     * - `FROM_TIMESTAMP` - the response incldues all closed shards whose end timestamp is greater than or equal to the
+     * - `FROM_TIMESTAMP` - the response includes all closed shards whose end timestamp is greater than or equal to the
      *   given timestamp and also all open shards. Corrected to `TRIM_HORIZON` of the data stream if `FROM_TIMESTAMP` is
      *   less than the `TRIM_HORIZON` value.
      *
@@ -32,7 +32,7 @@ final class ShardFilter
     private $type;
 
     /**
-     * The exclusive start `shardID` speified in the `ShardFilter` parameter. This property can only be used if the
+     * The exclusive start `shardID` specified in the `ShardFilter` parameter. This property can only be used if the
      * `AFTER_SHARD_ID` shard type is specified.
      *
      * @var string|null
