@@ -102,6 +102,10 @@ final class DkimSigningAttributes
      *   California) region using Deterministic Easy-DKIM (DEED).
      * - `AWS_SES_US_WEST_2` – Configure DKIM for the identity by replicating from a parent identity in US West (Oregon)
      *   region using Deterministic Easy-DKIM (DEED).
+     * - `AWS_SES_US_GOV_EAST_1` – Configure DKIM for the identity by replicating from a parent identity in AWS GovCloud
+     *   (US-East) region using Deterministic Easy-DKIM (DEED).
+     * - `AWS_SES_US_GOV_WEST_1` – Configure DKIM for the identity by replicating from a parent identity in AWS GovCloud
+     *   (US-West) region using Deterministic Easy-DKIM (DEED).
      *
      * [^1]: https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_PutEmailIdentityDkimSigningAttributes.html#SES-PutEmailIdentityDkimSigningAttributes-request-SigningAttributesOrigin
      *

@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `getEmailIdentity`, `createEmailIdentity` and `putEmailIdentityDkimSigningAttributes` operations
+- AWS api-change: Added `AWS_SES_US_GOV_EAST_1` and `AWS_SES_US_GOV_WEST_1` origins
 
 ## 1.15.0
 
