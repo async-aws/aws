@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Rekognition\Input\CompareFacesRequest;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
 use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
@@ -23,6 +24,41 @@ use AsyncAws\Rekognition\ValueObject\S3Object;
 
 class RekognitionClientTest extends TestCase
 {
+    public function testCompareFaces(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CompareFacesRequest([
+            'SourceImage' => new Image([
+                'Bytes' => 'change me',
+                'S3Object' => new S3Object([
+                    'Bucket' => 'change me',
+                    'Name' => 'change me',
+                    'Version' => 'change me',
+                ]),
+            ]),
+            'TargetImage' => new Image([
+                'Bytes' => 'change me',
+                'S3Object' => new S3Object([
+                    'Bucket' => 'change me',
+                    'Name' => 'change me',
+                    'Version' => 'change me',
+                ]),
+            ]),
+            'SimilarityThreshold' => 1337,
+            'QualityFilter' => 'change me',
+        ]);
+        $result = $client->compareFaces($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getSourceImageFace());
+        // self::assertTODO(expected, $result->getFaceMatches());
+        // self::assertTODO(expected, $result->getUnmatchedFaces());
+        self::assertSame('changeIt', $result->getSourceImageOrientationCorrection());
+        self::assertSame('changeIt', $result->getTargetImageOrientationCorrection());
+    }
+
     public function testCreateCollection(): void
     {
         $client = $this->getClient();
