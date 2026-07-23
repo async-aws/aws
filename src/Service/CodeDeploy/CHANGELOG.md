@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix typos.
+
 ## 2.4.1
 
 ### Changed

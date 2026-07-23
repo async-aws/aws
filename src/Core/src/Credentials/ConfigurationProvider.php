@@ -74,7 +74,7 @@ final class ConfigurationProvider implements CredentialProvider
 
         try {
             if (null === $credentials = $result->getCredentials()) {
-                throw new RuntimeException('The AsumeRole response does not contains credentials');
+                throw new RuntimeException('The AssumeRole response does not contain credentials');
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get credentials from assumed role: {exception}".', ['exception' => $e]);

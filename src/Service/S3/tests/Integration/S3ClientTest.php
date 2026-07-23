@@ -487,7 +487,7 @@ class S3ClientTest extends TestCase
             'Key' => 'bar',
         ]);
         self::assertEquals('content', $result->getBody()->getContentAsString());
-        // calling it twice to ensure consitency
+        // calling it twice to ensure consistency
         self::assertEquals('content', $result->getBody()->getContentAsString());
         self::assertEquals('content', stream_get_contents($result->getBody()->getContentAsResource()));
         self::assertEquals('content', implode('', iterator_to_array($result->getBody()->getChunks())));
