@@ -9,6 +9,13 @@
 ### Changed
 
 - AWS enhancement: Documentation updates.
+### Changed
+
+- AWS enhancement: Documentation updates.
+
+### Fixed
+
+- Fix typos.
 
 ## 3.4.0
 
