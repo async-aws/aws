@@ -13,8 +13,6 @@ class CompareFacesResponseTest extends TestCase
 {
     public function testCompareFacesResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "FaceMatches": [
@@ -45,10 +43,13 @@ class CompareFacesResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new CompareFacesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getSourceImageFace());
-        // self::assertTODO(expected, $result->getFaceMatches());
-        // self::assertTODO(expected, $result->getUnmatchedFaces());
-        self::assertSame('changeIt', $result->getSourceImageOrientationCorrection());
-        self::assertSame('changeIt', $result->getTargetImageOrientationCorrection());
+        self::assertSame(99.9991226196289, $result->getSourceImageFace()->getConfidence());
+        self::assertSame(0.33481481671333313, $result->getSourceImageFace()->getBoundingBox()->getHeight());
+        self::assertCount(1, $result->getFaceMatches());
+        self::assertSame(100.0, $result->getFaceMatches()[0]->getSimilarity());
+        self::assertSame(99.9991226196289, $result->getFaceMatches()[0]->getFace()->getConfidence());
+        self::assertCount(0, $result->getUnmatchedFaces());
+        self::assertNull($result->getSourceImageOrientationCorrection());
+        self::assertNull($result->getTargetImageOrientationCorrection());
     }
 }

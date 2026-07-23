@@ -11,50 +11,54 @@ class CompareFacesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CompareFacesRequest([
             'SourceImage' => new Image([
-                'Bytes' => 'change me',
+                'Bytes' => 'first-image-bytes',
                 'S3Object' => new S3Object([
-                    'Bucket' => 'change me',
-                    'Name' => 'change me',
-                    'Version' => 'change me',
+                    'Bucket' => 'bucket1',
+                    'Name' => 'my-bucket-1',
+                    'Version' => 'stable',
                 ]),
             ]),
             'TargetImage' => new Image([
-                'Bytes' => 'change me',
+                'Bytes' => 'second-image-bytes',
                 'S3Object' => new S3Object([
-                    'Bucket' => 'change me',
-                    'Name' => 'change me',
-                    'Version' => 'change me',
+                    'Bucket' => 'bucket2',
+                    'Name' => 'my-bucket-2',
+                    'Version' => 'stable',
                 ]),
             ]),
-            'SimilarityThreshold' => 1337,
-            'QualityFilter' => 'change me',
+            'SimilarityThreshold' => 90,
+            'QualityFilter' => 'AUTO',
         ]);
 
         // see example-1.json from SDK
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
+            X-Amz-Target: RekognitionService.CompareFaces
+            Accept: application/json
 
             {
-            "SimilarityThreshold": 90,
-            "SourceImage": {
-                "S3Object": {
-                    "Bucket": "mybucket",
-                    "Name": "mysourceimage"
+                "QualityFilter": "AUTO",
+                "SimilarityThreshold": 90,
+                "SourceImage": {
+                    "Bytes": "Zmlyc3QtaW1hZ2UtYnl0ZXM=",
+                    "S3Object": {
+                        "Bucket": "bucket1",
+                        "Name": "my-bucket-1",
+                        "Version": "stable"
+                    }
+                },
+                "TargetImage": {
+                    "Bytes": "c2Vjb25kLWltYWdlLWJ5dGVz",
+                    "S3Object": {
+                        "Bucket": "bucket2",
+                        "Name": "my-bucket-2",
+                        "Version": "stable"
+                    }
                 }
-            },
-            "TargetImage": {
-                "S3Object": {
-                    "Bucket": "mybucket",
-                    "Name": "mytargetimage"
-                }
-            }
-        }
-                ';
+            }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
