@@ -5,8 +5,7 @@
 ### Added
 
 - AWS api-change: Added `getEmailIdentity`, `createEmailIdentity` and `putEmailIdentityDkimSigningAttributes` operations
-- AWS api-change: Launching DEED and MREP in US GOV
-- AWS api-change: Amazon SES introduces three new Pricing Plans (Essentials, Pro, Enterprise), which bundle SES features under one pricing umbrella. The new PutAccountPricingAttributes API lets the user set the account's plan, while current plan retrievalif done through the new PricingAttributes field on GetAccount.
+- AWS api-change: Added `AWS_SES_US_GOV_EAST_1` and `AWS_SES_US_GOV_WEST_1` origins
 
 ## 1.15.0
 
