@@ -30,6 +30,8 @@ final class DkimSigningAttributesOrigin
     public const AWS_SES_SA_EAST_1 = 'AWS_SES_SA_EAST_1';
     public const AWS_SES_US_EAST_1 = 'AWS_SES_US_EAST_1';
     public const AWS_SES_US_EAST_2 = 'AWS_SES_US_EAST_2';
+    public const AWS_SES_US_GOV_EAST_1 = 'AWS_SES_US_GOV_EAST_1';
+    public const AWS_SES_US_GOV_WEST_1 = 'AWS_SES_US_GOV_WEST_1';
     public const AWS_SES_US_WEST_1 = 'AWS_SES_US_WEST_1';
     public const AWS_SES_US_WEST_2 = 'AWS_SES_US_WEST_2';
     public const EXTERNAL = 'EXTERNAL';
@@ -67,6 +69,8 @@ final class DkimSigningAttributesOrigin
             self::AWS_SES_SA_EAST_1 => true,
             self::AWS_SES_US_EAST_1 => true,
             self::AWS_SES_US_EAST_2 => true,
+            self::AWS_SES_US_GOV_EAST_1 => true,
+            self::AWS_SES_US_GOV_WEST_1 => true,
             self::AWS_SES_US_WEST_1 => true,
             self::AWS_SES_US_WEST_2 => true,
             self::EXTERNAL => true,
