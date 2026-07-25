@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added operation `compareFaces`
+
 ## 1.8.0
 
 ### Added

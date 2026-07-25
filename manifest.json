@@ -514,6 +514,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rekognition/2016-06-27/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/rekognition/latest/dg",
             "methods": [
+                "CompareFaces",
                 "CreateCollection",
                 "CreateProject",
                 "DeleteCollection",

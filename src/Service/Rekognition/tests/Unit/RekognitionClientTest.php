@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Rekognition\Input\CompareFacesRequest;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
 use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
@@ -16,6 +17,7 @@ use AsyncAws\Rekognition\Input\ListCollectionsRequest;
 use AsyncAws\Rekognition\Input\RecognizeCelebritiesRequest;
 use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\RekognitionClient;
+use AsyncAws\Rekognition\Result\CompareFacesResponse;
 use AsyncAws\Rekognition\Result\CreateCollectionResponse;
 use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
@@ -32,6 +34,22 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class RekognitionClientTest extends TestCase
 {
+    public function testCompareFaces(): void
+    {
+        $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CompareFacesRequest([
+            'SourceImage' => new Image([
+            ]),
+            'TargetImage' => new Image([
+            ]),
+        ]);
+        $result = $client->compareFaces($input);
+
+        self::assertInstanceOf(CompareFacesResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testCreateCollection(): void
     {
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
