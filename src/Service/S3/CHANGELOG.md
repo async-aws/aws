@@ -2,13 +2,6 @@
 
 ## NOT RELEASED
 
-### Fixed
-
-- Fix typos.
-
-### Changed
-
-- AWS enhancement: Documentation updates.
 ### Changed
 
 - AWS enhancement: Documentation updates.
