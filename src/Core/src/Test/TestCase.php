@@ -50,7 +50,7 @@ class TestCase extends PHPUnitTestCase
         $headers = $expected[0];
         $body = $expected[1] ?? '';
         $headers = explode("\n", $headers);
-        array_map('trim', $headers);
+        $headers = array_map('trim', $headers);
         [$method, $url] = explode(' ', array_shift($headers));
 
         self::assertSame($method, $actual->getMethod());

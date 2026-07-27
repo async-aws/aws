@@ -6,6 +6,10 @@
 
 - AWS enhancement: Documentation updates.
 
+### Fixed
+
+- Fix typos.
+
 ## 3.4.0
 
 ### Added
@@ -355,7 +359,7 @@
 
 ### Fixed
 
-- Fixed an issue in Metadata not beeing sent to AWS in `PutObject`, `CopyObject` and `CreateMultipartUpload`
+- Fixed an issue in Metadata not being sent to AWS in `PutObject`, `CopyObject` and `CreateMultipartUpload`
 - Internal AWS prefix were added to Metadata's name in `GetObject` and `HeadObject`.
 
 ## 1.2.0

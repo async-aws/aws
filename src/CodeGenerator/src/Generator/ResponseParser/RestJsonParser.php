@@ -127,17 +127,17 @@ class RestJsonParser implements Parser
             $input = '$response->toArray()';
         }
         $path = explode('.', $path);
-        $accesor = '';
+        $accessor = '';
         while (\count($path) > 0) {
             $item = array_shift($path);
             $member = $shape->getMember($item);
             $shape = $member->getShape();
-            $accesor .= '[' . var_export($this->getInputAccessorName($member), true) . ']';
+            $accessor .= '[' . var_export($this->getInputAccessorName($member), true) . ']';
         }
 
         $body .= strtr('OUTPUT = INPUTPATH ?? null', [
             'INPUT' => $input,
-            'PATH' => $accesor,
+            'PATH' => $accessor,
             'OUTPUT' => $output,
         ]);
 

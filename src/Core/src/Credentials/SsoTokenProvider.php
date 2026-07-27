@@ -154,8 +154,8 @@ final class SsoTokenProvider
             );
         } catch (\JsonException $e) {
             $this->logger->warning(
-                'The sso cache file {path} contains invalide JSON.',
-                ['path' => $filepath, 'ecxeption' => $e]
+                'The sso cache file {path} contains invalid JSON.',
+                ['path' => $filepath, 'exception' => $e]
             );
 
             return null;

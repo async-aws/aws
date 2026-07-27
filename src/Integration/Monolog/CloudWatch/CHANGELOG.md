@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix `async-aws` keyword typo.
+
 ## 1.3.0
 
 ### Dependency bumped

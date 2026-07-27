@@ -15,7 +15,7 @@ class CreateThingTypeRequestTest extends TestCase
             'thingTypeName' => 'hvac',
             'thingTypeProperties' => new ThingTypeProperties([
                 'thingTypeDescription' => 'HVAC',
-                'searchableAttributes' => ['air-conditionner'],
+                'searchableAttributes' => ['air-conditioner'],
             ]),
             'tags' => [new Tag([
                 'Key' => 'default_temperature',
@@ -37,7 +37,7 @@ class CreateThingTypeRequestTest extends TestCase
                     }
                 ],
                 "thingTypeProperties": {
-                    "searchableAttributes": [ "air-conditionner" ],
+                    "searchableAttributes": [ "air-conditioner" ],
                     "thingTypeDescription": "HVAC"
                 }
             }

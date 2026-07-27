@@ -267,7 +267,7 @@ class AthenaClientTest extends TestCase
         $client = new AthenaClient([], new NullProvider(), new MockHttpClient());
 
         $input = new StartQueryExecutionInput([
-            'QueryString' => 'SELECT * FROM iadDatabase.catalog LIMT 10',
+            'QueryString' => 'SELECT * FROM iadDatabase.catalog LIMIT 10',
         ]);
         $result = $client->startQueryExecution($input);
 

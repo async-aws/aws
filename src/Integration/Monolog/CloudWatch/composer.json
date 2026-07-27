@@ -5,7 +5,7 @@
     "type": "library",
     "keywords": [
         "aws",
-        "aync-aws",
+        "async-aws",
         "Monolog",
         "CloudWatch",
         "Logs"

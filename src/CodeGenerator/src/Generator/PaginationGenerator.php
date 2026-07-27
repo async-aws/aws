@@ -298,7 +298,7 @@ class PaginationGenerator
                 $last = true;
             }
             if (!preg_match('/^[a-z]++$/i', $part)) {
-                throw new LogicException(\sprintf('The part "%s" of the getter expression "%s" is n9ot yet supported', $part, $expression));
+                throw new LogicException(\sprintf('The part "%s" of the getter expression "%s" is not yet supported', $part, $expression));
             }
 
             if (!$useGetter && $getter === $property) {

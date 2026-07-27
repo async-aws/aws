@@ -126,16 +126,16 @@ class RestXmlParser implements Parser
             $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
         }
         $path = explode('.', $path);
-        $accesor = '$data';
+        $accessor = '$data';
         while (\count($path) > 0) {
             $item = array_shift($path);
             $member = $shape->getMember($item);
             $shape = $member->getShape();
-            $accesor = $this->getInputAccessor($accesor, $member);
+            $accessor = $this->getInputAccessor($accessor, $member);
         }
 
         $body .= strtr('OUTPUT = PATH', [
-            'PATH' => $this->parseXmlElement($accesor, $shape, true, false),
+            'PATH' => $this->parseXmlElement($accessor, $shape, true, false),
             'OUTPUT' => $output,
         ]);
 

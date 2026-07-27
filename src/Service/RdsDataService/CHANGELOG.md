@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix typos.
+
 ## 3.0.3
 
 ### Changed
@@ -49,7 +53,7 @@
 
 ### Added
 
-- AWS api-change: Addded InvalidResourceStateException.
+- AWS api-change: Added InvalidResourceStateException.
 
 ## 2.2.1
 

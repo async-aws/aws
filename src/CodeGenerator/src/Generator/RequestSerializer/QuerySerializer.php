@@ -167,7 +167,7 @@ class QuerySerializer implements Serializer
         if ($member instanceof StructureMember) {
             $name = $this->getQueryName($member, $member->getName());
         } else {
-            throw new \RuntimeException('Guessing the name fot this member not yet implemented');
+            throw new \RuntimeException('Guessing the name for this member not yet implemented');
         }
 
         $shape = $member->getShape();

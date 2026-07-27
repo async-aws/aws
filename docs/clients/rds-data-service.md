@@ -72,7 +72,7 @@ try {
         'transaction' => $transaction->getTransactionId(),
     ]);
 } catch (\Throwable $e) {
-    // Make sure to allways rollback since there is no connection.
+    // Make sure to always roll back since there is no connection.
     // If you forget than the transaction might block tables for up to 5 minutes.
     $client->rollbackTransaction($database + [
         'transaction' => $transaction->getTransactionId(),

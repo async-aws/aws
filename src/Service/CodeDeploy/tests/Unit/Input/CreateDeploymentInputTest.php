@@ -54,7 +54,7 @@ class CreateDeploymentInputTest extends TestCase
             'targetInstances' => new TargetInstances([
                 'tagFilters' => [new EC2TagFilter([
                     'Key' => 'key',
-                    'Value' => 'valu3',
+                    'Value' => 'value3',
                     'Type' => EC2TagFilterType::KEY_AND_VALUE,
                 ])],
                 'autoScalingGroups' => ['auto-scaling-groups'],
@@ -135,7 +135,7 @@ Accept: application/json
             {
                 "Key": "key",
                 "Type": "KEY_AND_VALUE",
-                "Value": "valu3"
+                "Value": "value3"
             }
         ]
     },

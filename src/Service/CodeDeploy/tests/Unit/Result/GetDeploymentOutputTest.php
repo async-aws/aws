@@ -109,7 +109,7 @@ class GetDeploymentOutputTest extends TestCase
                         "sha256": "sha256"
                     },
                     "gitHubLocation": {
-                        "commitId": "commmit-id",
+                        "commitId": "commit-id",
                         "repository": "repository"
                     },
                     "revisionType": "GitHub",
@@ -239,7 +239,7 @@ class GetDeploymentOutputTest extends TestCase
         self::assertSame('content', $info->getPreviousRevision()->getAppSpecContent()->getContent());
         self::assertSame('sha256', $info->getPreviousRevision()->getAppSpecContent()->getSha256());
 
-        self::assertSame('commmit-id', $info->getPreviousRevision()->getGitHubLocation()->getCommitId());
+        self::assertSame('commit-id', $info->getPreviousRevision()->getGitHubLocation()->getCommitId());
         self::assertSame('repository', $info->getPreviousRevision()->getGitHubLocation()->getRepository());
 
         self::assertSame(RevisionLocationType::GIT_HUB, $info->getPreviousRevision()->getRevisionType());

@@ -57,7 +57,7 @@ class ListTableMetadataOutputTest extends TestCase
             new AthenaClient(),
             new ListTableMetadataInput([
                 'CatalogName' => 'iadCatalog',
-                'DatabaseName' => 'iadDatbase',
+                'DatabaseName' => 'iadDatabase',
             ])
         );
 

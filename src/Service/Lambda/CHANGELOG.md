@@ -8,6 +8,10 @@
 - AWS api-change: Add Java 8, 11 and 17 on AL2023 (java8.al2023, java11.al2023, java17.al2023) support to AWS Lambda.
 - AWS api-change: AWS Lambda now returns a new DependencyError value in StateReasonCode and LastUpdateStatusReasonCode to provide more actionable information when a function reaches a failed state due to an error from an upstream dependency or service.
 
+### Fixed
+
+- Fix typos.
+
 ## 2.16.0
 
 ### Added
@@ -65,7 +69,7 @@
 ### Added
 
 - AWS api-change: Rework regions configuration
-- AWS api-change: remove trailling `/` in `ListFunctions` request
+- AWS api-change: remove trailing `/` in `ListFunctions` request
 
 ### Changed
 
