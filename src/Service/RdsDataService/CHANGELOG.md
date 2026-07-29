@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 3.0.4
+
 ### Fixed
 
 - Fix typos.

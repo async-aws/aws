@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - AWS api-change: This launch surfaces the public SSM parameter associated with public AMIs in the AMI metadata.

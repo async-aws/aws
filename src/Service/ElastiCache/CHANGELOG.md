@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.5.1
+
 ### Fixed
 
 - Fix typos.

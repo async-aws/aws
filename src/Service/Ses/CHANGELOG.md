@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.16.0
+
 ### Added
 
 - AWS api-change: Added `getEmailIdentity`, `createEmailIdentity` and `putEmailIdentityDkimSigningAttributes` operations

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.29.2
+
 ### Fixed
 
 - Fix typos.

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.3.1
+
 ### Fixed
 
 - Fix `async-aws` keyword typo.
