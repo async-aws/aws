@@ -98,11 +98,13 @@ class SimpleS3Client extends S3Client
         }
 
         $completeMultipartUploadOptions = [];
-        foreach (['IfMatch', 'IfNoneMatch'] as $option) {
-            if (\array_key_exists($option, $options)) {
-                $completeMultipartUploadOptions[$option] = $options[$option];
-                unset($options[$option]);
-            }
+        if (\array_key_exists('IfMatch', $options)) {
+            $completeMultipartUploadOptions['IfMatch'] = $options['IfMatch'];
+            unset($options['IfMatch']);
+        }
+        if (\array_key_exists('IfNoneMatch', $options)) {
+            $completeMultipartUploadOptions['IfNoneMatch'] = $options['IfNoneMatch'];
+            unset($options['IfNoneMatch']);
         }
 
         $parts = [];
