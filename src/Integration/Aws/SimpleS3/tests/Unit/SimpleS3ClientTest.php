@@ -184,6 +184,50 @@ class SimpleS3ClientTest extends TestCase
         ]);
     }
 
+    #[DataProvider('provideConditionalWriteOptions')]
+    public function testUnknownLengthSmallUploadForwardsConditionalWriteOption(string $option, string $value): void
+    {
+        $resource = fopen('php://temp', 'rw+');
+        fwrite($resource, 'contents');
+        fseek($resource, 0, \SEEK_SET);
+
+        $callback = static function (array $input) use ($option, $value): bool {
+            self::assertSame($value, $input[$option]);
+
+            return true;
+        };
+
+        $this->assertSmallFileUpload(
+            $callback,
+            'bucket',
+            'conditional.txt',
+            static function (int $length) use ($resource): string {
+                return fread($resource, $length);
+            },
+            ['PartSize' => 2, $option => $value]
+        );
+    }
+
+    #[DataProvider('provideConditionalWriteOptions')]
+    public function testUnknownLengthEmptyUploadForwardsConditionalWriteOption(string $option, string $value): void
+    {
+        $callback = static function (array $input) use ($option, $value): bool {
+            self::assertSame($value, $input[$option]);
+
+            return true;
+        };
+
+        $this->assertSmallFileUpload(
+            $callback,
+            'bucket',
+            'conditional.txt',
+            static function (int $length): string {
+                return '';
+            },
+            ['PartSize' => 2, $option => $value]
+        );
+    }
+
     #[DataProvider('providePartSizes')]
     public function testUploadIsSmallerThanPartSize(int $partSize)
     {

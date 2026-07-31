@@ -146,7 +146,7 @@ class SimpleS3Client extends S3Client
                  *
                  * Lets use a normal upload.
                  */
-                $this->doSmallFileUpload($options, $bucket, $key, $buffer);
+                $this->doSmallFileUpload(array_merge($options, $completeMultipartUploadOptions), $bucket, $key, $buffer);
 
                 return;
             }
@@ -157,7 +157,7 @@ class SimpleS3Client extends S3Client
 
         if (empty($parts)) {
             // The upload did not contain any data. Let's create an empty file
-            $this->doSmallFileUpload($options, $bucket, $key, '');
+            $this->doSmallFileUpload(array_merge($options, $completeMultipartUploadOptions), $bucket, $key, '');
 
             return;
         }
