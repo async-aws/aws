@@ -162,12 +162,26 @@ class SimpleS3Client extends S3Client
             return;
         }
 
-        $this->completeMultipartUpload(array_merge($completeMultipartUploadOptions, [
-            'Bucket' => $bucket,
-            'Key' => $key,
-            'UploadId' => $uploadId,
-            'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
-        ]));
+        try {
+            $this->completeMultipartUpload(array_merge($completeMultipartUploadOptions, [
+                'Bucket' => $bucket,
+                'Key' => $key,
+                'UploadId' => $uploadId,
+                'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
+            ]));
+        } catch (\Throwable $e) {
+            try {
+                $this->abortMultipartUpload([
+                    'Bucket' => $bucket,
+                    'Key' => $key,
+                    'UploadId' => $uploadId,
+                ]);
+            } catch (\Throwable) {
+                // Preserve the completion failure.
+            }
+
+            throw $e;
+        }
     }
 
     /**

@@ -137,6 +137,53 @@ class SimpleS3ClientTest extends TestCase
         ]);
     }
 
+    public function testMultipartUploadIsAbortedWhenCompletionFails(): void
+    {
+        $object = fopen('php://temp', 'rw+');
+        fwrite($object, str_repeat('a', 2 * 1024 * 1024));
+        $failure = new \RuntimeException('Conditional request failed.');
+
+        $s3 = $this->getMockBuilder(SimpleS3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'putObject', 'completeMultipartUpload', 'uploadPart'])
+            ->getMock();
+
+        $s3->expects(self::never())->method('putObject');
+        $s3->expects(self::once())
+            ->method('createMultipartUpload')
+            ->willReturnCallback(static function (): CreateMultipartUploadOutput {
+                $upload = self::createStub(CreateMultipartUploadOutput::class);
+                $upload->method('getUploadId')->willReturn('failed-upload-id');
+
+                return $upload;
+            });
+        $s3->expects(self::exactly(2))
+            ->method('uploadPart')
+            ->willReturnCallback(static function (array $part): UploadPartOutput {
+                $output = self::createStub(UploadPartOutput::class);
+                $output->method('getETag')->willReturn("etag-{$part['PartNumber']}");
+
+                return $output;
+            });
+        $s3->expects(self::once())
+            ->method('completeMultipartUpload')
+            ->willThrowException($failure);
+        $s3->expects(self::once())
+            ->method('abortMultipartUpload')
+            ->with([
+                'Bucket' => 'bucket',
+                'Key' => 'conditional.txt',
+                'UploadId' => 'failed-upload-id',
+            ]);
+
+        $this->expectExceptionObject($failure);
+
+        $s3->upload('bucket', 'conditional.txt', $object, [
+            'PartSize' => 1,
+            'IfNoneMatch' => '*',
+        ]);
+    }
+
     #[DataProvider('providePartSizes')]
     public function testUploadIsSmallerThanPartSize(int $partSize)
     {
