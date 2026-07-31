@@ -54,6 +54,89 @@ class SimpleS3ClientTest extends TestCase
         $this->assertSmallFileUpload($callback, $bucket, $file, $object);
     }
 
+    #[DataProvider('provideConditionalWriteOptions')]
+    public function testUploadSmallFileForwardsConditionalWriteOption(string $option, string $value): void
+    {
+        $callback = static function (array $input) use ($option, $value): bool {
+            self::assertSame($value, $input[$option]);
+
+            return true;
+        };
+
+        $this->assertSmallFileUpload(
+            $callback,
+            'bucket',
+            'conditional.txt',
+            'contents',
+            [$option => $value]
+        );
+    }
+
+    public static function provideConditionalWriteOptions(): iterable
+    {
+        yield 'If-Match' => ['IfMatch', '"expected-etag"'];
+        yield 'If-None-Match' => ['IfNoneMatch', '*'];
+    }
+
+    #[DataProvider('provideConditionalWriteOptions')]
+    public function testMultipartUploadAppliesConditionalWriteOptionOnlyOnCompletion(string $option, string $value): void
+    {
+        $bucket = 'bucket';
+        $file = 'conditional.txt';
+        $object = fopen('php://temp', 'rw+');
+        fwrite($object, str_repeat('a', 2 * 1024 * 1024));
+
+        $s3 = $this->getMockBuilder(SimpleS3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['createMultipartUpload', 'abortMultipartUpload', 'putObject', 'completeMultipartUpload', 'uploadPart'])
+            ->getMock();
+
+        $s3->expects(self::never())->method('abortMultipartUpload');
+        $s3->expects(self::never())->method('putObject');
+        $s3->expects(self::once())
+            ->method('createMultipartUpload')
+            ->with(self::callback(static function (array $input) use ($bucket, $file, $option): bool {
+                self::assertSame($bucket, $input['Bucket']);
+                self::assertSame($file, $input['Key']);
+                self::assertSame(['purpose' => 'conditional-write'], $input['Metadata']);
+                self::assertArrayNotHasKey($option, $input);
+
+                return true;
+            }))
+            ->willReturnCallback(static function (): CreateMultipartUploadOutput {
+                $upload = self::createStub(CreateMultipartUploadOutput::class);
+                $upload->method('getUploadId')->willReturn('conditional-upload-id');
+
+                return $upload;
+            });
+        $s3->expects(self::exactly(2))
+            ->method('uploadPart')
+            ->willReturnCallback(static function (array $part) use ($option): UploadPartOutput {
+                self::assertArrayNotHasKey($option, $part);
+
+                $output = self::createStub(UploadPartOutput::class);
+                $output->method('getETag')->willReturn("etag-{$part['PartNumber']}");
+
+                return $output;
+            });
+        $s3->expects(self::once())
+            ->method('completeMultipartUpload')
+            ->with(self::callback(static function (array $input) use ($option, $value): bool {
+                self::assertSame($value, $input[$option]);
+                self::assertSame('conditional-upload-id', $input['UploadId']);
+                self::assertCount(2, $input['MultipartUpload']->getParts());
+
+                return true;
+            }))
+            ->willReturn(self::createStub(CompleteMultipartUploadOutput::class));
+
+        $s3->upload($bucket, $file, $object, [
+            'PartSize' => 1,
+            'Metadata' => ['purpose' => 'conditional-write'],
+            $option => $value,
+        ]);
+    }
+
     #[DataProvider('providePartSizes')]
     public function testUploadIsSmallerThanPartSize(int $partSize)
     {

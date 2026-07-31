@@ -63,6 +63,8 @@ class SimpleS3Client extends S3Client
      *   CacheControl?: string,
      *   ContentLength?: int,
      *   ContentType?: string,
+     *   IfMatch?: string,
+     *   IfNoneMatch?: string,
      *   Metadata?: array<string, string>,
      *   PartSize?: int,
      * } $options
@@ -93,6 +95,14 @@ class SimpleS3Client extends S3Client
             $this->doSmallFileUpload($options, $bucket, $key, $object);
 
             return;
+        }
+
+        $completeMultipartUploadOptions = [];
+        foreach (['IfMatch', 'IfNoneMatch'] as $option) {
+            if (\array_key_exists($option, $options)) {
+                $completeMultipartUploadOptions[$option] = $options[$option];
+                unset($options[$option]);
+            }
         }
 
         $parts = [];
@@ -152,12 +162,12 @@ class SimpleS3Client extends S3Client
             return;
         }
 
-        $this->completeMultipartUpload([
+        $this->completeMultipartUpload(array_merge($completeMultipartUploadOptions, [
             'Bucket' => $bucket,
             'Key' => $key,
             'UploadId' => $uploadId,
             'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
-        ]);
+        ]));
     }
 
     /**
@@ -199,6 +209,8 @@ class SimpleS3Client extends S3Client
      *   CacheControl?: string,
      *   ContentLength?: int,
      *   ContentType?: string,
+     *   IfMatch?: string,
+     *   IfNoneMatch?: string,
      *   Metadata?: array<string, string>,
      * } $options
      * @param string|resource|(callable(int): string)|iterable<string> $object
