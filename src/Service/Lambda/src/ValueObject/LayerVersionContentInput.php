@@ -35,6 +35,11 @@ final class LayerVersionContentInput
     private $s3ObjectVersion;
 
     /**
+     * Specifies how the layer archive is stored. Valid values:
+     *
+     * - `COPY` (default) – Uploads a copy of your layer archive to Lambda.
+     * - `REFERENCE` – Lambda references the layer archive from the specified Amazon S3 bucket.
+     *
      * @var S3ObjectStorageMode::*|null
      */
     private $s3ObjectStorageMode;
