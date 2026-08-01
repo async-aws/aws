@@ -45,6 +45,8 @@ final class LayerVersionContentOutput
     private $signingJobArn;
 
     /**
+     * The resolved Amazon S3 object that contains the layer archive.
+     *
      * @var ResolvedS3Object|null
      */
     private $resolvedS3Object;

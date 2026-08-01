@@ -30,6 +30,7 @@ final class Runtime
     public const NODEJS_20_X = 'nodejs20.x';
     public const NODEJS_22_X = 'nodejs22.x';
     public const NODEJS_24_X = 'nodejs24.x';
+    public const NODEJS_26_X = 'nodejs26.x';
     public const NODEJS_4_3 = 'nodejs4.3';
     public const NODEJS_4_3_EDGE = 'nodejs4.3-edge';
     public const NODEJS_6_10 = 'nodejs6.10';
@@ -43,6 +44,7 @@ final class Runtime
     public const PYTHON_3_12 = 'python3.12';
     public const PYTHON_3_13 = 'python3.13';
     public const PYTHON_3_14 = 'python3.14';
+    public const PYTHON_3_15 = 'python3.15';
     public const PYTHON_3_6 = 'python3.6';
     public const PYTHON_3_7 = 'python3.7';
     public const PYTHON_3_8 = 'python3.8';
@@ -87,6 +89,7 @@ final class Runtime
             self::NODEJS_20_X => true,
             self::NODEJS_22_X => true,
             self::NODEJS_24_X => true,
+            self::NODEJS_26_X => true,
             self::NODEJS_4_3 => true,
             self::NODEJS_4_3_EDGE => true,
             self::NODEJS_6_10 => true,
@@ -100,6 +103,7 @@ final class Runtime
             self::PYTHON_3_12 => true,
             self::PYTHON_3_13 => true,
             self::PYTHON_3_14 => true,
+            self::PYTHON_3_15 => true,
             self::PYTHON_3_6 => true,
             self::PYTHON_3_7 => true,
             self::PYTHON_3_8 => true,

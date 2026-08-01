@@ -3,7 +3,8 @@
 namespace AsyncAws\Lambda\Enum;
 
 /**
- * The storage mode for a function's deployment package.
+ * The method Lambda uses to store a function's deployment package — either by copying the package into Lambda-managed
+ * storage (`COPY`) or by referencing it directly from the source Amazon S3 bucket (`REFERENCE`).
  */
 final class S3ObjectStorageMode
 {
