@@ -63,8 +63,8 @@ class SimpleS3Client extends S3Client
      *   CacheControl?: string,
      *   ContentLength?: int,
      *   ContentType?: string,
-     *   IfMatch?: string,
-     *   IfNoneMatch?: string,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Metadata?: array<string, string>,
      *   PartSize?: int,
      * } $options
@@ -98,14 +98,13 @@ class SimpleS3Client extends S3Client
         }
 
         $completeMultipartUploadOptions = [];
-        if (\array_key_exists('IfMatch', $options)) {
+        if (isset($options['IfMatch'])) {
             $completeMultipartUploadOptions['IfMatch'] = $options['IfMatch'];
-            unset($options['IfMatch']);
         }
-        if (\array_key_exists('IfNoneMatch', $options)) {
+        if (isset($options['IfNoneMatch'])) {
             $completeMultipartUploadOptions['IfNoneMatch'] = $options['IfNoneMatch'];
-            unset($options['IfNoneMatch']);
         }
+        unset($options['IfMatch'], $options['IfNoneMatch']);
 
         $parts = [];
         $uploadId = '';
@@ -164,26 +163,12 @@ class SimpleS3Client extends S3Client
             return;
         }
 
-        try {
-            $this->completeMultipartUpload(array_merge($completeMultipartUploadOptions, [
-                'Bucket' => $bucket,
-                'Key' => $key,
-                'UploadId' => $uploadId,
-                'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
-            ]));
-        } catch (\Throwable $e) {
-            try {
-                $this->abortMultipartUpload([
-                    'Bucket' => $bucket,
-                    'Key' => $key,
-                    'UploadId' => $uploadId,
-                ]);
-            } catch (\Throwable) {
-                // Preserve the completion failure.
-            }
-
-            throw $e;
-        }
+        $this->completeMultipartUpload(array_merge($completeMultipartUploadOptions, [
+            'Bucket' => $bucket,
+            'Key' => $key,
+            'UploadId' => $uploadId,
+            'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
+        ]));
     }
 
     /**
@@ -225,8 +210,8 @@ class SimpleS3Client extends S3Client
      *   CacheControl?: string,
      *   ContentLength?: int,
      *   ContentType?: string,
-     *   IfMatch?: string,
-     *   IfNoneMatch?: string,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Metadata?: array<string, string>,
      * } $options
      * @param string|resource|(callable(int): string)|iterable<string> $object

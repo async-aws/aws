@@ -137,7 +137,7 @@ class SimpleS3ClientTest extends TestCase
         ]);
     }
 
-    public function testMultipartUploadIsAbortedWhenCompletionFails(): void
+    public function testMultipartUploadIsNotAbortedWhenCompletionFails(): void
     {
         $object = fopen('php://temp', 'rw+');
         fwrite($object, str_repeat('a', 2 * 1024 * 1024));
@@ -168,13 +168,7 @@ class SimpleS3ClientTest extends TestCase
         $s3->expects(self::once())
             ->method('completeMultipartUpload')
             ->willThrowException($failure);
-        $s3->expects(self::once())
-            ->method('abortMultipartUpload')
-            ->with([
-                'Bucket' => 'bucket',
-                'Key' => 'conditional.txt',
-                'UploadId' => 'failed-upload-id',
-            ]);
+        $s3->expects(self::never())->method('abortMultipartUpload');
 
         $this->expectExceptionObject($failure);
 
@@ -182,6 +176,59 @@ class SimpleS3ClientTest extends TestCase
             'PartSize' => 1,
             'IfNoneMatch' => '*',
         ]);
+    }
+
+    #[DataProvider('provideConditionalWriteOptionNames')]
+    public function testMultipartUploadIgnoresNullConditionalWriteOption(string $option): void
+    {
+        $object = fopen('php://temp', 'rw+');
+        fwrite($object, str_repeat('a', 2 * 1024 * 1024));
+
+        $s3 = $this->getMockBuilder(SimpleS3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['createMultipartUpload', 'completeMultipartUpload', 'uploadPart'])
+            ->getMock();
+
+        $s3->expects(self::once())
+            ->method('createMultipartUpload')
+            ->with(self::callback(static function (array $input) use ($option): bool {
+                self::assertArrayNotHasKey($option, $input);
+
+                return true;
+            }))
+            ->willReturnCallback(static function (): CreateMultipartUploadOutput {
+                $upload = self::createStub(CreateMultipartUploadOutput::class);
+                $upload->method('getUploadId')->willReturn('null-condition-upload-id');
+
+                return $upload;
+            });
+        $s3->expects(self::exactly(2))
+            ->method('uploadPart')
+            ->willReturnCallback(static function (array $part): UploadPartOutput {
+                $output = self::createStub(UploadPartOutput::class);
+                $output->method('getETag')->willReturn("etag-{$part['PartNumber']}");
+
+                return $output;
+            });
+        $s3->expects(self::once())
+            ->method('completeMultipartUpload')
+            ->with(self::callback(static function (array $input) use ($option): bool {
+                self::assertArrayNotHasKey($option, $input);
+
+                return true;
+            }))
+            ->willReturn(self::createStub(CompleteMultipartUploadOutput::class));
+
+        $s3->upload('bucket', 'conditional.txt', $object, [
+            'PartSize' => 1,
+            $option => null,
+        ]);
+    }
+
+    public static function provideConditionalWriteOptionNames(): iterable
+    {
+        yield 'If-Match' => ['IfMatch'];
+        yield 'If-None-Match' => ['IfNoneMatch'];
     }
 
     #[DataProvider('provideConditionalWriteOptions')]
