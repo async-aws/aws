@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Add `IfMatch` and `IfNoneMatch` support to multipart uploads.
+
 ## 3.0.2
 
 ### Changed

@@ -63,6 +63,8 @@ class SimpleS3Client extends S3Client
      *   CacheControl?: string,
      *   ContentLength?: int,
      *   ContentType?: string,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Metadata?: array<string, string>,
      *   PartSize?: int,
      * } $options
@@ -94,6 +96,15 @@ class SimpleS3Client extends S3Client
 
             return;
         }
+
+        $completeMultipartUploadOptions = [];
+        if (isset($options['IfMatch'])) {
+            $completeMultipartUploadOptions['IfMatch'] = $options['IfMatch'];
+        }
+        if (isset($options['IfNoneMatch'])) {
+            $completeMultipartUploadOptions['IfNoneMatch'] = $options['IfNoneMatch'];
+        }
+        unset($options['IfMatch'], $options['IfNoneMatch']);
 
         $parts = [];
         $uploadId = '';
@@ -136,7 +147,7 @@ class SimpleS3Client extends S3Client
                  *
                  * Lets use a normal upload.
                  */
-                $this->doSmallFileUpload($options, $bucket, $key, $buffer);
+                $this->doSmallFileUpload(array_merge($options, $completeMultipartUploadOptions), $bucket, $key, $buffer);
 
                 return;
             }
@@ -147,17 +158,17 @@ class SimpleS3Client extends S3Client
 
         if (empty($parts)) {
             // The upload did not contain any data. Let's create an empty file
-            $this->doSmallFileUpload($options, $bucket, $key, '');
+            $this->doSmallFileUpload(array_merge($options, $completeMultipartUploadOptions), $bucket, $key, '');
 
             return;
         }
 
-        $this->completeMultipartUpload([
+        $this->completeMultipartUpload(array_merge($completeMultipartUploadOptions, [
             'Bucket' => $bucket,
             'Key' => $key,
             'UploadId' => $uploadId,
             'MultipartUpload' => new CompletedMultipartUpload(['Parts' => $parts]),
-        ]);
+        ]));
     }
 
     /**
@@ -199,6 +210,8 @@ class SimpleS3Client extends S3Client
      *   CacheControl?: string,
      *   ContentLength?: int,
      *   ContentType?: string,
+     *   IfMatch?: string|null,
+     *   IfNoneMatch?: string|null,
      *   Metadata?: array<string, string>,
      * } $options
      * @param string|resource|(callable(int): string)|iterable<string> $object
