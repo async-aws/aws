@@ -3,6 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\CmfcAudioDuration;
 use AsyncAws\MediaConvert\Enum\MovClapAtom;
 use AsyncAws\MediaConvert\Enum\MovCslgAtom;
 use AsyncAws\MediaConvert\Enum\MovMpeg2FourCCControl;
@@ -14,6 +15,21 @@ use AsyncAws\MediaConvert\Enum\MovReference;
  */
 final class MovSettings
 {
+    /**
+     * Specify this setting only when your output will be consumed by a downstream repackaging workflow that is sensitive to
+     * very small duration differences between video and audio. For this situation, choose Match video duration. In all
+     * other cases, keep the default value, Default codec duration. When you choose Match video duration, MediaConvert pads
+     * the output audio streams with silence or trims them to ensure that the total duration of each audio stream is at
+     * least as long as the total duration of the video stream. After padding or trimming, the audio stream duration is no
+     * more than one frame longer than the video stream. MediaConvert applies audio padding or trimming only to the end of
+     * the last segment of the output. For unsegmented outputs, MediaConvert adds padding only to the end of the file. When
+     * you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio
+     * codec.
+     *
+     * @var CmfcAudioDuration::*|null
+     */
+    private $audioDuration;
+
     /**
      * When enabled, include 'clap' atom if appropriate for the video output settings.
      *
@@ -57,6 +73,7 @@ final class MovSettings
 
     /**
      * @param array{
+     *   AudioDuration?: CmfcAudioDuration::*|null,
      *   ClapAtom?: MovClapAtom::*|null,
      *   CslgAtom?: MovCslgAtom::*|null,
      *   Mpeg2FourCCControl?: MovMpeg2FourCCControl::*|null,
@@ -66,6 +83,7 @@ final class MovSettings
      */
     public function __construct(array $input)
     {
+        $this->audioDuration = $input['AudioDuration'] ?? null;
         $this->clapAtom = $input['ClapAtom'] ?? null;
         $this->cslgAtom = $input['CslgAtom'] ?? null;
         $this->mpeg2FourccControl = $input['Mpeg2FourCCControl'] ?? null;
@@ -75,6 +93,7 @@ final class MovSettings
 
     /**
      * @param array{
+     *   AudioDuration?: CmfcAudioDuration::*|null,
      *   ClapAtom?: MovClapAtom::*|null,
      *   CslgAtom?: MovCslgAtom::*|null,
      *   Mpeg2FourCCControl?: MovMpeg2FourCCControl::*|null,
@@ -85,6 +104,14 @@ final class MovSettings
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return CmfcAudioDuration::*|null
+     */
+    public function getAudioDuration(): ?string
+    {
+        return $this->audioDuration;
     }
 
     /**
@@ -133,6 +160,13 @@ final class MovSettings
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->audioDuration) {
+            if (!CmfcAudioDuration::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "audioDuration" for "%s". The value "%s" is not a valid "CmfcAudioDuration".', __CLASS__, $v));
+            }
+            $payload['audioDuration'] = $v;
+        }
         if (null !== $v = $this->clapAtom) {
             if (!MovClapAtom::exists($v)) {
                 /** @psalm-suppress NoValue */

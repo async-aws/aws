@@ -2266,6 +2266,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     private function populateResultMovSettings(array $json): MovSettings
     {
         return new MovSettings([
+            'AudioDuration' => isset($json['audioDuration']) ? (!CmfcAudioDuration::exists((string) $json['audioDuration']) ? CmfcAudioDuration::UNKNOWN_TO_SDK : (string) $json['audioDuration']) : null,
             'ClapAtom' => isset($json['clapAtom']) ? (!MovClapAtom::exists((string) $json['clapAtom']) ? MovClapAtom::UNKNOWN_TO_SDK : (string) $json['clapAtom']) : null,
             'CslgAtom' => isset($json['cslgAtom']) ? (!MovCslgAtom::exists((string) $json['cslgAtom']) ? MovCslgAtom::UNKNOWN_TO_SDK : (string) $json['cslgAtom']) : null,
             'Mpeg2FourCCControl' => isset($json['mpeg2FourCCControl']) ? (!MovMpeg2FourCCControl::exists((string) $json['mpeg2FourCCControl']) ? MovMpeg2FourCCControl::UNKNOWN_TO_SDK : (string) $json['mpeg2FourCCControl']) : null,
