@@ -11,6 +11,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
+use AsyncAws\DynamoDb\ValueObject\VectorCapacity;
 
 /**
  * Represents the output of a `BatchGetItem` operation.
@@ -247,6 +248,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
             'Table' => empty($json['Table']) ? null : $this->populateResultCapacity($json['Table']),
             'LocalSecondaryIndexes' => !isset($json['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['LocalSecondaryIndexes']),
             'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['GlobalSecondaryIndexes']),
+            'VectorIndexes' => !isset($json['VectorIndexes']) ? null : $this->populateResultVectorIndexesCapacityMap($json['VectorIndexes']),
         ]);
     }
 
@@ -392,6 +394,27 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
             if (null !== $a) {
                 $items[] = $a;
             }
+        }
+
+        return $items;
+    }
+
+    private function populateResultVectorCapacity(array $json): VectorCapacity
+    {
+        return new VectorCapacity([
+            'VectorSearchRequestBytes' => isset($json['VectorSearchRequestBytes']) ? (float) $json['VectorSearchRequestBytes'] : null,
+            'VectorWriteRequestBytes' => isset($json['VectorWriteRequestBytes']) ? (float) $json['VectorWriteRequestBytes'] : null,
+        ]);
+    }
+
+    /**
+     * @return array<string, VectorCapacity>
+     */
+    private function populateResultVectorIndexesCapacityMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultVectorCapacity($value);
         }
 
         return $items;

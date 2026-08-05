@@ -18,6 +18,7 @@ use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
+use AsyncAws\DynamoDb\ValueObject\VectorIndex;
 use AsyncAws\DynamoDb\ValueObject\WarmThroughput;
 
 /**
@@ -268,6 +269,26 @@ final class CreateTableInput extends Input
     private $globalTableSettingsReplicationMode;
 
     /**
+     * One or more vector indexes to be created on the table. Each vector index enables similarity search on a vector
+     * attribute. Each element in the list consists of:
+     *
+     * - `IndexName` - The name of the vector index. Must be unique within the table.
+     * - `VectorAttribute` - The attribute that contains vector embeddings. If multiple vector indexes reference the same
+     *   attribute, they must all use the same number of dimensions.
+     * - `Dimensions` - The number of dimensions in each vector.
+     * - `DistanceFunction` - The distance function used to calculate similarity. Valid values: `COSINE`, `EUCLIDEAN`,
+     *   `DOT_PRODUCT`.
+     * - `Projection` - Specifies attributes that are copied (projected) from the table into the vector index. The total
+     *   number of projected non-key attributes is shared across the vector attribute (counts as 1) and `INLINE_FILTER`
+     *   search schema elements (each counts as 1). `HASH` search schema elements do not count toward this limit.
+     * - `SearchSchema` - (Optional) Defines the partition key (`HASH`) and inline filter (`INLINE_FILTER`) attributes for
+     *   the vector index.
+     *
+     * @var VectorIndex[]|null
+     */
+    private $vectorIndexes;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName?: string,
@@ -286,6 +307,7 @@ final class CreateTableInput extends Input
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   GlobalTableSourceArn?: string|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   VectorIndexes?: array<VectorIndex|array>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -308,6 +330,7 @@ final class CreateTableInput extends Input
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->globalTableSourceArn = $input['GlobalTableSourceArn'] ?? null;
         $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
+        $this->vectorIndexes = isset($input['VectorIndexes']) ? array_map([VectorIndex::class, 'create'], $input['VectorIndexes']) : null;
         parent::__construct($input);
     }
 
@@ -330,6 +353,7 @@ final class CreateTableInput extends Input
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   GlobalTableSourceArn?: string|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   VectorIndexes?: array<VectorIndex|array>|null,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      */
@@ -440,6 +464,14 @@ final class CreateTableInput extends Input
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    /**
+     * @return VectorIndex[]
+     */
+    public function getVectorIndexes(): array
+    {
+        return $this->vectorIndexes ?? [];
     }
 
     public function getWarmThroughput(): ?WarmThroughput
@@ -609,6 +641,16 @@ final class CreateTableInput extends Input
         return $this;
     }
 
+    /**
+     * @param VectorIndex[] $value
+     */
+    public function setVectorIndexes(array $value): self
+    {
+        $this->vectorIndexes = $value;
+
+        return $this;
+    }
+
     public function setWarmThroughput(?WarmThroughput $value): self
     {
         $this->warmThroughput = $value;
@@ -707,6 +749,14 @@ final class CreateTableInput extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "GlobalTableSettingsReplicationMode" for "%s". The value "%s" is not a valid "GlobalTableSettingsReplicationMode".', __CLASS__, $v));
             }
             $payload['GlobalTableSettingsReplicationMode'] = $v;
+        }
+        if (null !== $v = $this->vectorIndexes) {
+            $index = -1;
+            $payload['VectorIndexes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['VectorIndexes'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;

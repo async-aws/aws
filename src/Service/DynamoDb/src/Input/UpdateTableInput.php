@@ -18,6 +18,7 @@ use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
+use AsyncAws\DynamoDb\ValueObject\VectorIndexUpdate;
 use AsyncAws\DynamoDb\ValueObject\WarmThroughput;
 
 /**
@@ -192,6 +193,17 @@ final class UpdateTableInput extends Input
     private $globalTableSettingsReplicationMode;
 
     /**
+     * A list of vector indexes to be added to or removed from the table. You can add or remove one vector index for each
+     * `UpdateTable` operation.
+     *
+     * To add a vector index, specify `IndexName`, `VectorAttribute`, `Dimensions`, `DistanceFunction`, and `Projection`. To
+     * remove a vector index, specify only the `IndexName`.
+     *
+     * @var VectorIndexUpdate[]|null
+     */
+    private $vectorIndexUpdates;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: array<AttributeDefinition|array>|null,
      *   TableName?: string,
@@ -208,6 +220,7 @@ final class UpdateTableInput extends Input
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   VectorIndexUpdates?: array<VectorIndexUpdate|array>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -228,6 +241,7 @@ final class UpdateTableInput extends Input
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
+        $this->vectorIndexUpdates = isset($input['VectorIndexUpdates']) ? array_map([VectorIndexUpdate::class, 'create'], $input['VectorIndexUpdates']) : null;
         parent::__construct($input);
     }
 
@@ -248,6 +262,7 @@ final class UpdateTableInput extends Input
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   VectorIndexUpdates?: array<VectorIndexUpdate|array>|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      */
@@ -348,6 +363,14 @@ final class UpdateTableInput extends Input
     public function getTableName(): ?string
     {
         return $this->tableName;
+    }
+
+    /**
+     * @return VectorIndexUpdate[]
+     */
+    public function getVectorIndexUpdates(): array
+    {
+        return $this->vectorIndexUpdates ?? [];
     }
 
     public function getWarmThroughput(): ?WarmThroughput
@@ -503,6 +526,16 @@ final class UpdateTableInput extends Input
         return $this;
     }
 
+    /**
+     * @param VectorIndexUpdate[] $value
+     */
+    public function setVectorIndexUpdates(array $value): self
+    {
+        $this->vectorIndexUpdates = $value;
+
+        return $this;
+    }
+
     public function setWarmThroughput(?WarmThroughput $value): self
     {
         $this->warmThroughput = $value;
@@ -594,6 +627,14 @@ final class UpdateTableInput extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "GlobalTableSettingsReplicationMode" for "%s". The value "%s" is not a valid "GlobalTableSettingsReplicationMode".', __CLASS__, $v));
             }
             $payload['GlobalTableSettingsReplicationMode'] = $v;
+        }
+        if (null !== $v = $this->vectorIndexUpdates) {
+            $index = -1;
+            $payload['VectorIndexUpdates'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['VectorIndexUpdates'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;

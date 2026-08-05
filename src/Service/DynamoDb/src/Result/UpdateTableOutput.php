@@ -12,11 +12,13 @@ use AsyncAws\DynamoDb\Enum\MultiRegionConsistency;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
 use AsyncAws\DynamoDb\Enum\ReplicaStatus;
 use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
+use AsyncAws\DynamoDb\Enum\SearchSchemaElementType;
 use AsyncAws\DynamoDb\Enum\SSEStatus;
 use AsyncAws\DynamoDb\Enum\SSEType;
 use AsyncAws\DynamoDb\Enum\StreamViewType;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\Enum\TableStatus;
+use AsyncAws\DynamoDb\Enum\VectorDistanceFunction;
 use AsyncAws\DynamoDb\Enum\WitnessStatus;
 use AsyncAws\DynamoDb\ValueObject\ArchivalSummary;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
@@ -34,11 +36,14 @@ use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputOverride;
 use AsyncAws\DynamoDb\ValueObject\ReplicaDescription;
 use AsyncAws\DynamoDb\ValueObject\ReplicaGlobalSecondaryIndexDescription;
 use AsyncAws\DynamoDb\ValueObject\RestoreSummary;
+use AsyncAws\DynamoDb\ValueObject\SearchSchemaElement;
 use AsyncAws\DynamoDb\ValueObject\SSEDescription;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\TableClassSummary;
 use AsyncAws\DynamoDb\ValueObject\TableDescription;
 use AsyncAws\DynamoDb\ValueObject\TableWarmThroughputDescription;
+use AsyncAws\DynamoDb\ValueObject\VectorAttributeDefinition;
+use AsyncAws\DynamoDb\ValueObject\VectorIndexDescription;
 
 /**
  * Represents the output of an `UpdateTable` operation.
@@ -342,6 +347,27 @@ class UpdateTableOutput extends Result
         ]);
     }
 
+    /**
+     * @return SearchSchemaElement[]
+     */
+    private function populateResultSearchSchema(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultSearchSchemaElement($item);
+        }
+
+        return $items;
+    }
+
+    private function populateResultSearchSchemaElement(array $json): SearchSchemaElement
+    {
+        return new SearchSchemaElement([
+            'AttributeName' => (string) $json['AttributeName'],
+            'SearchSchemaElementType' => !SearchSchemaElementType::exists((string) $json['SearchSchemaElementType']) ? SearchSchemaElementType::UNKNOWN_TO_SDK : (string) $json['SearchSchemaElementType'],
+        ]);
+    }
+
     private function populateResultStreamSpecification(array $json): StreamSpecification
     {
         return new StreamSpecification([
@@ -389,6 +415,7 @@ class UpdateTableOutput extends Result
             'OnDemandThroughput' => empty($json['OnDemandThroughput']) ? null : $this->populateResultOnDemandThroughput($json['OnDemandThroughput']),
             'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultTableWarmThroughputDescription($json['WarmThroughput']),
             'MultiRegionConsistency' => isset($json['MultiRegionConsistency']) ? (!MultiRegionConsistency::exists((string) $json['MultiRegionConsistency']) ? MultiRegionConsistency::UNKNOWN_TO_SDK : (string) $json['MultiRegionConsistency']) : null,
+            'VectorIndexes' => !isset($json['VectorIndexes']) ? null : $this->populateResultVectorIndexDescriptionList($json['VectorIndexes']),
         ]);
     }
 
@@ -399,5 +426,42 @@ class UpdateTableOutput extends Result
             'WriteUnitsPerSecond' => isset($json['WriteUnitsPerSecond']) ? (int) $json['WriteUnitsPerSecond'] : null,
             'Status' => isset($json['Status']) ? (!TableStatus::exists((string) $json['Status']) ? TableStatus::UNKNOWN_TO_SDK : (string) $json['Status']) : null,
         ]);
+    }
+
+    private function populateResultVectorAttributeDefinition(array $json): VectorAttributeDefinition
+    {
+        return new VectorAttributeDefinition([
+            'AttributeName' => (string) $json['AttributeName'],
+        ]);
+    }
+
+    private function populateResultVectorIndexDescription(array $json): VectorIndexDescription
+    {
+        return new VectorIndexDescription([
+            'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
+            'SearchSchema' => !isset($json['SearchSchema']) ? null : $this->populateResultSearchSchema($json['SearchSchema']),
+            'Projection' => empty($json['Projection']) ? null : $this->populateResultProjection($json['Projection']),
+            'VectorAttribute' => empty($json['VectorAttribute']) ? null : $this->populateResultVectorAttributeDefinition($json['VectorAttribute']),
+            'Dimensions' => isset($json['Dimensions']) ? (int) $json['Dimensions'] : null,
+            'DistanceFunction' => isset($json['DistanceFunction']) ? (!VectorDistanceFunction::exists((string) $json['DistanceFunction']) ? VectorDistanceFunction::UNKNOWN_TO_SDK : (string) $json['DistanceFunction']) : null,
+            'IndexStatus' => isset($json['IndexStatus']) ? (!IndexStatus::exists((string) $json['IndexStatus']) ? IndexStatus::UNKNOWN_TO_SDK : (string) $json['IndexStatus']) : null,
+            'Backfilling' => isset($json['Backfilling']) ? filter_var($json['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (int) $json['IndexSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (int) $json['ItemCount'] : null,
+            'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
+        ]);
+    }
+
+    /**
+     * @return VectorIndexDescription[]
+     */
+    private function populateResultVectorIndexDescriptionList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultVectorIndexDescription($item);
+        }
+
+        return $items;
     }
 }
