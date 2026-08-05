@@ -87,6 +87,8 @@ use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 use AsyncAws\DynamoDb\ValueObject\TransactWriteItem;
+use AsyncAws\DynamoDb\ValueObject\VectorIndex;
+use AsyncAws\DynamoDb\ValueObject\VectorIndexUpdate;
 use AsyncAws\DynamoDb\ValueObject\WarmThroughput;
 
 class DynamoDbClient extends AbstractApi
@@ -186,11 +188,10 @@ class DynamoDbClient extends AbstractApi
      * `BatchWriteItem` in a loop. Each iteration would check for unprocessed items and submit a new `BatchWriteItem`
      * request with those unprocessed items until all items have been processed.
      *
-     * For tables and indexes with provisioned capacity, if none of the items can be processed due to insufficient
-     * provisioned throughput on all of the tables in the request, then `BatchWriteItem` returns a
-     * `ProvisionedThroughputExceededException`. For all tables and indexes, if none of the items can be processed due to
-     * other throttling scenarios (such as exceeding partition level limits), then `BatchWriteItem` returns a
-     * `ThrottlingException`.
+     * If `BatchWriteItem` cannot process any items due to throttling (for example, insufficient provisioned throughput on
+     * the tables in the request, or partition-level or account-level limits), it returns a
+     * `ProvisionedThroughputExceededException` or a `ThrottlingException`. Both indicate that the request was throttled;
+     * check the `ThrottlingReason` field in the returned exception for details.
      *
      * ! If DynamoDB returns any unprocessed items, you should retry the batch operation on those items. However, *we
      * ! strongly recommend that you use an exponential backoff algorithm*. If you retry the batch operation immediately,
@@ -303,6 +304,7 @@ class DynamoDbClient extends AbstractApi
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   GlobalTableSourceArn?: string|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   VectorIndexes?: array<VectorIndex|array>|null,
      *   '@region'?: string|null,
      * }|CreateTableInput $input
      *
@@ -1040,6 +1042,7 @@ class DynamoDbClient extends AbstractApi
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   VectorIndexUpdates?: array<VectorIndexUpdate|array>|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
      *

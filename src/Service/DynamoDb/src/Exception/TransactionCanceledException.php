@@ -32,7 +32,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - There is a user error, such as an invalid data format.
  *
  * > DynamoDB lists the cancellation reasons on the `CancellationReasons` property. Transaction cancellation reasons are
- * > ordered in the order of requested items, if an item has no error it will have `None` code and `Null` message.
+ * > ordered in the order of requested items, if an item has no error it will have `None` code and `Null` message. The
+ * > `None` code is returned as the literal string `"None"`, not a null or absent value; the message field is omitted
+ * > entirely for an item that has no error. This is important to note when using an SDK that surfaces the code as an
+ * > optional or nullable type.
  *
  * Cancellation reason codes and possible error messages:
  *

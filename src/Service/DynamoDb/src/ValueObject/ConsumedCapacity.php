@@ -63,6 +63,14 @@ final class ConsumedCapacity
     private $globalSecondaryIndexes;
 
     /**
+     * The amount of throughput consumed on each vector index affected by the operation. Each entry contains
+     * `VectorWriteRequestBytes` (for write operations) or `VectorSearchRequestBytes` (for search operations).
+     *
+     * @var array<string, VectorCapacity>|null
+     */
+    private $vectorIndexes;
+
+    /**
      * @param array{
      *   TableName?: string|null,
      *   CapacityUnits?: float|null,
@@ -71,6 +79,7 @@ final class ConsumedCapacity
      *   Table?: Capacity|array|null,
      *   LocalSecondaryIndexes?: array<string, Capacity|array>|null,
      *   GlobalSecondaryIndexes?: array<string, Capacity|array>|null,
+     *   VectorIndexes?: array<string, VectorCapacity|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -82,6 +91,7 @@ final class ConsumedCapacity
         $this->table = isset($input['Table']) ? Capacity::create($input['Table']) : null;
         $this->localSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['LocalSecondaryIndexes']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->vectorIndexes = isset($input['VectorIndexes']) ? array_map([VectorCapacity::class, 'create'], $input['VectorIndexes']) : null;
     }
 
     /**
@@ -93,6 +103,7 @@ final class ConsumedCapacity
      *   Table?: Capacity|array|null,
      *   LocalSecondaryIndexes?: array<string, Capacity|array>|null,
      *   GlobalSecondaryIndexes?: array<string, Capacity|array>|null,
+     *   VectorIndexes?: array<string, VectorCapacity|array>|null,
      * }|ConsumedCapacity $input
      */
     public static function create($input): self
@@ -134,6 +145,14 @@ final class ConsumedCapacity
     public function getTableName(): ?string
     {
         return $this->tableName;
+    }
+
+    /**
+     * @return array<string, VectorCapacity>
+     */
+    public function getVectorIndexes(): array
+    {
+        return $this->vectorIndexes ?? [];
     }
 
     public function getWriteCapacityUnits(): ?float

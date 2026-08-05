@@ -8,6 +8,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\ItemCollectionMetrics;
+use AsyncAws\DynamoDb\ValueObject\VectorCapacity;
 
 /**
  * Represents the output of an `UpdateItem` operation.
@@ -30,6 +31,9 @@ class UpdateItemOutput extends Result
      * throughput consumed, along with statistics for the table and any indexes involved in the operation.
      * `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information,
      * see Capacity unity consumption for write operations [^1] in the *Amazon DynamoDB Developer Guide*.
+     *
+     * If the table has vector indexes, the response includes a `VectorIndexes` field with `VectorWriteRequestBytes`
+     * consumed for each affected vector index.
      *
      * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#write-operation-consumption
      *
@@ -154,6 +158,7 @@ class UpdateItemOutput extends Result
             'Table' => empty($json['Table']) ? null : $this->populateResultCapacity($json['Table']),
             'LocalSecondaryIndexes' => !isset($json['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['LocalSecondaryIndexes']),
             'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['GlobalSecondaryIndexes']),
+            'VectorIndexes' => !isset($json['VectorIndexes']) ? null : $this->populateResultVectorIndexesCapacityMap($json['VectorIndexes']),
         ]);
     }
 
@@ -260,6 +265,27 @@ class UpdateItemOutput extends Result
             if (null !== $a) {
                 $items[] = $a;
             }
+        }
+
+        return $items;
+    }
+
+    private function populateResultVectorCapacity(array $json): VectorCapacity
+    {
+        return new VectorCapacity([
+            'VectorSearchRequestBytes' => isset($json['VectorSearchRequestBytes']) ? (float) $json['VectorSearchRequestBytes'] : null,
+            'VectorWriteRequestBytes' => isset($json['VectorWriteRequestBytes']) ? (float) $json['VectorWriteRequestBytes'] : null,
+        ]);
+    }
+
+    /**
+     * @return array<string, VectorCapacity>
+     */
+    private function populateResultVectorIndexesCapacityMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultVectorCapacity($value);
         }
 
         return $items;

@@ -38,12 +38,18 @@ final class ProvisionedThroughputDescription
      * Eventually consistent reads require less effort than strongly consistent reads, so a setting of 50
      * `ReadCapacityUnits` per second provides 100 eventually consistent `ReadCapacityUnits` per second.
      *
+     * For a table or global secondary index that uses on-demand capacity mode (`PAY_PER_REQUEST`), this value is `0`,
+     * because on-demand mode does not use provisioned throughput.
+     *
      * @var int|null
      */
     private $readCapacityUnits;
 
     /**
      * The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException`.
+     *
+     * For a table or global secondary index that uses on-demand capacity mode (`PAY_PER_REQUEST`), this value is `0`,
+     * because on-demand mode does not use provisioned throughput.
      *
      * @var int|null
      */
