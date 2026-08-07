@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Enum;
 
 final class StorageClass
 {
+    public const AWS_BACKUP_LOW_COST_WARM = 'AWS_BACKUP_LOW_COST_WARM';
+    public const AWS_BACKUP_WARM = 'AWS_BACKUP_WARM';
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
     public const EXPRESS_ONEZONE = 'EXPRESS_ONEZONE';
     public const FSX_ONTAP = 'FSX_ONTAP';
@@ -25,6 +27,8 @@ final class StorageClass
     public static function exists(string $value): bool
     {
         return isset([
+            self::AWS_BACKUP_LOW_COST_WARM => true,
+            self::AWS_BACKUP_WARM => true,
             self::DEEP_ARCHIVE => true,
             self::EXPRESS_ONEZONE => true,
             self::FSX_ONTAP => true,
