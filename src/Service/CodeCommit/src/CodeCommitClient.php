@@ -313,6 +313,9 @@ class CodeCommitClient extends AbstractApi
      * Returns information about the differences in a valid commit specifier (such as a branch, tag, HEAD, commit ID, or
      * other fully qualified reference). Results can be limited to a specified path.
      *
+     * For line-level diff details, pass the `beforeBlob.blobId` and `afterBlob.blobId` values from a `Difference` object to
+     * GetBlobDifferences.
+     *
      * @see https://docs.aws.amazon.com/codecommit/latest/APIReference/API_GetDifferences.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codecommit-2015-04-13.html#getdifferences
      *
