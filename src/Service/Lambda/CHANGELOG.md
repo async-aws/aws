@@ -6,6 +6,10 @@
 
 - AWS api-change: Add Python3.15 (python3.15) and NodeJs 26 (nodejs26.x) support to AWS Lambda
 
+### Changed
+
+- AWS enhancement: Documentation updates.
+
 ## 2.17.0
 
 ### Added

@@ -30,6 +30,7 @@ use AsyncAws\Ses\Result\GetEmailIdentityResponse;
 use AsyncAws\Ses\Result\GetSuppressedDestinationResponse;
 use AsyncAws\Ses\Result\PutEmailIdentityDkimSigningAttributesResponse;
 use AsyncAws\Ses\Result\SendEmailResponse;
+use AsyncAws\Ses\ValueObject\ConfigurationOverrides;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\DkimSigningAttributes;
 use AsyncAws\Ses\ValueObject\EmailContent;
@@ -252,6 +253,7 @@ class SesClient extends AbstractApi
      *   EndpointId?: string|null,
      *   TenantName?: string|null,
      *   ListManagementOptions?: ListManagementOptions|array|null,
+     *   ConfigurationOverrides?: ConfigurationOverrides|array|null,
      *   '@region'?: string|null,
      * }|SendEmailRequest $input
      *

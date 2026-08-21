@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Ses\ValueObject\ConfigurationOverrides;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\ListManagementOptions;
@@ -137,6 +138,14 @@ final class SendEmailRequest extends Input
     private $listManagementOptions;
 
     /**
+     * An object that overrides, for this message only, settings that would otherwise apply to it. Each setting that you
+     * don't override keeps the value that already applies.
+     *
+     * @var ConfigurationOverrides|null
+     */
+    private $configurationOverrides;
+
+    /**
      * @param array{
      *   FromEmailAddress?: string|null,
      *   FromEmailAddressIdentityArn?: string|null,
@@ -150,6 +159,7 @@ final class SendEmailRequest extends Input
      *   EndpointId?: string|null,
      *   TenantName?: string|null,
      *   ListManagementOptions?: ListManagementOptions|array|null,
+     *   ConfigurationOverrides?: ConfigurationOverrides|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -167,6 +177,7 @@ final class SendEmailRequest extends Input
         $this->endpointId = $input['EndpointId'] ?? null;
         $this->tenantName = $input['TenantName'] ?? null;
         $this->listManagementOptions = isset($input['ListManagementOptions']) ? ListManagementOptions::create($input['ListManagementOptions']) : null;
+        $this->configurationOverrides = isset($input['ConfigurationOverrides']) ? ConfigurationOverrides::create($input['ConfigurationOverrides']) : null;
         parent::__construct($input);
     }
 
@@ -184,12 +195,18 @@ final class SendEmailRequest extends Input
      *   EndpointId?: string|null,
      *   TenantName?: string|null,
      *   ListManagementOptions?: ListManagementOptions|array|null,
+     *   ConfigurationOverrides?: ConfigurationOverrides|array|null,
      *   '@region'?: string|null,
      * }|SendEmailRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getConfigurationOverrides(): ?ConfigurationOverrides
+    {
+        return $this->configurationOverrides;
     }
 
     public function getConfigurationSetName(): ?string
@@ -281,6 +298,13 @@ final class SendEmailRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setConfigurationOverrides(?ConfigurationOverrides $value): self
+    {
+        $this->configurationOverrides = $value;
+
+        return $this;
     }
 
     public function setConfigurationSetName(?string $value): self
@@ -422,6 +446,9 @@ final class SendEmailRequest extends Input
         }
         if (null !== $v = $this->listManagementOptions) {
             $payload['ListManagementOptions'] = $v->requestBody();
+        }
+        if (null !== $v = $this->configurationOverrides) {
+            $payload['ConfigurationOverrides'] = $v->requestBody();
         }
 
         return $payload;
