@@ -584,10 +584,12 @@ class KinesisClient extends AbstractApi
      * or when the shard iterator reaches the record with the sequence number or other attribute that marks it as the last
      * record to process.
      *
-     * Each data record can be up to 1 MiB in size, and each shard can read up to 2 MiB per second. You can ensure that your
-     * calls don't exceed the maximum supported size or throughput by using the `Limit` parameter to specify the maximum
-     * number of records that GetRecords can return. Consider your average record size when determining this limit. The
-     * maximum number of records that can be returned per call is 10,000.
+     * Each data record can be up to 1 MiB in size by default. Amazon Kinesis Data Streams supports large records up to 10
+     * MiB in size, but the average throughput for your stream cannot exceed 1 MiB per second. For more information about
+     * how large records are handled, see Large records [^2]. Each shard can read up to 2 MiB per second. You can ensure
+     * that your calls don't exceed the maximum supported size or throughput by using the `Limit` parameter to specify the
+     * maximum number of records that GetRecords can return. Consider your average record size when determining this limit.
+     * The maximum number of records that can be returned per call is 10,000.
      *
      * The size of the data returned by GetRecords varies depending on the utilization of the shard. It is recommended that
      * consumer applications retrieve records via the `GetRecords` command using the 5 TPS limit to remain caught up.
@@ -599,7 +601,7 @@ class KinesisClient extends AbstractApi
      * calls to GetRecords. However, it's possible that the application will get exceptions for longer than 1 second.
      *
      * To detect whether the application is falling behind in processing, you can use the `MillisBehindLatest` response
-     * attribute. You can also monitor the stream using CloudWatch metrics and other mechanisms (see Monitoring [^2] in the
+     * attribute. You can also monitor the stream using CloudWatch metrics and other mechanisms (see Monitoring [^3] in the
      * *Amazon Kinesis Data Streams Developer Guide*).
      *
      * Each Amazon Kinesis record includes a value, `ApproximateArrivalTimestamp`, that is set when a stream successfully
@@ -612,7 +614,8 @@ class KinesisClient extends AbstractApi
      * This operation has a limit of five transactions per second per shard.
      *
      * [^1]: https://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html
-     * [^2]: https://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html
+     * [^2]: https://docs.aws.amazon.com/streams/latest/dev/large-records.html
+     * [^3]: https://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetRecords.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#getrecords
