@@ -26,6 +26,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\BedrockAgent\BedrockAgentClient::class,
                 'package' => 'async-aws/bedrock-agent',
             ],
+            'bedrock_agent_core' => [
+                'class' => \AsyncAws\BedrockAgentCore\BedrockAgentCoreClient::class,
+                'package' => 'async-aws/bedrock-agent-core',
+            ],
             'bedrock_runtime' => [
                 'class' => \AsyncAws\BedrockRuntime\BedrockRuntimeClient::class,
                 'package' => 'async-aws/bedrock-runtime',

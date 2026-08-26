@@ -78,6 +78,18 @@
                 "ListKnowledgeBaseDocuments"
             ]
         },
+        "BedrockAgentCore": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agentcore/2024-02-28/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agentcore/2024-02-28/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agentcore/2024-02-28/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agentcore/2024-02-28/waiters-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agentcore/2024-02-28/examples-1.json",
+            "endpoint-rule-set": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-agentcore/2024-02-28/endpoint-rule-set-1.json",
+            "api-reference": "https://docs.aws.amazon.com/bedrock-agentcore/latest/APIReference",
+            "methods": [
+                "InvokeAgentRuntime"
+            ]
+        },
         "BedrockRuntime": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/bedrock-runtime/2023-09-30/docs-2.json",

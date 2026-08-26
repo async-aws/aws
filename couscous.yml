@@ -40,6 +40,9 @@ menu:
             bedrock-agent:
                 text: Bedrock Agent
                 url: /clients/bedrock-agent.html
+            bedrock-agent-core:
+                text: Bedrock AgentCore
+                url: /clients/bedrock-agent-core.html
             bedrock-runtime:
                 text: Bedrock Runtime
                 url: /clients/bedrock-runtime.html

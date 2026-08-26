@@ -141,6 +141,7 @@ for more information.
 | [AppSync](./app-sync.md)                    | [async-aws/app-sync](https://packagist.org/packages/async-aws/app-sync)                                   |
 | [Athena](./athena.md)                       | [async-aws/athena](https://packagist.org/packages/async-aws/athena)                                       |
 | [BedrockAgent](./bedrock-agent.md)          | [async-aws/bedrock-agent](https://packagist.org/packages/async-aws/bedrock-agent)                         |
+| [BedrockAgentCore](./bedrock-agent-core.md) | [async-aws/bedrock-agent-core](https://packagist.org/packages/async-aws/bedrock-agent-core)               |
 | [BedrockRuntime](./bedrock-runtime.md)      | [async-aws/bedrock-runtime](https://packagist.org/packages/async-aws/bedrock-runtime)                     |
 | [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)                     |
 | [CloudFront](./cloud-front.md)              | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)                             |

@@ -7,6 +7,7 @@ namespace AsyncAws\Core;
 use AsyncAws\AppSync\AppSyncClient;
 use AsyncAws\Athena\AthenaClient;
 use AsyncAws\BedrockAgent\BedrockAgentClient;
+use AsyncAws\BedrockAgentCore\BedrockAgentCoreClient;
 use AsyncAws\BedrockRuntime\BedrockRuntimeClient;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFront\CloudFrontClient;
@@ -131,6 +132,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new BedrockAgentClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function bedrockAgentCore(): BedrockAgentCoreClient
+    {
+        if (!class_exists(BedrockAgentCoreClient::class)) {
+            throw MissingDependency::create('async-aws/bedrock-agent-core', 'BedrockAgentCore');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new BedrockAgentCoreClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
