@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for the `BedrockAgentCore` client
+
 ## 1.17.1
 
 ### Fixed
