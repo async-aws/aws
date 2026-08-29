@@ -250,6 +250,13 @@ final class Image
     private $imageWatermarks;
 
     /**
+     * The instance type specification for the AMI, which defines which instance types are compatible with this image.
+     *
+     * @var InstanceTypeSpecification|null
+     */
+    private $instanceTypeSpecification;
+
+    /**
      * The ID of the AMI.
      *
      * @var string|null
@@ -364,6 +371,7 @@ final class Image
      *   FreeTierEligible?: bool|null,
      *   PublicSsmParameterName?: string|null,
      *   ImageWatermarks?: array<ImageWatermark|array>|null,
+     *   InstanceTypeSpecification?: InstanceTypeSpecification|array|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
      *   State?: ImageState::*|null,
@@ -407,6 +415,7 @@ final class Image
         $this->freeTierEligible = $input['FreeTierEligible'] ?? null;
         $this->publicSsmParameterName = $input['PublicSsmParameterName'] ?? null;
         $this->imageWatermarks = isset($input['ImageWatermarks']) ? array_map([ImageWatermark::class, 'create'], $input['ImageWatermarks']) : null;
+        $this->instanceTypeSpecification = isset($input['InstanceTypeSpecification']) ? InstanceTypeSpecification::create($input['InstanceTypeSpecification']) : null;
         $this->imageId = $input['ImageId'] ?? null;
         $this->imageLocation = $input['ImageLocation'] ?? null;
         $this->state = $input['State'] ?? null;
@@ -450,6 +459,7 @@ final class Image
      *   FreeTierEligible?: bool|null,
      *   PublicSsmParameterName?: string|null,
      *   ImageWatermarks?: array<ImageWatermark|array>|null,
+     *   InstanceTypeSpecification?: InstanceTypeSpecification|array|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
      *   State?: ImageState::*|null,
@@ -573,6 +583,11 @@ final class Image
     public function getImdsSupport(): ?string
     {
         return $this->imdsSupport;
+    }
+
+    public function getInstanceTypeSpecification(): ?InstanceTypeSpecification
+    {
+        return $this->instanceTypeSpecification;
     }
 
     public function getKernelId(): ?string

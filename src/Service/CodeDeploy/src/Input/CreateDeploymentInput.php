@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CodeDeploy\Input;
 
+use AsyncAws\CodeDeploy\Enum\DeploymentMode;
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
 use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
@@ -119,6 +120,15 @@ final class CreateDeploymentInput extends Input
     private $fileExistsBehavior;
 
     /**
+     * The deployment mode to use for the deployment. When set to STANDARD (the default), the deployment runs the standard
+     * set of deployment lifecycle events. When set to RESTART, an EC2/On-premises in-place deployment runs a shortened set
+     * of lifecycle events to quickly restart the application on the target instances.
+     *
+     * @var DeploymentMode::*|null
+     */
+    private $deploymentMode;
+
+    /**
      * Allows you to specify information about alarms associated with a deployment. The alarm configuration that you specify
      * here will override the alarm configuration at the deployment group level. Consider overriding the alarm configuration
      * if you have set up alarms at the deployment group level that are causing deployment failures. In this case, you would
@@ -145,6 +155,7 @@ final class CreateDeploymentInput extends Input
      *   autoRollbackConfiguration?: AutoRollbackConfiguration|array|null,
      *   updateOutdatedInstancesOnly?: bool|null,
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
+     *   deploymentMode?: DeploymentMode::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
      *   '@region'?: string|null,
      * } $input
@@ -161,6 +172,7 @@ final class CreateDeploymentInput extends Input
         $this->autoRollbackConfiguration = isset($input['autoRollbackConfiguration']) ? AutoRollbackConfiguration::create($input['autoRollbackConfiguration']) : null;
         $this->updateOutdatedInstancesOnly = $input['updateOutdatedInstancesOnly'] ?? null;
         $this->fileExistsBehavior = $input['fileExistsBehavior'] ?? null;
+        $this->deploymentMode = $input['deploymentMode'] ?? null;
         $this->overrideAlarmConfiguration = isset($input['overrideAlarmConfiguration']) ? AlarmConfiguration::create($input['overrideAlarmConfiguration']) : null;
         parent::__construct($input);
     }
@@ -177,6 +189,7 @@ final class CreateDeploymentInput extends Input
      *   autoRollbackConfiguration?: AutoRollbackConfiguration|array|null,
      *   updateOutdatedInstancesOnly?: bool|null,
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
+     *   deploymentMode?: DeploymentMode::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
@@ -204,6 +217,14 @@ final class CreateDeploymentInput extends Input
     public function getDeploymentGroupName(): ?string
     {
         return $this->deploymentGroupName;
+    }
+
+    /**
+     * @return DeploymentMode::*|null
+     */
+    public function getDeploymentMode(): ?string
+    {
+        return $this->deploymentMode;
     }
 
     public function getDescription(): ?string
@@ -298,6 +319,16 @@ final class CreateDeploymentInput extends Input
         return $this;
     }
 
+    /**
+     * @param DeploymentMode::*|null $value
+     */
+    public function setDeploymentMode(?string $value): self
+    {
+        $this->deploymentMode = $value;
+
+        return $this;
+    }
+
     public function setDescription(?string $value): self
     {
         $this->description = $value;
@@ -387,6 +418,13 @@ final class CreateDeploymentInput extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "fileExistsBehavior" for "%s". The value "%s" is not a valid "FileExistsBehavior".', __CLASS__, $v));
             }
             $payload['fileExistsBehavior'] = $v;
+        }
+        if (null !== $v = $this->deploymentMode) {
+            if (!DeploymentMode::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "deploymentMode" for "%s". The value "%s" is not a valid "DeploymentMode".', __CLASS__, $v));
+            }
+            $payload['deploymentMode'] = $v;
         }
         if (null !== $v = $this->overrideAlarmConfiguration) {
             $payload['overrideAlarmConfiguration'] = $v->requestBody();

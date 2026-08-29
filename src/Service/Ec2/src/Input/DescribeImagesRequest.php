@@ -103,6 +103,7 @@ final class DescribeImagesRequest extends Input
      * - `block-device-mapping.volume-type` - The volume type of the Amazon EBS volume (`io1` | `io2` | `gp2` | `gp3` | `sc1
      *   `| `st1` | `standard`).
      * - `block-device-mapping.encrypted` - A Boolean that indicates whether the Amazon EBS volume is encrypted.
+     * - `boot-mode` – The boot mode of the image (`legacy-bios` | `uefi` | `uefi-preferred`).
      * - `creation-date` - The time when the image was created, in the ISO 8601 format in the UTC time zone
      *   (YYYY-MM-DDThh:mm:ss.sssZ), for example, `2021-09-29T11:04:43.305Z`. You can use a wildcard (`*`), for example,
      *   `2021-09-29T*`, which matches an entire day.
@@ -124,6 +125,12 @@ final class DescribeImagesRequest extends Input
      * - `image-watermark.watermark-key` - The watermark identifier, in `accountId:watermarkName` format (for example,
      *   `123456789012:approvedAmi`).
      * - `image-type` - The image type (`machine` | `kernel` | `ramdisk`).
+     * - `instance-type-specification.supported-instance-type` – The instance types that are compatible with the AMI, as
+     *   specified by the AMI owner. Values can be individual instance types (for example, `t3.micro`) or wildcard patterns
+     *   that match multiple instance types (for example, `t3.*`).
+     * - `instance-type-specification.unsupported-instance-type` – The instance types that are not compatible with the
+     *   AMI, as specified by the AMI owner. Values can be individual instance types (for example, `t3.micro`) or wildcard
+     *   patterns that match multiple instance types (for example, `t3.*`).
      * - `is-public` - A Boolean that indicates whether the image is public.
      * - `kernel-id` - The kernel ID.
      * - `manifest-location` - The location of the image manifest.

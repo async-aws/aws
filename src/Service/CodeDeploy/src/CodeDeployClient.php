@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CodeDeploy;
 
+use AsyncAws\CodeDeploy\Enum\DeploymentMode;
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
 use AsyncAws\CodeDeploy\Enum\LifecycleEventStatus;
 use AsyncAws\CodeDeploy\Exception\AlarmsLimitExceededException;
@@ -18,12 +19,15 @@ use AsyncAws\CodeDeploy\Exception\InvalidAlarmConfigException;
 use AsyncAws\CodeDeploy\Exception\InvalidApplicationNameException;
 use AsyncAws\CodeDeploy\Exception\InvalidAutoRollbackConfigException;
 use AsyncAws\CodeDeploy\Exception\InvalidAutoScalingGroupException;
+use AsyncAws\CodeDeploy\Exception\InvalidComputePlatformException;
 use AsyncAws\CodeDeploy\Exception\InvalidDeploymentConfigNameException;
 use AsyncAws\CodeDeploy\Exception\InvalidDeploymentGroupNameException;
 use AsyncAws\CodeDeploy\Exception\InvalidDeploymentIdException;
+use AsyncAws\CodeDeploy\Exception\InvalidECSServiceException;
 use AsyncAws\CodeDeploy\Exception\InvalidFileExistsBehaviorException;
 use AsyncAws\CodeDeploy\Exception\InvalidGitHubAccountTokenException;
 use AsyncAws\CodeDeploy\Exception\InvalidIgnoreApplicationStopFailuresValueException;
+use AsyncAws\CodeDeploy\Exception\InvalidInputException;
 use AsyncAws\CodeDeploy\Exception\InvalidLifecycleEventHookExecutionIdException;
 use AsyncAws\CodeDeploy\Exception\InvalidLifecycleEventHookExecutionStatusException;
 use AsyncAws\CodeDeploy\Exception\InvalidLoadBalancerInfoException;
@@ -72,6 +76,7 @@ class CodeDeployClient extends AbstractApi
      *   autoRollbackConfiguration?: AutoRollbackConfiguration|array|null,
      *   updateOutdatedInstancesOnly?: bool|null,
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
+     *   deploymentMode?: DeploymentMode::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
@@ -88,11 +93,14 @@ class CodeDeployClient extends AbstractApi
      * @throws InvalidApplicationNameException
      * @throws InvalidAutoRollbackConfigException
      * @throws InvalidAutoScalingGroupException
+     * @throws InvalidComputePlatformException
      * @throws InvalidDeploymentConfigNameException
      * @throws InvalidDeploymentGroupNameException
+     * @throws InvalidECSServiceException
      * @throws InvalidFileExistsBehaviorException
      * @throws InvalidGitHubAccountTokenException
      * @throws InvalidIgnoreApplicationStopFailuresValueException
+     * @throws InvalidInputException
      * @throws InvalidLoadBalancerInfoException
      * @throws InvalidRevisionException
      * @throws InvalidRoleException
@@ -119,11 +127,14 @@ class CodeDeployClient extends AbstractApi
             'InvalidApplicationNameException' => InvalidApplicationNameException::class,
             'InvalidAutoRollbackConfigException' => InvalidAutoRollbackConfigException::class,
             'InvalidAutoScalingGroupException' => InvalidAutoScalingGroupException::class,
+            'InvalidComputePlatformException' => InvalidComputePlatformException::class,
             'InvalidDeploymentConfigNameException' => InvalidDeploymentConfigNameException::class,
             'InvalidDeploymentGroupNameException' => InvalidDeploymentGroupNameException::class,
+            'InvalidECSServiceException' => InvalidECSServiceException::class,
             'InvalidFileExistsBehaviorException' => InvalidFileExistsBehaviorException::class,
             'InvalidGitHubAccountTokenException' => InvalidGitHubAccountTokenException::class,
             'InvalidIgnoreApplicationStopFailuresValueException' => InvalidIgnoreApplicationStopFailuresValueException::class,
+            'InvalidInputException' => InvalidInputException::class,
             'InvalidLoadBalancerInfoException' => InvalidLoadBalancerInfoException::class,
             'InvalidRevisionException' => InvalidRevisionException::class,
             'InvalidRoleException' => InvalidRoleException::class,

@@ -23,6 +23,8 @@ use AsyncAws\Ec2\ValueObject\BlockDeviceMapping;
 use AsyncAws\Ec2\ValueObject\EbsBlockDevice;
 use AsyncAws\Ec2\ValueObject\Image;
 use AsyncAws\Ec2\ValueObject\ImageWatermark;
+use AsyncAws\Ec2\ValueObject\InstanceTypeItem;
+use AsyncAws\Ec2\ValueObject\InstanceTypeSpecification;
 use AsyncAws\Ec2\ValueObject\ProductCode;
 use AsyncAws\Ec2\ValueObject\StateReason;
 use AsyncAws\Ec2\ValueObject\Tag;
@@ -187,6 +189,7 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
             'FreeTierEligible' => (null !== $v = $xml->freeTierEligible[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'PublicSsmParameterName' => (null !== $v = $xml->publicSsmParameterName[0]) ? (string) $v : null,
             'ImageWatermarks' => (0 === ($v = $xml->imageWatermarkSet)->count()) ? null : $this->populateResultImageWatermarkList($v),
+            'InstanceTypeSpecification' => 0 === $xml->instanceTypeSpecification->count() ? null : $this->populateResultInstanceTypeSpecification($xml->instanceTypeSpecification),
             'ImageId' => (null !== $v = $xml->imageId[0]) ? (string) $v : null,
             'ImageLocation' => (null !== $v = $xml->imageLocation[0]) ? (string) $v : null,
             'State' => (null !== $v = $xml->imageState[0]) ? (!ImageState::exists((string) $xml->imageState) ? ImageState::UNKNOWN_TO_SDK : (string) $xml->imageState) : null,
@@ -239,6 +242,21 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
         return $items;
     }
 
+    private function populateResultInstanceTypeItem(\SimpleXMLElement $xml): InstanceTypeItem
+    {
+        return new InstanceTypeItem([
+            'InstanceType' => (null !== $v = $xml->instanceType[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultInstanceTypeSpecification(\SimpleXMLElement $xml): InstanceTypeSpecification
+    {
+        return new InstanceTypeSpecification([
+            'SupportedInstanceTypes' => (0 === ($v = $xml->supportedInstanceTypeSet)->count()) ? null : $this->populateResultSupportedInstanceTypeSet($v),
+            'UnsupportedInstanceTypes' => (0 === ($v = $xml->unsupportedInstanceTypeSet)->count()) ? null : $this->populateResultUnsupportedInstanceTypeSet($v),
+        ]);
+    }
+
     private function populateResultProductCode(\SimpleXMLElement $xml): ProductCode
     {
         return new ProductCode([
@@ -268,6 +286,19 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
         ]);
     }
 
+    /**
+     * @return InstanceTypeItem[]
+     */
+    private function populateResultSupportedInstanceTypeSet(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->item as $item) {
+            $items[] = $this->populateResultInstanceTypeItem($item);
+        }
+
+        return $items;
+    }
+
     private function populateResultTag(\SimpleXMLElement $xml): Tag
     {
         return new Tag([
@@ -284,6 +315,19 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
         $items = [];
         foreach ($xml->item as $item) {
             $items[] = $this->populateResultTag($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return InstanceTypeItem[]
+     */
+    private function populateResultUnsupportedInstanceTypeSet(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->item as $item) {
+            $items[] = $this->populateResultInstanceTypeItem($item);
         }
 
         return $items;
