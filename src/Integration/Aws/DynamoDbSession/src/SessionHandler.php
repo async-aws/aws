@@ -120,6 +120,17 @@ class SessionHandler implements \SessionHandlerInterface
     }
 
     /**
+     * @return string
+     */
+    #[\ReturnTypeWillChange]
+    public function create_sid()
+    {
+        $id = session_create_id();
+
+        return false === $id ? bin2hex(random_bytes(16)) : $id;
+    }
+
+    /**
      * @return bool
      */
     #[\ReturnTypeWillChange]
@@ -182,6 +193,17 @@ class SessionHandler implements \SessionHandlerInterface
         }
 
         return $this->dataRead;
+    }
+
+    /**
+     * @param string $sessionId
+     *
+     * @return bool
+     */
+    #[\ReturnTypeWillChange]
+    public function validateId($sessionId)
+    {
+        return '' !== $this->read($sessionId);
     }
 
     /**

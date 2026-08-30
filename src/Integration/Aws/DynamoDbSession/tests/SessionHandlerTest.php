@@ -96,6 +96,36 @@ class SessionHandlerTest extends TestCase
         self::assertEquals('test data', $this->handler->read('123456789'));
     }
 
+    public function testCreateSid()
+    {
+        self::assertMatchesRegularExpression('/^[a-zA-Z0-9,-]+$/', $this->handler->create_sid());
+    }
+
+    public function testValidateIdWithExistingSession()
+    {
+        $this->client
+            ->expects(self::once())
+            ->method('getItem')
+            ->willReturn(ResultMockFactory::create(GetItemOutput::class, [
+                'Item' => [
+                    'data' => new AttributeValue(['S' => 'test data']),
+                    'expires' => new AttributeValue(['N' => time() + 86400]),
+                ],
+            ]));
+
+        self::assertTrue($this->handler->validateId('123456789'));
+    }
+
+    public function testValidateIdWithUnknownSession()
+    {
+        $this->client
+            ->expects(self::once())
+            ->method('getItem')
+            ->willReturn(ResultMockFactory::create(GetItemOutput::class, ['Item' => []]));
+
+        self::assertFalse($this->handler->validateId('123456789'));
+    }
+
     public function testWrite()
     {
         $this->client
