@@ -5,8 +5,6 @@
 ### Added
 
 - AWS api-change: EC2 allows AMI owners to define compatible instance types on their AMIs, blocking RunInstances calls automatically for launches on non-permitted instance types.
-- AWS api-change: Adds deleting state to possible VPC States.
-- AWS api-change: Fleet feature to support Capacity Reservation Resource Groups with Amazon EC2 Capacity Blocks and interruptible Capacity Reservations
 
 ## 1.2.0
 
