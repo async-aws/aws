@@ -92,6 +92,7 @@ class DescribeStreamSummaryOutput extends Result
             'ConsumerCount' => isset($json['ConsumerCount']) ? (int) $json['ConsumerCount'] : null,
             'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultWarmThroughputObject($json['WarmThroughput']),
             'MaxRecordSizeInKiB' => isset($json['MaxRecordSizeInKiB']) ? (int) $json['MaxRecordSizeInKiB'] : null,
+            'ChannelCount' => isset($json['ChannelCount']) ? (int) $json['ChannelCount'] : null,
         ]);
     }
 

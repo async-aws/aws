@@ -132,6 +132,13 @@ final class StreamDescriptionSummary
     private $maxRecordSizeInKiB;
 
     /**
+     * The number of channels associated with the stream.
+     *
+     * @var int|null
+     */
+    private $channelCount;
+
+    /**
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
@@ -147,6 +154,7 @@ final class StreamDescriptionSummary
      *   ConsumerCount?: int|null,
      *   WarmThroughput?: WarmThroughputObject|array|null,
      *   MaxRecordSizeInKiB?: int|null,
+     *   ChannelCount?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -165,6 +173,7 @@ final class StreamDescriptionSummary
         $this->consumerCount = $input['ConsumerCount'] ?? null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughputObject::create($input['WarmThroughput']) : null;
         $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
+        $this->channelCount = $input['ChannelCount'] ?? null;
     }
 
     /**
@@ -183,11 +192,17 @@ final class StreamDescriptionSummary
      *   ConsumerCount?: int|null,
      *   WarmThroughput?: WarmThroughputObject|array|null,
      *   MaxRecordSizeInKiB?: int|null,
+     *   ChannelCount?: int|null,
      * }|StreamDescriptionSummary $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getChannelCount(): ?int
+    {
+        return $this->channelCount;
     }
 
     public function getConsumerCount(): ?int

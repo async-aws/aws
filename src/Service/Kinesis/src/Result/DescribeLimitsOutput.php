@@ -35,6 +35,34 @@ class DescribeLimitsOutput extends Result
      */
     private $onDemandStreamCountLimit;
 
+    /**
+     * The number of channels in the account.
+     *
+     * @var int|null
+     */
+    private $channelCount;
+
+    /**
+     * The maximum number of channels allowed in the account.
+     *
+     * @var int|null
+     */
+    private $channelCountLimit;
+
+    public function getChannelCount(): ?int
+    {
+        $this->initialize();
+
+        return $this->channelCount;
+    }
+
+    public function getChannelCountLimit(): ?int
+    {
+        $this->initialize();
+
+        return $this->channelCountLimit;
+    }
+
     public function getOnDemandStreamCount(): int
     {
         $this->initialize();
@@ -71,5 +99,7 @@ class DescribeLimitsOutput extends Result
         $this->openShardCount = (int) $data['OpenShardCount'];
         $this->onDemandStreamCount = (int) $data['OnDemandStreamCount'];
         $this->onDemandStreamCountLimit = (int) $data['OnDemandStreamCountLimit'];
+        $this->channelCount = isset($data['ChannelCount']) ? (int) $data['ChannelCount'] : null;
+        $this->channelCountLimit = isset($data['ChannelCountLimit']) ? (int) $data['ChannelCountLimit'] : null;
     }
 }
