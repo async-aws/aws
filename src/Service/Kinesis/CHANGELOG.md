@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Adds support for data delivery to Amazon S3 Tables (Apache Iceberg) and general purpose Amazon S3 buckets with new CreateChannel, UpdateChannel, DeleteChannel, DescribeChannel, and ListChannels APIs for Amazon Kinesis Data Streams.
+- AWS api-change: Adds ChannelCount in Amazon Kinesis Data Streams.
 
 ### Changed
 
