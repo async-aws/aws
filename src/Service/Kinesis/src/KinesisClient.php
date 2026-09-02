@@ -13,6 +13,7 @@ use AsyncAws\Kinesis\Enum\MetricsName;
 use AsyncAws\Kinesis\Enum\ScalingType;
 use AsyncAws\Kinesis\Enum\ShardIteratorType;
 use AsyncAws\Kinesis\Exception\AccessDeniedException;
+use AsyncAws\Kinesis\Exception\DryRunOperationException;
 use AsyncAws\Kinesis\Exception\ExpiredIteratorException;
 use AsyncAws\Kinesis\Exception\ExpiredNextTokenException;
 use AsyncAws\Kinesis\Exception\InternalFailureException;
@@ -625,10 +626,12 @@ class KinesisClient extends AbstractApi
      *   Limit?: int|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|GetRecordsInput $input
      *
      * @throws AccessDeniedException
+     * @throws DryRunOperationException
      * @throws ExpiredIteratorException
      * @throws InternalFailureException
      * @throws InvalidArgumentException
@@ -646,6 +649,7 @@ class KinesisClient extends AbstractApi
         $input = GetRecordsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'ExpiredIteratorException' => ExpiredIteratorException::class,
             'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
@@ -709,10 +713,12 @@ class KinesisClient extends AbstractApi
      *   Timestamp?: \DateTimeImmutable|string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|GetShardIteratorInput $input
      *
      * @throws AccessDeniedException
+     * @throws DryRunOperationException
      * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws ProvisionedThroughputExceededException
@@ -723,6 +729,7 @@ class KinesisClient extends AbstractApi
         $input = GetShardIteratorInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetShardIterator', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
@@ -1071,10 +1078,12 @@ class KinesisClient extends AbstractApi
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      *
      * @throws AccessDeniedException
+     * @throws DryRunOperationException
      * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws KMSAccessDeniedException
@@ -1091,6 +1100,7 @@ class KinesisClient extends AbstractApi
         $input = PutRecordInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecord', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'KMSAccessDeniedException' => KMSAccessDeniedException::class,
@@ -1172,10 +1182,12 @@ class KinesisClient extends AbstractApi
      *   StreamName?: string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|PutRecordsInput $input
      *
      * @throws AccessDeniedException
+     * @throws DryRunOperationException
      * @throws InternalFailureException
      * @throws InvalidArgumentException
      * @throws KMSAccessDeniedException
@@ -1192,6 +1204,7 @@ class KinesisClient extends AbstractApi
         $input = PutRecordsInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
+            'DryRunOperationException' => DryRunOperationException::class,
             'InternalFailureException' => InternalFailureException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'KMSAccessDeniedException' => KMSAccessDeniedException::class,

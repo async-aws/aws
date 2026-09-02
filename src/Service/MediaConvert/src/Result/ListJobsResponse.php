@@ -9,6 +9,7 @@ use AsyncAws\MediaConvert\Enum\AacAudioDescriptionBroadcasterMix;
 use AsyncAws\MediaConvert\Enum\AacCodecProfile;
 use AsyncAws\MediaConvert\Enum\AacCodingMode;
 use AsyncAws\MediaConvert\Enum\AacLoudnessMeasurementMode;
+use AsyncAws\MediaConvert\Enum\AacPassthroughControl;
 use AsyncAws\MediaConvert\Enum\AacRateControlMode;
 use AsyncAws\MediaConvert\Enum\AacRawFormat;
 use AsyncAws\MediaConvert\Enum\AacSpecification;
@@ -398,7 +399,12 @@ use AsyncAws\MediaConvert\Enum\TimecodeSource;
 use AsyncAws\MediaConvert\Enum\TimecodeTrack;
 use AsyncAws\MediaConvert\Enum\TimedMetadata;
 use AsyncAws\MediaConvert\Enum\TsPtsOffset;
+use AsyncAws\MediaConvert\Enum\TtmlBackgroundColor;
+use AsyncAws\MediaConvert\Enum\TtmlFontColor;
+use AsyncAws\MediaConvert\Enum\TtmlFontStyle;
+use AsyncAws\MediaConvert\Enum\TtmlFontWeight;
 use AsyncAws\MediaConvert\Enum\TtmlStylePassthrough;
+use AsyncAws\MediaConvert\Enum\TtmlTextDecoration;
 use AsyncAws\MediaConvert\Enum\UncompressedFourcc;
 use AsyncAws\MediaConvert\Enum\UncompressedFramerateControl;
 use AsyncAws\MediaConvert\Enum\UncompressedFramerateConversionAlgorithm;
@@ -743,6 +749,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'CodecProfile' => isset($json['codecProfile']) ? (!AacCodecProfile::exists((string) $json['codecProfile']) ? AacCodecProfile::UNKNOWN_TO_SDK : (string) $json['codecProfile']) : null,
             'CodingMode' => isset($json['codingMode']) ? (!AacCodingMode::exists((string) $json['codingMode']) ? AacCodingMode::UNKNOWN_TO_SDK : (string) $json['codingMode']) : null,
             'LoudnessMeasurementMode' => isset($json['loudnessMeasurementMode']) ? (!AacLoudnessMeasurementMode::exists((string) $json['loudnessMeasurementMode']) ? AacLoudnessMeasurementMode::UNKNOWN_TO_SDK : (string) $json['loudnessMeasurementMode']) : null,
+            'PassthroughControl' => isset($json['passthroughControl']) ? (!AacPassthroughControl::exists((string) $json['passthroughControl']) ? AacPassthroughControl::UNKNOWN_TO_SDK : (string) $json['passthroughControl']) : null,
             'RapInterval' => isset($json['rapInterval']) ? (int) $json['rapInterval'] : null,
             'RateControlMode' => isset($json['rateControlMode']) ? (!AacRateControlMode::exists((string) $json['rateControlMode']) ? AacRateControlMode::UNKNOWN_TO_SDK : (string) $json['rateControlMode']) : null,
             'RawFormat' => isset($json['rawFormat']) ? (!AacRawFormat::exists((string) $json['rawFormat']) ? AacRawFormat::UNKNOWN_TO_SDK : (string) $json['rawFormat']) : null,
@@ -2779,7 +2786,15 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     private function populateResultTtmlDestinationSettings(array $json): TtmlDestinationSettings
     {
         return new TtmlDestinationSettings([
+            'BackgroundColor' => isset($json['backgroundColor']) ? (!TtmlBackgroundColor::exists((string) $json['backgroundColor']) ? TtmlBackgroundColor::UNKNOWN_TO_SDK : (string) $json['backgroundColor']) : null,
+            'BackgroundOpacity' => isset($json['backgroundOpacity']) ? (int) $json['backgroundOpacity'] : null,
+            'FontColor' => isset($json['fontColor']) ? (!TtmlFontColor::exists((string) $json['fontColor']) ? TtmlFontColor::UNKNOWN_TO_SDK : (string) $json['fontColor']) : null,
+            'FontOpacity' => isset($json['fontOpacity']) ? (int) $json['fontOpacity'] : null,
+            'FontSize' => isset($json['fontSize']) ? (int) $json['fontSize'] : null,
+            'FontStyle' => isset($json['fontStyle']) ? (!TtmlFontStyle::exists((string) $json['fontStyle']) ? TtmlFontStyle::UNKNOWN_TO_SDK : (string) $json['fontStyle']) : null,
+            'FontWeight' => isset($json['fontWeight']) ? (!TtmlFontWeight::exists((string) $json['fontWeight']) ? TtmlFontWeight::UNKNOWN_TO_SDK : (string) $json['fontWeight']) : null,
             'StylePassthrough' => isset($json['stylePassthrough']) ? (!TtmlStylePassthrough::exists((string) $json['stylePassthrough']) ? TtmlStylePassthrough::UNKNOWN_TO_SDK : (string) $json['stylePassthrough']) : null,
+            'TextDecoration' => isset($json['textDecoration']) ? (!TtmlTextDecoration::exists((string) $json['textDecoration']) ? TtmlTextDecoration::UNKNOWN_TO_SDK : (string) $json['textDecoration']) : null,
         ]);
     }
 
@@ -3076,6 +3091,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     private function populateResultXavcHdIntraCbgProfileSettings(array $json): XavcHdIntraCbgProfileSettings
     {
         return new XavcHdIntraCbgProfileSettings([
+            'InterlaceMode' => isset($json['interlaceMode']) ? (!XavcInterlaceMode::exists((string) $json['interlaceMode']) ? XavcInterlaceMode::UNKNOWN_TO_SDK : (string) $json['interlaceMode']) : null,
             'XavcClass' => isset($json['xavcClass']) ? (!XavcHdIntraCbgProfileClass::exists((string) $json['xavcClass']) ? XavcHdIntraCbgProfileClass::UNKNOWN_TO_SDK : (string) $json['xavcClass']) : null,
         ]);
     }

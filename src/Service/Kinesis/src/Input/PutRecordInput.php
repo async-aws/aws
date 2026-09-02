@@ -75,6 +75,13 @@ final class PutRecordInput extends Input
     private $streamId;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   Data?: string,
@@ -83,6 +90,7 @@ final class PutRecordInput extends Input
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -95,6 +103,7 @@ final class PutRecordInput extends Input
         $this->sequenceNumberForOrdering = $input['SequenceNumberForOrdering'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->streamId = $input['StreamId'] ?? null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -107,6 +116,7 @@ final class PutRecordInput extends Input
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|PutRecordInput $input
      */
@@ -118,6 +128,11 @@ final class PutRecordInput extends Input
     public function getData(): ?string
     {
         return $this->data;
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     public function getExplicitHashKey(): ?string
@@ -179,6 +194,13 @@ final class PutRecordInput extends Input
     public function setData(?string $value): self
     {
         $this->data = $value;
+
+        return $this;
+    }
+
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
 
         return $this;
     }
@@ -250,6 +272,9 @@ final class PutRecordInput extends Input
         }
         if (null !== $v = $this->streamId) {
             $payload['StreamId'] = $v;
+        }
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
         }
 
         return $payload;

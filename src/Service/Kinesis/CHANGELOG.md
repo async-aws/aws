@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Adds ChannelCount in Amazon Kinesis Data Streams.
+- AWS api-change: Amazon Kinesis Data Streams now supports a dry run feature for data-plane APIs to validate the permissions and request parameters. If all checks complete successfully, the API returns a 'DryRunOperationException', confirming the request would have succeeded without the 'DryRun' parameter.
 
 ### Changed
 

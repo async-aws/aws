@@ -45,11 +45,19 @@ final class GetRecordsInput extends Input
     private $streamId;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   ShardIterator?: string,
      *   Limit?: int|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -59,6 +67,7 @@ final class GetRecordsInput extends Input
         $this->limit = $input['Limit'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->streamId = $input['StreamId'] ?? null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -68,12 +77,18 @@ final class GetRecordsInput extends Input
      *   Limit?: int|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|GetRecordsInput $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     public function getLimit(): ?int
@@ -122,6 +137,13 @@ final class GetRecordsInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
+
+        return $this;
+    }
+
     public function setLimit(?int $value): self
     {
         $this->limit = $value;
@@ -165,6 +187,9 @@ final class GetRecordsInput extends Input
         }
         if (null !== $v = $this->streamId) {
             $payload['StreamId'] = $v;
+        }
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
         }
 
         return $payload;

@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Add Python3.15 (python3.15) and NodeJs 26 (nodejs26.x) support to AWS Lambda
+- AWS api-change: AWS Lambda now provides configurable control over S3 direct access, allowing you to explicitly enable or disable how functions stream file reads directly from S3 buckets. This gives you flexibility to tune data access behavior based on your workload requirements, independent of memory size.
 
 ### Changed
 

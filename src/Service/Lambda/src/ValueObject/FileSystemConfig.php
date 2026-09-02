@@ -5,8 +5,8 @@ namespace AsyncAws\Lambda\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Details about the connection between a Lambda function and an Amazon EFS file system [^1] or an Amazon S3 Files file
- * system [^2].
+ * Details about the connection between a Lambda function and an Amazon EFS file system [^1] or an Amazon S3 file system
+ * [^2].
  *
  * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
  * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
@@ -29,21 +29,33 @@ final class FileSystemConfig
     private $localMountPath;
 
     /**
+     * The configuration for how your function accesses data on an Amazon S3 file system. Valid only when the file system
+     * access point ARN is an Amazon S3 Files access point. If you specify a different access point type (for example,
+     * Amazon Elastic File System), the operation returns an `InvalidParameterException`.
+     *
+     * @var S3FilesConfig|null
+     */
+    private $s3FilesConfig;
+
+    /**
      * @param array{
      *   Arn: string,
      *   LocalMountPath: string,
+     *   S3FilesConfig?: S3FilesConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->arn = $input['Arn'] ?? $this->throwException(new InvalidArgument('Missing required field "Arn".'));
         $this->localMountPath = $input['LocalMountPath'] ?? $this->throwException(new InvalidArgument('Missing required field "LocalMountPath".'));
+        $this->s3FilesConfig = isset($input['S3FilesConfig']) ? S3FilesConfig::create($input['S3FilesConfig']) : null;
     }
 
     /**
      * @param array{
      *   Arn: string,
      *   LocalMountPath: string,
+     *   S3FilesConfig?: S3FilesConfig|array|null,
      * }|FileSystemConfig $input
      */
     public static function create($input): self
@@ -61,6 +73,11 @@ final class FileSystemConfig
         return $this->localMountPath;
     }
 
+    public function getS3FilesConfig(): ?S3FilesConfig
+    {
+        return $this->s3FilesConfig;
+    }
+
     /**
      * @internal
      */
@@ -71,6 +88,9 @@ final class FileSystemConfig
         $payload['Arn'] = $v;
         $v = $this->localMountPath;
         $payload['LocalMountPath'] = $v;
+        if (null !== $v = $this->s3FilesConfig) {
+            $payload['S3FilesConfig'] = $v->requestBody();
+        }
 
         return $payload;
     }

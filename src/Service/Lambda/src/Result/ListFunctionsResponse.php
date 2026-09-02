@@ -7,6 +7,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\ApplicationLogLevel;
 use AsyncAws\Lambda\Enum\Architecture;
+use AsyncAws\Lambda\Enum\DirectS3Read;
 use AsyncAws\Lambda\Enum\LastUpdateStatus;
 use AsyncAws\Lambda\Enum\LastUpdateStatusReasonCode;
 use AsyncAws\Lambda\Enum\LogFormat;
@@ -37,6 +38,7 @@ use AsyncAws\Lambda\ValueObject\Layer;
 use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionError;
+use AsyncAws\Lambda\ValueObject\S3FilesConfig;
 use AsyncAws\Lambda\ValueObject\SnapStartResponse;
 use AsyncAws\Lambda\ValueObject\TenancyConfig;
 use AsyncAws\Lambda\ValueObject\TracingConfigResponse;
@@ -215,6 +217,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         return new FileSystemConfig([
             'Arn' => (string) $json['Arn'],
             'LocalMountPath' => (string) $json['LocalMountPath'],
+            'S3FilesConfig' => empty($json['S3FilesConfig']) ? null : $this->populateResultS3FilesConfig($json['S3FilesConfig']),
         ]);
     }
 
@@ -370,6 +373,13 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         return new RuntimeVersionError([
             'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
             'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
+    }
+
+    private function populateResultS3FilesConfig(array $json): S3FilesConfig
+    {
+        return new S3FilesConfig([
+            'DirectS3Read' => isset($json['DirectS3Read']) ? (!DirectS3Read::exists((string) $json['DirectS3Read']) ? DirectS3Read::UNKNOWN_TO_SDK : (string) $json['DirectS3Read']) : null,
         ]);
     }
 

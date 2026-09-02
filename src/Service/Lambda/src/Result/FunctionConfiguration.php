@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\ApplicationLogLevel;
 use AsyncAws\Lambda\Enum\Architecture;
+use AsyncAws\Lambda\Enum\DirectS3Read;
 use AsyncAws\Lambda\Enum\LastUpdateStatus;
 use AsyncAws\Lambda\Enum\LastUpdateStatusReasonCode;
 use AsyncAws\Lambda\Enum\LogFormat;
@@ -33,6 +34,7 @@ use AsyncAws\Lambda\ValueObject\Layer;
 use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionConfig;
 use AsyncAws\Lambda\ValueObject\RuntimeVersionError;
+use AsyncAws\Lambda\ValueObject\S3FilesConfig;
 use AsyncAws\Lambda\ValueObject\SnapStartResponse;
 use AsyncAws\Lambda\ValueObject\TenancyConfig;
 use AsyncAws\Lambda\ValueObject\TracingConfigResponse;
@@ -262,7 +264,7 @@ class FunctionConfiguration extends Result
     private $lastUpdateStatusReasonCode;
 
     /**
-     * Connection settings for an Amazon EFS file system [^1] or an Amazon S3 Files file system [^2].
+     * Connection settings for an Amazon EFS file system [^1] or an Amazon S3 file system [^2].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
      * [^2]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
@@ -806,6 +808,7 @@ class FunctionConfiguration extends Result
         return new FileSystemConfig([
             'Arn' => (string) $json['Arn'],
             'LocalMountPath' => (string) $json['LocalMountPath'],
+            'S3FilesConfig' => empty($json['S3FilesConfig']) ? null : $this->populateResultS3FilesConfig($json['S3FilesConfig']),
         ]);
     }
 
@@ -902,6 +905,13 @@ class FunctionConfiguration extends Result
         return new RuntimeVersionError([
             'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
             'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
+    }
+
+    private function populateResultS3FilesConfig(array $json): S3FilesConfig
+    {
+        return new S3FilesConfig([
+            'DirectS3Read' => isset($json['DirectS3Read']) ? (!DirectS3Read::exists((string) $json['DirectS3Read']) ? DirectS3Read::UNKNOWN_TO_SDK : (string) $json['DirectS3Read']) : null,
         ]);
     }
 

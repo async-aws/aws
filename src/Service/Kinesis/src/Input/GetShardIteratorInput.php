@@ -84,6 +84,13 @@ final class GetShardIteratorInput extends Input
     private $streamId;
 
     /**
+     * Checks if your request will succeed. `DryRun` is an optional parameter.
+     *
+     * @var bool|null
+     */
+    private $dryRun;
+
+    /**
      * @param array{
      *   StreamName?: string|null,
      *   ShardId?: string,
@@ -92,6 +99,7 @@ final class GetShardIteratorInput extends Input
      *   Timestamp?: \DateTimeImmutable|string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -104,6 +112,7 @@ final class GetShardIteratorInput extends Input
         $this->timestamp = !isset($input['Timestamp']) ? null : ($input['Timestamp'] instanceof \DateTimeImmutable ? $input['Timestamp'] : new \DateTimeImmutable($input['Timestamp']));
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->streamId = $input['StreamId'] ?? null;
+        $this->dryRun = $input['DryRun'] ?? null;
         parent::__construct($input);
     }
 
@@ -116,12 +125,18 @@ final class GetShardIteratorInput extends Input
      *   Timestamp?: \DateTimeImmutable|string|null,
      *   StreamARN?: string|null,
      *   StreamId?: string|null,
+     *   DryRun?: bool|null,
      *   '@region'?: string|null,
      * }|GetShardIteratorInput $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getDryRun(): ?bool
+    {
+        return $this->dryRun;
     }
 
     public function getShardId(): ?string
@@ -186,6 +201,13 @@ final class GetShardIteratorInput extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setDryRun(?bool $value): self
+    {
+        $this->dryRun = $value;
+
+        return $this;
     }
 
     public function setShardId(?string $value): self
@@ -269,6 +291,9 @@ final class GetShardIteratorInput extends Input
         }
         if (null !== $v = $this->streamId) {
             $payload['StreamId'] = $v;
+        }
+        if (null !== $v = $this->dryRun) {
+            $payload['DryRun'] = (bool) $v;
         }
 
         return $payload;

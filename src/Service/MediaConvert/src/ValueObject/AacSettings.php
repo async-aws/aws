@@ -7,6 +7,7 @@ use AsyncAws\MediaConvert\Enum\AacAudioDescriptionBroadcasterMix;
 use AsyncAws\MediaConvert\Enum\AacCodecProfile;
 use AsyncAws\MediaConvert\Enum\AacCodingMode;
 use AsyncAws\MediaConvert\Enum\AacLoudnessMeasurementMode;
+use AsyncAws\MediaConvert\Enum\AacPassthroughControl;
 use AsyncAws\MediaConvert\Enum\AacRateControlMode;
 use AsyncAws\MediaConvert\Enum\AacRawFormat;
 use AsyncAws\MediaConvert\Enum\AacSpecification;
@@ -77,6 +78,15 @@ final class AacSettings
     private $loudnessMeasurementMode;
 
     /**
+     * When set to WHEN_POSSIBLE, input AAC audio will be passed through if it is present on the input. This detection is
+     * dynamic over the life of the transcode. Inputs that alternate between AAC and non-AAC content will have a consistent
+     * AAC output as the system alternates between passthrough and encoding.
+     *
+     * @var AacPassthroughControl::*|null
+     */
+    private $passthroughControl;
+
+    /**
      * Specify the RAP (Random Access Point) interval for your xHE-AAC audio output. A RAP allows a decoder to decode audio
      * data mid-stream, without the need to reference previous audio frames, and perform adaptive audio bitrate switching.
      * To specify the RAP interval: Enter an integer from 2000 to 30000, in milliseconds. Smaller values allow for better
@@ -143,6 +153,7 @@ final class AacSettings
      *   CodecProfile?: AacCodecProfile::*|null,
      *   CodingMode?: AacCodingMode::*|null,
      *   LoudnessMeasurementMode?: AacLoudnessMeasurementMode::*|null,
+     *   PassthroughControl?: AacPassthroughControl::*|null,
      *   RapInterval?: int|null,
      *   RateControlMode?: AacRateControlMode::*|null,
      *   RawFormat?: AacRawFormat::*|null,
@@ -159,6 +170,7 @@ final class AacSettings
         $this->codecProfile = $input['CodecProfile'] ?? null;
         $this->codingMode = $input['CodingMode'] ?? null;
         $this->loudnessMeasurementMode = $input['LoudnessMeasurementMode'] ?? null;
+        $this->passthroughControl = $input['PassthroughControl'] ?? null;
         $this->rapInterval = $input['RapInterval'] ?? null;
         $this->rateControlMode = $input['RateControlMode'] ?? null;
         $this->rawFormat = $input['RawFormat'] ?? null;
@@ -175,6 +187,7 @@ final class AacSettings
      *   CodecProfile?: AacCodecProfile::*|null,
      *   CodingMode?: AacCodingMode::*|null,
      *   LoudnessMeasurementMode?: AacLoudnessMeasurementMode::*|null,
+     *   PassthroughControl?: AacPassthroughControl::*|null,
      *   RapInterval?: int|null,
      *   RateControlMode?: AacRateControlMode::*|null,
      *   RawFormat?: AacRawFormat::*|null,
@@ -224,6 +237,14 @@ final class AacSettings
     public function getLoudnessMeasurementMode(): ?string
     {
         return $this->loudnessMeasurementMode;
+    }
+
+    /**
+     * @return AacPassthroughControl::*|null
+     */
+    public function getPassthroughControl(): ?string
+    {
+        return $this->passthroughControl;
     }
 
     public function getRapInterval(): ?int
@@ -309,6 +330,13 @@ final class AacSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "loudnessMeasurementMode" for "%s". The value "%s" is not a valid "AacLoudnessMeasurementMode".', __CLASS__, $v));
             }
             $payload['loudnessMeasurementMode'] = $v;
+        }
+        if (null !== $v = $this->passthroughControl) {
+            if (!AacPassthroughControl::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "passthroughControl" for "%s". The value "%s" is not a valid "AacPassthroughControl".', __CLASS__, $v));
+            }
+            $payload['passthroughControl'] = $v;
         }
         if (null !== $v = $this->rapInterval) {
             $payload['rapInterval'] = $v;
