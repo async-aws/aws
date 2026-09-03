@@ -19,6 +19,7 @@ use AsyncAws\CodeGenerator\Generator\EnumGenerator;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\Core\Exception\UnparsableResponse;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\Visibility;
 
@@ -161,12 +162,26 @@ class RestJsonParser implements Parser
         }
 
         if ($required) {
-            $body = '/** @var \DateTimeImmutable $d */ $d = ' . $body;
+            $body = $this->rejectUnparsableTimestamp($body);
         } else {
             $body = 'isset(INPUT) && ($d = ' . $body . ') ? $d : null';
         }
 
         return strtr($body, ['INPUT' => $input]);
+    }
+
+    /**
+     * createFromFormat() returns false on a malformed value, and no annotation convinces static
+     * analysis that it cannot happen here. The failure is raised instead, so that the generated
+     * code needs no baseline entry: the value comes from the response, which is exactly what
+     * UnparsableResponse describes.
+     */
+    protected function rejectUnparsableTimestamp(string $body): string
+    {
+        $className = ClassName::createFromFqdn(UnparsableResponse::class);
+        $this->imports[] = $className;
+
+        return $body . ' ?: throw new ' . $className->getName() . "('Invalid timestamp received.')";
     }
 
     private function getInputAccessorName(Member $member): string

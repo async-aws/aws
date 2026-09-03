@@ -6,6 +6,10 @@
 
 - AWS api-change: Vector indexes are a type of index in Amazon DynamoDB that enable similarity search on vector embedding stored in your table items. Vector indexes use approximate nearest neighbor search to find items whose vectors are most similar to a query vector that you provide.
 
+### Changed
+
+- Throw `UnparsableResponse` instead of a `TypeError` when a required timestamp cannot be parsed
+
 ## 3.11.0
 
 ### Added

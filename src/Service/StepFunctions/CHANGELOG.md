@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Throw `UnparsableResponse` instead of a `TypeError` when a required timestamp cannot be parsed
+
 ## 1.7.1
 
 ### Changed

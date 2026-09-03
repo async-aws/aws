@@ -9,6 +9,7 @@
 
 ### Changed
 
+- Throw `UnparsableResponse` instead of a `TypeError` when a required timestamp cannot be parsed
 - AWS enhancement: Documentation updates.
 
 ## 3.5.0
