@@ -2,6 +2,7 @@
 
 namespace AsyncAws\StepFunctions\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
@@ -40,6 +41,6 @@ class StartExecutionOutput extends Result
         $data = $response->toArray();
 
         $this->executionArn = (string) $data['executionArn'];
-        $this->startDate = /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['startDate']));
+        $this->startDate = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['startDate'])) ?: throw new UnparsableResponse('Invalid timestamp received.');
     }
 }
