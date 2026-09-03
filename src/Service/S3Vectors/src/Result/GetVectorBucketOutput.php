@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3Vectors\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3Vectors\Enum\SseType;
@@ -44,7 +45,7 @@ class GetVectorBucketOutput extends Result
         return new VectorBucket([
             'vectorBucketName' => (string) $json['vectorBucketName'],
             'vectorBucketArn' => (string) $json['vectorBucketArn'],
-            'creationTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])),
+            'creationTime' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])) ?: throw new UnparsableResponse('Invalid timestamp received.'),
             'encryptionConfiguration' => empty($json['encryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['encryptionConfiguration']),
         ]);
     }

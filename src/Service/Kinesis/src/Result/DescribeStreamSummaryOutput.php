@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Kinesis\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Kinesis\Enum\EncryptionType;
@@ -84,7 +85,7 @@ class DescribeStreamSummaryOutput extends Result
             'StreamStatus' => !StreamStatus::exists((string) $json['StreamStatus']) ? StreamStatus::UNKNOWN_TO_SDK : (string) $json['StreamStatus'],
             'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
             'RetentionPeriodHours' => (int) $json['RetentionPeriodHours'],
-            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StreamCreationTimestamp'])),
+            'StreamCreationTimestamp' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['StreamCreationTimestamp'])) ?: throw new UnparsableResponse('Invalid timestamp received.'),
             'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($json['EnhancedMonitoring']),
             'EncryptionType' => isset($json['EncryptionType']) ? (!EncryptionType::exists((string) $json['EncryptionType']) ? EncryptionType::UNKNOWN_TO_SDK : (string) $json['EncryptionType']) : null,
             'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,

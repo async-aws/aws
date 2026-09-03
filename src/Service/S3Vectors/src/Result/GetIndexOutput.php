@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3Vectors\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3Vectors\Enum\DataType;
@@ -48,7 +49,7 @@ class GetIndexOutput extends Result
             'vectorBucketName' => (string) $json['vectorBucketName'],
             'indexName' => (string) $json['indexName'],
             'indexArn' => (string) $json['indexArn'],
-            'creationTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])),
+            'creationTime' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])) ?: throw new UnparsableResponse('Invalid timestamp received.'),
             'dataType' => !DataType::exists((string) $json['dataType']) ? DataType::UNKNOWN_TO_SDK : (string) $json['dataType'],
             'dimension' => (int) $json['dimension'],
             'distanceMetric' => !DistanceMetric::exists((string) $json['distanceMetric']) ? DistanceMetric::UNKNOWN_TO_SDK : (string) $json['distanceMetric'],
