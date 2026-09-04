@@ -198,7 +198,7 @@ class StepFunctionsClient extends AbstractApi
      * > `StartExecution` is idempotent for `STANDARD` workflows. For a `STANDARD` workflow, if you call `StartExecution`
      * > with the same name and input as a running execution, the call succeeds and return the same response as the original
      * > request. If the execution is closed or if the input is different, it returns a `400 ExecutionAlreadyExists` error.
-     * > You can reuse names after 90 days.
+     * > You can reuse the name 90 days after it closes.
      * >
      * > `StartExecution` isn't idempotent for `EXPRESS` workflows.
      *

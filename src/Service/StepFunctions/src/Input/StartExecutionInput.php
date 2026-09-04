@@ -43,9 +43,10 @@ final class StartExecutionInput extends Input
     private $stateMachineArn;
 
     /**
-     * Optional name of the execution. This name must be unique for your Amazon Web Services account, Region, and state
-     * machine for 90 days. For more information, see Limits Related to State Machine Executions [^1] in the *Step Functions
-     * Developer Guide*.
+     * Optional name of the execution. For STANDARD workflows, this name must be unique for your Amazon Web Services
+     * account, region, and state machine. If a previous execution with the same name exists, you can reuse the name 90 days
+     * after it closes. For EXPRESS workflows, execution names can be reused immediately. For more information, see Limits
+     * Related to State Machine Executions [^1] in the *Step Functions Developer Guide*.
      *
      * If you don't provide a name for the execution, Step Functions automatically generates a universally unique identifier
      * (UUID) as the execution name.
