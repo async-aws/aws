@@ -28,6 +28,7 @@ final class Event
     public const S3_OBJECT_RESTORE_COMPLETED = 's3:ObjectRestore:Completed';
     public const S3_OBJECT_RESTORE_DELETE = 's3:ObjectRestore:Delete';
     public const S3_OBJECT_RESTORE_POST = 's3:ObjectRestore:Post';
+    public const S3_OBJECT_RETENTION_PUT = 's3:ObjectRetention:Put';
     public const S3_OBJECT_TAGGING_ALL = 's3:ObjectTagging:*';
     public const S3_OBJECT_TAGGING_DELETE = 's3:ObjectTagging:Delete';
     public const S3_OBJECT_TAGGING_PUT = 's3:ObjectTagging:Put';
@@ -65,6 +66,7 @@ final class Event
             self::S3_OBJECT_RESTORE_COMPLETED => true,
             self::S3_OBJECT_RESTORE_DELETE => true,
             self::S3_OBJECT_RESTORE_POST => true,
+            self::S3_OBJECT_RETENTION_PUT => true,
             self::S3_OBJECT_TAGGING_ALL => true,
             self::S3_OBJECT_TAGGING_DELETE => true,
             self::S3_OBJECT_TAGGING_PUT => true,

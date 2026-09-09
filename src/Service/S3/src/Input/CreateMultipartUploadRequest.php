@@ -9,6 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\ObjectCannedACL;
+use AsyncAws\S3\Enum\ObjectLockEventHold;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
 use AsyncAws\S3\Enum\RequestPayer;
@@ -116,7 +117,7 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -516,6 +517,33 @@ final class CreateMultipartUploadRequest extends Input
     private $objectLockLegalHoldStatus;
 
     /**
+     * Specifies the event hold status to apply to the uploaded object. Set to `ON` to enable or `OFF` to disable.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var ObjectLockEventHold::*|null
+     */
+    private $objectLockEventHold;
+
+    /**
+     * Specifies the event hold duration in days to apply to the uploaded object.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var int|null
+     */
+    private $objectLockEventHoldDurationDays;
+
+    /**
+     * Specifies the event hold duration in years to apply to the uploaded object.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var int|null
+     */
+    private $objectLockEventHoldDurationYears;
+
+    /**
      * The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of
      * the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
@@ -552,7 +580,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ContentEncoding?: string|null,
      *   ContentLanguage?: string|null,
      *   ContentType?: string|null,
-     *   Expires?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -573,6 +601,9 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockMode?: ObjectLockMode::*|null,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ObjectLockEventHold?: ObjectLockEventHold::*|null,
+     *   ObjectLockEventHoldDurationDays?: int|null,
+     *   ObjectLockEventHoldDurationYears?: int|null,
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
@@ -588,7 +619,7 @@ final class CreateMultipartUploadRequest extends Input
         $this->contentEncoding = $input['ContentEncoding'] ?? null;
         $this->contentLanguage = $input['ContentLanguage'] ?? null;
         $this->contentType = $input['ContentType'] ?? null;
-        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->expires = $input['Expires'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -609,6 +640,9 @@ final class CreateMultipartUploadRequest extends Input
         $this->objectLockMode = $input['ObjectLockMode'] ?? null;
         $this->objectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->objectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
+        $this->objectLockEventHold = $input['ObjectLockEventHold'] ?? null;
+        $this->objectLockEventHoldDurationDays = $input['ObjectLockEventHoldDurationDays'] ?? null;
+        $this->objectLockEventHoldDurationYears = $input['ObjectLockEventHoldDurationYears'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->checksumType = $input['ChecksumType'] ?? null;
@@ -624,7 +658,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ContentEncoding?: string|null,
      *   ContentLanguage?: string|null,
      *   ContentType?: string|null,
-     *   Expires?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -645,6 +679,9 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockMode?: ObjectLockMode::*|null,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ObjectLockEventHold?: ObjectLockEventHold::*|null,
+     *   ObjectLockEventHoldDurationDays?: int|null,
+     *   ObjectLockEventHoldDurationYears?: int|null,
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
@@ -720,7 +757,7 @@ final class CreateMultipartUploadRequest extends Input
         return $this->expectedBucketOwner;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         return $this->expires;
     }
@@ -756,6 +793,24 @@ final class CreateMultipartUploadRequest extends Input
     public function getMetadata(): array
     {
         return $this->metadata ?? [];
+    }
+
+    /**
+     * @return ObjectLockEventHold::*|null
+     */
+    public function getObjectLockEventHold(): ?string
+    {
+        return $this->objectLockEventHold;
+    }
+
+    public function getObjectLockEventHoldDurationDays(): ?int
+    {
+        return $this->objectLockEventHoldDurationDays;
+    }
+
+    public function getObjectLockEventHoldDurationYears(): ?int
+    {
+        return $this->objectLockEventHoldDurationYears;
     }
 
     /**
@@ -868,7 +923,7 @@ final class CreateMultipartUploadRequest extends Input
             $headers['Content-Type'] = $this->contentType;
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format('D, d M Y H:i:s \G\M\T');
+            $headers['Expires'] = $this->expires;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -943,6 +998,19 @@ final class CreateMultipartUploadRequest extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->objectLockLegalHoldStatus));
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->objectLockLegalHoldStatus;
+        }
+        if (null !== $this->objectLockEventHold) {
+            if (!ObjectLockEventHold::exists($this->objectLockEventHold)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "ObjectLockEventHold" for "%s". The value "%s" is not a valid "ObjectLockEventHold".', __CLASS__, $this->objectLockEventHold));
+            }
+            $headers['x-amz-object-lock-event-hold'] = $this->objectLockEventHold;
+        }
+        if (null !== $this->objectLockEventHoldDurationDays) {
+            $headers['x-amz-object-lock-event-hold-duration-days'] = (string) $this->objectLockEventHoldDurationDays;
+        }
+        if (null !== $this->objectLockEventHoldDurationYears) {
+            $headers['x-amz-object-lock-event-hold-duration-years'] = (string) $this->objectLockEventHoldDurationYears;
         }
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
@@ -1075,7 +1143,7 @@ final class CreateMultipartUploadRequest extends Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeImmutable $value): self
+    public function setExpires(?string $value): self
     {
         $this->expires = $value;
 
@@ -1123,6 +1191,30 @@ final class CreateMultipartUploadRequest extends Input
     public function setMetadata(array $value): self
     {
         $this->metadata = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ObjectLockEventHold::*|null $value
+     */
+    public function setObjectLockEventHold(?string $value): self
+    {
+        $this->objectLockEventHold = $value;
+
+        return $this;
+    }
+
+    public function setObjectLockEventHoldDurationDays(?int $value): self
+    {
+        $this->objectLockEventHoldDurationDays = $value;
+
+        return $this;
+    }
+
+    public function setObjectLockEventHoldDurationYears(?int $value): self
+    {
+        $this->objectLockEventHoldDurationYears = $value;
 
         return $this;
     }

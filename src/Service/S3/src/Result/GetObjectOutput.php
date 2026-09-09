@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\S3\Enum\ChecksumType;
+use AsyncAws\S3\Enum\ObjectLockEventHold;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
 use AsyncAws\S3\Enum\ReplicationStatus;
@@ -95,7 +96,7 @@ class GetObjectOutput extends Result
     private $etag;
 
     /**
-     * The Base64 encoded, 32-bit `CRC32` checksum of the object. This checksum is only present if the object was uploaded
+     * The Base64 encoded, 32-bit `CRC32` checksum of the object. This checksum is only present if the checksum was uploaded
      * with the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
@@ -272,7 +273,7 @@ class GetObjectOutput extends Result
     /**
      * The date and time at which the object is no longer cacheable.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
     private $expires;
 
@@ -412,6 +413,34 @@ class GetObjectOutput extends Result
      * @var ObjectLockLegalHoldStatus::*|null
      */
     private $objectLockLegalHoldStatus;
+
+    /**
+     * The event hold status for this object. This header is only returned if the requester has the `s3:GetObjectRetention`
+     * permission.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var ObjectLockEventHold::*|null
+     */
+    private $objectLockEventHold;
+
+    /**
+     * The event hold duration in days for this object. Only returned when the event hold is enabled.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var int|null
+     */
+    private $objectLockEventHoldDurationDays;
+
+    /**
+     * The event hold duration in years for this object. Only returned when the event hold is enabled.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var int|null
+     */
+    private $objectLockEventHoldDurationYears;
 
     public function getAcceptRanges(): ?string
     {
@@ -584,7 +613,7 @@ class GetObjectOutput extends Result
         return $this->expiration;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?string
     {
         $this->initialize();
 
@@ -613,6 +642,30 @@ class GetObjectOutput extends Result
         $this->initialize();
 
         return $this->missingMeta;
+    }
+
+    /**
+     * @return ObjectLockEventHold::*|null
+     */
+    public function getObjectLockEventHold(): ?string
+    {
+        $this->initialize();
+
+        return $this->objectLockEventHold;
+    }
+
+    public function getObjectLockEventHoldDurationDays(): ?int
+    {
+        $this->initialize();
+
+        return $this->objectLockEventHoldDurationDays;
+    }
+
+    public function getObjectLockEventHoldDurationYears(): ?int
+    {
+        $this->initialize();
+
+        return $this->objectLockEventHoldDurationYears;
     }
 
     /**
@@ -768,7 +821,7 @@ class GetObjectOutput extends Result
         $this->contentLanguage = $headers['content-language'][0] ?? null;
         $this->contentRange = $headers['content-range'][0] ?? null;
         $this->contentType = $headers['content-type'][0] ?? null;
-        $this->expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
+        $this->expires = $headers['expires'][0] ?? null;
         $this->websiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
@@ -783,6 +836,9 @@ class GetObjectOutput extends Result
         $this->objectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
         $this->objectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
         $this->objectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;
+        $this->objectLockEventHold = $headers['x-amz-object-lock-event-hold'][0] ?? null;
+        $this->objectLockEventHoldDurationDays = isset($headers['x-amz-object-lock-event-hold-duration-days'][0]) ? (int) $headers['x-amz-object-lock-event-hold-duration-days'][0] : null;
+        $this->objectLockEventHoldDurationYears = isset($headers['x-amz-object-lock-event-hold-duration-years'][0]) ? (int) $headers['x-amz-object-lock-event-hold-duration-years'][0] : null;
 
         $this->metadata = [];
         foreach ($headers as $name => $value) {

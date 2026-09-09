@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: AWS Backup now lets you create read-only access points for Amazon S3 recovery points, enabling you to access backup data using S3 APIs without initiating a restore.
+- AWS api-change: Adds support for Amazon S3 Object Lock variable retention. Existing S3 APIs that support S3 Object Lock parameters now support two new parameters EventHold and EventHoldDuration at the object level, and DefaultEventHoldDuration at the bucket level.
 
 ## 3.4.1
 

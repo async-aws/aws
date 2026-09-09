@@ -34,7 +34,7 @@ final class CopyObjectResult
     private $checksumType;
 
     /**
-     * The Base64 encoded, 32-bit `CRC32` checksum of the object. This checksum is only present if the object was uploaded
+     * The Base64 encoded, 32-bit `CRC32` checksum of the object. This checksum is only present if the checksum was uploaded
      * with the object. For more information, see Checking object integrity [^1] in the *Amazon S3 User Guide*.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html

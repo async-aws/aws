@@ -17,6 +17,7 @@ use AsyncAws\S3\Enum\ChecksumType;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\MetadataDirective;
 use AsyncAws\S3\Enum\ObjectCannedACL;
+use AsyncAws\S3\Enum\ObjectLockEventHold;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
 use AsyncAws\S3\Enum\ObjectOwnership;
@@ -558,7 +559,7 @@ class S3Client extends AbstractApi
      *   CopySourceIfModifiedSince?: \DateTimeImmutable|string|null,
      *   CopySourceIfNoneMatch?: string|null,
      *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string|null,
-     *   Expires?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -587,6 +588,9 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: ObjectLockMode::*|null,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ObjectLockEventHold?: ObjectLockEventHold::*|null,
+     *   ObjectLockEventHoldDurationDays?: int|null,
+     *   ObjectLockEventHoldDurationYears?: int|null,
      *   ExpectedBucketOwner?: string|null,
      *   ExpectedSourceBucketOwner?: string|null,
      *   '@region'?: string|null,
@@ -943,7 +947,7 @@ class S3Client extends AbstractApi
      *   ContentEncoding?: string|null,
      *   ContentLanguage?: string|null,
      *   ContentType?: string|null,
-     *   Expires?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
      *   GrantFullControl?: string|null,
      *   GrantRead?: string|null,
      *   GrantReadACP?: string|null,
@@ -964,6 +968,9 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: ObjectLockMode::*|null,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ObjectLockEventHold?: ObjectLockEventHold::*|null,
+     *   ObjectLockEventHoldDurationDays?: int|null,
+     *   ObjectLockEventHoldDurationYears?: int|null,
      *   ExpectedBucketOwner?: string|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
@@ -3030,7 +3037,7 @@ class S3Client extends AbstractApi
      *   ChecksumXXHASH64?: string|null,
      *   ChecksumXXHASH3?: string|null,
      *   ChecksumXXHASH128?: string|null,
-     *   Expires?: \DateTimeImmutable|string|null,
+     *   Expires?: string|null,
      *   IfMatch?: string|null,
      *   IfNoneMatch?: string|null,
      *   GrantFullControl?: string|null,
@@ -3054,6 +3061,9 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: ObjectLockMode::*|null,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string|null,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*|null,
+     *   ObjectLockEventHold?: ObjectLockEventHold::*|null,
+     *   ObjectLockEventHoldDurationDays?: int|null,
+     *   ObjectLockEventHoldDurationYears?: int|null,
      *   ExpectedBucketOwner?: string|null,
      *   '@region'?: string|null,
      * }|PutObjectRequest $input
