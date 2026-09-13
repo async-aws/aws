@@ -526,7 +526,8 @@ final class CreateMultipartUploadRequest extends Input
     private $objectLockEventHold;
 
     /**
-     * Specifies the event hold duration in days to apply to the uploaded object.
+     * Specifies the event hold duration in days to apply to the uploaded object. You cannot specify a duration in both days
+     * and years.
      *
      * > This functionality is not supported for directory buckets.
      *
@@ -535,7 +536,8 @@ final class CreateMultipartUploadRequest extends Input
     private $objectLockEventHoldDurationDays;
 
     /**
-     * Specifies the event hold duration in years to apply to the uploaded object.
+     * Specifies the event hold duration in years to apply to the uploaded object. You cannot specify a duration in both
+     * days and years.
      *
      * > This functionality is not supported for directory buckets.
      *

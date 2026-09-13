@@ -752,7 +752,7 @@ final class CopyObjectRequest extends Input
     private $objectLockEventHold;
 
     /**
-     * The event hold duration in days to apply to the object copy.
+     * The event hold duration in days to apply to the object copy. You cannot specify a duration in both days and years.
      *
      * > This functionality is not supported for directory buckets.
      *
@@ -761,7 +761,7 @@ final class CopyObjectRequest extends Input
     private $objectLockEventHoldDurationDays;
 
     /**
-     * The event hold duration in years to apply to the object copy.
+     * The event hold duration in years to apply to the object copy. You cannot specify a duration in both days and years.
      *
      * > This functionality is not supported for directory buckets.
      *
