@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\ValueObject;
 
 use AsyncAws\CodeDeploy\Enum\ComputePlatform;
 use AsyncAws\CodeDeploy\Enum\DeploymentCreator;
+use AsyncAws\CodeDeploy\Enum\DeploymentMode;
 use AsyncAws\CodeDeploy\Enum\DeploymentStatus;
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
 
@@ -224,6 +225,20 @@ final class DeploymentInfo
     private $fileExistsBehavior;
 
     /**
+     * The deployment's type. Valid values are:
+     *
+     * - `STANDARD`: The deployment installed the specified revision.
+     * - `RESTART`: The deployment restarted the application on the target instances using the revision from the deployment
+     *   group's last successful deployment, without downloading a new revision.
+     *
+     * This field is absent for deployments created before `deploymentMode` existed, and for `STANDARD` deployments. An
+     * absent value must not be interpreted as `STANDARD`; it simply means no value was recorded either way.
+     *
+     * @var DeploymentMode::*|null
+     */
+    private $deploymentMode;
+
+    /**
      * Messages that contain information about the status of a deployment.
      *
      * @var string[]|null
@@ -281,6 +296,7 @@ final class DeploymentInfo
      *   loadBalancerInfo?: LoadBalancerInfo|array|null,
      *   additionalDeploymentStatusInfo?: string|null,
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
+     *   deploymentMode?: DeploymentMode::*|null,
      *   deploymentStatusMessages?: string[]|null,
      *   computePlatform?: ComputePlatform::*|null,
      *   externalId?: string|null,
@@ -315,6 +331,7 @@ final class DeploymentInfo
         $this->loadBalancerInfo = isset($input['loadBalancerInfo']) ? LoadBalancerInfo::create($input['loadBalancerInfo']) : null;
         $this->additionalDeploymentStatusInfo = $input['additionalDeploymentStatusInfo'] ?? null;
         $this->fileExistsBehavior = $input['fileExistsBehavior'] ?? null;
+        $this->deploymentMode = $input['deploymentMode'] ?? null;
         $this->deploymentStatusMessages = $input['deploymentStatusMessages'] ?? null;
         $this->computePlatform = $input['computePlatform'] ?? null;
         $this->externalId = $input['externalId'] ?? null;
@@ -349,6 +366,7 @@ final class DeploymentInfo
      *   loadBalancerInfo?: LoadBalancerInfo|array|null,
      *   additionalDeploymentStatusInfo?: string|null,
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
+     *   deploymentMode?: DeploymentMode::*|null,
      *   deploymentStatusMessages?: string[]|null,
      *   computePlatform?: ComputePlatform::*|null,
      *   externalId?: string|null,
@@ -420,6 +438,14 @@ final class DeploymentInfo
     public function getDeploymentId(): ?string
     {
         return $this->deploymentId;
+    }
+
+    /**
+     * @return DeploymentMode::*|null
+     */
+    public function getDeploymentMode(): ?string
+    {
+        return $this->deploymentMode;
     }
 
     public function getDeploymentOverview(): ?DeploymentOverview

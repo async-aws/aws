@@ -122,6 +122,7 @@ class StsClient extends AbstractApi
      *   TokenCode?: string|null,
      *   SourceIdentity?: string|null,
      *   ProvidedContexts?: array<ProvidedContext|array>|null,
+     *   MinimumSessionTokenSize?: int|null,
      *   '@region'?: string|null,
      * }|AssumeRoleRequest $input
      *
@@ -270,6 +271,7 @@ class StsClient extends AbstractApi
      *   PolicyArns?: array<PolicyDescriptorType|array>|null,
      *   Policy?: string|null,
      *   DurationSeconds?: int|null,
+     *   MinimumSessionTokenSize?: int|null,
      *   '@region'?: string|null,
      * }|AssumeRoleWithWebIdentityRequest $input
      *

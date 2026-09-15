@@ -28,8 +28,7 @@ final class SsmParameterConfiguration
     private $parameterName;
 
     /**
-     * The data type specifies what type of value the Parameter contains. We recommend that you use data type
-     * `aws:ec2:image`.
+     * The type of value the parameter contains. We recommend the `aws:ec2:image` data type.
      *
      * @var SsmParameterDataType::*|null
      */

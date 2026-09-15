@@ -9,30 +9,35 @@ use AsyncAws\ImageBuilder\Enum\ContainerRepositoryService;
 use AsyncAws\ImageBuilder\Enum\ContainerType;
 use AsyncAws\ImageBuilder\Enum\DiskImageFormat;
 use AsyncAws\ImageBuilder\Enum\EbsVolumeType;
+use AsyncAws\ImageBuilder\Enum\ImageConfigurationStep;
 use AsyncAws\ImageBuilder\Enum\ImageScanStatus;
 use AsyncAws\ImageBuilder\Enum\ImageSource;
 use AsyncAws\ImageBuilder\Enum\ImageStatus;
 use AsyncAws\ImageBuilder\Enum\ImageType;
 use AsyncAws\ImageBuilder\Enum\OnWorkflowFailure;
 use AsyncAws\ImageBuilder\Enum\Platform;
+use AsyncAws\ImageBuilder\Enum\RegionFailureStatus;
 use AsyncAws\ImageBuilder\Enum\SsmParameterDataType;
 use AsyncAws\ImageBuilder\Enum\TenancyType;
 use AsyncAws\ImageBuilder\ValueObject\AdditionalInstanceConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\Ami;
 use AsyncAws\ImageBuilder\ValueObject\AmiDistributionConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\ComponentConfiguration;
+use AsyncAws\ImageBuilder\ValueObject\ComponentFailureContext;
 use AsyncAws\ImageBuilder\ValueObject\ComponentParameter;
 use AsyncAws\ImageBuilder\ValueObject\Container;
 use AsyncAws\ImageBuilder\ValueObject\ContainerDistributionConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\ContainerRecipe;
 use AsyncAws\ImageBuilder\ValueObject\Distribution;
 use AsyncAws\ImageBuilder\ValueObject\DistributionConfiguration;
+use AsyncAws\ImageBuilder\ValueObject\DistributionFailureContext;
 use AsyncAws\ImageBuilder\ValueObject\EbsInstanceBlockDeviceSpecification;
 use AsyncAws\ImageBuilder\ValueObject\EcrConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\FastLaunchConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\FastLaunchLaunchTemplateSpecification;
 use AsyncAws\ImageBuilder\ValueObject\FastLaunchSnapshotConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\Image;
+use AsyncAws\ImageBuilder\ValueObject\ImageFailureContext;
 use AsyncAws\ImageBuilder\ValueObject\ImageLoggingConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\ImageRecipe;
 use AsyncAws\ImageBuilder\ValueObject\ImageScanningConfiguration;
@@ -49,6 +54,7 @@ use AsyncAws\ImageBuilder\ValueObject\LaunchTemplateConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\Logging;
 use AsyncAws\ImageBuilder\ValueObject\OutputResources;
 use AsyncAws\ImageBuilder\ValueObject\Placement;
+use AsyncAws\ImageBuilder\ValueObject\RegionFailure;
 use AsyncAws\ImageBuilder\ValueObject\S3ExportConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\S3Logs;
 use AsyncAws\ImageBuilder\ValueObject\SsmParameterConfiguration;
@@ -208,6 +214,17 @@ class GetImageResponse extends Result
         return $items;
     }
 
+    private function populateResultComponentFailureContext(array $json): ComponentFailureContext
+    {
+        return new ComponentFailureContext([
+            'componentArn' => isset($json['componentArn']) ? (string) $json['componentArn'] : null,
+            'phaseName' => isset($json['phaseName']) ? (string) $json['phaseName'] : null,
+            'stepName' => isset($json['stepName']) ? (string) $json['stepName'] : null,
+            'action' => isset($json['action']) ? (string) $json['action'] : null,
+            'errorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
+        ]);
+    }
+
     private function populateResultComponentParameter(array $json): ComponentParameter
     {
         return new ComponentParameter([
@@ -326,6 +343,14 @@ class GetImageResponse extends Result
         ]);
     }
 
+    private function populateResultDistributionFailureContext(array $json): DistributionFailureContext
+    {
+        return new DistributionFailureContext([
+            'errorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
+            'regionFailures' => !isset($json['regionFailures']) ? null : $this->populateResultRegionFailureList($json['regionFailures']),
+        ]);
+    }
+
     /**
      * @return Distribution[]
      */
@@ -434,6 +459,19 @@ class GetImageResponse extends Result
         ]);
     }
 
+    private function populateResultImageFailureContext(array $json): ImageFailureContext
+    {
+        return new ImageFailureContext([
+            'imageStatus' => isset($json['imageStatus']) ? (!ImageStatus::exists((string) $json['imageStatus']) ? ImageStatus::UNKNOWN_TO_SDK : (string) $json['imageStatus']) : null,
+            'workflowExecutionId' => isset($json['workflowExecutionId']) ? (string) $json['workflowExecutionId'] : null,
+            'workflowArn' => isset($json['workflowArn']) ? (string) $json['workflowArn'] : null,
+            'stepExecutionId' => isset($json['stepExecutionId']) ? (string) $json['stepExecutionId'] : null,
+            'failedStep' => isset($json['failedStep']) ? (string) $json['failedStep'] : null,
+            'componentFailure' => empty($json['componentFailure']) ? null : $this->populateResultComponentFailureContext($json['componentFailure']),
+            'distributionFailure' => empty($json['distributionFailure']) ? null : $this->populateResultDistributionFailureContext($json['distributionFailure']),
+        ]);
+    }
+
     private function populateResultImageLoggingConfiguration(array $json): ImageLoggingConfiguration
     {
         return new ImageLoggingConfiguration([
@@ -484,6 +522,7 @@ class GetImageResponse extends Result
         return new ImageState([
             'status' => isset($json['status']) ? (!ImageStatus::exists((string) $json['status']) ? ImageStatus::UNKNOWN_TO_SDK : (string) $json['status']) : null,
             'reason' => isset($json['reason']) ? (string) $json['reason'] : null,
+            'failureContext' => empty($json['failureContext']) ? null : $this->populateResultImageFailureContext($json['failureContext']),
         ]);
     }
 
@@ -686,6 +725,30 @@ class GetImageResponse extends Result
             'hostId' => isset($json['hostId']) ? (string) $json['hostId'] : null,
             'hostResourceGroupArn' => isset($json['hostResourceGroupArn']) ? (string) $json['hostResourceGroupArn'] : null,
         ]);
+    }
+
+    private function populateResultRegionFailure(array $json): RegionFailure
+    {
+        return new RegionFailure([
+            'region' => isset($json['region']) ? (string) $json['region'] : null,
+            'status' => isset($json['status']) ? (!RegionFailureStatus::exists((string) $json['status']) ? RegionFailureStatus::UNKNOWN_TO_SDK : (string) $json['status']) : null,
+            'imageConfigurationStep' => isset($json['imageConfigurationStep']) ? (!ImageConfigurationStep::exists((string) $json['imageConfigurationStep']) ? ImageConfigurationStep::UNKNOWN_TO_SDK : (string) $json['imageConfigurationStep']) : null,
+            'errorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
+            'targetAccountId' => isset($json['targetAccountId']) ? (string) $json['targetAccountId'] : null,
+        ]);
+    }
+
+    /**
+     * @return RegionFailure[]
+     */
+    private function populateResultRegionFailureList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultRegionFailure($item);
+        }
+
+        return $items;
     }
 
     /**

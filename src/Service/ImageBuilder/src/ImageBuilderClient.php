@@ -79,7 +79,7 @@ class ImageBuilderClient extends AbstractApi
     }
 
     /**
-     * Gets an image.
+     * Retrieves an image.
      *
      * @see https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetImage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-imagebuilder-2019-12-02.html#getimage

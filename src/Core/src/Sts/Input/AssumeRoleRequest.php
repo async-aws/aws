@@ -255,6 +255,11 @@ final class AssumeRoleRequest extends Input
     private $providedContexts;
 
     /**
+     * @var int|null
+     */
+    private $minimumSessionTokenSize;
+
+    /**
      * @param array{
      *   RoleArn?: string,
      *   RoleSessionName?: string,
@@ -268,6 +273,7 @@ final class AssumeRoleRequest extends Input
      *   TokenCode?: string|null,
      *   SourceIdentity?: string|null,
      *   ProvidedContexts?: array<ProvidedContext|array>|null,
+     *   MinimumSessionTokenSize?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -285,6 +291,7 @@ final class AssumeRoleRequest extends Input
         $this->tokenCode = $input['TokenCode'] ?? null;
         $this->sourceIdentity = $input['SourceIdentity'] ?? null;
         $this->providedContexts = isset($input['ProvidedContexts']) ? array_map([ProvidedContext::class, 'create'], $input['ProvidedContexts']) : null;
+        $this->minimumSessionTokenSize = $input['MinimumSessionTokenSize'] ?? null;
         parent::__construct($input);
     }
 
@@ -302,6 +309,7 @@ final class AssumeRoleRequest extends Input
      *   TokenCode?: string|null,
      *   SourceIdentity?: string|null,
      *   ProvidedContexts?: array<ProvidedContext|array>|null,
+     *   MinimumSessionTokenSize?: int|null,
      *   '@region'?: string|null,
      * }|AssumeRoleRequest $input
      */
@@ -318,6 +326,11 @@ final class AssumeRoleRequest extends Input
     public function getExternalId(): ?string
     {
         return $this->externalId;
+    }
+
+    public function getMinimumSessionTokenSize(): ?int
+    {
+        return $this->minimumSessionTokenSize;
     }
 
     public function getPolicy(): ?string
@@ -413,6 +426,13 @@ final class AssumeRoleRequest extends Input
     public function setExternalId(?string $value): self
     {
         $this->externalId = $value;
+
+        return $this;
+    }
+
+    public function setMinimumSessionTokenSize(?int $value): self
+    {
+        $this->minimumSessionTokenSize = $value;
 
         return $this;
     }
@@ -561,6 +581,9 @@ final class AssumeRoleRequest extends Input
                     $payload["ProvidedContexts.member.$index.$bodyKey"] = $bodyValue;
                 }
             }
+        }
+        if (null !== $v = $this->minimumSessionTokenSize) {
+            $payload['MinimumSessionTokenSize'] = $v;
         }
 
         return $payload;

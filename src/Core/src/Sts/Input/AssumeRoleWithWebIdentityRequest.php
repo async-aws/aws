@@ -152,6 +152,11 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     private $durationSeconds;
 
     /**
+     * @var int|null
+     */
+    private $minimumSessionTokenSize;
+
+    /**
      * @param array{
      *   RoleArn?: string,
      *   RoleSessionName?: string,
@@ -160,6 +165,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   PolicyArns?: array<PolicyDescriptorType|array>|null,
      *   Policy?: string|null,
      *   DurationSeconds?: int|null,
+     *   MinimumSessionTokenSize?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -172,6 +178,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
         $this->policyArns = isset($input['PolicyArns']) ? array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns']) : null;
         $this->policy = $input['Policy'] ?? null;
         $this->durationSeconds = $input['DurationSeconds'] ?? null;
+        $this->minimumSessionTokenSize = $input['MinimumSessionTokenSize'] ?? null;
         parent::__construct($input);
     }
 
@@ -184,6 +191,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   PolicyArns?: array<PolicyDescriptorType|array>|null,
      *   Policy?: string|null,
      *   DurationSeconds?: int|null,
+     *   MinimumSessionTokenSize?: int|null,
      *   '@region'?: string|null,
      * }|AssumeRoleWithWebIdentityRequest $input
      */
@@ -195,6 +203,11 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     public function getDurationSeconds(): ?int
     {
         return $this->durationSeconds;
+    }
+
+    public function getMinimumSessionTokenSize(): ?int
+    {
+        return $this->minimumSessionTokenSize;
     }
 
     public function getPolicy(): ?string
@@ -254,6 +267,13 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     public function setDurationSeconds(?int $value): self
     {
         $this->durationSeconds = $value;
+
+        return $this;
+    }
+
+    public function setMinimumSessionTokenSize(?int $value): self
+    {
+        $this->minimumSessionTokenSize = $value;
 
         return $this;
     }
@@ -335,6 +355,9 @@ final class AssumeRoleWithWebIdentityRequest extends Input
         }
         if (null !== $v = $this->durationSeconds) {
             $payload['DurationSeconds'] = $v;
+        }
+        if (null !== $v = $this->minimumSessionTokenSize) {
+            $payload['MinimumSessionTokenSize'] = $v;
         }
 
         return $payload;
