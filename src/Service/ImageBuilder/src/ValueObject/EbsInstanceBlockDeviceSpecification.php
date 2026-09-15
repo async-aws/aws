@@ -10,21 +10,21 @@ use AsyncAws\ImageBuilder\Enum\EbsVolumeType;
 final class EbsInstanceBlockDeviceSpecification
 {
     /**
-     * Use to configure device encryption.
+     * Specifies whether to encrypt the device.
      *
      * @var bool|null
      */
     private $encrypted;
 
     /**
-     * Use to configure delete on termination of the associated device.
+     * Specifies whether to delete the associated device on termination.
      *
      * @var bool|null
      */
     private $deleteOnTermination;
 
     /**
-     * Use to configure device IOPS.
+     * The IOPS value for the device. Required only when volumeType is io1 or io2.
      *
      * @var int|null
      */
@@ -49,14 +49,14 @@ final class EbsInstanceBlockDeviceSpecification
     private $snapshotId;
 
     /**
-     * Use to override the device's volume size.
+     * Overrides the volume size for the device.
      *
      * @var int|null
      */
     private $volumeSize;
 
     /**
-     * Use to override the device's volume type.
+     * Overrides the volume type for the device.
      *
      * @var EbsVolumeType::*|null
      */

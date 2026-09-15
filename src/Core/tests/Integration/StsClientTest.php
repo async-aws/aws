@@ -41,7 +41,6 @@ class StsClientTest extends TestCase
         self::assertLessThanOrEqual(new \DateTime('+5min'), $result->getCredentials()->getExpiration());
         self::assertNotNull($result->getAssumedRoleUser());
         self::assertSame('arn:aws:sts::000000000000:assumed-role/demo/John-session', $result->getAssumedRoleUser()->getArn());
-        self::assertSame(6, $result->getPackedPolicySize());
     }
 
     public function testAssumeRoleWithWebIdentity(): void
@@ -66,7 +65,6 @@ class StsClientTest extends TestCase
         self::assertLessThanOrEqual(new \DateTime('+5min'), $result->getCredentials()->getExpiration());
         self::assertNotNull($result->getAssumedRoleUser());
         self::assertSame('arn:aws:sts::123456789012:assumed-role/FederatedWebIdentityRole/app1', $result->getAssumedRoleUser()->getArn());
-        self::assertSame(6, $result->getPackedPolicySize());
     }
 
     public function testGetCallerIdentity(): void

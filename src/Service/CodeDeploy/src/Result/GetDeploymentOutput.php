@@ -6,6 +6,7 @@ use AsyncAws\CodeDeploy\Enum\AutoRollbackEvent;
 use AsyncAws\CodeDeploy\Enum\BundleType;
 use AsyncAws\CodeDeploy\Enum\ComputePlatform;
 use AsyncAws\CodeDeploy\Enum\DeploymentCreator;
+use AsyncAws\CodeDeploy\Enum\DeploymentMode;
 use AsyncAws\CodeDeploy\Enum\DeploymentOption;
 use AsyncAws\CodeDeploy\Enum\DeploymentReadyAction;
 use AsyncAws\CodeDeploy\Enum\DeploymentStatus;
@@ -196,6 +197,7 @@ class GetDeploymentOutput extends Result
             'loadBalancerInfo' => empty($json['loadBalancerInfo']) ? null : $this->populateResultLoadBalancerInfo($json['loadBalancerInfo']),
             'additionalDeploymentStatusInfo' => isset($json['additionalDeploymentStatusInfo']) ? (string) $json['additionalDeploymentStatusInfo'] : null,
             'fileExistsBehavior' => isset($json['fileExistsBehavior']) ? (!FileExistsBehavior::exists((string) $json['fileExistsBehavior']) ? FileExistsBehavior::UNKNOWN_TO_SDK : (string) $json['fileExistsBehavior']) : null,
+            'deploymentMode' => isset($json['deploymentMode']) ? (!DeploymentMode::exists((string) $json['deploymentMode']) ? DeploymentMode::UNKNOWN_TO_SDK : (string) $json['deploymentMode']) : null,
             'deploymentStatusMessages' => !isset($json['deploymentStatusMessages']) ? null : $this->populateResultDeploymentStatusMessageList($json['deploymentStatusMessages']),
             'computePlatform' => isset($json['computePlatform']) ? (!ComputePlatform::exists((string) $json['computePlatform']) ? ComputePlatform::UNKNOWN_TO_SDK : (string) $json['computePlatform']) : null,
             'externalId' => isset($json['externalId']) ? (string) $json['externalId'] : null,

@@ -78,7 +78,7 @@ final class InfrastructureConfiguration
     private $terminateInstanceOnFailure;
 
     /**
-     * The Amazon Resource Name (ARN) for the SNS topic to which we send image build event notifications.
+     * The Amazon Resource Name (ARN) of the SNS topic to which Image Builder sends image build event notifications.
      *
      * > EC2 Image Builder is unable to send notifications to SNS topics that are encrypted using keys from other accounts.
      * > The key that is used to encrypt the SNS topic must reside in the account that the Image Builder service runs under.
@@ -123,7 +123,7 @@ final class InfrastructureConfiguration
     private $tags;
 
     /**
-     * The instance placement settings that define where the instances that are launched from your image will run.
+     * The instance placement settings that define where the instances that are launched from your image run.
      *
      * @var Placement|null
      */

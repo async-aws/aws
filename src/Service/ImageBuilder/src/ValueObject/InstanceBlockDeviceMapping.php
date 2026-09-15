@@ -15,21 +15,21 @@ final class InstanceBlockDeviceMapping
     private $deviceName;
 
     /**
-     * Use to manage Amazon EBS-specific configuration for this mapping.
+     * The Amazon EBS-specific configuration for this mapping.
      *
      * @var EbsInstanceBlockDeviceSpecification|null
      */
     private $ebs;
 
     /**
-     * Use to manage instance ephemeral devices.
+     * The virtual device name for instance ephemeral devices.
      *
      * @var string|null
      */
     private $virtualName;
 
     /**
-     * Use to remove a mapping from the base image.
+     * Specifies a mapping to remove from the base image.
      *
      * @var string|null
      */

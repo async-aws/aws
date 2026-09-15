@@ -19,8 +19,9 @@ final class StartImagePipelineExecutionRequest extends Input
     private $imagePipelineArn;
 
     /**
-     * Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see
-     * Ensuring idempotency [^1] in the *Amazon EC2 API Reference*.
+     * A unique, case-sensitive identifier you provide to ensure that the operation completes no more than one time. If this
+     * token matches a previous request, the service ignores the request, but does not return an error. For more
+     * information, see Ensuring idempotency [^1] in the *Amazon EC2 API Reference*.
      *
      * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html
      *
@@ -31,7 +32,7 @@ final class StartImagePipelineExecutionRequest extends Input
     private $clientToken;
 
     /**
-     * Specify tags for Image Builder to apply to the image resource that's created When it starts pipeline execution.
+     * The tags for Image Builder to apply to the image resource that's created when pipeline execution starts.
      *
      * @var array<string, string>|null
      */

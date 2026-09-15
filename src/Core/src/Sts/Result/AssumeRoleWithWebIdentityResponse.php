@@ -93,6 +93,16 @@ class AssumeRoleWithWebIdentityResponse extends Result
      */
     private $sourceIdentity;
 
+    /**
+     * @var int|null
+     */
+    private $sessionTokenUtilization;
+
+    /**
+     * @var int|null
+     */
+    private $sessionTokenSize;
+
     public function getAssumedRoleUser(): ?AssumedRoleUser
     {
         $this->initialize();
@@ -114,8 +124,12 @@ class AssumeRoleWithWebIdentityResponse extends Result
         return $this->credentials;
     }
 
+    /**
+     * @deprecated
+     */
     public function getPackedPolicySize(): ?int
     {
+        @trigger_error(\sprintf('The property "packedPolicySize" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->initialize();
 
         return $this->packedPolicySize;
@@ -126,6 +140,20 @@ class AssumeRoleWithWebIdentityResponse extends Result
         $this->initialize();
 
         return $this->provider;
+    }
+
+    public function getSessionTokenSize(): ?int
+    {
+        $this->initialize();
+
+        return $this->sessionTokenSize;
+    }
+
+    public function getSessionTokenUtilization(): ?int
+    {
+        $this->initialize();
+
+        return $this->sessionTokenUtilization;
     }
 
     public function getSourceIdentity(): ?string
@@ -154,6 +182,8 @@ class AssumeRoleWithWebIdentityResponse extends Result
         $this->provider = (null !== $v = $data->Provider[0]) ? (string) $v : null;
         $this->audience = (null !== $v = $data->Audience[0]) ? (string) $v : null;
         $this->sourceIdentity = (null !== $v = $data->SourceIdentity[0]) ? (string) $v : null;
+        $this->sessionTokenUtilization = (null !== $v = $data->SessionTokenUtilization[0]) ? (int) (string) $v : null;
+        $this->sessionTokenSize = (null !== $v = $data->SessionTokenSize[0]) ? (int) (string) $v : null;
     }
 
     private function populateResultAssumedRoleUser(\SimpleXMLElement $xml): AssumedRoleUser

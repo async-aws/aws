@@ -120,9 +120,19 @@ final class CreateDeploymentInput extends Input
     private $fileExistsBehavior;
 
     /**
-     * The deployment mode to use for the deployment. When set to STANDARD (the default), the deployment runs the standard
-     * set of deployment lifecycle events. When set to RESTART, an EC2/On-premises in-place deployment runs a shortened set
-     * of lifecycle events to quickly restart the application on the target instances.
+     * The type of deployment to create. Valid values are:
+     *
+     * - `STANDARD`: Deploys the specified revision. This is the default behavior if `deploymentMode` is not specified.
+     * - `RESTART`: Restarts the application on the target instances using the revision from the deployment group's last
+     *   successful deployment, without downloading a new revision. `RESTART` is supported only for EC2/On-premises in-place
+     *   deployments.
+     *
+     *   When `deploymentMode` is `RESTART`, the following apply:
+     *
+     *   - The call is rejected for Amazon ECS and Lambda deployments.
+     *   - The `revision` parameter (including its `s3Location` and `gitHubLocation`) must not be specified, and is rejected
+     *     if provided. The revision is resolved by the service from the deployment group's last successful deployment.
+     *   - The `updateOutdatedInstancesOnly` parameter must not be set to `true`, and is rejected if provided.
      *
      * @var DeploymentMode::*|null
      */

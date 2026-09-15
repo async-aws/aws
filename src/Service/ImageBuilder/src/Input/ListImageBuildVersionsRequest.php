@@ -30,14 +30,14 @@ final class ListImageBuildVersionsRequest extends Input
     private $filters;
 
     /**
-     * Specify the maximum number of items to return in a request.
+     * The maximum number of items to return in a single request.
      *
      * @var int|null
      */
     private $maxResults;
 
     /**
-     * A token to specify where to start paginating. This is the nextToken from a previously truncated response.
+     * A token to specify where to start paginating. Use the `nextToken` value from a previously truncated response.
      *
      * @var string|null
      */
