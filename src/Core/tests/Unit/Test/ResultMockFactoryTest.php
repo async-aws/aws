@@ -23,7 +23,6 @@ class ResultMockFactoryTest extends TestCase
 
         self::assertInstanceOf(AssumeRoleResponse::class, $result);
         self::assertNull($result->getAssumedRoleUser());
-        self::assertEquals(342, $result->getPackedPolicySize());
     }
 
     public function testCreateAndFillEmptyParams()

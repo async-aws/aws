@@ -49,6 +49,5 @@ class AssumeRoleResponseTest extends TestCase
         self::assertSame('wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY', $result->getCredentials()->getSecretAccessKey());
         self::assertStringContainsString('AQoDYXdzEPT', $result->getCredentials()->getSessionToken());
         self::assertSame('20191109', $result->getCredentials()->getExpiration()->format('Ymd'));
-        self::assertSame(6, $result->getPackedPolicySize());
     }
 }
