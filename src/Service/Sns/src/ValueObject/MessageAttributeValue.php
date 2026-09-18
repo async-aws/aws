@@ -9,13 +9,15 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * the content as the message body. For more information, see Publish [^1].
  *
  * Name, type, and value must not be empty or null. In addition, the message body should not be empty or null. All parts
- * of the message attribute, including name, type, and value, are included in the message size restriction, which is
- * currently 256 KB (262,144 bytes). For more information, see Amazon SNS message attributes [^2] and Publishing to a
- * mobile phone [^3] in the *Amazon SNS Developer Guide.*
+ * of the message attribute, including name, type, and value, are included in the message size restriction, which is 256
+ * KiB (262,144 bytes) by default and is determined by the topic's `MaximumMessageSize` attribute. For more information,
+ * see Large message payloads [^2], Amazon SNS message attributes [^3] and Publishing to a mobile phone [^4] in the
+ * *Amazon SNS Developer Guide.*
  *
  * [^1]: https://docs.aws.amazon.com/sns/latest/api/API_Publish.html
- * [^2]: https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html
- * [^3]: https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html
+ * [^2]: https://docs.aws.amazon.com/sns/latest/dg/large-message-payloads.html
+ * [^3]: https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html
+ * [^4]: https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html
  */
 final class MessageAttributeValue
 {
