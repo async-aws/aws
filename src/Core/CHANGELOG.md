@@ -6,6 +6,14 @@
 
 - AWS api-change: Increases the maximum session token size to 4,096 bytes and removes the packed policy size limit. Adds SessionTokenSize and SessionTokenUtilization fields and a new MinimumSessionTokenSize parameter. PackedPolicySize is deprecated.
 
+### Dependency bumped
+
+- Bump minimum version of `symfony/http-client` to 5.3 and of `symfony/http-client-contracts` to 2.4
+
+### Changed
+
+- Retry throttled calls on the HTTP client given to the constructor, not only on the one built internally
+
 ## 1.30.0
 
 ### Added
