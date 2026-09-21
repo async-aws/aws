@@ -21,7 +21,6 @@ class SignerV4 implements Signer
 
     private const BLACKLIST_HEADERS = [
         'cache-control' => true,
-        'content-type' => true,
         'content-length' => true,
         'expect' => true,
         'max-forwards' => true,
@@ -43,6 +42,11 @@ class SignerV4 implements Signer
         'x-amzn-trace-id' => true,
         'aws-sdk-invocation-id' => true,
         'aws-sdk-retry' => true,
+    ];
+
+    // The consumer of a presigned URL may choose a different content type.
+    private const PRESIGN_BLACKLIST_HEADERS = [
+        'content-type' => true,
     ];
 
     /**
@@ -248,7 +252,7 @@ class SignerV4 implements Signer
                 $request->setQueryAttribute($name, $value);
             }
 
-            if (isset(self::BLACKLIST_HEADERS[$lowerName])) {
+            if (isset(self::BLACKLIST_HEADERS[$lowerName]) || isset(self::PRESIGN_BLACKLIST_HEADERS[$lowerName])) {
                 $request->removeHeader($name);
             }
         }
