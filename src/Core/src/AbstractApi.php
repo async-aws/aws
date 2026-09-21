@@ -23,6 +23,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\RetryableHttpClient;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -86,16 +87,26 @@ abstract class AbstractApi
         $this->endpointCache = new EndpointCache();
         if (!isset($httpClient)) {
             $httpClient = HttpClient::create();
-            if (class_exists(RetryableHttpClient::class)) {
-                /** @psalm-suppress MissingDependency */
-                $httpClient = new RetryableHttpClient(
-                    $httpClient,
-                    new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 1000, 2.0, 0, 0.1, $this->awsErrorFactory),
-                    3,
-                    $this->logger
-                );
+        } elseif (method_exists($httpClient, 'withOptions')) {
+            // The interface only declares withOptions() from http-client-contracts 3.0; 2.4
+            // documents it with @method, so an implementation may not have it.
+            try {
+                // A retryable client anywhere in the chain consumes the option before it reaches
+                // the transport; its attempts would otherwise multiply with the ones made below.
+                $httpClient = $httpClient->withOptions(['max_retries' => 0]);
+            } catch (TransportExceptionInterface) {
+                // Nothing in the chain knows the option, so nothing in it retries.
             }
         }
+
+        // Throttled calls are worth retrying whoever built the client: a caller that provides one
+        // to configure a timeout, a proxy or the profiler should not lose the AWS retry policy.
+        $httpClient = new RetryableHttpClient(
+            $httpClient,
+            new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 1000, 2.0, 0, 0.1, $this->awsErrorFactory),
+            3,
+            $this->logger
+        );
         $this->httpClient = $httpClient;
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
