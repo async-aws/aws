@@ -14,6 +14,55 @@ use PHPUnit\Framework\TestCase;
 
 class SignerV4Test extends TestCase
 {
+    #[DataProvider('provideContentTypes')]
+    public function testSignWithContentType(string $method, string $contentType, string $body, string $signature): void
+    {
+        $request = new Request($method, '/foo', ['arg' => 'bar'], ['Content-Type' => $contentType, 'User-Agent' => 'example'], StringStream::create($body));
+        $request->setEndpoint('https://example.com/foo?arg=bar');
+
+        (new SignerV4('sqs', 'eu-west-1'))->sign($request, new Credentials('key', 'secret', 'token'), new RequestContext([
+            'currentDate' => new \DateTimeImmutable('2020-01-01T00:00:00Z'),
+        ]));
+
+        self::assertSame($contentType, $request->getHeader('Content-Type'));
+        self::assertSame('AWS4-HMAC-SHA256 Credential=key/20200101/eu-west-1/sqs/aws4_request, SignedHeaders=content-type;host;x-amz-date;x-amz-security-token, Signature=' . $signature, $request->getHeader('Authorization'));
+    }
+
+    public static function provideContentTypes(): iterable
+    {
+        // Fixed signatures cross-checked with aws/aws-sdk-php 3.395.6.
+        yield 'empty GET' => ['GET', 'application/xml', '', 'ee5e72719eec8bc7742cffcb340dd80d611994100ecf3541925bc7ec46992fcb'];
+        yield 'JSON POST' => ['POST', 'application/json', '{}', '6bc104f5528bcb85b0703e93d86a9ad81de2aa01aa8da55bb007fb57f43eed1d'];
+        yield 'text PUT' => ['PUT', 'text/plain', 'hello', 'ad75211999d7364612dc0172f4b33aeab905bc66f71cf0e203f059cf1fa208e3'];
+        yield 'same PUT with a different content type' => ['PUT', 'application/octet-stream', 'hello', '06d9c3de6e65f0318585140e6d450f8eb371ee56ee2055ca05bd2dc573be0406'];
+    }
+
+    #[DataProvider('providePresignMethods')]
+    public function testPresignExcludesContentType(string $method): void
+    {
+        $request = new Request($method, '/foo', [], ['cOnTeNt-TyPe' => 'text/plain'], StringStream::create(''));
+        $request->setEndpoint('https://example.com/foo');
+        $withoutContentType = clone $request;
+        $withoutContentType->removeHeader('Content-Type');
+        $signer = new SignerV4('sqs', 'eu-west-1');
+        $credentials = new Credentials('key', 'secret', 'token');
+        $context = new RequestContext(['currentDate' => new \DateTimeImmutable('2020-01-01T00:00:00Z')]);
+
+        $signer->presign($request, $credentials, $context);
+        $signer->presign($withoutContentType, $credentials, $context);
+
+        self::assertFalse($request->hasHeader('Content-Type'));
+        self::assertSame('host', $request->getQueryAttribute('X-Amz-SignedHeaders'));
+        self::assertSame($withoutContentType->getEndpoint(), $request->getEndpoint());
+        self::assertSame($withoutContentType->getHeaders(), $request->getHeaders());
+    }
+
+    public static function providePresignMethods(): iterable
+    {
+        yield ['GET'];
+        yield ['PUT'];
+    }
+
     public function testSign()
     {
         $signer = new SignerV4('sqs', 'eu-west-1');
