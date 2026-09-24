@@ -5,8 +5,8 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 /**
  * Describes the configuration for a launch permission. The launch permission modification request is sent to the Amazon
  * EC2 ModifyImageAttribute [^1] API on behalf of the user for each Region they have selected to distribute the AMI. To
- * make an AMI public, set the launch permission authorized accounts to `all`. See the examples for making an AMI public
- * at Amazon EC2 ModifyImageAttribute [^2].
+ * make an AMI public, set `userGroups` to the value `all`. See the examples for making an AMI public at Amazon EC2
+ * ModifyImageAttribute [^2].
  *
  * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyImageAttribute.html
  * [^2]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyImageAttribute.html
@@ -14,14 +14,16 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 final class LaunchPermissionConfiguration
 {
     /**
-     * The Amazon Web Services account ID.
+     * The Amazon Web Services account IDs to grant launch permission to. Each listed account can use the distributed AMI to
+     * launch instances.
      *
      * @var string[]|null
      */
     private $userIds;
 
     /**
-     * The name of the group.
+     * The name of the group that you want to grant launch permission to. The only supported value is `all`, which makes the
+     * distributed AMI public.
      *
      * @var string[]|null
      */

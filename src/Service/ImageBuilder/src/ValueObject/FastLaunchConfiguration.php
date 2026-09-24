@@ -5,13 +5,13 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Define and configure faster launching for output Windows AMIs.
+ * Defines and configures EC2 Fast Launch for output Windows AMIs.
  */
 final class FastLaunchConfiguration
 {
     /**
-     * A Boolean that represents the current state of faster launching for the Windows AMI. Set to `true` to start using
-     * Windows faster launching, or `false` to stop using it.
+     * Specifies whether to enable Windows fast launch on the output AMI during distribution. A value of `false` means Image
+     * Builder takes no fast-launch action for this configuration.
      *
      * @var bool
      */
@@ -19,7 +19,7 @@ final class FastLaunchConfiguration
 
     /**
      * Configuration settings for managing the number of snapshots that are created from pre-provisioned instances for the
-     * Windows AMI when faster launching is enabled.
+     * Windows AMI when Windows fast launch is enabled.
      *
      * @var FastLaunchSnapshotConfiguration|null
      */

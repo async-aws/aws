@@ -36,6 +36,8 @@ final class Ami
     private $description;
 
     /**
+     * The state of the AMI, which includes the status and, if applicable, the reason for that status.
+     *
      * @var ImageState|null
      */
     private $state;

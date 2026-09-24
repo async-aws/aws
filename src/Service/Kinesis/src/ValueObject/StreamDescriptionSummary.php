@@ -4,6 +4,7 @@ namespace AsyncAws\Kinesis\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kinesis\Enum\EncryptionType;
+use AsyncAws\Kinesis\Enum\RecordDistributionStrategy;
 use AsyncAws\Kinesis\Enum\StreamStatus;
 
 /**
@@ -139,6 +140,16 @@ final class StreamDescriptionSummary
     private $channelCount;
 
     /**
+     * The record distribution strategy that the stream currently uses. A value of `AUTO` indicates that Amazon Kinesis Data
+     * Streams distributes records across shards using service-managed algorithms. A value of `USER_PARTITION_KEY` indicates
+     * that shard placement is determined by the partition key that producers supply. This field is only present for streams
+     * that use the on-demand capacity mode.
+     *
+     * @var RecordDistributionStrategy::*|null
+     */
+    private $recordDistributionStrategy;
+
+    /**
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
@@ -155,6 +166,7 @@ final class StreamDescriptionSummary
      *   WarmThroughput?: WarmThroughputObject|array|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   ChannelCount?: int|null,
+     *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -174,6 +186,7 @@ final class StreamDescriptionSummary
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughputObject::create($input['WarmThroughput']) : null;
         $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
         $this->channelCount = $input['ChannelCount'] ?? null;
+        $this->recordDistributionStrategy = $input['RecordDistributionStrategy'] ?? null;
     }
 
     /**
@@ -193,6 +206,7 @@ final class StreamDescriptionSummary
      *   WarmThroughput?: WarmThroughputObject|array|null,
      *   MaxRecordSizeInKiB?: int|null,
      *   ChannelCount?: int|null,
+     *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
      * }|StreamDescriptionSummary $input
      */
     public static function create($input): self
@@ -239,6 +253,14 @@ final class StreamDescriptionSummary
     public function getOpenShardCount(): int
     {
         return $this->openShardCount;
+    }
+
+    /**
+     * @return RecordDistributionStrategy::*|null
+     */
+    public function getRecordDistributionStrategy(): ?string
+    {
+        return $this->recordDistributionStrategy;
     }
 
     public function getRetentionPeriodHours(): int

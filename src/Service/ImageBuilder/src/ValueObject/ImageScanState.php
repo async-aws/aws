@@ -10,7 +10,9 @@ use AsyncAws\ImageBuilder\Enum\ImageScanStatus;
 final class ImageScanState
 {
     /**
-     * The current state of vulnerability scans for the image.
+     * The current state of vulnerability scans for the image. The scan starts as `PENDING` and moves through `SCANNING` and
+     * `COLLECTING` to `COMPLETED`. Image Builder sets the status to `ABANDONED` if the image reaches a terminal state
+     * before the scan finding collection completes. A scan can also end as `FAILED` or `TIMED_OUT`.
      *
      * @var ImageScanStatus::*|null
      */

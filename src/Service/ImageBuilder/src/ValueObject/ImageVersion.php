@@ -43,7 +43,7 @@ final class ImageVersion
     private $type;
 
     /**
-     * Details for a specific version of an Image Builder image. This version follows the semantic version syntax.
+     * The semantic version of the image. This version follows the semantic version syntax.
      *
      * > The semantic version has four nodes: <major>.<minor>.<patch>/<build>. You can assign values
      * > for the first three, and can filter on all of them.
@@ -71,8 +71,7 @@ final class ImageVersion
     private $platform;
 
     /**
-     * The operating system version of the Amazon EC2 build instance. For example, Amazon Linux 2, Ubuntu 18, or Microsoft
-     * Windows Server 2019.
+     * The operating system version of the image. For example, Amazon Linux 2023 or Microsoft Windows Server 2022.
      *
      * @var string|null
      */

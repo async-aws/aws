@@ -3,13 +3,9 @@
 namespace AsyncAws\ImageBuilder\ValueObject;
 
 /**
- * The instance metadata options that apply to the HTTP requests that pipeline builds use to launch EC2 build and test
- * instances. For more information about instance metadata options, see Configure the instance metadata options [^1] in
- * the **Amazon EC2 User Guide** for Linux instances, or Configure the instance metadata options [^2] in the **Amazon
- * EC2 Windows Guide** for Windows instances.
- *
- * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html
- * [^2]: https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/configuring-instance-metadata-options.html
+ * The instance metadata service (IMDS) settings that Image Builder applies to the EC2 build and test instances it
+ * launches. These settings control how software on those instances retrieves instance metadata and IAM role
+ * credentials.
  */
 final class InstanceMetadataOptions
 {
@@ -22,15 +18,20 @@ final class InstanceMetadataOptions
      *   leave it out. If you include it, version 2.0 credentials are returned for the IAM role. Otherwise, version 1.0
      *   credentials are returned.
      *
-     * The default setting is **optional**.
+     * If you don't set a value, the EC2 launch default applies to the build and test instances. That default depends on the
+     * base AMI and any account-level instance metadata defaults. For more information, see Configure the instance metadata
+     * options [^1] in the **Amazon EC2 User Guide**.
+     *
+     * [^1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html
      *
      * @var string|null
      */
     private $httpTokens;
 
     /**
-     * Limit the number of hops that an instance metadata request can traverse to reach its destination. The default is one
-     * hop. However, if HTTP tokens are required, container image builds need a minimum of two hops.
+     * Limit the number of hops that an instance metadata request can traverse to reach its destination. If you don't set a
+     * value, the EC2 launch default for the instance applies. If HTTP tokens are required, container image builds need a
+     * minimum of two hops.
      *
      * @var int|null
      */

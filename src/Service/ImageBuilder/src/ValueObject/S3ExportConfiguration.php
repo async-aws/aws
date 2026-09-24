@@ -6,7 +6,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\ImageBuilder\Enum\DiskImageFormat;
 
 /**
- * Properties that configure export from your build instance to a compatible file format for your VM.
+ * Properties that configure exporting the output image to a disk image file in an Amazon S3 bucket, in a format that's
+ * compatible with your VMs.
  */
 final class S3ExportConfiguration
 {

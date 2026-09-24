@@ -45,6 +45,7 @@ use AsyncAws\MediaConvert\Enum\AudioNormalizationAlgorithmControl;
 use AsyncAws\MediaConvert\Enum\AudioNormalizationLoudnessLogging;
 use AsyncAws\MediaConvert\Enum\AudioNormalizationPeakCalculation;
 use AsyncAws\MediaConvert\Enum\AudioSelectorType;
+use AsyncAws\MediaConvert\Enum\AudioSmpte337Passthrough;
 use AsyncAws\MediaConvert\Enum\AudioTypeControl;
 use AsyncAws\MediaConvert\Enum\Av1AdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\Av1BitDepth;
@@ -366,6 +367,7 @@ use AsyncAws\MediaConvert\Enum\NoiseReducerFilter;
 use AsyncAws\MediaConvert\Enum\OutputGroupType;
 use AsyncAws\MediaConvert\Enum\OutputSdt;
 use AsyncAws\MediaConvert\Enum\PadVideo;
+use AsyncAws\MediaConvert\Enum\PassthroughSegmentationMode;
 use AsyncAws\MediaConvert\Enum\PresetSpeke20Audio;
 use AsyncAws\MediaConvert\Enum\PresetSpeke20Video;
 use AsyncAws\MediaConvert\Enum\ProresChromaSampling;
@@ -916,6 +918,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'ProgramSelection' => isset($json['programSelection']) ? (int) $json['programSelection'] : null,
             'RemixSettings' => empty($json['remixSettings']) ? null : $this->populateResultRemixSettings($json['remixSettings']),
             'SelectorType' => isset($json['selectorType']) ? (!AudioSelectorType::exists((string) $json['selectorType']) ? AudioSelectorType::UNKNOWN_TO_SDK : (string) $json['selectorType']) : null,
+            'Smpte337Passthrough' => isset($json['smpte337Passthrough']) ? (!AudioSmpte337Passthrough::exists((string) $json['smpte337Passthrough']) ? AudioSmpte337Passthrough::UNKNOWN_TO_SDK : (string) $json['smpte337Passthrough']) : null,
             'Streams' => !isset($json['streams']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['streams']),
             'Tracks' => !isset($json['tracks']) ? null : $this->populateResult__listOf__integerMin1Max2147483647($json['tracks']),
         ]);
@@ -2115,6 +2118,7 @@ class ListJobsResponse extends Result implements \IteratorAggregate
             'Inputs' => !isset($json['inputs']) ? null : $this->populateResult__listOfInput($json['inputs']),
             'KantarWatermark' => empty($json['kantarWatermark']) ? null : $this->populateResultKantarWatermarkSettings($json['kantarWatermark']),
             'MotionImageInserter' => empty($json['motionImageInserter']) ? null : $this->populateResultMotionImageInserter($json['motionImageInserter']),
+            'MotionImageInserters' => !isset($json['motionImageInserters']) ? null : $this->populateResult__listOfMotionImageInserter($json['motionImageInserters']),
             'NielsenConfiguration' => empty($json['nielsenConfiguration']) ? null : $this->populateResultNielsenConfiguration($json['nielsenConfiguration']),
             'NielsenNonLinearWatermark' => empty($json['nielsenNonLinearWatermark']) ? null : $this->populateResultNielsenNonLinearWatermarkSettings($json['nielsenNonLinearWatermark']),
             'OutputGroups' => !isset($json['outputGroups']) ? null : $this->populateResult__listOfOutputGroup($json['outputGroups']),
@@ -2599,6 +2603,8 @@ class ListJobsResponse extends Result implements \IteratorAggregate
     {
         return new PassthroughSettings([
             'FrameControl' => isset($json['frameControl']) ? (!FrameControl::exists((string) $json['frameControl']) ? FrameControl::UNKNOWN_TO_SDK : (string) $json['frameControl']) : null,
+            'GopsPerSegment' => isset($json['gopsPerSegment']) ? (int) $json['gopsPerSegment'] : null,
+            'SegmentationMode' => isset($json['segmentationMode']) ? (!PassthroughSegmentationMode::exists((string) $json['segmentationMode']) ? PassthroughSegmentationMode::UNKNOWN_TO_SDK : (string) $json['segmentationMode']) : null,
             'VideoSelectorMode' => isset($json['videoSelectorMode']) ? (!VideoSelectorMode::exists((string) $json['videoSelectorMode']) ? VideoSelectorMode::UNKNOWN_TO_SDK : (string) $json['videoSelectorMode']) : null,
         ]);
     }
@@ -3465,6 +3471,19 @@ class ListJobsResponse extends Result implements \IteratorAggregate
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultJob($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return MotionImageInserter[]
+     */
+    private function populateResult__listOfMotionImageInserter(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultMotionImageInserter($item);
         }
 
         return $items;

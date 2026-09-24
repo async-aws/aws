@@ -3,7 +3,8 @@
 namespace AsyncAws\ImageBuilder\ValueObject;
 
 /**
- * A container encapsulates the runtime environment for an application.
+ * Details of the container images that are output resources of an image build in a given Amazon Web Services Region:
+ * the Region, and the URIs of the container images.
  */
 final class Container
 {

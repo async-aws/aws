@@ -6,7 +6,8 @@ use AsyncAws\ImageBuilder\Enum\ContainerType;
 use AsyncAws\ImageBuilder\Enum\Platform;
 
 /**
- * A container recipe.
+ * Defines how Image Builder builds and tests a container image: the base image, components to apply, the Dockerfile
+ * template, the build and test instance configuration, and the target repository for the output image.
  */
 final class ContainerRecipe
 {
@@ -48,7 +49,7 @@ final class ContainerRecipe
     private $description;
 
     /**
-     * The system platform for the container, such as Windows or Linux.
+     * The system platform for the container. Container recipes support only the Linux and Windows platforms.
      *
      * @var Platform::*|null
      */
@@ -83,8 +84,11 @@ final class ContainerRecipe
     private $version;
 
     /**
-     * Build and test components that are included in the container recipe. Recipes require a minimum of one build
-     * component, and can have a maximum of 20 build and test components in any combination.
+     * Build and test components that are included in the container recipe. A recipe can contain a maximum of 20 build and
+     * test components in any combination, by default. This maximum is an adjustable quota. For more information, see EC2
+     * Image Builder endpoints and quotas [^1] in the *Amazon Web Services General Reference*.
+     *
+     * [^1]: https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html
      *
      * @var ComponentConfiguration[]|null
      */
@@ -98,18 +102,21 @@ final class ContainerRecipe
     private $instanceConfiguration;
 
     /**
-     * Dockerfiles are text documents that are used to build Docker containers, and ensure that they contain all of the
-     * elements required by the application running inside. The template data consists of contextual variables where Image
-     * Builder places build information or scripts, based on your container image recipe.
+     * The Dockerfile template that Image Builder uses to build the container image. The template can include contextual
+     * variables that Image Builder replaces with build information at build time. For the contextual variables that the
+     * template can include, see Create a new version of a container recipe [^1] in the *EC2 Image Builder User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/imagebuilder/latest/userguide/create-container-recipes.html
      *
      * @var string|null
      */
     private $dockerfileTemplateData;
 
     /**
-     * The Amazon Resource Name (ARN) that uniquely identifies which KMS key is used to encrypt the container image for
-     * distribution to the target Region. This can be either the Key ARN or the Alias ARN. For more information, see Key
-     * identifiers (KeyId) [^1] in the *Key Management Service Developer Guide*.
+     * The KMS key that Image Builder uses to encrypt the recipe's Dockerfile template data at rest. This can be either the
+     * Key ARN or the Alias ARN. For more information, see Key identifiers (KeyId) [^1] in the *Key Management Service
+     * Developer Guide*. If you don't specify a key, Image Builder encrypts the template data with a KMS key that Image
+     * Builder owns. This key isn't used to encrypt the output container image.
      *
      * [^1]: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN
      *
@@ -118,7 +125,9 @@ final class ContainerRecipe
     private $kmsKeyId;
 
     /**
-     * A flag that indicates if the target container is encrypted.
+     * Specifies whether the recipe's Dockerfile template data is encrypted at rest. Image Builder encrypts all Dockerfile
+     * template data at rest, so this value is always `true`. This field is retained for backward compatibility, and doesn't
+     * describe encryption of the output container image.
      *
      * @var bool|null
      */

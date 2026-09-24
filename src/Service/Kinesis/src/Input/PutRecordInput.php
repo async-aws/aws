@@ -37,7 +37,11 @@ final class PutRecordInput extends Input
      * is used to map partition keys to 128-bit integer values and to map associated data records to shards. As a result of
      * this hashing mechanism, all data records with the same partition key map to the same shard within the stream.
      *
-     * @required
+     * If the stream uses the `USER_PARTITION_KEY` record distribution strategy (the default), a partition key is required.
+     * If the stream uses the `AUTO` record distribution strategy, the partition key is optional and any value you provide
+     * is ignored, along with any `ExplicitHashKey` you provide. In that case, Amazon Kinesis Data Streams distributes the
+     * record across shards using service-managed algorithms. For more information, see
+     * `UpdateStreamRecordDistributionStrategy`.
      *
      * @var string|null
      */
@@ -85,7 +89,7 @@ final class PutRecordInput extends Input
      * @param array{
      *   StreamName?: string|null,
      *   Data?: string,
-     *   PartitionKey?: string,
+     *   PartitionKey?: string|null,
      *   ExplicitHashKey?: string|null,
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
@@ -111,7 +115,7 @@ final class PutRecordInput extends Input
      * @param array{
      *   StreamName?: string|null,
      *   Data?: string,
-     *   PartitionKey?: string,
+     *   PartitionKey?: string|null,
      *   ExplicitHashKey?: string|null,
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,
@@ -257,10 +261,9 @@ final class PutRecordInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Data'] = base64_encode($v);
-        if (null === $v = $this->partitionKey) {
-            throw new InvalidArgument(\sprintf('Missing parameter "PartitionKey" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->partitionKey) {
+            $payload['PartitionKey'] = $v;
         }
-        $payload['PartitionKey'] = $v;
         if (null !== $v = $this->explicitHashKey) {
             $payload['ExplicitHashKey'] = $v;
         }

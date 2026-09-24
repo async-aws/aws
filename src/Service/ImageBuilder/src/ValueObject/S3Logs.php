@@ -8,14 +8,16 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 final class S3Logs
 {
     /**
-     * The S3 bucket in which to store the logs.
+     * The name of an existing Amazon S3 bucket where Image Builder saves build logs. The bucket isn't validated when you
+     * create or update the configuration, and Image Builder doesn't create it. The instance profile associated with this
+     * infrastructure configuration must have permission to write to the bucket.
      *
      * @var string|null
      */
     private $s3BucketName;
 
     /**
-     * The Amazon S3 path to the bucket where the logs are stored.
+     * The Amazon S3 key prefix under which Image Builder writes build and test logs in the bucket.
      *
      * @var string|null
      */

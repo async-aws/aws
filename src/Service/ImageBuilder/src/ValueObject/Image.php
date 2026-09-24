@@ -9,8 +9,9 @@ use AsyncAws\ImageBuilder\Enum\Platform;
 
 /**
  * An Image Builder image resource that keeps track of all of the settings used to create, configure, and distribute
- * output for that image. You must specify exactly one recipe for the image – either a container recipe
- * (`containerRecipe`), which creates a container image, or an image recipe (`imageRecipe`), which creates an AMI.
+ * output for that image. An image that Image Builder built from a recipe contains exactly one recipe – either a
+ * container recipe (`containerRecipe`), which creates a container image, or an image recipe (`imageRecipe`), which
+ * creates an AMI. Imported images don't contain a recipe.
  */
 final class Image
 {
@@ -112,14 +113,16 @@ final class Image
     private $containerRecipe;
 
     /**
-     * The name of the image pipeline that created this image.
+     * The name of the image pipeline that created this image. Image Builder doesn't return this field for new images. Use
+     * `sourcePipelineArn` instead.
      *
      * @var string|null
      */
     private $sourcePipelineName;
 
     /**
-     * The Amazon Resource Name (ARN) of the image pipeline that created this image.
+     * The Amazon Resource Name (ARN) of the image pipeline that created this image. This field is only present for images
+     * that a pipeline execution created.
      *
      * @var string|null
      */
@@ -140,7 +143,7 @@ final class Image
     private $distributionConfiguration;
 
     /**
-     * The image tests that ran when that Image Builder created this image.
+     * The image test settings that Image Builder used when it created this image.
      *
      * @var ImageTestsConfiguration|null
      */
@@ -195,7 +198,9 @@ final class Image
     private $scanState;
 
     /**
-     * Contains settings for vulnerability scans.
+     * Settings for the vulnerability scans that Amazon Inspector runs for this image. For AMI output, Amazon Inspector
+     * scans the test instance during image creation. For container output, Amazon Inspector scans the container image in
+     * its Amazon ECR repository.
      *
      * @var ImageScanningConfiguration|null
      */
@@ -224,7 +229,7 @@ final class Image
     private $executionRole;
 
     /**
-     * Contains the build and test workflows that are associated with the image.
+     * The build, test, and distribution workflow configurations that are associated with the image.
      *
      * @var WorkflowConfiguration[]|null
      */

@@ -19,7 +19,8 @@ final class InstanceConfiguration
     private $image;
 
     /**
-     * Defines the block devices to attach for building an instance from this Image Builder AMI.
+     * Defines the block device mappings for the EC2 instance that Image Builder launches to build and test your container
+     * image.
      *
      * @var InstanceBlockDeviceMapping[]|null
      */

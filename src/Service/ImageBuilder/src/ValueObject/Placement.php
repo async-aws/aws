@@ -32,9 +32,7 @@ final class Placement
     private $tenancy;
 
     /**
-     * The ID of the Dedicated Host on which build and test instances run. This only applies if `tenancy` is `host`. If you
-     * specify the host ID, you must not specify the resource group ARN. If you specify both, Image Builder returns an
-     * error.
+     * The ID of the Dedicated Host on which build and test instances run. This only applies if `tenancy` is `host`.
      *
      * @var string|null
      */
@@ -42,8 +40,7 @@ final class Placement
 
     /**
      * The Amazon Resource Name (ARN) of the host resource group in which to launch build and test instances. This only
-     * applies if `tenancy` is `host`. If you specify the resource group ARN, you must not specify the host ID. If you
-     * specify both, Image Builder returns an error.
+     * applies if `tenancy` is `host`.
      *
      * @var string|null
      */

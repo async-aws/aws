@@ -86,6 +86,14 @@ final class JobSettings
     private $motionImageInserter;
 
     /**
+     * Array of motion image inserters for overlaying multiple independent motion graphics. Compositing order follows array
+     * index. Mutually exclusive with motionImageInserter.
+     *
+     * @var MotionImageInserter[]|null
+     */
+    private $motionImageInserters;
+
+    /**
      * Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these settings.
      * When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs in the job.
      *
@@ -143,6 +151,7 @@ final class JobSettings
      *   Inputs?: array<Input|array>|null,
      *   KantarWatermark?: KantarWatermarkSettings|array|null,
      *   MotionImageInserter?: MotionImageInserter|array|null,
+     *   MotionImageInserters?: array<MotionImageInserter|array>|null,
      *   NielsenConfiguration?: NielsenConfiguration|array|null,
      *   NielsenNonLinearWatermark?: NielsenNonLinearWatermarkSettings|array|null,
      *   OutputGroups?: array<OutputGroup|array>|null,
@@ -161,6 +170,7 @@ final class JobSettings
         $this->inputs = isset($input['Inputs']) ? array_map([Input::class, 'create'], $input['Inputs']) : null;
         $this->kantarWatermark = isset($input['KantarWatermark']) ? KantarWatermarkSettings::create($input['KantarWatermark']) : null;
         $this->motionImageInserter = isset($input['MotionImageInserter']) ? MotionImageInserter::create($input['MotionImageInserter']) : null;
+        $this->motionImageInserters = isset($input['MotionImageInserters']) ? array_map([MotionImageInserter::class, 'create'], $input['MotionImageInserters']) : null;
         $this->nielsenConfiguration = isset($input['NielsenConfiguration']) ? NielsenConfiguration::create($input['NielsenConfiguration']) : null;
         $this->nielsenNonLinearWatermark = isset($input['NielsenNonLinearWatermark']) ? NielsenNonLinearWatermarkSettings::create($input['NielsenNonLinearWatermark']) : null;
         $this->outputGroups = isset($input['OutputGroups']) ? array_map([OutputGroup::class, 'create'], $input['OutputGroups']) : null;
@@ -179,6 +189,7 @@ final class JobSettings
      *   Inputs?: array<Input|array>|null,
      *   KantarWatermark?: KantarWatermarkSettings|array|null,
      *   MotionImageInserter?: MotionImageInserter|array|null,
+     *   MotionImageInserters?: array<MotionImageInserter|array>|null,
      *   NielsenConfiguration?: NielsenConfiguration|array|null,
      *   NielsenNonLinearWatermark?: NielsenNonLinearWatermarkSettings|array|null,
      *   OutputGroups?: array<OutputGroup|array>|null,
@@ -240,6 +251,14 @@ final class JobSettings
     public function getMotionImageInserter(): ?MotionImageInserter
     {
         return $this->motionImageInserter;
+    }
+
+    /**
+     * @return MotionImageInserter[]
+     */
+    public function getMotionImageInserters(): array
+    {
+        return $this->motionImageInserters ?? [];
     }
 
     public function getNielsenConfiguration(): ?NielsenConfiguration
@@ -312,6 +331,14 @@ final class JobSettings
         }
         if (null !== $v = $this->motionImageInserter) {
             $payload['motionImageInserter'] = $v->requestBody();
+        }
+        if (null !== $v = $this->motionImageInserters) {
+            $index = -1;
+            $payload['motionImageInserters'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['motionImageInserters'][$index] = $listValue->requestBody();
+            }
         }
         if (null !== $v = $this->nielsenConfiguration) {
             $payload['nielsenConfiguration'] = $v->requestBody();

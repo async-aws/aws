@@ -8,14 +8,15 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 final class OutputResources
 {
     /**
-     * The Amazon EC2 AMIs created by this image.
+     * The Amazon EC2 AMIs created by this image. The list contains one entry per AMI, including copies that distribution
+     * created in each target Amazon Web Services Region and account.
      *
      * @var Ami[]|null
      */
     private $amis;
 
     /**
-     * Container images that the pipeline has generated and stored in the output repository.
+     * The container images that Image Builder created when it built this image, stored in the output Amazon ECR repository.
      *
      * @var Container[]|null
      */
