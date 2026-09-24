@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Kinesis\Enum\RecordDistributionStrategy;
 use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
 
 /**
@@ -64,6 +65,23 @@ final class CreateStreamInput extends Input
     private $maxRecordSizeInKiB;
 
     /**
+     * The record distribution strategy for the stream, which determines how Amazon Kinesis Data Streams distributes records
+     * across shards. Specify one of the following values:
+     *
+     * - `AUTO` – Amazon Kinesis Data Streams distributes records evenly across shards and ignores any partition key and
+     *   `ExplicitHashKey` that producers supply. Use this value for stateless workloads that do not require partition-key
+     *   ordering.
+     * - `USER_PARTITION_KEY` – Producers must supply a partition key, which Amazon Kinesis Data Streams uses to determine
+     *   shard placement. This is the default.
+     *
+     * The record distribution strategy is only supported for streams that use the on-demand capacity mode. If you do not
+     * specify this parameter, the stream uses `USER_PARTITION_KEY`.
+     *
+     * @var RecordDistributionStrategy::*|null
+     */
+    private $recordDistributionStrategy;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   ShardCount?: int|null,
@@ -71,6 +89,7 @@ final class CreateStreamInput extends Input
      *   Tags?: array<string, string>|null,
      *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
+     *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -82,6 +101,7 @@ final class CreateStreamInput extends Input
         $this->tags = $input['Tags'] ?? null;
         $this->warmThroughputMiBps = $input['WarmThroughputMiBps'] ?? null;
         $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
+        $this->recordDistributionStrategy = $input['RecordDistributionStrategy'] ?? null;
         parent::__construct($input);
     }
 
@@ -93,6 +113,7 @@ final class CreateStreamInput extends Input
      *   Tags?: array<string, string>|null,
      *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
+     *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      */
@@ -104,6 +125,14 @@ final class CreateStreamInput extends Input
     public function getMaxRecordSizeInKiB(): ?int
     {
         return $this->maxRecordSizeInKiB;
+    }
+
+    /**
+     * @return RecordDistributionStrategy::*|null
+     */
+    public function getRecordDistributionStrategy(): ?string
+    {
+        return $this->recordDistributionStrategy;
     }
 
     public function getShardCount(): ?int
@@ -163,6 +192,16 @@ final class CreateStreamInput extends Input
     public function setMaxRecordSizeInKiB(?int $value): self
     {
         $this->maxRecordSizeInKiB = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param RecordDistributionStrategy::*|null $value
+     */
+    public function setRecordDistributionStrategy(?string $value): self
+    {
+        $this->recordDistributionStrategy = $value;
 
         return $this;
     }
@@ -233,6 +272,13 @@ final class CreateStreamInput extends Input
         }
         if (null !== $v = $this->maxRecordSizeInKiB) {
             $payload['MaxRecordSizeInKiB'] = $v;
+        }
+        if (null !== $v = $this->recordDistributionStrategy) {
+            if (!RecordDistributionStrategy::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "RecordDistributionStrategy" for "%s". The value "%s" is not a valid "RecordDistributionStrategy".', __CLASS__, $v));
+            }
+            $payload['RecordDistributionStrategy'] = $v;
         }
 
         return $payload;

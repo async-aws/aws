@@ -38,6 +38,10 @@ class ImageBuilderClient extends AbstractApi
      * during the image build process. You must clean those up separately, using the appropriate Amazon EC2 or Amazon ECR
      * console actions, or API or CLI commands.
      *
+     * The request fails with `ResourceDependencyException` if the image is shared with other accounts, or if other
+     * resources depend on it. It also fails while the image build is still running. Cancel an in-progress build with
+     * CancelImageCreation before you delete the image.
+     *
      * - To deregister an EC2 Linux AMI, see Deregister your Linux AMI [^1] in the **Amazon EC2 User Guide**.
      * - To deregister an EC2 Windows AMI, see Deregister your Windows AMI [^2] in the **Amazon EC2 Windows Guide**.
      * - To delete a container image from Amazon ECR, see Deleting an image [^3] in the *Amazon ECR User Guide*.
@@ -150,8 +154,7 @@ class ImageBuilderClient extends AbstractApi
     }
 
     /**
-     * Returns the list of images that you have access to. Newly created images can take up to two minutes to appear in the
-     * ListImages API Results.
+     * Returns the list of images that you have access to.
      *
      * @see https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ListImages.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-imagebuilder-2019-12-02.html#listimages
@@ -191,7 +194,9 @@ class ImageBuilderClient extends AbstractApi
     }
 
     /**
-     * Manually triggers a pipeline to create an image.
+     * Manually triggers a pipeline to create an image. You can start a build this way whether the pipeline is enabled or
+     * disabled. The response returns as soon as Image Builder creates the new image resource and queues the build. Use the
+     * returned `imageBuildVersionArn` with GetImage to track build progress.
      *
      * @see https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_StartImagePipelineExecution.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-imagebuilder-2019-12-02.html#startimagepipelineexecution

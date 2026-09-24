@@ -5,7 +5,7 @@ namespace AsyncAws\ImageBuilder\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 
 /**
- * You have requested an action that that the service doesn't support.
+ * The request is malformed or otherwise invalid. Verify the request and try again.
  */
 final class InvalidRequestException extends ClientException
 {

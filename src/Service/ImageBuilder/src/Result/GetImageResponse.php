@@ -80,7 +80,8 @@ class GetImageResponse extends Result
     private $image;
 
     /**
-     * The resource ARNs with different wildcard variations of semantic versioning.
+     * A set of wildcard version ARNs that always reference the latest version of the resource. ARNs are included for the
+     * latest version overall, and for the latest versions within the same major, minor, and patch levels.
      *
      * @var LatestVersionReferences|null
      */

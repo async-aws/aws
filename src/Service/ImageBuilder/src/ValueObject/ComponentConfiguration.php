@@ -5,19 +5,23 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Configuration details of the component.
+ * Configuration details of the component. You can specify each component only once in a recipe, regardless of version.
+ * Components with a status of `DEPRECATED` or `DISABLED` can't be added to new recipes.
  */
 final class ComponentConfiguration
 {
     /**
-     * The Amazon Resource Name (ARN) of the component.
+     * The Amazon Resource Name (ARN) of the component. You can specify a build version ARN, or a component version ARN
+     * whose version segments can use `x` wildcards, for example `1.x.x`.
      *
      * @var string
      */
     private $componentArn;
 
     /**
-     * A group of parameter settings that Image Builder uses to configure the component for a specific recipe.
+     * A group of parameter settings that Image Builder uses to configure the component for a specific recipe. You must
+     * supply a value for every component parameter that has no default value, and you can only supply parameters that the
+     * component defines.
      *
      * @var ComponentParameter[]|null
      */

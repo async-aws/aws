@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\MediaConvert\Enum\AudioDefaultSelection;
 use AsyncAws\MediaConvert\Enum\AudioDurationCorrection;
 use AsyncAws\MediaConvert\Enum\AudioSelectorType;
+use AsyncAws\MediaConvert\Enum\AudioSmpte337Passthrough;
 use AsyncAws\MediaConvert\Enum\LanguageCode;
 
 /**
@@ -135,6 +136,16 @@ final class AudioSelector
     private $selectorType;
 
     /**
+     * Specify whether to pass SMPTE 337M-wrapped audio (such as Dolby E) through without unwrapping. Choose Enabled to pass
+     * the SMPTE 337M container through unchanged, treating the track as raw PCM. Choose Disabled (default) to automatically
+     * detect and unwrap SMPTE 337M data, extracting the underlying Dolby E programs as separate audio tracks for encoding.
+     * When this field is absent, the service defaults to Disabled (auto-unwrap).
+     *
+     * @var AudioSmpte337Passthrough::*|null
+     */
+    private $smpte337Passthrough;
+
+    /**
      * Identify a track from the input audio to include in this selector by entering the stream index number. These
      * numberings count all tracks in the input file, but only a track containing audio data may be used here. To include
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
@@ -167,6 +178,7 @@ final class AudioSelector
      *   ProgramSelection?: int|null,
      *   RemixSettings?: RemixSettings|array|null,
      *   SelectorType?: AudioSelectorType::*|null,
+     *   Smpte337Passthrough?: AudioSmpte337Passthrough::*|null,
      *   Streams?: int[]|null,
      *   Tracks?: int[]|null,
      * } $input
@@ -184,6 +196,7 @@ final class AudioSelector
         $this->programSelection = $input['ProgramSelection'] ?? null;
         $this->remixSettings = isset($input['RemixSettings']) ? RemixSettings::create($input['RemixSettings']) : null;
         $this->selectorType = $input['SelectorType'] ?? null;
+        $this->smpte337Passthrough = $input['Smpte337Passthrough'] ?? null;
         $this->streams = $input['Streams'] ?? null;
         $this->tracks = $input['Tracks'] ?? null;
     }
@@ -201,6 +214,7 @@ final class AudioSelector
      *   ProgramSelection?: int|null,
      *   RemixSettings?: RemixSettings|array|null,
      *   SelectorType?: AudioSelectorType::*|null,
+     *   Smpte337Passthrough?: AudioSmpte337Passthrough::*|null,
      *   Streams?: int[]|null,
      *   Tracks?: int[]|null,
      * }|AudioSelector $input
@@ -281,6 +295,14 @@ final class AudioSelector
     }
 
     /**
+     * @return AudioSmpte337Passthrough::*|null
+     */
+    public function getSmpte337Passthrough(): ?string
+    {
+        return $this->smpte337Passthrough;
+    }
+
+    /**
      * @return int[]
      */
     public function getStreams(): array
@@ -355,6 +377,13 @@ final class AudioSelector
                 throw new InvalidArgument(\sprintf('Invalid parameter "selectorType" for "%s". The value "%s" is not a valid "AudioSelectorType".', __CLASS__, $v));
             }
             $payload['selectorType'] = $v;
+        }
+        if (null !== $v = $this->smpte337Passthrough) {
+            if (!AudioSmpte337Passthrough::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "smpte337Passthrough" for "%s". The value "%s" is not a valid "AudioSmpte337Passthrough".', __CLASS__, $v));
+            }
+            $payload['smpte337Passthrough'] = $v;
         }
         if (null !== $v = $this->streams) {
             $index = -1;

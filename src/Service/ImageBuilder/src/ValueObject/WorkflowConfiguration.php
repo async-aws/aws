@@ -35,7 +35,9 @@ final class WorkflowConfiguration
     private $parallelGroup;
 
     /**
-     * The action to take if the workflow fails.
+     * The action to take if the workflow fails. With `CONTINUE`, a failed workflow is logged and image creation proceeds to
+     * the next workflow. If you don't set a value, the image build fails when the workflow fails. You can only set this
+     * property for test workflows.
      *
      * @var OnWorkflowFailure::*|null
      */

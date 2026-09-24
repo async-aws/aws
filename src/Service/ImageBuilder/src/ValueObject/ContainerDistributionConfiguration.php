@@ -5,7 +5,8 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Container distribution settings for encryption, licensing, and sharing in a specific Region.
+ * Defines how the output container image is distributed in a specific Amazon Web Services Region: the target
+ * repository, the image tags to apply to the distributed image, and an optional description.
  */
 final class ContainerDistributionConfiguration
 {
@@ -17,7 +18,8 @@ final class ContainerDistributionConfiguration
     private $description;
 
     /**
-     * Tags that are attached to the container distribution configuration.
+     * Tags that Image Builder applies to the distributed container image in the target repository. These are repository
+     * image tags, not resource tags.
      *
      * @var string[]|null
      */

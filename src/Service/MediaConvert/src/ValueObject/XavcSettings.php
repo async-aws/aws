@@ -105,8 +105,8 @@ final class XavcSettings
 
     /**
      * Specify the XAVC profile for this output. For more information, see the Sony documentation at
-     * https://www.xavc-info.org/. Note that MediaConvert doesn't support the interlaced video XAVC operating points for
-     * XAVC_HD_INTRA_CBG. To create an interlaced XAVC output, choose the profile XAVC_HD.
+     * https://www.xavc-info.org/. Note that when you choose XAVC_HD_INTRA_CBG, MediaConvert supports interlaced outputs
+     * only when they are top field first and your output frame rate is 25 or 29.97 fps.
      *
      * @var XavcProfile::*|null
      */

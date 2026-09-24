@@ -10,6 +10,7 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Kinesis\Enum\EncryptionType;
 use AsyncAws\Kinesis\Enum\MetricsName;
+use AsyncAws\Kinesis\Enum\RecordDistributionStrategy;
 use AsyncAws\Kinesis\Enum\ScalingType;
 use AsyncAws\Kinesis\Enum\ShardIteratorType;
 use AsyncAws\Kinesis\Exception\AccessDeniedException;
@@ -181,6 +182,7 @@ class KinesisClient extends AbstractApi
      *   Tags?: array<string, string>|null,
      *   WarmThroughputMiBps?: int|null,
      *   MaxRecordSizeInKiB?: int|null,
+     *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
      *   '@region'?: string|null,
      * }|CreateStreamInput $input
      *
@@ -1073,7 +1075,7 @@ class KinesisClient extends AbstractApi
      * @param array{
      *   StreamName?: string|null,
      *   Data: string,
-     *   PartitionKey: string,
+     *   PartitionKey?: string|null,
      *   ExplicitHashKey?: string|null,
      *   SequenceNumberForOrdering?: string|null,
      *   StreamARN?: string|null,

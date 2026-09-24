@@ -37,7 +37,11 @@ final class Record
     /**
      * Identifies which shard in the stream the data record is assigned to.
      *
-     * @var string
+     * For a stream that uses the `AUTO` record distribution strategy, this value is not returned if the producer did not
+     * provide a partition key when writing the record. If the producer provided a partition key, the original value is
+     * returned even though it was not used to determine shard placement.
+     *
+     * @var string|null
      */
     private $partitionKey;
 
@@ -57,7 +61,7 @@ final class Record
      *   SequenceNumber: string,
      *   ApproximateArrivalTimestamp?: \DateTimeImmutable|null,
      *   Data: string,
-     *   PartitionKey: string,
+     *   PartitionKey?: string|null,
      *   EncryptionType?: EncryptionType::*|null,
      * } $input
      */
@@ -66,7 +70,7 @@ final class Record
         $this->sequenceNumber = $input['SequenceNumber'] ?? $this->throwException(new InvalidArgument('Missing required field "SequenceNumber".'));
         $this->approximateArrivalTimestamp = $input['ApproximateArrivalTimestamp'] ?? null;
         $this->data = $input['Data'] ?? $this->throwException(new InvalidArgument('Missing required field "Data".'));
-        $this->partitionKey = $input['PartitionKey'] ?? $this->throwException(new InvalidArgument('Missing required field "PartitionKey".'));
+        $this->partitionKey = $input['PartitionKey'] ?? null;
         $this->encryptionType = $input['EncryptionType'] ?? null;
     }
 
@@ -75,7 +79,7 @@ final class Record
      *   SequenceNumber: string,
      *   ApproximateArrivalTimestamp?: \DateTimeImmutable|null,
      *   Data: string,
-     *   PartitionKey: string,
+     *   PartitionKey?: string|null,
      *   EncryptionType?: EncryptionType::*|null,
      * }|Record $input
      */
@@ -102,7 +106,7 @@ final class Record
         return $this->encryptionType;
     }
 
-    public function getPartitionKey(): string
+    public function getPartitionKey(): ?string
     {
         return $this->partitionKey;
     }

@@ -15,7 +15,8 @@ namespace AsyncAws\ImageBuilder\ValueObject;
 final class AdditionalInstanceConfiguration
 {
     /**
-     * Contains settings for the Systems Manager agent on your build instance.
+     * The Systems Manager agent settings for your build instance. This setting applies to Linux and macOS build instances
+     * only. Requests that set it for a recipe with a Windows base image are rejected.
      *
      * @var SystemsManagerAgent|null
      */
@@ -29,7 +30,7 @@ final class AdditionalInstanceConfiguration
      * install Systems Manager, if it is not pre-installed on your base image.
      *
      * > The user data is always base 64 encoded. For example, the following commands are encoded as
-     * > `IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$`:
+     * > `IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhcg==`:
      * >
      * > *#!/bin/bash*
      * >

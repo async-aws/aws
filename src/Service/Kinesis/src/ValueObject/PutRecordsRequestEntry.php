@@ -33,7 +33,13 @@ final class PutRecordsRequestEntry
      * is used to map partition keys to 128-bit integer values and to map associated data records to shards. As a result of
      * this hashing mechanism, all data records with the same partition key map to the same shard within the stream.
      *
-     * @var string
+     * If the stream uses the `USER_PARTITION_KEY` record distribution strategy (the default), a partition key is required
+     * for each record. If the stream uses the `AUTO` record distribution strategy, the partition key is optional and any
+     * value you provide is ignored, along with any `ExplicitHashKey` you provide. In that case, Amazon Kinesis Data Streams
+     * distributes records across shards using service-managed algorithms. For more information, see
+     * `UpdateStreamRecordDistributionStrategy`.
+     *
+     * @var string|null
      */
     private $partitionKey;
 
@@ -41,21 +47,21 @@ final class PutRecordsRequestEntry
      * @param array{
      *   Data: string,
      *   ExplicitHashKey?: string|null,
-     *   PartitionKey: string,
+     *   PartitionKey?: string|null,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->data = $input['Data'] ?? $this->throwException(new InvalidArgument('Missing required field "Data".'));
         $this->explicitHashKey = $input['ExplicitHashKey'] ?? null;
-        $this->partitionKey = $input['PartitionKey'] ?? $this->throwException(new InvalidArgument('Missing required field "PartitionKey".'));
+        $this->partitionKey = $input['PartitionKey'] ?? null;
     }
 
     /**
      * @param array{
      *   Data: string,
      *   ExplicitHashKey?: string|null,
-     *   PartitionKey: string,
+     *   PartitionKey?: string|null,
      * }|PutRecordsRequestEntry $input
      */
     public static function create($input): self
@@ -73,7 +79,7 @@ final class PutRecordsRequestEntry
         return $this->explicitHashKey;
     }
 
-    public function getPartitionKey(): string
+    public function getPartitionKey(): ?string
     {
         return $this->partitionKey;
     }
@@ -89,8 +95,9 @@ final class PutRecordsRequestEntry
         if (null !== $v = $this->explicitHashKey) {
             $payload['ExplicitHashKey'] = $v;
         }
-        $v = $this->partitionKey;
-        $payload['PartitionKey'] = $v;
+        if (null !== $v = $this->partitionKey) {
+            $payload['PartitionKey'] = $v;
+        }
 
         return $payload;
     }

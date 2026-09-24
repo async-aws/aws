@@ -24,7 +24,8 @@ final class LaunchTemplateConfiguration
     private $accountId;
 
     /**
-     * Set the specified Amazon EC2 launch template as the default launch template for the specified account.
+     * Specifies whether to make the new launch template version that Image Builder creates the default version of the
+     * launch template. If you don't set a value, Image Builder treats it as `true`.
      *
      * @var bool|null
      */

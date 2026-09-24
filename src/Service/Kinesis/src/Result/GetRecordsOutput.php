@@ -126,7 +126,7 @@ class GetRecordsOutput extends Result
             'SequenceNumber' => (string) $json['SequenceNumber'],
             'ApproximateArrivalTimestamp' => (isset($json['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['ApproximateArrivalTimestamp'])))) ? $d : null,
             'Data' => base64_decode((string) $json['Data']),
-            'PartitionKey' => (string) $json['PartitionKey'],
+            'PartitionKey' => isset($json['PartitionKey']) ? (string) $json['PartitionKey'] : null,
             'EncryptionType' => isset($json['EncryptionType']) ? (!EncryptionType::exists((string) $json['EncryptionType']) ? EncryptionType::UNKNOWN_TO_SDK : (string) $json['EncryptionType']) : null,
         ]);
     }

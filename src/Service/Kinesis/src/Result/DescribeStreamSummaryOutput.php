@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Kinesis\Enum\EncryptionType;
 use AsyncAws\Kinesis\Enum\MetricsName;
+use AsyncAws\Kinesis\Enum\RecordDistributionStrategy;
 use AsyncAws\Kinesis\Enum\StreamMode;
 use AsyncAws\Kinesis\Enum\StreamStatus;
 use AsyncAws\Kinesis\ValueObject\EnhancedMetrics;
@@ -93,6 +94,7 @@ class DescribeStreamSummaryOutput extends Result
             'WarmThroughput' => empty($json['WarmThroughput']) ? null : $this->populateResultWarmThroughputObject($json['WarmThroughput']),
             'MaxRecordSizeInKiB' => isset($json['MaxRecordSizeInKiB']) ? (int) $json['MaxRecordSizeInKiB'] : null,
             'ChannelCount' => isset($json['ChannelCount']) ? (int) $json['ChannelCount'] : null,
+            'RecordDistributionStrategy' => isset($json['RecordDistributionStrategy']) ? (!RecordDistributionStrategy::exists((string) $json['RecordDistributionStrategy']) ? RecordDistributionStrategy::UNKNOWN_TO_SDK : (string) $json['RecordDistributionStrategy']) : null,
         ]);
     }
 

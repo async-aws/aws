@@ -3,29 +3,29 @@
 namespace AsyncAws\ImageBuilder\ValueObject;
 
 /**
- * Identifies the launch template that the associated Windows AMI uses for launching an instance when faster launching
- * is enabled.
+ * Identifies the launch template that the associated Windows AMI uses for launching an instance when Windows fast
+ * launch is enabled.
  *
  * > You can specify either the `launchTemplateName` or the `launchTemplateId`, but not both.
  */
 final class FastLaunchLaunchTemplateSpecification
 {
     /**
-     * The ID of the launch template to use for faster launching for a Windows AMI.
+     * The ID of the launch template to use for Windows fast launch for a Windows AMI.
      *
      * @var string|null
      */
     private $launchTemplateId;
 
     /**
-     * The name of the launch template to use for faster launching for a Windows AMI.
+     * The name of the launch template to use for Windows fast launch for a Windows AMI.
      *
      * @var string|null
      */
     private $launchTemplateName;
 
     /**
-     * The version of the launch template to use for faster launching for a Windows AMI.
+     * The version of the launch template to use for Windows fast launch for a Windows AMI.
      *
      * @var string|null
      */

@@ -33,7 +33,8 @@ final class ListImagesRequest extends Input
     private $filters;
 
     /**
-     * Requests a list of images with a specific recipe name.
+     * Specifies whether to return one entry per image name, with all versions of each image aggregated. Defaults to
+     * `false`, which returns one entry per image version. You can't combine this option with the `version` filter.
      *
      * @var bool|null
      */
@@ -54,7 +55,8 @@ final class ListImagesRequest extends Input
     private $nextToken;
 
     /**
-     * Includes deprecated images in the response list.
+     * Specifies whether to include deprecated Amazon-managed images in the results. Deprecated images that you own are
+     * always returned. Defaults to `false`.
      *
      * @var bool|null
      */
