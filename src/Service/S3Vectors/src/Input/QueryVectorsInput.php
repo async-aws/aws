@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3Vectors\Enum\IndexMode;
 use AsyncAws\S3Vectors\ValueObject\VectorData;
 
 final class QueryVectorsInput extends Input
@@ -62,6 +63,19 @@ final class QueryVectorsInput extends Input
     private $filter;
 
     /**
+     * The mode to use to process the query. If you don't specify a query mode, the operation uses the mode that's currently
+     * configured for the vector index.
+     *
+     * Valid values:
+     *
+     * - `CLASSIC` - Applies metadata filters during the vector search. You can't specify `CLASSIC` for an `ENHANCED` index.
+     * - `ENHANCED` - Applies metadata filters before the vector search.
+     *
+     * @var IndexMode::*|null
+     */
+    private $queryMode;
+
+    /**
      * Indicates whether to include metadata in the response. The default value is `false`.
      *
      * @var bool|null
@@ -90,6 +104,7 @@ final class QueryVectorsInput extends Input
      *   topK?: int,
      *   queryVector?: VectorData|array,
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
+     *   queryMode?: IndexMode::*|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
      *   nextToken?: string|null,
@@ -104,6 +119,7 @@ final class QueryVectorsInput extends Input
         $this->topK = $input['topK'] ?? null;
         $this->queryVector = isset($input['queryVector']) ? VectorData::create($input['queryVector']) : null;
         $this->filter = $input['filter'] ?? null;
+        $this->queryMode = $input['queryMode'] ?? null;
         $this->returnMetadata = $input['returnMetadata'] ?? null;
         $this->returnDistance = $input['returnDistance'] ?? null;
         $this->nextToken = $input['nextToken'] ?? null;
@@ -118,6 +134,7 @@ final class QueryVectorsInput extends Input
      *   topK?: int,
      *   queryVector?: VectorData|array,
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
+     *   queryMode?: IndexMode::*|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
      *   nextToken?: string|null,
@@ -150,6 +167,14 @@ final class QueryVectorsInput extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    /**
+     * @return IndexMode::*|null
+     */
+    public function getQueryMode(): ?string
+    {
+        return $this->queryMode;
     }
 
     public function getQueryVector(): ?VectorData
@@ -233,6 +258,16 @@ final class QueryVectorsInput extends Input
         return $this;
     }
 
+    /**
+     * @param IndexMode::*|null $value
+     */
+    public function setQueryMode(?string $value): self
+    {
+        $this->queryMode = $value;
+
+        return $this;
+    }
+
     public function setQueryVector(?VectorData $value): self
     {
         $this->queryVector = $value;
@@ -290,6 +325,13 @@ final class QueryVectorsInput extends Input
         $payload['queryVector'] = $v->requestBody();
         if (null !== $v = $this->filter) {
             $payload['filter'] = $v;
+        }
+        if (null !== $v = $this->queryMode) {
+            if (!IndexMode::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "queryMode" for "%s". The value "%s" is not a valid "IndexMode".', __CLASS__, $v));
+            }
+            $payload['queryMode'] = $v;
         }
         if (null !== $v = $this->returnMetadata) {
             $payload['returnMetadata'] = (bool) $v;

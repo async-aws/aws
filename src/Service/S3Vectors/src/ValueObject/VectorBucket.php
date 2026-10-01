@@ -3,6 +3,7 @@
 namespace AsyncAws\S3Vectors\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3Vectors\Enum\IndexMode;
 
 /**
  * The attributes of a vector bucket.
@@ -38,11 +39,20 @@ final class VectorBucket
     private $encryptionConfiguration;
 
     /**
+     * The mode that is automatically assigned to new vector indexes in the vector bucket. Changing the default index mode
+     * doesn't affect existing vector indexes.
+     *
+     * @var IndexMode::*|null
+     */
+    private $defaultIndexMode;
+
+    /**
      * @param array{
      *   vectorBucketName: string,
      *   vectorBucketArn: string,
      *   creationTime: \DateTimeImmutable,
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
+     *   defaultIndexMode?: IndexMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -51,6 +61,7 @@ final class VectorBucket
         $this->vectorBucketArn = $input['vectorBucketArn'] ?? $this->throwException(new InvalidArgument('Missing required field "vectorBucketArn".'));
         $this->creationTime = $input['creationTime'] ?? $this->throwException(new InvalidArgument('Missing required field "creationTime".'));
         $this->encryptionConfiguration = isset($input['encryptionConfiguration']) ? EncryptionConfiguration::create($input['encryptionConfiguration']) : null;
+        $this->defaultIndexMode = $input['defaultIndexMode'] ?? null;
     }
 
     /**
@@ -59,6 +70,7 @@ final class VectorBucket
      *   vectorBucketArn: string,
      *   creationTime: \DateTimeImmutable,
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
+     *   defaultIndexMode?: IndexMode::*|null,
      * }|VectorBucket $input
      */
     public static function create($input): self
@@ -69,6 +81,14 @@ final class VectorBucket
     public function getCreationTime(): \DateTimeImmutable
     {
         return $this->creationTime;
+    }
+
+    /**
+     * @return IndexMode::*|null
+     */
+    public function getDefaultIndexMode(): ?string
+    {
+        return $this->defaultIndexMode;
     }
 
     public function getEncryptionConfiguration(): ?EncryptionConfiguration

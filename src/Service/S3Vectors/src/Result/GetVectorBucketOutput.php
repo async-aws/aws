@@ -4,6 +4,7 @@ namespace AsyncAws\S3Vectors\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3Vectors\Enum\IndexMode;
 use AsyncAws\S3Vectors\Enum\SseType;
 use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\VectorBucket;
@@ -46,6 +47,7 @@ class GetVectorBucketOutput extends Result
             'vectorBucketArn' => (string) $json['vectorBucketArn'],
             'creationTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])),
             'encryptionConfiguration' => empty($json['encryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['encryptionConfiguration']),
+            'defaultIndexMode' => isset($json['defaultIndexMode']) ? (!IndexMode::exists((string) $json['defaultIndexMode']) ? IndexMode::UNKNOWN_TO_SDK : (string) $json['defaultIndexMode']) : null,
         ]);
     }
 }
