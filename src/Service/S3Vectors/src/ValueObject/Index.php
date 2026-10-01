@@ -5,6 +5,7 @@ namespace AsyncAws\S3Vectors\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3Vectors\Enum\DataType;
 use AsyncAws\S3Vectors\Enum\DistanceMetric;
+use AsyncAws\S3Vectors\Enum\IndexMode;
 
 /**
  * The attributes of a vector index.
@@ -76,6 +77,18 @@ final class Index
     private $encryptionConfiguration;
 
     /**
+     * The mode that determines how the vector index processes queries.
+     *
+     * Valid values:
+     *
+     * - `CLASSIC` - Applies metadata filters during the vector search.
+     * - `ENHANCED` - Applies metadata filters before the vector search.
+     *
+     * @var IndexMode::*|null
+     */
+    private $indexMode;
+
+    /**
      * @param array{
      *   vectorBucketName: string,
      *   indexName: string,
@@ -86,6 +99,7 @@ final class Index
      *   distanceMetric: DistanceMetric::*,
      *   metadataConfiguration?: MetadataConfiguration|array|null,
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
+     *   indexMode?: IndexMode::*|null,
      * } $input
      */
     public function __construct(array $input)
@@ -99,6 +113,7 @@ final class Index
         $this->distanceMetric = $input['distanceMetric'] ?? $this->throwException(new InvalidArgument('Missing required field "distanceMetric".'));
         $this->metadataConfiguration = isset($input['metadataConfiguration']) ? MetadataConfiguration::create($input['metadataConfiguration']) : null;
         $this->encryptionConfiguration = isset($input['encryptionConfiguration']) ? EncryptionConfiguration::create($input['encryptionConfiguration']) : null;
+        $this->indexMode = $input['indexMode'] ?? null;
     }
 
     /**
@@ -112,6 +127,7 @@ final class Index
      *   distanceMetric: DistanceMetric::*,
      *   metadataConfiguration?: MetadataConfiguration|array|null,
      *   encryptionConfiguration?: EncryptionConfiguration|array|null,
+     *   indexMode?: IndexMode::*|null,
      * }|Index $input
      */
     public static function create($input): self
@@ -153,6 +169,14 @@ final class Index
     public function getIndexArn(): string
     {
         return $this->indexArn;
+    }
+
+    /**
+     * @return IndexMode::*|null
+     */
+    public function getIndexMode(): ?string
+    {
+        return $this->indexMode;
     }
 
     public function getIndexName(): string

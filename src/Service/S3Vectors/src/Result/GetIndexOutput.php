@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3Vectors\Enum\DataType;
 use AsyncAws\S3Vectors\Enum\DistanceMetric;
+use AsyncAws\S3Vectors\Enum\IndexMode;
 use AsyncAws\S3Vectors\Enum\SseType;
 use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\Index;
@@ -54,6 +55,7 @@ class GetIndexOutput extends Result
             'distanceMetric' => !DistanceMetric::exists((string) $json['distanceMetric']) ? DistanceMetric::UNKNOWN_TO_SDK : (string) $json['distanceMetric'],
             'metadataConfiguration' => empty($json['metadataConfiguration']) ? null : $this->populateResultMetadataConfiguration($json['metadataConfiguration']),
             'encryptionConfiguration' => empty($json['encryptionConfiguration']) ? null : $this->populateResultEncryptionConfiguration($json['encryptionConfiguration']),
+            'indexMode' => isset($json['indexMode']) ? (!IndexMode::exists((string) $json['indexMode']) ? IndexMode::UNKNOWN_TO_SDK : (string) $json['indexMode']) : null,
         ]);
     }
 

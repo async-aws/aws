@@ -9,6 +9,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\S3Vectors\Enum\DataType;
 use AsyncAws\S3Vectors\Enum\DistanceMetric;
+use AsyncAws\S3Vectors\Enum\IndexMode;
 use AsyncAws\S3Vectors\Exception\AccessDeniedException;
 use AsyncAws\S3Vectors\Exception\ConflictException;
 use AsyncAws\S3Vectors\Exception\InternalServerException;
@@ -665,6 +666,7 @@ class S3VectorsClient extends AbstractApi
      *   topK: int,
      *   queryVector: VectorData|array,
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
+     *   queryMode?: IndexMode::*|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
      *   nextToken?: string|null,

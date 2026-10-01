@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Amazon S3 Vectors now supports metadata prefiltering, providing higher recall on filtered queries.
+
 ## 2.1.0
 
 ### Added
