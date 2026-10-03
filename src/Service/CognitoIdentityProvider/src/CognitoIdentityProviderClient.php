@@ -12,6 +12,7 @@ use AsyncAws\CognitoIdentityProvider\Exception\CodeMismatchException;
 use AsyncAws\CognitoIdentityProvider\Exception\ConcurrentModificationException;
 use AsyncAws\CognitoIdentityProvider\Exception\EnableSoftwareTokenMFAException;
 use AsyncAws\CognitoIdentityProvider\Exception\ExpiredCodeException;
+use AsyncAws\CognitoIdentityProvider\Exception\FeatureUnavailableInTierException;
 use AsyncAws\CognitoIdentityProvider\Exception\ForbiddenException;
 use AsyncAws\CognitoIdentityProvider\Exception\GroupExistsException;
 use AsyncAws\CognitoIdentityProvider\Exception\InternalErrorException;
@@ -588,6 +589,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   '@region'?: string|null,
      * }|AdminInitiateAuthRequest $input
      *
+     * @throws FeatureUnavailableInTierException
      * @throws InternalErrorException
      * @throws InvalidEmailRoleAccessPolicyException
      * @throws InvalidLambdaResponseException
@@ -611,6 +613,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     {
         $input = AdminInitiateAuthRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminInitiateAuth', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'FeatureUnavailableInTierException' => FeatureUnavailableInTierException::class,
             'InternalErrorException' => InternalErrorException::class,
             'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
             'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
@@ -1496,6 +1499,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   '@region'?: string|null,
      * }|InitiateAuthRequest $input
      *
+     * @throws FeatureUnavailableInTierException
      * @throws ForbiddenException
      * @throws InternalErrorException
      * @throws InvalidEmailRoleAccessPolicyException
@@ -1519,6 +1523,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     {
         $input = InitiateAuthRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'InitiateAuth', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'FeatureUnavailableInTierException' => FeatureUnavailableInTierException::class,
             'ForbiddenException' => ForbiddenException::class,
             'InternalErrorException' => InternalErrorException::class,
             'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
