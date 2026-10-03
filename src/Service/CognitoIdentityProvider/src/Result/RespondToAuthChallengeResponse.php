@@ -98,11 +98,32 @@ class RespondToAuthChallengeResponse extends Result
      */
     private $authenticationResult;
 
+    /**
+     * This response parameter lists the available authentication challenges that users can select from in choice-based
+     * authentication [^1]. For example, they might be able to choose between passkey authentication, a one-time password
+     * from an SMS message, and a traditional password.
+     *
+     * [^1]: https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flows-selection-sdk.html#authentication-flows-selection-choice
+     *
+     * @var list<ChallengeNameType::*>
+     */
+    private $availableChallenges;
+
     public function getAuthenticationResult(): ?AuthenticationResultType
     {
         $this->initialize();
 
         return $this->authenticationResult;
+    }
+
+    /**
+     * @return list<ChallengeNameType::*>
+     */
+    public function getAvailableChallenges(): array
+    {
+        $this->initialize();
+
+        return $this->availableChallenges;
     }
 
     /**
@@ -140,6 +161,7 @@ class RespondToAuthChallengeResponse extends Result
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
         $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
         $this->authenticationResult = empty($data['AuthenticationResult']) ? null : $this->populateResultAuthenticationResultType($data['AuthenticationResult']);
+        $this->availableChallenges = empty($data['AvailableChallenges']) ? [] : $this->populateResultAvailableChallengeListType($data['AvailableChallenges']);
     }
 
     private function populateResultAuthenticationResultType(array $json): AuthenticationResultType
@@ -152,6 +174,25 @@ class RespondToAuthChallengeResponse extends Result
             'IdToken' => isset($json['IdToken']) ? (string) $json['IdToken'] : null,
             'NewDeviceMetadata' => empty($json['NewDeviceMetadata']) ? null : $this->populateResultNewDeviceMetadataType($json['NewDeviceMetadata']),
         ]);
+    }
+
+    /**
+     * @return list<ChallengeNameType::*>
+     */
+    private function populateResultAvailableChallengeListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!ChallengeNameType::exists($a)) {
+                    $a = ChallengeNameType::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     /**
