@@ -3,6 +3,7 @@
 namespace AsyncAws\S3Vectors\Result;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3Vectors\Input\ListVectorBucketsInput;
@@ -115,7 +116,7 @@ class ListVectorBucketsOutput extends Result implements \IteratorAggregate
         return new VectorBucketSummary([
             'vectorBucketName' => (string) $json['vectorBucketName'],
             'vectorBucketArn' => (string) $json['vectorBucketArn'],
-            'creationTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])),
+            'creationTime' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['creationTime'])) ?: throw new UnparsableResponse('Invalid timestamp received.'),
         ]);
     }
 }

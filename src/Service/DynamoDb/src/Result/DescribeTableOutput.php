@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\Enum\BillingMode;
@@ -332,7 +333,7 @@ class DescribeTableOutput extends Result
         return new RestoreSummary([
             'SourceBackupArn' => isset($json['SourceBackupArn']) ? (string) $json['SourceBackupArn'] : null,
             'SourceTableArn' => isset($json['SourceTableArn']) ? (string) $json['SourceTableArn'] : null,
-            'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['RestoreDateTime'])),
+            'RestoreDateTime' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['RestoreDateTime'])) ?: throw new UnparsableResponse('Invalid timestamp received.'),
             'RestoreInProgress' => filter_var($json['RestoreInProgress'], \FILTER_VALIDATE_BOOLEAN),
         ]);
     }

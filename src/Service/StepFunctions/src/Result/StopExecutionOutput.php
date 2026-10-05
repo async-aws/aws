@@ -2,6 +2,7 @@
 
 namespace AsyncAws\StepFunctions\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
@@ -25,6 +26,6 @@ class StopExecutionOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->stopDate = /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['stopDate']));
+        $this->stopDate = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['stopDate'])) ?: throw new UnparsableResponse('Invalid timestamp received.');
     }
 }

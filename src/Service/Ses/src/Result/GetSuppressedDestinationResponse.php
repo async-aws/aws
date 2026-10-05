@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Ses\Result;
 
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Ses\Enum\SuppressionListReason;
@@ -39,7 +40,7 @@ class GetSuppressedDestinationResponse extends Result
         return new SuppressedDestination([
             'EmailAddress' => (string) $json['EmailAddress'],
             'Reason' => !SuppressionListReason::exists((string) $json['Reason']) ? SuppressionListReason::UNKNOWN_TO_SDK : (string) $json['Reason'],
-            'LastUpdateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateTime'])),
+            'LastUpdateTime' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastUpdateTime'])) ?: throw new UnparsableResponse('Invalid timestamp received.'),
             'Attributes' => empty($json['Attributes']) ? null : $this->populateResultSuppressedDestinationAttributes($json['Attributes']),
             'TenantName' => isset($json['TenantName']) ? (string) $json['TenantName'] : null,
         ]);
