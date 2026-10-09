@@ -2,11 +2,11 @@
 
 namespace AsyncAws\Translate\Exception;
 
-use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\Http\ServerException;
 
 /**
  * An internal server error occurred. Retry your request.
  */
-final class InternalServerException extends ClientException
+final class InternalServerException extends ServerException
 {
 }
