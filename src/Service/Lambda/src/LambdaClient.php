@@ -149,7 +149,7 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all
+     * Deletes a Lambda Event Function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all
      * versions and aliases are deleted. This doesn't require the user to have explicit permissions for DeleteAlias.
      *
      * > A deleted Lambda function cannot be recovered. Ensure that you specify the correct function name and version before
@@ -189,7 +189,7 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Returns details about a Lambda function alias [^1].
+     * Returns details about a Lambda Event Function alias [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html
      *
@@ -221,8 +221,8 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Returns the version-specific settings of a Lambda function or version. The output includes only options that can vary
-     * between versions of a function. To modify these settings, use UpdateFunctionConfiguration.
+     * Returns the version-specific settings of a Lambda Event Function or version. The output includes only options that
+     * can vary between versions of a function. To modify these settings, use UpdateFunctionConfiguration.
      *
      * To get all of a function's details, including function-level settings, use GetFunction.
      *
@@ -254,10 +254,10 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. By
-     * default, Lambda invokes your function synchronously (i.e. the`InvocationType` is `RequestResponse`). To invoke a
-     * function asynchronously, set `InvocationType` to `Event`. Lambda passes the `ClientContext` object to your function
-     * for synchronous invocations only.
+     * Invokes a Lambda Event Function. You can invoke a function synchronously (and wait for the response), or
+     * asynchronously. By default, Lambda invokes your function synchronously (i.e. the`InvocationType` is
+     * `RequestResponse`). To invoke a function asynchronously, set `InvocationType` to `Event`. Lambda passes the
+     * `ClientContext` object to your function for synchronous invocations only.
      *
      * For synchronous invocations, the maximum payload size is 6 MB. For asynchronous invocations, the maximum payload size
      * is 1 MB.
@@ -410,7 +410,7 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Returns a list of aliases [^1] for a Lambda function.
+     * Returns a list of aliases [^1] for a Lambda Event Function.
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html
      *
@@ -477,7 +477,7 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Returns a list of Lambda functions, with the version-specific configuration of each. Lambda returns up to 50
+     * Returns a list of Lambda Event Functions, with the version-specific configuration of each. Lambda returns up to 50
      * functions per call.
      *
      * Set `FunctionVersion` to `ALL` to include all published versions of each function in addition to the unpublished
@@ -671,7 +671,7 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Modify the version-specific settings of a Lambda function.
+     * Modifies the version-specific settings of a Lambda Event Function.
      *
      * When you update a function, Lambda provisions an instance of the function and its supporting resources. If your
      * function connects to a VPC, this process can take a minute. During this time, you can't modify the function, but you
