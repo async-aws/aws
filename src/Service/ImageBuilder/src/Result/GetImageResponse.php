@@ -22,6 +22,7 @@ use AsyncAws\ImageBuilder\Enum\TenancyType;
 use AsyncAws\ImageBuilder\ValueObject\AdditionalInstanceConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\Ami;
 use AsyncAws\ImageBuilder\ValueObject\AmiDistributionConfiguration;
+use AsyncAws\ImageBuilder\ValueObject\AutoScalingGroupConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\ComponentConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\ComponentFailureContext;
 use AsyncAws\ImageBuilder\ValueObject\ComponentParameter;
@@ -53,6 +54,7 @@ use AsyncAws\ImageBuilder\ValueObject\LaunchPermissionConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\LaunchTemplateConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\Logging;
 use AsyncAws\ImageBuilder\ValueObject\OutputResources;
+use AsyncAws\ImageBuilder\ValueObject\ParentInstanceConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\Placement;
 use AsyncAws\ImageBuilder\ValueObject\RegionFailure;
 use AsyncAws\ImageBuilder\ValueObject\S3ExportConfiguration;
@@ -192,6 +194,14 @@ class GetImageResponse extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultAutoScalingGroupConfiguration(array $json): AutoScalingGroupConfiguration
+    {
+        return new AutoScalingGroupConfiguration([
+            'name' => (string) $json['name'],
+            'capacityWaitTimeoutSeconds' => isset($json['capacityWaitTimeoutSeconds']) ? (int) $json['capacityWaitTimeoutSeconds'] : null,
+        ]);
     }
 
     private function populateResultComponentConfiguration(array $json): ComponentConfiguration
@@ -555,6 +565,8 @@ class GetImageResponse extends Result
             'instanceMetadataOptions' => empty($json['instanceMetadataOptions']) ? null : $this->populateResultInstanceMetadataOptions($json['instanceMetadataOptions']),
             'tags' => !isset($json['tags']) ? null : $this->populateResultTagMap($json['tags']),
             'placement' => empty($json['placement']) ? null : $this->populateResultPlacement($json['placement']),
+            'terminateInstanceOnCompletion' => isset($json['terminateInstanceOnCompletion']) ? filter_var($json['terminateInstanceOnCompletion'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'parentInstance' => empty($json['parentInstance']) ? null : $this->populateResultParentInstanceConfiguration($json['parentInstance']),
         ]);
     }
 
@@ -715,6 +727,13 @@ class GetImageResponse extends Result
         return new OutputResources([
             'amis' => !isset($json['amis']) ? null : $this->populateResultAmiList($json['amis']),
             'containers' => !isset($json['containers']) ? null : $this->populateResultContainerList($json['containers']),
+        ]);
+    }
+
+    private function populateResultParentInstanceConfiguration(array $json): ParentInstanceConfiguration
+    {
+        return new ParentInstanceConfiguration([
+            'autoScalingGroup' => $this->populateResultAutoScalingGroupConfiguration($json['autoScalingGroup']),
         ]);
     }
 
