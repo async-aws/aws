@@ -135,6 +135,21 @@ final class InfrastructureConfiguration
     private $placement;
 
     /**
+     * Specifies whether Image Builder terminates build and test instances when image creation ends without a failure.
+     *
+     * @var bool|null
+     */
+    private $terminateInstanceOnCompletion;
+
+    /**
+     * The Amazon EC2 Auto Scaling group that Image Builder takes the build instance from, instead of launching a new
+     * instance. This applies only to the build phase.
+     *
+     * @var ParentInstanceConfiguration|null
+     */
+    private $parentInstance;
+
+    /**
      * @param array{
      *   arn?: string|null,
      *   name?: string|null,
@@ -153,6 +168,8 @@ final class InfrastructureConfiguration
      *   instanceMetadataOptions?: InstanceMetadataOptions|array|null,
      *   tags?: array<string, string>|null,
      *   placement?: Placement|array|null,
+     *   terminateInstanceOnCompletion?: bool|null,
+     *   parentInstance?: ParentInstanceConfiguration|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -174,6 +191,8 @@ final class InfrastructureConfiguration
         $this->instanceMetadataOptions = isset($input['instanceMetadataOptions']) ? InstanceMetadataOptions::create($input['instanceMetadataOptions']) : null;
         $this->tags = $input['tags'] ?? null;
         $this->placement = isset($input['placement']) ? Placement::create($input['placement']) : null;
+        $this->terminateInstanceOnCompletion = $input['terminateInstanceOnCompletion'] ?? null;
+        $this->parentInstance = isset($input['parentInstance']) ? ParentInstanceConfiguration::create($input['parentInstance']) : null;
     }
 
     /**
@@ -195,6 +214,8 @@ final class InfrastructureConfiguration
      *   instanceMetadataOptions?: InstanceMetadataOptions|array|null,
      *   tags?: array<string, string>|null,
      *   placement?: Placement|array|null,
+     *   terminateInstanceOnCompletion?: bool|null,
+     *   parentInstance?: ParentInstanceConfiguration|array|null,
      * }|InfrastructureConfiguration $input
      */
     public static function create($input): self
@@ -255,6 +276,11 @@ final class InfrastructureConfiguration
         return $this->name;
     }
 
+    public function getParentInstance(): ?ParentInstanceConfiguration
+    {
+        return $this->parentInstance;
+    }
+
     public function getPlacement(): ?Placement
     {
         return $this->placement;
@@ -292,6 +318,11 @@ final class InfrastructureConfiguration
     public function getTags(): array
     {
         return $this->tags ?? [];
+    }
+
+    public function getTerminateInstanceOnCompletion(): ?bool
+    {
+        return $this->terminateInstanceOnCompletion;
     }
 
     public function getTerminateInstanceOnFailure(): ?bool
