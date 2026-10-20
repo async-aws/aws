@@ -6,6 +6,7 @@ use AsyncAws\CodeDeploy\Enum\DeploymentMode;
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
 use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
+use AsyncAws\CodeDeploy\ValueObject\EC2DeploymentOptions;
 use AsyncAws\CodeDeploy\ValueObject\RevisionLocation;
 use AsyncAws\CodeDeploy\ValueObject\TargetInstances;
 use AsyncAws\Core\Exception\InvalidArgument;
@@ -154,6 +155,11 @@ final class CreateDeploymentInput extends Input
     private $overrideAlarmConfiguration;
 
     /**
+     * @var EC2DeploymentOptions|null
+     */
+    private $ec2DeploymentOptions;
+
+    /**
      * @param array{
      *   applicationName?: string,
      *   deploymentGroupName?: string|null,
@@ -167,6 +173,7 @@ final class CreateDeploymentInput extends Input
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
      *   deploymentMode?: DeploymentMode::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
+     *   ec2DeploymentOptions?: EC2DeploymentOptions|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -184,6 +191,7 @@ final class CreateDeploymentInput extends Input
         $this->fileExistsBehavior = $input['fileExistsBehavior'] ?? null;
         $this->deploymentMode = $input['deploymentMode'] ?? null;
         $this->overrideAlarmConfiguration = isset($input['overrideAlarmConfiguration']) ? AlarmConfiguration::create($input['overrideAlarmConfiguration']) : null;
+        $this->ec2DeploymentOptions = isset($input['ec2DeploymentOptions']) ? EC2DeploymentOptions::create($input['ec2DeploymentOptions']) : null;
         parent::__construct($input);
     }
 
@@ -201,6 +209,7 @@ final class CreateDeploymentInput extends Input
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
      *   deploymentMode?: DeploymentMode::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
+     *   ec2DeploymentOptions?: EC2DeploymentOptions|array|null,
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
      */
@@ -240,6 +249,11 @@ final class CreateDeploymentInput extends Input
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getEc2DeploymentOptions(): ?EC2DeploymentOptions
+    {
+        return $this->ec2DeploymentOptions;
     }
 
     /**
@@ -346,6 +360,13 @@ final class CreateDeploymentInput extends Input
         return $this;
     }
 
+    public function setEc2DeploymentOptions(?EC2DeploymentOptions $value): self
+    {
+        $this->ec2DeploymentOptions = $value;
+
+        return $this;
+    }
+
     /**
      * @param FileExistsBehavior::*|null $value
      */
@@ -438,6 +459,9 @@ final class CreateDeploymentInput extends Input
         }
         if (null !== $v = $this->overrideAlarmConfiguration) {
             $payload['overrideAlarmConfiguration'] = $v->requestBody();
+        }
+        if (null !== $v = $this->ec2DeploymentOptions) {
+            $payload['ec2DeploymentOptions'] = $v->requestBody();
         }
 
         return $payload;

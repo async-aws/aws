@@ -270,6 +270,11 @@ final class DeploymentInfo
     private $overrideAlarmConfiguration;
 
     /**
+     * @var EC2DeploymentOptions|null
+     */
+    private $ec2DeploymentOptions;
+
+    /**
      * @param array{
      *   applicationName?: string|null,
      *   deploymentGroupName?: string|null,
@@ -302,6 +307,7 @@ final class DeploymentInfo
      *   externalId?: string|null,
      *   relatedDeployments?: RelatedDeployments|array|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
+     *   ec2DeploymentOptions?: EC2DeploymentOptions|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -337,6 +343,7 @@ final class DeploymentInfo
         $this->externalId = $input['externalId'] ?? null;
         $this->relatedDeployments = isset($input['relatedDeployments']) ? RelatedDeployments::create($input['relatedDeployments']) : null;
         $this->overrideAlarmConfiguration = isset($input['overrideAlarmConfiguration']) ? AlarmConfiguration::create($input['overrideAlarmConfiguration']) : null;
+        $this->ec2DeploymentOptions = isset($input['ec2DeploymentOptions']) ? EC2DeploymentOptions::create($input['ec2DeploymentOptions']) : null;
     }
 
     /**
@@ -372,6 +379,7 @@ final class DeploymentInfo
      *   externalId?: string|null,
      *   relatedDeployments?: RelatedDeployments|array|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
+     *   ec2DeploymentOptions?: EC2DeploymentOptions|array|null,
      * }|DeploymentInfo $input
      */
     public static function create($input): self
@@ -469,6 +477,11 @@ final class DeploymentInfo
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getEc2DeploymentOptions(): ?EC2DeploymentOptions
+    {
+        return $this->ec2DeploymentOptions;
     }
 
     public function getErrorInformation(): ?ErrorInformation

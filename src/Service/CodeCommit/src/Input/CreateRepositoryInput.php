@@ -17,7 +17,7 @@ final class CreateRepositoryInput extends Input
      *
      * > The repository name must be unique across the calling Amazon Web Services account. Repository names are limited to
      * > 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information
-     * > about the limits on repository names, see Quotas [^1] in the *CodeCommit User Guide*. The suffix .git is
+     * > about the limits on repository names, see Quotas [^1] in the * CodeCommit User Guide*. The suffix .git is
      * > prohibited.
      *
      * [^1]: https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html
@@ -50,7 +50,7 @@ final class CreateRepositoryInput extends Input
     /**
      * The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to
      * programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see KeyId [^1] in the
-     * Decrypt API description in the *Key Management Service API Reference*.
+     * Decrypt API description in the * Key Management Service API Reference*.
      *
      * If no key is specified, the default `aws/codecommit` Amazon Web Services managed key is used.
      *
