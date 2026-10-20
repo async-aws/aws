@@ -30,6 +30,55 @@ function call(string $command): array
 }
 
 /**
+ * The AWS SDK does not report region endpoint changes in its `.changes` files,
+ * so new regions are detected from the `case` lines added in the generated client.
+ *
+ * @param string[] $fileChanges output of `git diff -U0` on a client file
+ *
+ * @return string[]
+ */
+function find_added_regions(array $fileChanges): array
+{
+    $added = [];
+    $removed = [];
+    foreach ($fileChanges as $lineChange) {
+        // when the fallback for unlisted regions changes, the regions configuration was reworked: the new
+        // `case` lines are regions previously served by the fallback, which a human has to describe
+        if (preg_match("#^[+-] {8}throw new UnsupportedRegion|^[+-] {12}'endpoint' => #", $lineChange)) {
+            return [];
+        }
+        if (preg_match("#^([+-]) +case '([a-z0-9-]+)':$#", $lineChange, $matches)) {
+            if ('+' === $matches[1]) {
+                $added[$matches[2]] = true;
+            } else {
+                $removed[$matches[2]] = true;
+            }
+        }
+    }
+
+    // a region moved to another group of the switch is not a new one
+    $regions = array_keys(array_diff_key($added, $removed));
+    sort($regions);
+
+    return $regions;
+}
+
+/**
+ * @param string[] $regions
+ */
+function format_added_regions(array $regions): string
+{
+    $regions = array_map(static fn (string $region) => '`'.$region.'`', $regions);
+    if (1 === count($regions)) {
+        return sprintf('- AWS api-change: Added %s region', $regions[0]);
+    }
+
+    $last = array_pop($regions);
+
+    return sprintf('- AWS api-change: Added %s and %s regions', implode(', ', $regions), $last);
+}
+
+/**
  * FETCH last SDK version
  */
 console_log('Fetching last SDK version');
@@ -78,6 +127,7 @@ if (empty($output)) {
 }
 console_log('Code changed');
 $services = [];
+$addedRegions = [];
 $hasChange = false;
 foreach ($output as $line) {
     $file = explode("\t", $line)[2];
@@ -98,11 +148,18 @@ foreach ($output as $line) {
         $services[$service] = false;
     }
 
-    if ($services[$service]) {
+    $isClient = (bool) preg_match('#/[^/]+Client\.php$#', $file);
+    if ($services[$service] && !$isClient) {
         continue;
     }
 
     $fileChanges = call('git diff --no-color -U0 -- '.escapeshellarg($file));
+    if ($isClient) {
+        $addedRegions[$service] = find_added_regions($fileChanges);
+    }
+    if ($services[$service]) {
+        continue;
+    }
     foreach ($fileChanges as $lineChange) {
         if (!$lineChange) {
             continue;
@@ -165,6 +222,9 @@ foreach ($services as $service => $hasChange) {
             foreach ($changesByService[$sanitizedService] as $change) {
                 $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
             }
+        }
+        if (!empty($addedRegions[$service])) {
+            $newLines[] = format_added_regions($addedRegions[$service]);
         }
     } else {
         $newLines[] = '- AWS enhancement: Documentation updates.';
