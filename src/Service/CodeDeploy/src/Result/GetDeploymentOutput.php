@@ -3,6 +3,7 @@
 namespace AsyncAws\CodeDeploy\Result;
 
 use AsyncAws\CodeDeploy\Enum\AutoRollbackEvent;
+use AsyncAws\CodeDeploy\Enum\AutoScalingGroupProcess;
 use AsyncAws\CodeDeploy\Enum\BundleType;
 use AsyncAws\CodeDeploy\Enum\ComputePlatform;
 use AsyncAws\CodeDeploy\Enum\DeploymentCreator;
@@ -27,6 +28,7 @@ use AsyncAws\CodeDeploy\ValueObject\DeploymentInfo;
 use AsyncAws\CodeDeploy\ValueObject\DeploymentOverview;
 use AsyncAws\CodeDeploy\ValueObject\DeploymentReadyOption;
 use AsyncAws\CodeDeploy\ValueObject\DeploymentStyle;
+use AsyncAws\CodeDeploy\ValueObject\EC2DeploymentOptions;
 use AsyncAws\CodeDeploy\ValueObject\EC2TagFilter;
 use AsyncAws\CodeDeploy\ValueObject\EC2TagSet;
 use AsyncAws\CodeDeploy\ValueObject\ELBInfo;
@@ -152,6 +154,25 @@ class GetDeploymentOutput extends Result
         return $items;
     }
 
+    /**
+     * @return list<AutoScalingGroupProcess::*>
+     */
+    private function populateResultAutoScalingGroupProcessesToSuspendList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!AutoScalingGroupProcess::exists($a)) {
+                    $a = AutoScalingGroupProcess::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
     private function populateResultBlueGreenDeploymentConfiguration(array $json): BlueGreenDeploymentConfiguration
     {
         return new BlueGreenDeploymentConfiguration([
@@ -203,6 +224,7 @@ class GetDeploymentOutput extends Result
             'externalId' => isset($json['externalId']) ? (string) $json['externalId'] : null,
             'relatedDeployments' => empty($json['relatedDeployments']) ? null : $this->populateResultRelatedDeployments($json['relatedDeployments']),
             'overrideAlarmConfiguration' => empty($json['overrideAlarmConfiguration']) ? null : $this->populateResultAlarmConfiguration($json['overrideAlarmConfiguration']),
+            'ec2DeploymentOptions' => empty($json['ec2DeploymentOptions']) ? null : $this->populateResultEC2DeploymentOptions($json['ec2DeploymentOptions']),
         ]);
     }
 
@@ -264,6 +286,13 @@ class GetDeploymentOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultEC2DeploymentOptions(array $json): EC2DeploymentOptions
+    {
+        return new EC2DeploymentOptions([
+            'autoScalingGroupProcessesToSuspend' => !isset($json['autoScalingGroupProcessesToSuspend']) ? null : $this->populateResultAutoScalingGroupProcessesToSuspendList($json['autoScalingGroupProcessesToSuspend']),
+        ]);
     }
 
     private function populateResultEC2TagFilter(array $json): EC2TagFilter

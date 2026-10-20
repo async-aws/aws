@@ -48,9 +48,10 @@ final class RepositoryTrigger
 
     /**
      * The repository events that cause the trigger to run actions in another service, such as sending a notification
-     * through Amazon SNS.
-     *
-     * > The valid value "all" cannot be used with any other values.
+     * through Amazon SNS. ```
+     * </p> <note> <p>The valid value "all" cannot be used with any other values.</p>
+     * </note>
+     * ```.
      *
      * @var list<RepositoryTriggerEventEnum::*>
      */

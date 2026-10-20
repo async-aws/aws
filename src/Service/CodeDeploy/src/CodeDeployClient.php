@@ -19,6 +19,7 @@ use AsyncAws\CodeDeploy\Exception\InvalidAlarmConfigException;
 use AsyncAws\CodeDeploy\Exception\InvalidApplicationNameException;
 use AsyncAws\CodeDeploy\Exception\InvalidAutoRollbackConfigException;
 use AsyncAws\CodeDeploy\Exception\InvalidAutoScalingGroupException;
+use AsyncAws\CodeDeploy\Exception\InvalidAutoScalingGroupProcessToSuspendException;
 use AsyncAws\CodeDeploy\Exception\InvalidComputePlatformException;
 use AsyncAws\CodeDeploy\Exception\InvalidDeploymentConfigNameException;
 use AsyncAws\CodeDeploy\Exception\InvalidDeploymentGroupNameException;
@@ -49,6 +50,7 @@ use AsyncAws\CodeDeploy\Result\GetDeploymentOutput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
+use AsyncAws\CodeDeploy\ValueObject\EC2DeploymentOptions;
 use AsyncAws\CodeDeploy\ValueObject\RevisionLocation;
 use AsyncAws\CodeDeploy\ValueObject\TargetInstances;
 use AsyncAws\Core\AbstractApi;
@@ -78,6 +80,7 @@ class CodeDeployClient extends AbstractApi
      *   fileExistsBehavior?: FileExistsBehavior::*|null,
      *   deploymentMode?: DeploymentMode::*|null,
      *   overrideAlarmConfiguration?: AlarmConfiguration|array|null,
+     *   ec2DeploymentOptions?: EC2DeploymentOptions|array|null,
      *   '@region'?: string|null,
      * }|CreateDeploymentInput $input
      *
@@ -93,6 +96,7 @@ class CodeDeployClient extends AbstractApi
      * @throws InvalidApplicationNameException
      * @throws InvalidAutoRollbackConfigException
      * @throws InvalidAutoScalingGroupException
+     * @throws InvalidAutoScalingGroupProcessToSuspendException
      * @throws InvalidComputePlatformException
      * @throws InvalidDeploymentConfigNameException
      * @throws InvalidDeploymentGroupNameException
@@ -127,6 +131,7 @@ class CodeDeployClient extends AbstractApi
             'InvalidApplicationNameException' => InvalidApplicationNameException::class,
             'InvalidAutoRollbackConfigException' => InvalidAutoRollbackConfigException::class,
             'InvalidAutoScalingGroupException' => InvalidAutoScalingGroupException::class,
+            'InvalidAutoScalingGroupProcessToSuspendException' => InvalidAutoScalingGroupProcessToSuspendException::class,
             'InvalidComputePlatformException' => InvalidComputePlatformException::class,
             'InvalidDeploymentConfigNameException' => InvalidDeploymentConfigNameException::class,
             'InvalidDeploymentGroupNameException' => InvalidDeploymentGroupNameException::class,
