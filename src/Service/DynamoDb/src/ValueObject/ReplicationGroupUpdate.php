@@ -10,6 +10,10 @@ namespace AsyncAws\DynamoDb\ValueObject;
  * - New parameters for an existing replica. This request invokes the `UpdateTable` action in the destination Region.
  * - An existing replica to be deleted. The request invokes the `DeleteTableReplica` action in the destination Region,
  *   deleting the replica and all if its items in the destination Region.
+ * - The local replica to be disassociated from a global table and retained as a standalone regional table.
+ *
+ * Each `ReplicationGroupUpdate` contains exactly one action. A `Disassociate` action must be the only replica update in
+ * the request; including other updates causes the request to fail.
  *
  * > When you manually remove a table or global table replica, you do not automatically remove any associated scalable
  * > targets, scaling policies, or CloudWatch alarms.
@@ -38,10 +42,19 @@ final class ReplicationGroupUpdate
     private $delete;
 
     /**
+     * The parameters for disassociating the local replica from the global table and retaining it as a standalone regional
+     * table.
+     *
+     * @var DisassociateReplicationGroupMemberAction|null
+     */
+    private $disassociate;
+
+    /**
      * @param array{
      *   Create?: CreateReplicationGroupMemberAction|array|null,
      *   Update?: UpdateReplicationGroupMemberAction|array|null,
      *   Delete?: DeleteReplicationGroupMemberAction|array|null,
+     *   Disassociate?: DisassociateReplicationGroupMemberAction|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -49,6 +62,7 @@ final class ReplicationGroupUpdate
         $this->create = isset($input['Create']) ? CreateReplicationGroupMemberAction::create($input['Create']) : null;
         $this->update = isset($input['Update']) ? UpdateReplicationGroupMemberAction::create($input['Update']) : null;
         $this->delete = isset($input['Delete']) ? DeleteReplicationGroupMemberAction::create($input['Delete']) : null;
+        $this->disassociate = isset($input['Disassociate']) ? DisassociateReplicationGroupMemberAction::create($input['Disassociate']) : null;
     }
 
     /**
@@ -56,6 +70,7 @@ final class ReplicationGroupUpdate
      *   Create?: CreateReplicationGroupMemberAction|array|null,
      *   Update?: UpdateReplicationGroupMemberAction|array|null,
      *   Delete?: DeleteReplicationGroupMemberAction|array|null,
+     *   Disassociate?: DisassociateReplicationGroupMemberAction|array|null,
      * }|ReplicationGroupUpdate $input
      */
     public static function create($input): self
@@ -71,6 +86,11 @@ final class ReplicationGroupUpdate
     public function getDelete(): ?DeleteReplicationGroupMemberAction
     {
         return $this->delete;
+    }
+
+    public function getDisassociate(): ?DisassociateReplicationGroupMemberAction
+    {
+        return $this->disassociate;
     }
 
     public function getUpdate(): ?UpdateReplicationGroupMemberAction
@@ -92,6 +112,9 @@ final class ReplicationGroupUpdate
         }
         if (null !== $v = $this->delete) {
             $payload['Delete'] = $v->requestBody();
+        }
+        if (null !== $v = $this->disassociate) {
+            $payload['Disassociate'] = $v->requestBody();
         }
 
         return $payload;

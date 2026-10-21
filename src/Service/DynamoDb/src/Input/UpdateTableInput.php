@@ -105,7 +105,7 @@ final class UpdateTableInput extends Input
     private $sseSpecification;
 
     /**
-     * A list of replica update actions (create, delete, or update) for the table.
+     * A list of replica update actions (create, delete, update, or disassociate) for the table.
      *
      * @var ReplicationGroupUpdate[]|null
      */
@@ -193,6 +193,19 @@ final class UpdateTableInput extends Input
     private $globalTableSettingsReplicationMode;
 
     /**
+     * Specifies whether disassociation protection is enabled (`true`) or disabled (`false`) for the local replica of a
+     * multi-Region eventual consistency (MREC) global table using Version 2019.11.21.
+     *
+     * Disassociation protection is enabled by default. If you omit this parameter, the existing setting is unchanged. This
+     * setting is independent of `DeletionProtectionEnabled`.
+     *
+     * You can't combine this change with any other change in the same `UpdateTable` request.
+     *
+     * @var bool|null
+     */
+    private $disassociationProtectionEnabled;
+
+    /**
      * A list of vector indexes to be added to or removed from the table. You can add or remove one vector index for each
      * `UpdateTable` operation.
      *
@@ -220,6 +233,7 @@ final class UpdateTableInput extends Input
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   DisassociationProtectionEnabled?: bool|null,
      *   VectorIndexUpdates?: array<VectorIndexUpdate|array>|null,
      *   '@region'?: string|null,
      * } $input
@@ -241,6 +255,7 @@ final class UpdateTableInput extends Input
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? WarmThroughput::create($input['WarmThroughput']) : null;
         $this->globalTableSettingsReplicationMode = $input['GlobalTableSettingsReplicationMode'] ?? null;
+        $this->disassociationProtectionEnabled = $input['DisassociationProtectionEnabled'] ?? null;
         $this->vectorIndexUpdates = isset($input['VectorIndexUpdates']) ? array_map([VectorIndexUpdate::class, 'create'], $input['VectorIndexUpdates']) : null;
         parent::__construct($input);
     }
@@ -262,6 +277,7 @@ final class UpdateTableInput extends Input
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   DisassociationProtectionEnabled?: bool|null,
      *   VectorIndexUpdates?: array<VectorIndexUpdate|array>|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
@@ -290,6 +306,11 @@ final class UpdateTableInput extends Input
     public function getDeletionProtectionEnabled(): ?bool
     {
         return $this->deletionProtectionEnabled;
+    }
+
+    public function getDisassociationProtectionEnabled(): ?bool
+    {
+        return $this->disassociationProtectionEnabled;
     }
 
     /**
@@ -427,6 +448,13 @@ final class UpdateTableInput extends Input
     public function setDeletionProtectionEnabled(?bool $value): self
     {
         $this->deletionProtectionEnabled = $value;
+
+        return $this;
+    }
+
+    public function setDisassociationProtectionEnabled(?bool $value): self
+    {
+        $this->disassociationProtectionEnabled = $value;
 
         return $this;
     }
@@ -627,6 +655,9 @@ final class UpdateTableInput extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "GlobalTableSettingsReplicationMode" for "%s". The value "%s" is not a valid "GlobalTableSettingsReplicationMode".', __CLASS__, $v));
             }
             $payload['GlobalTableSettingsReplicationMode'] = $v;
+        }
+        if (null !== $v = $this->disassociationProtectionEnabled) {
+            $payload['DisassociationProtectionEnabled'] = (bool) $v;
         }
         if (null !== $v = $this->vectorIndexUpdates) {
             $index = -1;

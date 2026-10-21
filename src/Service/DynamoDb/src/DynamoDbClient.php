@@ -1009,8 +1009,8 @@ class DynamoDbClient extends AbstractApi
     }
 
     /**
-     * Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given
-     * table.
+     * Modifies the provisioned throughput settings, global secondary indexes, DynamoDB Streams settings, or global table
+     * replica settings for a given table.
      *
      * You can only perform one of the following operations at once:
      *
@@ -1018,10 +1018,27 @@ class DynamoDbClient extends AbstractApi
      * - Remove a global secondary index from the table.
      * - Create a new global secondary index on the table. After the index begins backfilling, you can use `UpdateTable` to
      *   perform other operations.
+     * - Enable or disable disassociation protection for the local global table replica.
+     * - Disassociate the local global table replica and keep it as a standalone regional table. The `Disassociate` action
+     *   must be the only replica update in the request. If the request includes any other update, `UpdateTable` fails with
+     *   a `ValidationException` and the disassociation does not start.
      *
      * `UpdateTable` is an asynchronous operation; while it's executing, the table status changes from `ACTIVE` to
-     * `UPDATING`. While it's `UPDATING`, you can't issue another `UpdateTable` request. When the table returns to the
-     * `ACTIVE` state, the `UpdateTable` operation is complete.
+     * `UPDATING`. While it's `UPDATING`, you can't issue another `UpdateTable` request. Use `DescribeTable` to monitor the
+     * table's status.
+     *
+     * To use this operation to disassociate a local replica, you must have the `dynamodb:UpdateTable` and
+     * `dynamodb:DisassociateTableReplica` IAM permissions on the local replica. Send disassociation and disassociation
+     * protection requests to the replica's Region using credentials for the account that owns the replica. For
+     * prerequisites and the procedure, see Disassociating a global table replica [^1] in the *Amazon DynamoDB Developer
+     * Guide*.
+     *
+     * To confirm successful disassociation, call `DescribeTable` in the replica's Region and verify that `TableStatus` is
+     * `ACTIVE` and `Replicas` is absent or empty. If `TableStatus` returns to `ACTIVE` but the response still includes a
+     * `Replicas` list, the disassociation did not complete. Check `ReplicaStatus` for a replication-permission or
+     * encryption-access problem, resolve it, and retry.
+     *
+     * [^1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables-disassociate.html
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
@@ -1042,6 +1059,7 @@ class DynamoDbClient extends AbstractApi
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: WarmThroughput|array|null,
      *   GlobalTableSettingsReplicationMode?: GlobalTableSettingsReplicationMode::*|null,
+     *   DisassociationProtectionEnabled?: bool|null,
      *   VectorIndexUpdates?: array<VectorIndexUpdate|array>|null,
      *   '@region'?: string|null,
      * }|UpdateTableInput $input
