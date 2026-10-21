@@ -260,6 +260,9 @@ final class TableDescription
     /**
      * Represents replicas of the table.
      *
+     * After a successful disassociation, this list is absent or empty. To confirm disassociation, also verify that
+     * `TableStatus` is `ACTIVE`.
+     *
      * @var ReplicaDescription[]|null
      */
     private $replicas;
@@ -318,6 +321,14 @@ final class TableDescription
      * @var bool|null
      */
     private $deletionProtectionEnabled;
+
+    /**
+     * Specifies whether disassociation protection is enabled (`true`) or disabled (`false`) for the local global table
+     * replica. Protection is enabled by default.
+     *
+     * @var bool|null
+     */
+    private $disassociationProtectionEnabled;
 
     /**
      * The maximum number of read and write units for the specified on-demand table. If you use this parameter, you must
@@ -398,6 +409,7 @@ final class TableDescription
      *   ArchivalSummary?: ArchivalSummary|array|null,
      *   TableClassSummary?: TableClassSummary|array|null,
      *   DeletionProtectionEnabled?: bool|null,
+     *   DisassociationProtectionEnabled?: bool|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: TableWarmThroughputDescription|array|null,
      *   MultiRegionConsistency?: MultiRegionConsistency::*|null,
@@ -431,6 +443,7 @@ final class TableDescription
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
         $this->tableClassSummary = isset($input['TableClassSummary']) ? TableClassSummary::create($input['TableClassSummary']) : null;
         $this->deletionProtectionEnabled = $input['DeletionProtectionEnabled'] ?? null;
+        $this->disassociationProtectionEnabled = $input['DisassociationProtectionEnabled'] ?? null;
         $this->onDemandThroughput = isset($input['OnDemandThroughput']) ? OnDemandThroughput::create($input['OnDemandThroughput']) : null;
         $this->warmThroughput = isset($input['WarmThroughput']) ? TableWarmThroughputDescription::create($input['WarmThroughput']) : null;
         $this->multiRegionConsistency = $input['MultiRegionConsistency'] ?? null;
@@ -464,6 +477,7 @@ final class TableDescription
      *   ArchivalSummary?: ArchivalSummary|array|null,
      *   TableClassSummary?: TableClassSummary|array|null,
      *   DeletionProtectionEnabled?: bool|null,
+     *   DisassociationProtectionEnabled?: bool|null,
      *   OnDemandThroughput?: OnDemandThroughput|array|null,
      *   WarmThroughput?: TableWarmThroughputDescription|array|null,
      *   MultiRegionConsistency?: MultiRegionConsistency::*|null,
@@ -501,6 +515,11 @@ final class TableDescription
     public function getDeletionProtectionEnabled(): ?bool
     {
         return $this->deletionProtectionEnabled;
+    }
+
+    public function getDisassociationProtectionEnabled(): ?bool
+    {
+        return $this->disassociationProtectionEnabled;
     }
 
     /**
