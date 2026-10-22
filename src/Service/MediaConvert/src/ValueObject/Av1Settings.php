@@ -9,6 +9,7 @@ use AsyncAws\MediaConvert\Enum\Av1FilmGrainSynthesis;
 use AsyncAws\MediaConvert\Enum\Av1FramerateControl;
 use AsyncAws\MediaConvert\Enum\Av1FramerateConversionAlgorithm;
 use AsyncAws\MediaConvert\Enum\Av1RateControlMode;
+use AsyncAws\MediaConvert\Enum\Av1SceneChangeDetect;
 use AsyncAws\MediaConvert\Enum\Av1SpatialAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\FrameMetricType;
 
@@ -31,6 +32,13 @@ final class Av1Settings
      * @var Av1BitDepth::*|null
      */
     private $bitDepth;
+
+    /**
+     * Specify the average bitrate in bits per second. Required when Rate control mode is CBR.
+     *
+     * @var int|null
+     */
+    private $bitrate;
 
     /**
      * Film grain synthesis replaces film grain present in your content with similar quality synthesized AV1 film grain. We
@@ -133,20 +141,31 @@ final class Av1Settings
     private $perFrameMetrics;
 
     /**
-     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
-     * QVBR for Rate control mode.
+     * Settings for quality-defined variable bitrate encoding with the AV1 codec. Use these settings only when you set QVBR
+     * for Rate control mode.
      *
      * @var Av1QvbrSettings|null
      */
     private $qvbrSettings;
 
     /**
-     * 'With AV1 outputs, for rate control mode, MediaConvert supports only quality-defined variable bitrate (QVBR). You
-     * can''t use CBR or VBR.'.
+     * 'With AV1 outputs, for rate control mode, MediaConvert supports quality-defined variable bitrate (QVBR) and constant
+     * bitrate (CBR). You can''t use VBR.'.
      *
      * @var Av1RateControlMode::*|null
      */
     private $rateControlMode;
+
+    /**
+     * Optional. Use this setting to have the service insert I-frames at scene changes that it automatically detects. For
+     * AV1, scene change detection is disabled by default. Choose Enabled to insert I-frames at detected scene changes,
+     * which can improve video quality. If this output uses QVBR, you can instead choose Transition detection for further
+     * video quality improvement. For more information about QVBR, see
+     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
+     *
+     * @var Av1SceneChangeDetect::*|null
+     */
+    private $sceneChangeDetect;
 
     /**
      * Specify the number of slices per picture. This value must be 1, 2, 4, 8, 16, or 32. For progressive pictures, this
@@ -156,6 +175,23 @@ final class Av1Settings
      * @var int|null
      */
     private $slices;
+
+    /**
+     * Optional. Specify the duration, in milliseconds, of the sliding window over which MediaConvert enforces your Peak
+     * bitrate. When you specify a Peak bitrate but omit this value, MediaConvert uses a default sliding window of 1000.
+     *
+     * @var int|null
+     */
+    private $slidingWindowMs;
+
+    /**
+     * Optional. Specify an instantaneous peak bitrate ceiling, in bits/second, that MediaConvert enforces over the sliding
+     * window set by Peak bitrate window. For example, enter fifty megabits per second as 50000000. Applies in the QVBR rate
+     * control mode. When you specify a value below Max bitrate, MediaConvert raises it to Max bitrate.
+     *
+     * @var int|null
+     */
+    private $slidingWindowPeakBitrate;
 
     /**
      * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
@@ -177,6 +213,7 @@ final class Av1Settings
      * @param array{
      *   AdaptiveQuantization?: Av1AdaptiveQuantization::*|null,
      *   BitDepth?: Av1BitDepth::*|null,
+     *   Bitrate?: int|null,
      *   FilmGrainSynthesis?: Av1FilmGrainSynthesis::*|null,
      *   FramerateControl?: Av1FramerateControl::*|null,
      *   FramerateConversionAlgorithm?: Av1FramerateConversionAlgorithm::*|null,
@@ -188,7 +225,10 @@ final class Av1Settings
      *   PerFrameMetrics?: array<FrameMetricType::*>|null,
      *   QvbrSettings?: Av1QvbrSettings|array|null,
      *   RateControlMode?: Av1RateControlMode::*|null,
+     *   SceneChangeDetect?: Av1SceneChangeDetect::*|null,
      *   Slices?: int|null,
+     *   SlidingWindowMs?: int|null,
+     *   SlidingWindowPeakBitrate?: int|null,
      *   SpatialAdaptiveQuantization?: Av1SpatialAdaptiveQuantization::*|null,
      * } $input
      */
@@ -196,6 +236,7 @@ final class Av1Settings
     {
         $this->adaptiveQuantization = $input['AdaptiveQuantization'] ?? null;
         $this->bitDepth = $input['BitDepth'] ?? null;
+        $this->bitrate = $input['Bitrate'] ?? null;
         $this->filmGrainSynthesis = $input['FilmGrainSynthesis'] ?? null;
         $this->framerateControl = $input['FramerateControl'] ?? null;
         $this->framerateConversionAlgorithm = $input['FramerateConversionAlgorithm'] ?? null;
@@ -207,7 +248,10 @@ final class Av1Settings
         $this->perFrameMetrics = $input['PerFrameMetrics'] ?? null;
         $this->qvbrSettings = isset($input['QvbrSettings']) ? Av1QvbrSettings::create($input['QvbrSettings']) : null;
         $this->rateControlMode = $input['RateControlMode'] ?? null;
+        $this->sceneChangeDetect = $input['SceneChangeDetect'] ?? null;
         $this->slices = $input['Slices'] ?? null;
+        $this->slidingWindowMs = $input['SlidingWindowMs'] ?? null;
+        $this->slidingWindowPeakBitrate = $input['SlidingWindowPeakBitrate'] ?? null;
         $this->spatialAdaptiveQuantization = $input['SpatialAdaptiveQuantization'] ?? null;
     }
 
@@ -215,6 +259,7 @@ final class Av1Settings
      * @param array{
      *   AdaptiveQuantization?: Av1AdaptiveQuantization::*|null,
      *   BitDepth?: Av1BitDepth::*|null,
+     *   Bitrate?: int|null,
      *   FilmGrainSynthesis?: Av1FilmGrainSynthesis::*|null,
      *   FramerateControl?: Av1FramerateControl::*|null,
      *   FramerateConversionAlgorithm?: Av1FramerateConversionAlgorithm::*|null,
@@ -226,7 +271,10 @@ final class Av1Settings
      *   PerFrameMetrics?: array<FrameMetricType::*>|null,
      *   QvbrSettings?: Av1QvbrSettings|array|null,
      *   RateControlMode?: Av1RateControlMode::*|null,
+     *   SceneChangeDetect?: Av1SceneChangeDetect::*|null,
      *   Slices?: int|null,
+     *   SlidingWindowMs?: int|null,
+     *   SlidingWindowPeakBitrate?: int|null,
      *   SpatialAdaptiveQuantization?: Av1SpatialAdaptiveQuantization::*|null,
      * }|Av1Settings $input
      */
@@ -249,6 +297,11 @@ final class Av1Settings
     public function getBitDepth(): ?string
     {
         return $this->bitDepth;
+    }
+
+    public function getBitrate(): ?int
+    {
+        return $this->bitrate;
     }
 
     /**
@@ -321,9 +374,27 @@ final class Av1Settings
         return $this->rateControlMode;
     }
 
+    /**
+     * @return Av1SceneChangeDetect::*|null
+     */
+    public function getSceneChangeDetect(): ?string
+    {
+        return $this->sceneChangeDetect;
+    }
+
     public function getSlices(): ?int
     {
         return $this->slices;
+    }
+
+    public function getSlidingWindowMs(): ?int
+    {
+        return $this->slidingWindowMs;
+    }
+
+    public function getSlidingWindowPeakBitrate(): ?int
+    {
+        return $this->slidingWindowPeakBitrate;
     }
 
     /**
@@ -353,6 +424,9 @@ final class Av1Settings
                 throw new InvalidArgument(\sprintf('Invalid parameter "bitDepth" for "%s". The value "%s" is not a valid "Av1BitDepth".', __CLASS__, $v));
             }
             $payload['bitDepth'] = $v;
+        }
+        if (null !== $v = $this->bitrate) {
+            $payload['bitrate'] = $v;
         }
         if (null !== $v = $this->filmGrainSynthesis) {
             if (!Av1FilmGrainSynthesis::exists($v)) {
@@ -412,8 +486,21 @@ final class Av1Settings
             }
             $payload['rateControlMode'] = $v;
         }
+        if (null !== $v = $this->sceneChangeDetect) {
+            if (!Av1SceneChangeDetect::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "sceneChangeDetect" for "%s". The value "%s" is not a valid "Av1SceneChangeDetect".', __CLASS__, $v));
+            }
+            $payload['sceneChangeDetect'] = $v;
+        }
         if (null !== $v = $this->slices) {
             $payload['slices'] = $v;
+        }
+        if (null !== $v = $this->slidingWindowMs) {
+            $payload['slidingWindowMs'] = $v;
+        }
+        if (null !== $v = $this->slidingWindowPeakBitrate) {
+            $payload['slidingWindowPeakBitrate'] = $v;
         }
         if (null !== $v = $this->spatialAdaptiveQuantization) {
             if (!Av1SpatialAdaptiveQuantization::exists($v)) {

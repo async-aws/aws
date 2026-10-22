@@ -3,6 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\DashAdaptationSetGrouping;
 use AsyncAws\MediaConvert\Enum\DashIsoGroupAudioChannelConfigSchemeIdUri;
 use AsyncAws\MediaConvert\Enum\DashIsoHbbtvCompliance;
 use AsyncAws\MediaConvert\Enum\DashIsoImageBasedTrickPlay;
@@ -49,6 +50,14 @@ final class DashIsoGroupSettings
      * @var string|null
      */
     private $baseUrl;
+
+    /**
+     * Specify additional criteria for partitioning video outputs into separate AdaptationSets. These criteria are applied
+     * on top of the grouping produced by DashManifestStyle.
+     *
+     * @var list<DashAdaptationSetGrouping::*>|null
+     */
+    private $dashAdaptationSetGrouping;
 
     /**
      * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
@@ -259,6 +268,7 @@ final class DashIsoGroupSettings
      *   AdditionalManifests?: array<DashAdditionalManifest|array>|null,
      *   AudioChannelConfigSchemeIdUri?: DashIsoGroupAudioChannelConfigSchemeIdUri::*|null,
      *   BaseUrl?: string|null,
+     *   DashAdaptationSetGrouping?: array<DashAdaptationSetGrouping::*>|null,
      *   DashIFrameTrickPlayNameModifier?: string|null,
      *   DashManifestStyle?: DashManifestStyle::*|null,
      *   Destination?: string|null,
@@ -286,6 +296,7 @@ final class DashIsoGroupSettings
         $this->additionalManifests = isset($input['AdditionalManifests']) ? array_map([DashAdditionalManifest::class, 'create'], $input['AdditionalManifests']) : null;
         $this->audioChannelConfigSchemeIdUri = $input['AudioChannelConfigSchemeIdUri'] ?? null;
         $this->baseUrl = $input['BaseUrl'] ?? null;
+        $this->dashAdaptationSetGrouping = $input['DashAdaptationSetGrouping'] ?? null;
         $this->dashIFrameTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
         $this->dashManifestStyle = $input['DashManifestStyle'] ?? null;
         $this->destination = $input['Destination'] ?? null;
@@ -313,6 +324,7 @@ final class DashIsoGroupSettings
      *   AdditionalManifests?: array<DashAdditionalManifest|array>|null,
      *   AudioChannelConfigSchemeIdUri?: DashIsoGroupAudioChannelConfigSchemeIdUri::*|null,
      *   BaseUrl?: string|null,
+     *   DashAdaptationSetGrouping?: array<DashAdaptationSetGrouping::*>|null,
      *   DashIFrameTrickPlayNameModifier?: string|null,
      *   DashManifestStyle?: DashManifestStyle::*|null,
      *   Destination?: string|null,
@@ -359,6 +371,14 @@ final class DashIsoGroupSettings
     public function getBaseUrl(): ?string
     {
         return $this->baseUrl;
+    }
+
+    /**
+     * @return list<DashAdaptationSetGrouping::*>
+     */
+    public function getDashAdaptationSetGrouping(): array
+    {
+        return $this->dashAdaptationSetGrouping ?? [];
     }
 
     public function getDashIFrameTrickPlayNameModifier(): ?string
@@ -517,6 +537,18 @@ final class DashIsoGroupSettings
         }
         if (null !== $v = $this->baseUrl) {
             $payload['baseUrl'] = $v;
+        }
+        if (null !== $v = $this->dashAdaptationSetGrouping) {
+            $index = -1;
+            $payload['dashAdaptationSetGrouping'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!DashAdaptationSetGrouping::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
+                    throw new InvalidArgument(\sprintf('Invalid parameter "dashAdaptationSetGrouping" for "%s". The value "%s" is not a valid "DashAdaptationSetGrouping".', __CLASS__, $listValue));
+                }
+                $payload['dashAdaptationSetGrouping'][$index] = $listValue;
+            }
         }
         if (null !== $v = $this->dashIFrameTrickPlayNameModifier) {
             $payload['dashIFrameTrickPlayNameModifier'] = $v;
