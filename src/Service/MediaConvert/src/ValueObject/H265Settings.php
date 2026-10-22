@@ -432,6 +432,23 @@ final class H265Settings
     private $slices;
 
     /**
+     * Optional. Specify the duration, in milliseconds, of the sliding window over which MediaConvert enforces your Peak
+     * bitrate. When you specify a Peak bitrate but omit this value, MediaConvert uses a default sliding window of 1000.
+     *
+     * @var int|null
+     */
+    private $slidingWindowMs;
+
+    /**
+     * Optional. Specify an instantaneous peak bitrate ceiling, in bits/second, that MediaConvert enforces over the sliding
+     * window set by Peak bitrate window. For example, enter fifty megabits per second as 50000000. Applies in the VBR, CBR,
+     * and QVBR rate control modes. When you specify a value below Max bitrate, MediaConvert raises it to Max bitrate.
+     *
+     * @var int|null
+     */
+    private $slidingWindowPeakBitrate;
+
+    /**
      * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a
      * 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to
      * keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video.
@@ -596,6 +613,8 @@ final class H265Settings
      *   ScanTypeConversionMode?: H265ScanTypeConversionMode::*|null,
      *   SceneChangeDetect?: H265SceneChangeDetect::*|null,
      *   Slices?: int|null,
+     *   SlidingWindowMs?: int|null,
+     *   SlidingWindowPeakBitrate?: int|null,
      *   SlowPal?: H265SlowPal::*|null,
      *   SpatialAdaptiveQuantization?: H265SpatialAdaptiveQuantization::*|null,
      *   Telecine?: H265Telecine::*|null,
@@ -651,6 +670,8 @@ final class H265Settings
         $this->scanTypeConversionMode = $input['ScanTypeConversionMode'] ?? null;
         $this->sceneChangeDetect = $input['SceneChangeDetect'] ?? null;
         $this->slices = $input['Slices'] ?? null;
+        $this->slidingWindowMs = $input['SlidingWindowMs'] ?? null;
+        $this->slidingWindowPeakBitrate = $input['SlidingWindowPeakBitrate'] ?? null;
         $this->slowPal = $input['SlowPal'] ?? null;
         $this->spatialAdaptiveQuantization = $input['SpatialAdaptiveQuantization'] ?? null;
         $this->telecine = $input['Telecine'] ?? null;
@@ -706,6 +727,8 @@ final class H265Settings
      *   ScanTypeConversionMode?: H265ScanTypeConversionMode::*|null,
      *   SceneChangeDetect?: H265SceneChangeDetect::*|null,
      *   Slices?: int|null,
+     *   SlidingWindowMs?: int|null,
+     *   SlidingWindowPeakBitrate?: int|null,
      *   SlowPal?: H265SlowPal::*|null,
      *   SpatialAdaptiveQuantization?: H265SpatialAdaptiveQuantization::*|null,
      *   Telecine?: H265Telecine::*|null,
@@ -984,6 +1007,16 @@ final class H265Settings
     public function getSlices(): ?int
     {
         return $this->slices;
+    }
+
+    public function getSlidingWindowMs(): ?int
+    {
+        return $this->slidingWindowMs;
+    }
+
+    public function getSlidingWindowPeakBitrate(): ?int
+    {
+        return $this->slidingWindowPeakBitrate;
     }
 
     /**
@@ -1291,6 +1324,12 @@ final class H265Settings
         }
         if (null !== $v = $this->slices) {
             $payload['slices'] = $v;
+        }
+        if (null !== $v = $this->slidingWindowMs) {
+            $payload['slidingWindowMs'] = $v;
+        }
+        if (null !== $v = $this->slidingWindowPeakBitrate) {
+            $payload['slidingWindowPeakBitrate'] = $v;
         }
         if (null !== $v = $this->slowPal) {
             if (!H265SlowPal::exists($v)) {

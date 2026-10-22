@@ -19,6 +19,7 @@ use AsyncAws\MediaConvert\Enum\CmafVideoCompositionOffsets;
 use AsyncAws\MediaConvert\Enum\CmafWriteDASHManifest;
 use AsyncAws\MediaConvert\Enum\CmafWriteHLSManifest;
 use AsyncAws\MediaConvert\Enum\CmafWriteSegmentTimelineInRepresentation;
+use AsyncAws\MediaConvert\Enum\DashAdaptationSetGrouping;
 use AsyncAws\MediaConvert\Enum\DashManifestStyle;
 
 /**
@@ -59,6 +60,14 @@ final class CmafGroupSettings
      * @var CmafCodecSpecification::*|null
      */
     private $codecSpecification;
+
+    /**
+     * Specify additional criteria for partitioning video outputs into separate AdaptationSets. These criteria are applied
+     * on top of the grouping produced by DashManifestStyle.
+     *
+     * @var list<DashAdaptationSetGrouping::*>|null
+     */
+    private $dashAdaptationSetGrouping;
 
     /**
      * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
@@ -308,6 +317,7 @@ final class CmafGroupSettings
      *   BaseUrl?: string|null,
      *   ClientCache?: CmafClientCache::*|null,
      *   CodecSpecification?: CmafCodecSpecification::*|null,
+     *   DashAdaptationSetGrouping?: array<DashAdaptationSetGrouping::*>|null,
      *   DashIFrameTrickPlayNameModifier?: string|null,
      *   DashManifestStyle?: DashManifestStyle::*|null,
      *   Destination?: string|null,
@@ -341,6 +351,7 @@ final class CmafGroupSettings
         $this->baseUrl = $input['BaseUrl'] ?? null;
         $this->clientCache = $input['ClientCache'] ?? null;
         $this->codecSpecification = $input['CodecSpecification'] ?? null;
+        $this->dashAdaptationSetGrouping = $input['DashAdaptationSetGrouping'] ?? null;
         $this->dashIFrameTrickPlayNameModifier = $input['DashIFrameTrickPlayNameModifier'] ?? null;
         $this->dashManifestStyle = $input['DashManifestStyle'] ?? null;
         $this->destination = $input['Destination'] ?? null;
@@ -374,6 +385,7 @@ final class CmafGroupSettings
      *   BaseUrl?: string|null,
      *   ClientCache?: CmafClientCache::*|null,
      *   CodecSpecification?: CmafCodecSpecification::*|null,
+     *   DashAdaptationSetGrouping?: array<DashAdaptationSetGrouping::*>|null,
      *   DashIFrameTrickPlayNameModifier?: string|null,
      *   DashManifestStyle?: DashManifestStyle::*|null,
      *   Destination?: string|null,
@@ -433,6 +445,14 @@ final class CmafGroupSettings
     public function getCodecSpecification(): ?string
     {
         return $this->codecSpecification;
+    }
+
+    /**
+     * @return list<DashAdaptationSetGrouping::*>
+     */
+    public function getDashAdaptationSetGrouping(): array
+    {
+        return $this->dashAdaptationSetGrouping ?? [];
     }
 
     public function getDashIFrameTrickPlayNameModifier(): ?string
@@ -638,6 +658,18 @@ final class CmafGroupSettings
                 throw new InvalidArgument(\sprintf('Invalid parameter "codecSpecification" for "%s". The value "%s" is not a valid "CmafCodecSpecification".', __CLASS__, $v));
             }
             $payload['codecSpecification'] = $v;
+        }
+        if (null !== $v = $this->dashAdaptationSetGrouping) {
+            $index = -1;
+            $payload['dashAdaptationSetGrouping'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!DashAdaptationSetGrouping::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
+                    throw new InvalidArgument(\sprintf('Invalid parameter "dashAdaptationSetGrouping" for "%s". The value "%s" is not a valid "DashAdaptationSetGrouping".', __CLASS__, $listValue));
+                }
+                $payload['dashAdaptationSetGrouping'][$index] = $listValue;
+            }
         }
         if (null !== $v = $this->dashIFrameTrickPlayNameModifier) {
             $payload['dashIFrameTrickPlayNameModifier'] = $v;

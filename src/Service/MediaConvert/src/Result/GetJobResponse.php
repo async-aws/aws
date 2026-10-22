@@ -52,6 +52,7 @@ use AsyncAws\MediaConvert\Enum\Av1FilmGrainSynthesis;
 use AsyncAws\MediaConvert\Enum\Av1FramerateControl;
 use AsyncAws\MediaConvert\Enum\Av1FramerateConversionAlgorithm;
 use AsyncAws\MediaConvert\Enum\Av1RateControlMode;
+use AsyncAws\MediaConvert\Enum\Av1SceneChangeDetect;
 use AsyncAws\MediaConvert\Enum\Av1SpatialAdaptiveQuantization;
 use AsyncAws\MediaConvert\Enum\AvcIntraClass;
 use AsyncAws\MediaConvert\Enum\AvcIntraFramerateControl;
@@ -116,6 +117,7 @@ use AsyncAws\MediaConvert\Enum\ColorSpaceConversion;
 use AsyncAws\MediaConvert\Enum\ColorSpaceUsage;
 use AsyncAws\MediaConvert\Enum\ContainerType;
 use AsyncAws\MediaConvert\Enum\CopyProtectionAction;
+use AsyncAws\MediaConvert\Enum\DashAdaptationSetGrouping;
 use AsyncAws\MediaConvert\Enum\DashIsoGroupAudioChannelConfigSchemeIdUri;
 use AsyncAws\MediaConvert\Enum\DashIsoHbbtvCompliance;
 use AsyncAws\MediaConvert\Enum\DashIsoImageBasedTrickPlay;
@@ -906,6 +908,7 @@ class GetJobResponse extends Result
         return new Av1Settings([
             'AdaptiveQuantization' => isset($json['adaptiveQuantization']) ? (!Av1AdaptiveQuantization::exists((string) $json['adaptiveQuantization']) ? Av1AdaptiveQuantization::UNKNOWN_TO_SDK : (string) $json['adaptiveQuantization']) : null,
             'BitDepth' => isset($json['bitDepth']) ? (!Av1BitDepth::exists((string) $json['bitDepth']) ? Av1BitDepth::UNKNOWN_TO_SDK : (string) $json['bitDepth']) : null,
+            'Bitrate' => isset($json['bitrate']) ? (int) $json['bitrate'] : null,
             'FilmGrainSynthesis' => isset($json['filmGrainSynthesis']) ? (!Av1FilmGrainSynthesis::exists((string) $json['filmGrainSynthesis']) ? Av1FilmGrainSynthesis::UNKNOWN_TO_SDK : (string) $json['filmGrainSynthesis']) : null,
             'FramerateControl' => isset($json['framerateControl']) ? (!Av1FramerateControl::exists((string) $json['framerateControl']) ? Av1FramerateControl::UNKNOWN_TO_SDK : (string) $json['framerateControl']) : null,
             'FramerateConversionAlgorithm' => isset($json['framerateConversionAlgorithm']) ? (!Av1FramerateConversionAlgorithm::exists((string) $json['framerateConversionAlgorithm']) ? Av1FramerateConversionAlgorithm::UNKNOWN_TO_SDK : (string) $json['framerateConversionAlgorithm']) : null,
@@ -917,7 +920,10 @@ class GetJobResponse extends Result
             'PerFrameMetrics' => !isset($json['perFrameMetrics']) ? null : $this->populateResult__listOfFrameMetricType($json['perFrameMetrics']),
             'QvbrSettings' => empty($json['qvbrSettings']) ? null : $this->populateResultAv1QvbrSettings($json['qvbrSettings']),
             'RateControlMode' => isset($json['rateControlMode']) ? (!Av1RateControlMode::exists((string) $json['rateControlMode']) ? Av1RateControlMode::UNKNOWN_TO_SDK : (string) $json['rateControlMode']) : null,
+            'SceneChangeDetect' => isset($json['sceneChangeDetect']) ? (!Av1SceneChangeDetect::exists((string) $json['sceneChangeDetect']) ? Av1SceneChangeDetect::UNKNOWN_TO_SDK : (string) $json['sceneChangeDetect']) : null,
             'Slices' => isset($json['slices']) ? (int) $json['slices'] : null,
+            'SlidingWindowMs' => isset($json['slidingWindowMs']) ? (int) $json['slidingWindowMs'] : null,
+            'SlidingWindowPeakBitrate' => isset($json['slidingWindowPeakBitrate']) ? (int) $json['slidingWindowPeakBitrate'] : null,
             'SpatialAdaptiveQuantization' => isset($json['spatialAdaptiveQuantization']) ? (!Av1SpatialAdaptiveQuantization::exists((string) $json['spatialAdaptiveQuantization']) ? Av1SpatialAdaptiveQuantization::UNKNOWN_TO_SDK : (string) $json['spatialAdaptiveQuantization']) : null,
         ]);
     }
@@ -1096,6 +1102,7 @@ class GetJobResponse extends Result
             'BaseUrl' => isset($json['baseUrl']) ? (string) $json['baseUrl'] : null,
             'ClientCache' => isset($json['clientCache']) ? (!CmafClientCache::exists((string) $json['clientCache']) ? CmafClientCache::UNKNOWN_TO_SDK : (string) $json['clientCache']) : null,
             'CodecSpecification' => isset($json['codecSpecification']) ? (!CmafCodecSpecification::exists((string) $json['codecSpecification']) ? CmafCodecSpecification::UNKNOWN_TO_SDK : (string) $json['codecSpecification']) : null,
+            'DashAdaptationSetGrouping' => !isset($json['dashAdaptationSetGrouping']) ? null : $this->populateResult__listOfDashAdaptationSetGrouping($json['dashAdaptationSetGrouping']),
             'DashIFrameTrickPlayNameModifier' => isset($json['dashIFrameTrickPlayNameModifier']) ? (string) $json['dashIFrameTrickPlayNameModifier'] : null,
             'DashManifestStyle' => isset($json['dashManifestStyle']) ? (!DashManifestStyle::exists((string) $json['dashManifestStyle']) ? DashManifestStyle::UNKNOWN_TO_SDK : (string) $json['dashManifestStyle']) : null,
             'Destination' => isset($json['destination']) ? (string) $json['destination'] : null,
@@ -1236,6 +1243,7 @@ class GetJobResponse extends Result
             'AdditionalManifests' => !isset($json['additionalManifests']) ? null : $this->populateResult__listOfDashAdditionalManifest($json['additionalManifests']),
             'AudioChannelConfigSchemeIdUri' => isset($json['audioChannelConfigSchemeIdUri']) ? (!DashIsoGroupAudioChannelConfigSchemeIdUri::exists((string) $json['audioChannelConfigSchemeIdUri']) ? DashIsoGroupAudioChannelConfigSchemeIdUri::UNKNOWN_TO_SDK : (string) $json['audioChannelConfigSchemeIdUri']) : null,
             'BaseUrl' => isset($json['baseUrl']) ? (string) $json['baseUrl'] : null,
+            'DashAdaptationSetGrouping' => !isset($json['dashAdaptationSetGrouping']) ? null : $this->populateResult__listOfDashAdaptationSetGrouping($json['dashAdaptationSetGrouping']),
             'DashIFrameTrickPlayNameModifier' => isset($json['dashIFrameTrickPlayNameModifier']) ? (string) $json['dashIFrameTrickPlayNameModifier'] : null,
             'DashManifestStyle' => isset($json['dashManifestStyle']) ? (!DashManifestStyle::exists((string) $json['dashManifestStyle']) ? DashManifestStyle::UNKNOWN_TO_SDK : (string) $json['dashManifestStyle']) : null,
             'Destination' => isset($json['destination']) ? (string) $json['destination'] : null,
@@ -1648,6 +1656,8 @@ class GetJobResponse extends Result
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (!H264ScanTypeConversionMode::exists((string) $json['scanTypeConversionMode']) ? H264ScanTypeConversionMode::UNKNOWN_TO_SDK : (string) $json['scanTypeConversionMode']) : null,
             'SceneChangeDetect' => isset($json['sceneChangeDetect']) ? (!H264SceneChangeDetect::exists((string) $json['sceneChangeDetect']) ? H264SceneChangeDetect::UNKNOWN_TO_SDK : (string) $json['sceneChangeDetect']) : null,
             'Slices' => isset($json['slices']) ? (int) $json['slices'] : null,
+            'SlidingWindowMs' => isset($json['slidingWindowMs']) ? (int) $json['slidingWindowMs'] : null,
+            'SlidingWindowPeakBitrate' => isset($json['slidingWindowPeakBitrate']) ? (int) $json['slidingWindowPeakBitrate'] : null,
             'SlowPal' => isset($json['slowPal']) ? (!H264SlowPal::exists((string) $json['slowPal']) ? H264SlowPal::UNKNOWN_TO_SDK : (string) $json['slowPal']) : null,
             'Softness' => isset($json['softness']) ? (int) $json['softness'] : null,
             'SpatialAdaptiveQuantization' => isset($json['spatialAdaptiveQuantization']) ? (!H264SpatialAdaptiveQuantization::exists((string) $json['spatialAdaptiveQuantization']) ? H264SpatialAdaptiveQuantization::UNKNOWN_TO_SDK : (string) $json['spatialAdaptiveQuantization']) : null,
@@ -1710,6 +1720,8 @@ class GetJobResponse extends Result
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (!H265ScanTypeConversionMode::exists((string) $json['scanTypeConversionMode']) ? H265ScanTypeConversionMode::UNKNOWN_TO_SDK : (string) $json['scanTypeConversionMode']) : null,
             'SceneChangeDetect' => isset($json['sceneChangeDetect']) ? (!H265SceneChangeDetect::exists((string) $json['sceneChangeDetect']) ? H265SceneChangeDetect::UNKNOWN_TO_SDK : (string) $json['sceneChangeDetect']) : null,
             'Slices' => isset($json['slices']) ? (int) $json['slices'] : null,
+            'SlidingWindowMs' => isset($json['slidingWindowMs']) ? (int) $json['slidingWindowMs'] : null,
+            'SlidingWindowPeakBitrate' => isset($json['slidingWindowPeakBitrate']) ? (int) $json['slidingWindowPeakBitrate'] : null,
             'SlowPal' => isset($json['slowPal']) ? (!H265SlowPal::exists((string) $json['slowPal']) ? H265SlowPal::UNKNOWN_TO_SDK : (string) $json['slowPal']) : null,
             'SpatialAdaptiveQuantization' => isset($json['spatialAdaptiveQuantization']) ? (!H265SpatialAdaptiveQuantization::exists((string) $json['spatialAdaptiveQuantization']) ? H265SpatialAdaptiveQuantization::UNKNOWN_TO_SDK : (string) $json['spatialAdaptiveQuantization']) : null,
             'Telecine' => isset($json['telecine']) ? (!H265Telecine::exists((string) $json['telecine']) ? H265Telecine::UNKNOWN_TO_SDK : (string) $json['telecine']) : null,
@@ -2306,6 +2318,8 @@ class GetJobResponse extends Result
             'RateControlMode' => isset($json['rateControlMode']) ? (!Mpeg2RateControlMode::exists((string) $json['rateControlMode']) ? Mpeg2RateControlMode::UNKNOWN_TO_SDK : (string) $json['rateControlMode']) : null,
             'ScanTypeConversionMode' => isset($json['scanTypeConversionMode']) ? (!Mpeg2ScanTypeConversionMode::exists((string) $json['scanTypeConversionMode']) ? Mpeg2ScanTypeConversionMode::UNKNOWN_TO_SDK : (string) $json['scanTypeConversionMode']) : null,
             'SceneChangeDetect' => isset($json['sceneChangeDetect']) ? (!Mpeg2SceneChangeDetect::exists((string) $json['sceneChangeDetect']) ? Mpeg2SceneChangeDetect::UNKNOWN_TO_SDK : (string) $json['sceneChangeDetect']) : null,
+            'SlidingWindowMs' => isset($json['slidingWindowMs']) ? (int) $json['slidingWindowMs'] : null,
+            'SlidingWindowPeakBitrate' => isset($json['slidingWindowPeakBitrate']) ? (int) $json['slidingWindowPeakBitrate'] : null,
             'SlowPal' => isset($json['slowPal']) ? (!Mpeg2SlowPal::exists((string) $json['slowPal']) ? Mpeg2SlowPal::UNKNOWN_TO_SDK : (string) $json['slowPal']) : null,
             'Softness' => isset($json['softness']) ? (int) $json['softness'] : null,
             'SpatialAdaptiveQuantization' => isset($json['spatialAdaptiveQuantization']) ? (!Mpeg2SpatialAdaptiveQuantization::exists((string) $json['spatialAdaptiveQuantization']) ? Mpeg2SpatialAdaptiveQuantization::UNKNOWN_TO_SDK : (string) $json['spatialAdaptiveQuantization']) : null,
@@ -3178,6 +3192,25 @@ class GetJobResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = $this->populateResultColorConversion3DLUTSetting($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return list<DashAdaptationSetGrouping::*>
+     */
+    private function populateResult__listOfDashAdaptationSetGrouping(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!DashAdaptationSetGrouping::exists($a)) {
+                    $a = DashAdaptationSetGrouping::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
         }
 
         return $items;
