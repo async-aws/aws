@@ -31,6 +31,7 @@ final class Configuration
     public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
     public const OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI = 'containerCredentialsRelativeUri';
     public const OPTION_ENDPOINT_DISCOVERY_ENABLED = 'endpointDiscoveryEnabled';
+    public const OPTION_RESPONSE_BUFFER_MAX_SIZE = 'responseBufferMaxSize';
     public const OPTION_POD_IDENTITY_CREDENTIALS_FULL_URI = 'podIdentityCredentialsFullUri';
     public const OPTION_POD_IDENTITY_AUTHORIZATION_TOKEN_FILE = 'podIdentityAuthorizationTokenFile';
 
@@ -53,6 +54,7 @@ final class Configuration
         self::OPTION_ROLE_SESSION_NAME => true,
         self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => true,
         self::OPTION_ENDPOINT_DISCOVERY_ENABLED => true,
+        self::OPTION_RESPONSE_BUFFER_MAX_SIZE => true,
         self::OPTION_PATH_STYLE_ENDPOINT => true,
         self::OPTION_SEND_CHUNKED_BODY => true,
         self::OPTION_POD_IDENTITY_CREDENTIALS_FULL_URI => true,

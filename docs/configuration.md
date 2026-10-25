@@ -109,6 +109,18 @@ See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developer
 Enable endpoint discovery when the operation supports it.
 See [Endpoint discovery](https://docs.aws.amazon.com/sdkref/latest/guide/feature-endpoint-discovery.html) for more information.
 
+### responseBufferMaxSize
+
+The size in bytes, with a minimum of 64 KiB, above which a response body with a
+`Content-Length` is read directly from the HTTP response instead of being
+buffered into temporary storage. Use it for large downloads such as
+`S3Client::getObject()`.
+
+> **Note**: This applies to every response of the client. Such a body can be
+> read only once, and not after `Result::wait()` has started downloading it. It
+> is left out of the `debug` log, and its resource is not seekable and so cannot
+> be the body of another request.
+
 ### podIdentityCredentialsFullUri
 
 Full Uri to the endpoint of the Pod Identity agent, which should already be injected by the Pod Identity agent when using the [PodIdentity Provider](/authentication/pod-identity.md)

@@ -161,12 +161,21 @@ abstract class AbstractApi
             $requestBody = $requestBody->stringify();
         }
 
+        $options = [
+            'headers' => $request->getHeaders(),
+        ] + (0 === $length ? [] : ['body' => $requestBody]);
+        $responseBufferMaxSize = $this->configuration->get(Configuration::OPTION_RESPONSE_BUFFER_MAX_SIZE);
+        if (null !== $responseBufferMaxSize) {
+            $responseBufferMaxSize = (int) $responseBufferMaxSize;
+            $options['buffer'] = static function (array $headers) use ($responseBufferMaxSize): bool {
+                return Response::shouldBufferBody($headers, $responseBufferMaxSize);
+            };
+        }
+
         $response = $this->httpClient->request(
             $request->getMethod(),
             $request->getEndpoint(),
-            [
-                'headers' => $request->getHeaders(),
-            ] + (0 === $length ? [] : ['body' => $requestBody])
+            $options
         );
 
         if ($debug = filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
@@ -178,7 +187,7 @@ abstract class AbstractApi
             ]);
         }
 
-        return new Response($response, $this->httpClient, $this->logger, $this->awsErrorFactory, $this->endpointCache, $request, $debug, $context ? $context->getExceptionMapping() : []);
+        return new Response($response, $this->httpClient, $this->logger, $this->awsErrorFactory, $this->endpointCache, $request, $debug, $context ? $context->getExceptionMapping() : [], $responseBufferMaxSize);
     }
 
     /**

@@ -6,6 +6,9 @@ namespace AsyncAws\Core\Stream;
 
 /**
  * Stream for a Result.
+ *
+ * Its content can be read more than once, unless it is a `ReadOnceResultStream`, as
+ * returned for large bodies by a client configured with `responseBufferMaxSize`.
  */
 interface ResultStream
 {
@@ -22,12 +25,12 @@ interface ResultStream
     public function getChunks(): iterable;
 
     /**
-     * Download content into a temporary resource and return a string.
+     * Download content and return a string.
      */
     public function getContentAsString(): string;
 
     /**
-     * Download content into a resource and then return that resource.
+     * Return content as a resource.
      *
      * @return resource
      */
