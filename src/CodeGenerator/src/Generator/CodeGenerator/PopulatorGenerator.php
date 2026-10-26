@@ -258,7 +258,7 @@ class PopulatorGenerator
 
         // Prepend with $headers = ...
         if (!empty($body)) {
-            $body = '$headers = $response->getHeaders();' . "\n\n" . $body;
+            $body = '$headers = $response->getHeaders(' . ($forException ? 'false' : '') . ');' . "\n\n" . $body;
         }
 
         // Find status code

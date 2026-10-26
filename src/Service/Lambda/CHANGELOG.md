@@ -10,6 +10,10 @@
 
 - AWS enhancement: Documentation updates.
 
+### Fixed
+
+- Throw `TooManyRequestsException` instead of a Symfony `ClientException` when a request is throttled.
+
 ## 2.18.0
 
 ### Added
