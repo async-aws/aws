@@ -6,12 +6,14 @@ namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\HttpClient\AwsRetryStrategy;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\RetryableHttpClient;
 
 class ResultTest extends TestCase
 {
@@ -157,5 +159,49 @@ class ResultTest extends TestCase
         foreach (Result::wait([$result], null, true) as $result) {
             self::assertTrue($result->info()['body_downloaded']);
         }
+    }
+
+    public function testWaitWithBodyAndExceptionWithRetryableHttpClient()
+    {
+        if (!class_exists(RetryableHttpClient::class)) {
+            self::markTestSkipped('This test needs symfony/http-client 5.3.10 or later');
+        }
+
+        $client = new RetryableHttpClient(new MockHttpClient(new SimpleMockedResponse('{"__type":"ValidationException","message":"Invalid input"}', [], 400)), new AwsRetryStrategy());
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        $counter = 0;
+        foreach (Result::wait([$result], null, true) as $r) {
+            self::assertTrue($r->info()['resolved']);
+            self::assertTrue($r->info()['body_downloaded']);
+            ++$counter;
+        }
+        self::assertSame(1, $counter);
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('ValidationException');
+        $result->resolve();
+    }
+
+    public function testWaitWithExceptionAfterInterruptedWaitWithBody()
+    {
+        $client = new MockHttpClient([new SimpleMockedResponse('OK', [], 200), new SimpleMockedResponse('Not found', [], 404)]);
+        $result1 = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        $result2 = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        foreach (Result::wait([$result1, $result2], null, true) as $result) {
+            break;
+        }
+        self::assertFalse($result2->info()['resolved']);
+
+        $counter = 0;
+        foreach (Result::wait([$result1, $result2]) as $result) {
+            self::assertTrue($result->info()['resolved']);
+            ++$counter;
+        }
+        self::assertSame(2, $counter);
+
+        $this->expectException(HttpException::class);
+        $result2->resolve();
     }
 }

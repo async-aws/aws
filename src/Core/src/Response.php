@@ -261,13 +261,15 @@ final class Response
 
             if ($chunk->isLast()) {
                 $response->bodyDownloaded = true;
-                if (null !== $index && $downloadBody) {
+                if (null !== $index) {
+                    $response->defineResolveStatus();
                     unset($indexMap[$hash]);
                     yield $index => $response;
                 }
-            }
-            if ($chunk->isFirst()) {
-                $response->defineResolveStatus();
+            } elseif ($chunk->isFirst()) {
+                if (!$downloadBody || 300 > $response->httpResponse->getStatusCode()) {
+                    $response->defineResolveStatus();
+                }
                 if (null !== $index && !$downloadBody) {
                     unset($indexMap[$hash]);
                     yield $index => $response;

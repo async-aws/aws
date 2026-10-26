@@ -45,7 +45,7 @@
         "symfony/runtime": "^7.3.2 || ^8.0"
     },
     "conflict": {
-        "symfony/http-client": "5.2.0"
+        "symfony/http-client": ">=5.2 <5.3.10"
     },
     "autoload": {
         "psr-4": {
