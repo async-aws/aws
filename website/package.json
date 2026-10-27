@@ -6,13 +6,19 @@
         "jquery": "^3.4.1"
     },
     "devDependencies": {
-        "@symfony/webpack-encore": "^1.7.0",
+        "@babel/core": "^8.0.0",
+        "@babel/preset-env": "^8.0.0",
+        "@symfony/webpack-encore": "^7.2.0",
         "autoprefixer": "^10.4.0",
-        "file-loader": "^6.0.0",
+        "babel-plugin-polyfill-corejs3": "^1.0.0",
+        "cssnano": "^8.0.0",
         "jsdom": "^19.0.0",
-        "node-sass": "^7.0.0",
-        "postcss-loader": "^6.2.1",
-        "sass-loader": "^12.4.0"
+        "postcss": "^8.3.0",
+        "postcss-loader": "^8.1.1",
+        "sass": "^1.17.0",
+        "sass-loader": "^16.0.1",
+        "webpack": "^5.82",
+        "webpack-cli": "^7.0.0"
     },
     "browserslist": [
         "> 0.5%",
