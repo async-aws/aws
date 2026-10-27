@@ -16,6 +16,9 @@ final class KeySpec
     public const ML_DSA_44 = 'ML_DSA_44';
     public const ML_DSA_65 = 'ML_DSA_65';
     public const ML_DSA_87 = 'ML_DSA_87';
+    public const ML_KEM_1024 = 'ML_KEM_1024';
+    public const ML_KEM_512 = 'ML_KEM_512';
+    public const ML_KEM_768 = 'ML_KEM_768';
     public const RSA_2048 = 'RSA_2048';
     public const RSA_3072 = 'RSA_3072';
     public const RSA_4096 = 'RSA_4096';
@@ -41,6 +44,9 @@ final class KeySpec
             self::ML_DSA_44 => true,
             self::ML_DSA_65 => true,
             self::ML_DSA_87 => true,
+            self::ML_KEM_1024 => true,
+            self::ML_KEM_512 => true,
+            self::ML_KEM_768 => true,
             self::RSA_2048 => true,
             self::RSA_3072 => true,
             self::RSA_4096 => true,

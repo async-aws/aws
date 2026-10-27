@@ -5,6 +5,7 @@ namespace AsyncAws\Kms\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
+use AsyncAws\Kms\Enum\EncapsulationAlgorithmSpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\ExpirationModelType;
 use AsyncAws\Kms\Enum\KeyAgreementAlgorithmSpec;
@@ -42,6 +43,25 @@ class CreateKeyResponse extends Result
         $data = $response->toArray();
 
         $this->keyMetadata = empty($data['KeyMetadata']) ? null : $this->populateResultKeyMetadata($data['KeyMetadata']);
+    }
+
+    /**
+     * @return list<EncapsulationAlgorithmSpec::*>
+     */
+    private function populateResultEncapsulationAlgorithmSpecList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!EncapsulationAlgorithmSpec::exists($a)) {
+                    $a = EncapsulationAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     /**
@@ -105,6 +125,7 @@ class CreateKeyResponse extends Result
             'EncryptionAlgorithms' => !isset($json['EncryptionAlgorithms']) ? null : $this->populateResultEncryptionAlgorithmSpecList($json['EncryptionAlgorithms']),
             'SigningAlgorithms' => !isset($json['SigningAlgorithms']) ? null : $this->populateResultSigningAlgorithmSpecList($json['SigningAlgorithms']),
             'KeyAgreementAlgorithms' => !isset($json['KeyAgreementAlgorithms']) ? null : $this->populateResultKeyAgreementAlgorithmSpecList($json['KeyAgreementAlgorithms']),
+            'EncapsulationAlgorithms' => !isset($json['EncapsulationAlgorithms']) ? null : $this->populateResultEncapsulationAlgorithmSpecList($json['EncapsulationAlgorithms']),
             'MultiRegion' => isset($json['MultiRegion']) ? filter_var($json['MultiRegion'], \FILTER_VALIDATE_BOOLEAN) : null,
             'MultiRegionConfiguration' => empty($json['MultiRegionConfiguration']) ? null : $this->populateResultMultiRegionConfiguration($json['MultiRegionConfiguration']),
             'PendingDeletionWindowInDays' => isset($json['PendingDeletionWindowInDays']) ? (int) $json['PendingDeletionWindowInDays'] : null,

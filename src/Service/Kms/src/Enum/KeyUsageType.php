@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\Enum;
 
 final class KeyUsageType
 {
+    public const ENCAPSULATE_DECAPSULATE = 'ENCAPSULATE_DECAPSULATE';
     public const ENCRYPT_DECRYPT = 'ENCRYPT_DECRYPT';
     public const GENERATE_VERIFY_MAC = 'GENERATE_VERIFY_MAC';
     public const KEY_AGREEMENT = 'KEY_AGREEMENT';
@@ -16,6 +17,7 @@ final class KeyUsageType
     public static function exists(string $value): bool
     {
         return isset([
+            self::ENCAPSULATE_DECAPSULATE => true,
             self::ENCRYPT_DECRYPT => true,
             self::GENERATE_VERIFY_MAC => true,
             self::KEY_AGREEMENT => true,
