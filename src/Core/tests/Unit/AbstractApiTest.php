@@ -6,12 +6,17 @@ namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\EndpointDiscovery\EndpointInterface;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Response;
+use AsyncAws\Core\Stream\ResponseBodyNonBufferedStream;
 use AsyncAws\Core\Stream\StringStream;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -56,6 +61,62 @@ class AbstractApiTest extends TestCase
 
         $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')), new RequestContext(['requiresEndpointDiscovery' => true]));
         $response->cancel();
+    }
+
+    public function testGetResponseBuffersBodiesByDefault(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertArrayNotHasKey('buffer', $options);
+
+            return new SimpleMockedResponse('OK');
+        });
+        $api = new DummyApi([], new NullProvider(), $httpClient);
+
+        $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')));
+
+        self::assertTrue($response->resolve());
+    }
+
+    public function testGetResponseBuffersBodiesUpToTheConfiguredSize(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertInstanceOf(\Closure::class, $options['buffer']);
+            self::assertTrue($options['buffer'](['content-length' => ['1048576']]));
+            self::assertTrue($options['buffer']([]));
+            self::assertFalse($options['buffer'](['content-length' => ['1048577']]));
+
+            return new SimpleMockedResponse('OK');
+        });
+        $api = new DummyApi(['responseBufferMaxSize' => '1048576'], new NullProvider(), $httpClient);
+
+        $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')));
+
+        self::assertTrue($response->resolve());
+    }
+
+    public function testGetResponseAlwaysBuffersBodiesUpTo64KiB(): void
+    {
+        $httpClient = new MockHttpClient(static function (string $method, string $url, array $options): ResponseInterface {
+            self::assertTrue($options['buffer'](['content-length' => ['65536']]));
+            self::assertFalse($options['buffer'](['content-length' => ['65537']]));
+
+            return new SimpleMockedResponse('OK');
+        });
+        $api = new DummyApi(['responseBufferMaxSize' => '1024'], new NullProvider(), $httpClient);
+
+        $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')));
+
+        self::assertTrue($response->resolve());
+    }
+
+    public function testGetResponseDoesNotBufferBodiesAboveTheConfiguredSize(): void
+    {
+        $httpClient = new MockHttpClient(new MockResponse(str_repeat('a', 65537), ['response_headers' => ['Content-Length' => '65537']]));
+        $api = new DummyApi(['responseBufferMaxSize' => '1024'], new NullProvider(), $httpClient);
+
+        $response = $api->getResponseExposed(new Request('GET', '/foo', [], [], StringStream::create('')));
+
+        self::assertInstanceOf(ResponseBodyNonBufferedStream::class, $response->toStream());
     }
 }
 

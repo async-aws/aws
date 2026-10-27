@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Increases the maximum session token size to 4,096 bytes and removes the packed policy size limit. Adds SessionTokenSize and SessionTokenUtilization fields and a new MinimumSessionTokenSize parameter. PackedPolicySize is deprecated.
+- Added the `responseBufferMaxSize` option to read large response bodies once instead of buffering them
 
 ### Fixed
 

@@ -17,6 +17,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Exception\UnparsableResponse;
+use AsyncAws\Core\HttpClient\BufferedResponse;
+use AsyncAws\Core\Stream\ResponseBodyNonBufferedStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Psr\Log\LoggerInterface;
@@ -103,9 +105,14 @@ final class Response
     private $exceptionMapping;
 
     /**
+     * @var int|null
+     */
+    private $responseBufferMaxSize;
+
+    /**
      * @param array<string, class-string<HttpException>> $exceptionMapping
      */
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, ?AwsErrorFactoryInterface $awsErrorFactory = null, ?EndpointCache $endpointCache = null, ?Request $request = null, bool $debug = false, array $exceptionMapping = [])
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, ?AwsErrorFactoryInterface $awsErrorFactory = null, ?EndpointCache $endpointCache = null, ?Request $request = null, bool $debug = false, array $exceptionMapping = [], ?int $responseBufferMaxSize = null)
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
@@ -115,6 +122,7 @@ final class Response
         $this->request = $request;
         $this->debug = $debug;
         $this->exceptionMapping = $exceptionMapping;
+        $this->responseBufferMaxSize = $responseBufferMaxSize;
     }
 
     public function __destruct()
@@ -166,12 +174,18 @@ final class Response
                 // Network exception
                 $this->logger->debug('AsyncAws HTTP request could not be sent due network issues');
             } else {
+                if ($this->isBodyBuffered()) {
+                    $body = $this->httpResponse->getContent(false);
+                    $this->bodyDownloaded = true;
+                } else {
+                    $body = '[response body omitted because buffering is disabled]';
+                }
+
                 $this->logger->debug('AsyncAws HTTP response received with status code {status_code}', [
                     'status_code' => $httpStatusCode,
                     'headers' => json_encode($this->httpResponse->getHeaders(false)),
-                    'body' => $this->httpResponse->getContent(false),
+                    'body' => $body,
                 ]);
-                $this->bodyDownloaded = true;
             }
         }
 
@@ -330,6 +344,10 @@ final class Response
     {
         $this->resolve();
 
+        if ($this->streamStarted && !$this->isBodyBuffered()) {
+            throw new RuntimeException('Can not read the body because it is not buffered and it started being downloaded in Response::wait()');
+        }
+
         try {
             return $this->httpResponse->getContent(false);
         } finally {
@@ -347,6 +365,10 @@ final class Response
     public function toArray(): array
     {
         $this->resolve();
+
+        if ($this->streamStarted && !$this->isBodyBuffered()) {
+            throw new RuntimeException('Can not read the body because it is not buffered and it started being downloaded in Response::wait()');
+        }
 
         try {
             return $this->httpResponse->toArray(false);
@@ -375,10 +397,30 @@ final class Response
         }
 
         try {
+            if (!$this->isBodyBuffered()) {
+                return new ResponseBodyNonBufferedStream($this->httpClient->stream($this->httpResponse));
+            }
+
             return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
         } finally {
             $this->bodyDownloaded = true;
         }
+    }
+
+    /**
+     * @param array<string, list<string>> $headers
+     *
+     * @internal
+     */
+    public static function shouldBufferBody(array $headers, int $maxSize): bool
+    {
+        // Buffering small bodies is cheap and keeps them readable more than once
+        return !isset($headers['content-length'][0]) || (int) $headers['content-length'][0] <= max($maxSize, 64 * 1024);
+    }
+
+    private function isBodyBuffered(): bool
+    {
+        return null === $this->responseBufferMaxSize || self::shouldBufferBody($this->httpResponse->getHeaders(false), $this->responseBufferMaxSize);
     }
 
     /**
@@ -403,8 +445,11 @@ final class Response
         }
 
         if (300 <= $statusCode) {
+            // The error factory and the exception's populateResult() both read the body
+            $httpResponse = $this->isBodyBuffered() ? $this->httpResponse : new BufferedResponse($this->httpResponse);
+
             try {
-                $awsError = $this->awsErrorFactory->createFromResponse($this->httpResponse);
+                $awsError = $this->awsErrorFactory->createFromResponse($httpResponse);
                 if ($this->request && $this->endpointCache && (400 === $statusCode || 'InvalidEndpointException' === $awsError->getCode())) {
                     $this->endpointCache->removeEndpoint($this->request->getEndpoint());
                 }
@@ -424,7 +469,6 @@ final class Response
                 $exceptionClass = RedirectionException::class;
             }
 
-            $httpResponse = $this->httpResponse;
             $this->resolveResult = static function () use ($exceptionClass, $httpResponse, $awsError): HttpException {
                 return new $exceptionClass($httpResponse, $awsError);
             };
