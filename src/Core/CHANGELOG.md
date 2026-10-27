@@ -9,6 +9,7 @@
 ### Fixed
 
 - Sign `Content-Type` on requests using header-based Signature V4 authentication, fixing compatibility with Ceph RGW 19.2.6. Preserve its exclusion from presigned URLs.
+- Fix `Result::wait()` with `$downloadBody` skipping error responses from plain clients, or throwing a `LogicException` for 400 and 403 through `RetryableHttpClient`.
 
 ## 1.30.0
 
