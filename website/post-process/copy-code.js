@@ -1,4 +1,4 @@
-module.exports = function (dom) {
+export default function (dom) {
     for (const elem of dom.window.document.querySelectorAll('code.hljs:not(.language-text,.language-diff)')) {
         const button = dom.window.document.createElement('div');
         button.classList.add('btn-copy');

@@ -1,4 +1,4 @@
-require('./bootstrap');
-require('./code');
-require('./sidebar');
-require('../style/main.scss');
+import './bootstrap.js';
+import './code.js';
+import './sidebar.js';
+import '../style/main.scss';

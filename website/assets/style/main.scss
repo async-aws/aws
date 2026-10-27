@@ -1,6 +1,9 @@
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
+@use 'sass:color';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
 @import './variables';
 @import './sidebar';
 @import './contribute';
@@ -19,6 +22,9 @@ body{
 p {
     max-width: 45rem;
 }
+ol, ul {
+    padding-left: 2.5rem;
+}
 li {
     max-width: 40rem;
 }
@@ -27,7 +33,7 @@ a {
     transition: .3s all ease;
     color: $darkGreen;
     &:hover, &:focus {
-        color: darken($darkGreen, 25%);
+        color: color.adjust($darkGreen, $lightness: -25%, $space: hsl);
         text-decoration: underline;
         outline: none !important;
         box-shadow: none;
@@ -101,7 +107,7 @@ img {
     max-width: 100%;
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
     .no-mobile-x-scroll {
         overflow-x: hidden;
     }

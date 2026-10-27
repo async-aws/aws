@@ -44,8 +44,8 @@ test: initialize
 website-assets: website/template/assets/app.css
 website/template/assets/app.css: website/node_modules website/assets/*
 	cd website && ./node_modules/.bin/encore prod
-website/node_modules: website/package.json
-	cd website && npm install
+website/node_modules: website/package.json website/package-lock.json
+	cd website && npm ci
 
 website-post-process: website/node_modules
 ifneq (,$(wildcard .couscous/generated/index.html))

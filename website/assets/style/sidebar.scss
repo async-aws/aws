@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .sidebar {
     min-width: $sidebarWidth;
     max-width: $sidebarWidth;
@@ -23,7 +25,7 @@
             color: $dark;
             border-bottom: 1px solid rgba(0,0,0,.1);
             &:hover{
-                color: lighten($dark, 25%);
+                color: color.adjust($dark, $lightness: 25%, $space: hsl);
             }
         }
 
@@ -42,7 +44,7 @@
     }
 
     /* How should the button behave on small screens */
-    @include media-breakpoint-down(md){
+    @include media-breakpoint-down(lg){
         margin-left: -$sidebarWidth;
         &.active {
             margin-left: 0;
@@ -78,7 +80,7 @@
             }
 
             span{
-                @include media-breakpoint-down(md){
+                @include media-breakpoint-down(lg){
                     display: none;
                 }
             }
