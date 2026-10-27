@@ -50,7 +50,7 @@ final class TooManyRequestsException extends ClientException
 
     protected function populateResult(ResponseInterface $response): void
     {
-        $headers = $response->getHeaders();
+        $headers = $response->getHeaders(false);
 
         $this->retryAfterSeconds = $headers['retry-after'][0] ?? null;
 

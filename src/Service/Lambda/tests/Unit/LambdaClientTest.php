@@ -5,6 +5,7 @@ namespace AsyncAws\Lambda\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Lambda\Exception\TooManyRequestsException;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\GetAliasRequest;
@@ -32,6 +33,7 @@ use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 class LambdaClientTest extends TestCase
 {
@@ -103,6 +105,30 @@ class LambdaClientTest extends TestCase
 
         self::assertInstanceOf(InvocationResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testInvokeThrowsTooManyRequestsException(): void
+    {
+        $httpClient = new MockHttpClient(new MockResponse('{"Type":"User","Reason":"ReservedFunctionConcurrentInvocationLimitExceeded","message":"Rate exceeded"}', [
+            'http_code' => 429,
+            'response_headers' => [
+                'Retry-After' => '3',
+                'x-amzn-ErrorType' => 'TooManyRequestsException',
+            ],
+        ]));
+        $client = new LambdaClient([], new NullProvider(), $httpClient);
+
+        $input = new InvocationRequest([
+            'FunctionName' => 'change me',
+        ]);
+        $result = $client->Invoke($input);
+
+        try {
+            $result->resolve();
+            self::fail('resolve should throw exception.');
+        } catch (TooManyRequestsException $e) {
+            self::assertSame('3', $e->getRetryAfterSeconds());
+        }
     }
 
     public function testListAliases(): void
