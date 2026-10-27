@@ -13,6 +13,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     if: github.repository == 'async-aws/aws'
@@ -63,6 +67,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download website
+        uses: actions/download-artifact@v8
+        with:
+          name: website
+          path: generated
+
       - name: Checkout Website repo
         uses: actions/checkout@v7
         with:
@@ -70,12 +80,6 @@ jobs:
           ref: master
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           path: output
-
-      - name: Download website
-        uses: actions/download-artifact@v8
-        with:
-          name: website
-          path: generated
 
       - name: Replace the website files
         run: rsync --archive --delete --exclude '.*' generated/ output/

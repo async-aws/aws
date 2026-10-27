@@ -35,7 +35,7 @@ Here are some guidelines that are helpful when writing good documentation:
 
 To update the website's HTML or styles, one needs to use Couscous. Its basic operations
 are found in their [Getting started guide](http://couscous.io/docs/getting-started.html).
-You also need Node.js 24 and npm installed to build the assets.
+You also need Node.js 24.18 or newer and npm installed to build the assets.
 
 There is a Makefile script to run `npm ci` and `encore prod`. It will be executed
 with `make website-assets`. That script will automatically run before Couscous is
