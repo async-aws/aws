@@ -3,6 +3,5 @@
 composer.lock
 /.couscous/
 /website/node_modules/
-/website/package-lock.json
 /website/template/assets/*
 !/website/template/assets/.gitignore

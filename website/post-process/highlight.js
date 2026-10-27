@@ -1,15 +1,20 @@
-const highlight = require('highlight.js/lib/core');
+import highlight from 'highlight.js/lib/core';
+import php from 'highlight.js/lib/languages/php';
+import ini from 'highlight.js/lib/languages/ini';
+import diff from 'highlight.js/lib/languages/diff';
+import bash from 'highlight.js/lib/languages/bash';
+import yaml from 'highlight.js/lib/languages/yaml';
 
-highlight.registerLanguage('php', require('highlight.js/lib/languages/php'));
-highlight.registerLanguage('ini', require('highlight.js/lib/languages/ini'));
-highlight.registerLanguage('diff', require('highlight.js/lib/languages/diff'));
-highlight.registerLanguage('shell', require('highlight.js/lib/languages/bash'));
-highlight.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
+highlight.registerLanguage('php', php);
+highlight.registerLanguage('ini', ini);
+highlight.registerLanguage('diff', diff);
+highlight.registerLanguage('shell', bash);
+highlight.registerLanguage('yaml', yaml);
 
-module.exports = dom => {
+export default dom => {
     for (const block of dom.window.document.querySelectorAll('pre code')) {
         if (!block.classList.contains('hljs')) {
-            highlight.highlightBlock(block);
+            highlight.highlightElement(block);
         }
     }
 };

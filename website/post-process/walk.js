@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Read directory for files.
@@ -35,4 +35,4 @@ const walk = (dir, done) => {
     });
 };
 
-module.exports = walk;
+export default walk;

@@ -1,4 +1,5 @@
-@import '~highlight.js/styles/base16/darcula.css';
+@use 'sass:color';
+@import 'highlight.js/styles/base16/darcula.css';
 
 .hljs-deletion {
     color: #cb7832;
@@ -12,7 +13,7 @@ pre code {
 }
 
 code.language-shell {
-    border-top: 30px solid lighten(#2b2b2b, 10%);
+    border-top: 30px solid color.adjust(#2b2b2b, $lightness: 10%, $space: hsl);
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     overflow-x: visible;
@@ -72,7 +73,7 @@ code {
     }
 }
 
-@include media-breakpoint-down(md){
+@include media-breakpoint-down(lg){
     .btn-copy {
         display: none;
     }

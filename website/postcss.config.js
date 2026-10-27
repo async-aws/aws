@@ -1,6 +1,5 @@
-module.exports = {
+export default {
     plugins: {
-        // add browserslist config to package.json
         autoprefixer: {}
     }
 }

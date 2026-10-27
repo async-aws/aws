@@ -1,11 +1,10 @@
-const fs = require('fs');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const walk = require('./walk');
+import fs from 'fs';
+import { JSDOM } from 'jsdom';
+import walk from './walk.js';
 
-const highlight = require('./highlight')
-const headerLinks = require('./header-links')
-const copyCode = require('./copy-code')
+import highlight from './highlight.js';
+import headerLinks from './header-links.js';
+import copyCode from './copy-code.js';
 
 const outputDir = process.argv[2];
 console.log('Dir: ', outputDir);
@@ -16,7 +15,6 @@ walk(outputDir, (err, files) => {
         .filter(file => file.substr(-5) === '.html')
         .forEach(file => {
             JSDOM.fromFile(file, {}).then(dom => {
-                // Run our post processors
                 highlight(dom);
                 headerLinks(dom);
                 copyCode(dom);

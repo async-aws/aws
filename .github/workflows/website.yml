@@ -10,6 +10,13 @@ on:
       - 'couscous.yml'
       - '.github/workflows/website.yml'
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     if: github.repository == 'async-aws/aws'
@@ -22,14 +29,16 @@ jobs:
         with:
           php-version: 8.5
 
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.22.1
+
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           path: 'source'
-
-      - name: Checkout Website repo
-        run: |
-          git clone --branch master https://${{ secrets.BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/async-aws/website output
+          persist-credentials: false
 
       - name: Download Couscous Phar
         run: |
@@ -44,6 +53,36 @@ jobs:
           echo "::group::Post process"
           cd source/website && npm run post-process `pwd`/../../output
           echo "::endgroup::"
+
+      - name: Upload website
+        uses: actions/upload-artifact@v7
+        with:
+          name: website
+          path: output
+          retention-days: 1
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download website
+        uses: actions/download-artifact@v8
+        with:
+          name: website
+          path: generated
+
+      - name: Checkout Website repo
+        uses: actions/checkout@v7
+        with:
+          repository: async-aws/website
+          ref: master
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          path: output
+
+      - name: Replace the website files
+        run: rsync --archive --delete --exclude '.*' generated/ output/
 
       - name: Commit & push the new files
         run: |
