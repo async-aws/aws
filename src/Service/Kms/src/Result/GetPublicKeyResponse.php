@@ -5,6 +5,7 @@ namespace AsyncAws\Kms\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
+use AsyncAws\Kms\Enum\EncapsulationAlgorithmSpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\KeyAgreementAlgorithmSpec;
 use AsyncAws\Kms\Enum\KeySpec;
@@ -93,6 +94,14 @@ class GetPublicKeyResponse extends Result
     private $keyAgreementAlgorithms;
 
     /**
+     * The key encapsulation algorithm used to establish a shared secret. This field is present only when the KMS key has a
+     * `KeyUsage` value of `ENCAPSULATE_DECAPSULATE`.
+     *
+     * @var list<EncapsulationAlgorithmSpec::*>
+     */
+    private $encapsulationAlgorithms;
+
+    /**
      * @deprecated
      *
      * @return CustomerMasterKeySpec::*|null
@@ -103,6 +112,16 @@ class GetPublicKeyResponse extends Result
         $this->initialize();
 
         return $this->customerMasterKeySpec;
+    }
+
+    /**
+     * @return list<EncapsulationAlgorithmSpec::*>
+     */
+    public function getEncapsulationAlgorithms(): array
+    {
+        $this->initialize();
+
+        return $this->encapsulationAlgorithms;
     }
 
     /**
@@ -181,6 +200,26 @@ class GetPublicKeyResponse extends Result
         $this->encryptionAlgorithms = empty($data['EncryptionAlgorithms']) ? [] : $this->populateResultEncryptionAlgorithmSpecList($data['EncryptionAlgorithms']);
         $this->signingAlgorithms = empty($data['SigningAlgorithms']) ? [] : $this->populateResultSigningAlgorithmSpecList($data['SigningAlgorithms']);
         $this->keyAgreementAlgorithms = empty($data['KeyAgreementAlgorithms']) ? [] : $this->populateResultKeyAgreementAlgorithmSpecList($data['KeyAgreementAlgorithms']);
+        $this->encapsulationAlgorithms = empty($data['EncapsulationAlgorithms']) ? [] : $this->populateResultEncapsulationAlgorithmSpecList($data['EncapsulationAlgorithms']);
+    }
+
+    /**
+     * @return list<EncapsulationAlgorithmSpec::*>
+     */
+    private function populateResultEncapsulationAlgorithmSpecList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!EncapsulationAlgorithmSpec::exists($a)) {
+                    $a = EncapsulationAlgorithmSpec::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace AsyncAws\Kms\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
+use AsyncAws\Kms\Enum\EncapsulationAlgorithmSpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Enum\ExpirationModelType;
 use AsyncAws\Kms\Enum\KeyAgreementAlgorithmSpec;
@@ -204,6 +205,14 @@ final class KeyMetadata
     private $keyAgreementAlgorithms;
 
     /**
+     * The key encapsulation algorithm that the KMS key supports. This field appears only for KMS keys with a `KeyUsage`
+     * value of `ENCAPSULATE_DECAPSULATE`.
+     *
+     * @var list<EncapsulationAlgorithmSpec::*>|null
+     */
+    private $encapsulationAlgorithms;
+
+    /**
      * Indicates whether the KMS key is a multi-Region (`True`) or regional (`False`) key. This value is `True` for
      * multi-Region primary and replica keys and `False` for regional KMS keys.
      *
@@ -300,6 +309,7 @@ final class KeyMetadata
      *   EncryptionAlgorithms?: array<EncryptionAlgorithmSpec::*>|null,
      *   SigningAlgorithms?: array<SigningAlgorithmSpec::*>|null,
      *   KeyAgreementAlgorithms?: array<KeyAgreementAlgorithmSpec::*>|null,
+     *   EncapsulationAlgorithms?: array<EncapsulationAlgorithmSpec::*>|null,
      *   MultiRegion?: bool|null,
      *   MultiRegionConfiguration?: MultiRegionConfiguration|array|null,
      *   PendingDeletionWindowInDays?: int|null,
@@ -330,6 +340,7 @@ final class KeyMetadata
         $this->encryptionAlgorithms = $input['EncryptionAlgorithms'] ?? null;
         $this->signingAlgorithms = $input['SigningAlgorithms'] ?? null;
         $this->keyAgreementAlgorithms = $input['KeyAgreementAlgorithms'] ?? null;
+        $this->encapsulationAlgorithms = $input['EncapsulationAlgorithms'] ?? null;
         $this->multiRegion = $input['MultiRegion'] ?? null;
         $this->multiRegionConfiguration = isset($input['MultiRegionConfiguration']) ? MultiRegionConfiguration::create($input['MultiRegionConfiguration']) : null;
         $this->pendingDeletionWindowInDays = $input['PendingDeletionWindowInDays'] ?? null;
@@ -360,6 +371,7 @@ final class KeyMetadata
      *   EncryptionAlgorithms?: array<EncryptionAlgorithmSpec::*>|null,
      *   SigningAlgorithms?: array<SigningAlgorithmSpec::*>|null,
      *   KeyAgreementAlgorithms?: array<KeyAgreementAlgorithmSpec::*>|null,
+     *   EncapsulationAlgorithms?: array<EncapsulationAlgorithmSpec::*>|null,
      *   MultiRegion?: bool|null,
      *   MultiRegionConfiguration?: MultiRegionConfiguration|array|null,
      *   PendingDeletionWindowInDays?: int|null,
@@ -428,6 +440,14 @@ final class KeyMetadata
     public function getEnabled(): ?bool
     {
         return $this->enabled;
+    }
+
+    /**
+     * @return list<EncapsulationAlgorithmSpec::*>
+     */
+    public function getEncapsulationAlgorithms(): array
+    {
+        return $this->encapsulationAlgorithms ?? [];
     }
 
     /**
