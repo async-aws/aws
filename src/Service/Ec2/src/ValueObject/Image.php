@@ -250,6 +250,17 @@ final class Image
     private $imageWatermarks;
 
     /**
+     * The Amazon Inspector scan results for the AMI. This information is present only for AMIs that Amazon Inspector has
+     * scanned.
+     *
+     * When you share an AMI with other accounts, organizations, or organizational units (OUs), or make it public, its scan
+     * results are available to the accounts that can use the AMI.
+     *
+     * @var ScanResults|null
+     */
+    private $scanResults;
+
+    /**
      * The instance type specification for the AMI, which defines which instance types are compatible with this image.
      *
      * @var InstanceTypeSpecification|null
@@ -371,6 +382,7 @@ final class Image
      *   FreeTierEligible?: bool|null,
      *   PublicSsmParameterName?: string|null,
      *   ImageWatermarks?: array<ImageWatermark|array>|null,
+     *   ScanResults?: ScanResults|array|null,
      *   InstanceTypeSpecification?: InstanceTypeSpecification|array|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
@@ -415,6 +427,7 @@ final class Image
         $this->freeTierEligible = $input['FreeTierEligible'] ?? null;
         $this->publicSsmParameterName = $input['PublicSsmParameterName'] ?? null;
         $this->imageWatermarks = isset($input['ImageWatermarks']) ? array_map([ImageWatermark::class, 'create'], $input['ImageWatermarks']) : null;
+        $this->scanResults = isset($input['ScanResults']) ? ScanResults::create($input['ScanResults']) : null;
         $this->instanceTypeSpecification = isset($input['InstanceTypeSpecification']) ? InstanceTypeSpecification::create($input['InstanceTypeSpecification']) : null;
         $this->imageId = $input['ImageId'] ?? null;
         $this->imageLocation = $input['ImageLocation'] ?? null;
@@ -459,6 +472,7 @@ final class Image
      *   FreeTierEligible?: bool|null,
      *   PublicSsmParameterName?: string|null,
      *   ImageWatermarks?: array<ImageWatermark|array>|null,
+     *   ScanResults?: ScanResults|array|null,
      *   InstanceTypeSpecification?: InstanceTypeSpecification|array|null,
      *   ImageId?: string|null,
      *   ImageLocation?: string|null,
@@ -657,6 +671,11 @@ final class Image
     public function getRootDeviceType(): ?string
     {
         return $this->rootDeviceType;
+    }
+
+    public function getScanResults(): ?ScanResults
+    {
+        return $this->scanResults;
     }
 
     public function getSourceImageId(): ?string

@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: EC2 AMIs can now show vulnerability data and be targeted directly for scanning.
+
 ## 1.3.0
 
 ### Added

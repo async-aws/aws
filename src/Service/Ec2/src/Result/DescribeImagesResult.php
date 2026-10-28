@@ -15,6 +15,7 @@ use AsyncAws\Ec2\Enum\ImageTypeValues;
 use AsyncAws\Ec2\Enum\ImdsSupportValues;
 use AsyncAws\Ec2\Enum\PlatformValues;
 use AsyncAws\Ec2\Enum\ProductCodeValues;
+use AsyncAws\Ec2\Enum\SeverityLabel;
 use AsyncAws\Ec2\Enum\TpmSupportValues;
 use AsyncAws\Ec2\Enum\VirtualizationType;
 use AsyncAws\Ec2\Enum\VolumeType;
@@ -26,6 +27,7 @@ use AsyncAws\Ec2\ValueObject\ImageWatermark;
 use AsyncAws\Ec2\ValueObject\InstanceTypeItem;
 use AsyncAws\Ec2\ValueObject\InstanceTypeSpecification;
 use AsyncAws\Ec2\ValueObject\ProductCode;
+use AsyncAws\Ec2\ValueObject\ScanResults;
 use AsyncAws\Ec2\ValueObject\StateReason;
 use AsyncAws\Ec2\ValueObject\Tag;
 
@@ -189,6 +191,7 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
             'FreeTierEligible' => (null !== $v = $xml->freeTierEligible[0]) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
             'PublicSsmParameterName' => (null !== $v = $xml->publicSsmParameterName[0]) ? (string) $v : null,
             'ImageWatermarks' => (0 === ($v = $xml->imageWatermarkSet)->count()) ? null : $this->populateResultImageWatermarkList($v),
+            'ScanResults' => 0 === $xml->scanResults->count() ? null : $this->populateResultScanResults($xml->scanResults),
             'InstanceTypeSpecification' => 0 === $xml->instanceTypeSpecification->count() ? null : $this->populateResultInstanceTypeSpecification($xml->instanceTypeSpecification),
             'ImageId' => (null !== $v = $xml->imageId[0]) ? (string) $v : null,
             'ImageLocation' => (null !== $v = $xml->imageLocation[0]) ? (string) $v : null,
@@ -276,6 +279,19 @@ class DescribeImagesResult extends Result implements \IteratorAggregate
         }
 
         return $items;
+    }
+
+    private function populateResultScanResults(\SimpleXMLElement $xml): ScanResults
+    {
+        return new ScanResults([
+            'HighestFindingSeverityLabel' => (null !== $v = $xml->highestFindingSeverityLabel[0]) ? (!SeverityLabel::exists((string) $xml->highestFindingSeverityLabel) ? SeverityLabel::UNKNOWN_TO_SDK : (string) $xml->highestFindingSeverityLabel) : null,
+            'FindingScanDate' => (null !== $v = $xml->findingScanDate[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'InformationalFixAvailableSince' => (null !== $v = $xml->informationalFixAvailableSince[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'LowFixAvailableSince' => (null !== $v = $xml->lowFixAvailableSince[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'MediumFixAvailableSince' => (null !== $v = $xml->mediumFixAvailableSince[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'HighFixAvailableSince' => (null !== $v = $xml->highFixAvailableSince[0]) ? new \DateTimeImmutable((string) $v) : null,
+            'CriticalFixAvailableSince' => (null !== $v = $xml->criticalFixAvailableSince[0]) ? new \DateTimeImmutable((string) $v) : null,
+        ]);
     }
 
     private function populateResultStateReason(\SimpleXMLElement $xml): StateReason
