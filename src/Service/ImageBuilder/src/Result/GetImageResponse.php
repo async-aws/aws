@@ -10,10 +10,12 @@ use AsyncAws\ImageBuilder\Enum\ContainerType;
 use AsyncAws\ImageBuilder\Enum\DiskImageFormat;
 use AsyncAws\ImageBuilder\Enum\EbsVolumeType;
 use AsyncAws\ImageBuilder\Enum\ImageConfigurationStep;
+use AsyncAws\ImageBuilder\Enum\ImageScanningType;
 use AsyncAws\ImageBuilder\Enum\ImageScanStatus;
 use AsyncAws\ImageBuilder\Enum\ImageSource;
 use AsyncAws\ImageBuilder\Enum\ImageStatus;
 use AsyncAws\ImageBuilder\Enum\ImageType;
+use AsyncAws\ImageBuilder\Enum\MaximumSeverityLabel;
 use AsyncAws\ImageBuilder\Enum\OnWorkflowFailure;
 use AsyncAws\ImageBuilder\Enum\Platform;
 use AsyncAws\ImageBuilder\Enum\RegionFailureStatus;
@@ -59,6 +61,7 @@ use AsyncAws\ImageBuilder\ValueObject\Placement;
 use AsyncAws\ImageBuilder\ValueObject\RegionFailure;
 use AsyncAws\ImageBuilder\ValueObject\S3ExportConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\S3Logs;
+use AsyncAws\ImageBuilder\ValueObject\ScanResultCondition;
 use AsyncAws\ImageBuilder\ValueObject\SsmParameterConfiguration;
 use AsyncAws\ImageBuilder\ValueObject\SystemsManagerAgent;
 use AsyncAws\ImageBuilder\ValueObject\TargetContainerRepository;
@@ -525,7 +528,28 @@ class GetImageResponse extends Result
         return new ImageScanningConfiguration([
             'imageScanningEnabled' => isset($json['imageScanningEnabled']) ? filter_var($json['imageScanningEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'ecrConfiguration' => empty($json['ecrConfiguration']) ? null : $this->populateResultEcrConfiguration($json['ecrConfiguration']),
+            'imageScanningTypes' => !isset($json['imageScanningTypes']) ? null : $this->populateResultImageScanningTypeList($json['imageScanningTypes']),
+            'scanResultCondition' => empty($json['scanResultCondition']) ? null : $this->populateResultScanResultCondition($json['scanResultCondition']),
         ]);
+    }
+
+    /**
+     * @return list<ImageScanningType::*>
+     */
+    private function populateResultImageScanningTypeList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                if (!ImageScanningType::exists($a)) {
+                    $a = ImageScanningType::UNKNOWN_TO_SDK;
+                }
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     private function populateResultImageState(array $json): ImageState
@@ -799,6 +823,14 @@ class GetImageResponse extends Result
         return new S3Logs([
             's3BucketName' => isset($json['s3BucketName']) ? (string) $json['s3BucketName'] : null,
             's3KeyPrefix' => isset($json['s3KeyPrefix']) ? (string) $json['s3KeyPrefix'] : null,
+        ]);
+    }
+
+    private function populateResultScanResultCondition(array $json): ScanResultCondition
+    {
+        return new ScanResultCondition([
+            'maximumSeverityLabel' => !MaximumSeverityLabel::exists((string) $json['maximumSeverityLabel']) ? MaximumSeverityLabel::UNKNOWN_TO_SDK : (string) $json['maximumSeverityLabel'],
+            'fixAvailable' => isset($json['fixAvailable']) ? filter_var($json['fixAvailable'], \FILTER_VALIDATE_BOOLEAN) : null,
         ]);
     }
 

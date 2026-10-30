@@ -15,6 +15,15 @@ class InvokeAgentRuntimeResponse extends Result
     private $runtimeSessionId;
 
     /**
+     * The HTTPS endpoint that addresses this runtime session directly. This value is returned only when the agent runtime
+     * is configured with allowed ports and direct runtime access is available for the session. If this value is not
+     * present, use `InvokeAgentRuntime` to communicate with the session.
+     *
+     * @var string|null
+     */
+    private $sessionEndpointUrl;
+
+    /**
      * The identifier of the MCP session.
      *
      * @var string|null
@@ -122,6 +131,13 @@ class InvokeAgentRuntimeResponse extends Result
         return $this->runtimeSessionId;
     }
 
+    public function getSessionEndpointUrl(): ?string
+    {
+        $this->initialize();
+
+        return $this->sessionEndpointUrl;
+    }
+
     public function getStatusCode(): ?int
     {
         $this->initialize();
@@ -156,6 +172,7 @@ class InvokeAgentRuntimeResponse extends Result
         $headers = $response->getHeaders();
 
         $this->runtimeSessionId = $headers['x-amzn-bedrock-agentcore-runtime-session-id'][0] ?? null;
+        $this->sessionEndpointUrl = $headers['x-amzn-bedrock-agentcore-runtime-session-endpoint-url'][0] ?? null;
         $this->mcpSessionId = $headers['mcp-session-id'][0] ?? null;
         $this->mcpProtocolVersion = $headers['mcp-protocol-version'][0] ?? null;
         $this->traceId = $headers['x-amzn-trace-id'][0] ?? null;
