@@ -137,6 +137,16 @@ final class LogGroup
     private $bearerTokenAuthenticationEnabled;
 
     /**
+     * The name of the account-level retention policy that determines the retention period of this log group. This field is
+     * returned only when an account-level retention policy applies to the log group. When it is returned, `retentionInDays`
+     * shows the retention period from that policy instead of the retention period set on the log group. If the policy
+     * specifies that log events never expire, `retentionInDays` is not returned.
+     *
+     * @var string|null
+     */
+    private $retentionPolicyName;
+
+    /**
      * @param array{
      *   logGroupName?: string|null,
      *   creationTime?: int|null,
@@ -151,6 +161,7 @@ final class LogGroup
      *   logGroupArn?: string|null,
      *   deletionProtectionEnabled?: bool|null,
      *   bearerTokenAuthenticationEnabled?: bool|null,
+     *   retentionPolicyName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -168,6 +179,7 @@ final class LogGroup
         $this->logGroupArn = $input['logGroupArn'] ?? null;
         $this->deletionProtectionEnabled = $input['deletionProtectionEnabled'] ?? null;
         $this->bearerTokenAuthenticationEnabled = $input['bearerTokenAuthenticationEnabled'] ?? null;
+        $this->retentionPolicyName = $input['retentionPolicyName'] ?? null;
     }
 
     /**
@@ -185,6 +197,7 @@ final class LogGroup
      *   logGroupArn?: string|null,
      *   deletionProtectionEnabled?: bool|null,
      *   bearerTokenAuthenticationEnabled?: bool|null,
+     *   retentionPolicyName?: string|null,
      * }|LogGroup $input
      */
     public static function create($input): self
@@ -259,6 +272,11 @@ final class LogGroup
     public function getRetentionInDays(): ?int
     {
         return $this->retentionInDays;
+    }
+
+    public function getRetentionPolicyName(): ?string
+    {
+        return $this->retentionPolicyName;
     }
 
     public function getStoredBytes(): ?int

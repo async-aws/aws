@@ -11,6 +11,7 @@ use AsyncAws\Lambda\Enum\EventSourceMappingSystemLogLevel;
 use AsyncAws\Lambda\Enum\EventSourcePosition;
 use AsyncAws\Lambda\Enum\FullDocument;
 use AsyncAws\Lambda\Enum\FunctionResponseType;
+use AsyncAws\Lambda\Enum\KafkaEventSourceMappingConsumptionMode;
 use AsyncAws\Lambda\Enum\KafkaSchemaRegistryAuthType;
 use AsyncAws\Lambda\Enum\KafkaSchemaValidationAttribute;
 use AsyncAws\Lambda\Enum\SchemaRegistryEventRecordFormat;
@@ -431,6 +432,7 @@ class ListEventSourceMappingsResponse extends Result implements \IteratorAggrega
         return new SelfManagedKafkaEventSourceConfig([
             'ConsumerGroupId' => isset($json['ConsumerGroupId']) ? (string) $json['ConsumerGroupId'] : null,
             'SchemaRegistryConfig' => empty($json['SchemaRegistryConfig']) ? null : $this->populateResultKafkaSchemaRegistryConfig($json['SchemaRegistryConfig']),
+            'ConsumptionMode' => isset($json['ConsumptionMode']) ? (!KafkaEventSourceMappingConsumptionMode::exists((string) $json['ConsumptionMode']) ? KafkaEventSourceMappingConsumptionMode::UNKNOWN_TO_SDK : (string) $json['ConsumptionMode']) : null,
         ]);
     }
 

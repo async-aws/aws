@@ -553,8 +553,8 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Returns a list of versions [^1], with the version-specific configuration of each. Lambda returns up to 50 versions
-     * per call.
+     * Returns a list of versions [^1] of a Lambda Event Function, with the version-specific configuration of each. Lambda
+     * returns up to 50 versions per call.
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html
      *
@@ -628,7 +628,8 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level.
+     * Sets the maximum number of simultaneous executions for a Lambda Event Function, and reserves capacity for that
+     * concurrency level.
      *
      * Concurrency settings apply to the function as a whole, including all published versions and the unpublished version.
      * Reserving concurrency both ensures that your function has capacity to process the specified number of events
