@@ -133,6 +133,7 @@ class DescribeLogGroupsResponse extends Result implements \IteratorAggregate
             'logGroupArn' => isset($json['logGroupArn']) ? (string) $json['logGroupArn'] : null,
             'deletionProtectionEnabled' => isset($json['deletionProtectionEnabled']) ? filter_var($json['deletionProtectionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'bearerTokenAuthenticationEnabled' => isset($json['bearerTokenAuthenticationEnabled']) ? filter_var($json['bearerTokenAuthenticationEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'retentionPolicyName' => isset($json['retentionPolicyName']) ? (string) $json['retentionPolicyName'] : null,
         ]);
     }
 
