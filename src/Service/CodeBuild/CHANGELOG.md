@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `eusc-de-east-1` region
+
 ## 2.13.0
 
 ### Added

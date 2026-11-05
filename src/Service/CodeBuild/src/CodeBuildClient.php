@@ -168,6 +168,13 @@ class CodeBuildClient extends AbstractApi
                     'signService' => 'codebuild',
                     'signVersions' => ['v4'],
                 ];
+            case 'eusc-de-east-1':
+                return [
+                    'endpoint' => 'https://codebuild.eusc-de-east-1.amazonaws.eu',
+                    'signRegion' => 'eusc-de-east-1',
+                    'signService' => 'codebuild',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://codebuild-fips.us-east-1.amazonaws.com',
