@@ -137,6 +137,9 @@ class CloudWatchLogsClient extends AbstractApi
      * Returns information about log groups, including data sources that ingest into each log group. You can return all your
      * log groups or filter the results by prefix. The results are ASCII-sorted by log group name.
      *
+     * If an account-level retention policy applies to a log group, `retentionInDays` shows the retention period from that
+     * policy, and `retentionPolicyName` shows the name of the policy.
+     *
      * CloudWatch Logs doesn't support IAM policies that control access to the `DescribeLogGroups` action by using the
      * `aws:ResourceTag/*key-name*` condition key. Other CloudWatch Logs actions do support the use of the
      * `aws:ResourceTag/*key-name*` condition key to control access. For more information about using tags to control
