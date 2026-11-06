@@ -73,10 +73,14 @@ final class DescribeLogGroupsRequest extends Input
      * Use this parameter to limit the results to only those log groups in the specified log group class. If you omit this
      * parameter, log groups of all classes can be returned.
      *
-     * Specifies the log group class for this log group. There are three classes:
+     * If you specify either `INFREQUENT_ACCESS` or `ESSENTIALS`, the results include log groups in both the Infrequent
+     * Access and Essentials log classes.
+     *
+     * Specifies the log group class for this log group. There are four classes:
      *
      * - The `Standard` log class supports all CloudWatch Logs features.
      * - The `Infrequent Access` log class supports a subset of CloudWatch Logs features and incurs lower costs.
+     * - The `Essentials` log class supports a subset of CloudWatch Logs features and incurs lower costs.
      * - Use the `Delivery` log class only for delivering Lambda logs to store in Amazon S3 or Amazon Data Firehose. Log
      *   events in log groups in the Delivery class are kept in CloudWatch Logs for only one day. This log class doesn't
      *   offer rich CloudWatch Logs capabilities such as CloudWatch Logs Insights queries.

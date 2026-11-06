@@ -5,6 +5,7 @@ namespace AsyncAws\CloudWatchLogs\Enum;
 final class LogGroupClass
 {
     public const DELIVERY = 'DELIVERY';
+    public const ESSENTIALS = 'ESSENTIALS';
     public const INFREQUENT_ACCESS = 'INFREQUENT_ACCESS';
     public const STANDARD = 'STANDARD';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
@@ -16,6 +17,7 @@ final class LogGroupClass
     {
         return isset([
             self::DELIVERY => true,
+            self::ESSENTIALS => true,
             self::INFREQUENT_ACCESS => true,
             self::STANDARD => true,
         ][$value]);
