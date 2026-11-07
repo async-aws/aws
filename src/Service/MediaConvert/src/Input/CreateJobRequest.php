@@ -10,6 +10,7 @@ use AsyncAws\MediaConvert\Enum\BillingTagsSource;
 use AsyncAws\MediaConvert\Enum\SimulateReservedQueue;
 use AsyncAws\MediaConvert\Enum\StatusUpdateInterval;
 use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
+use AsyncAws\MediaConvert\ValueObject\ElementalInferenceSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
 
@@ -45,6 +46,13 @@ final class CreateJobRequest extends Input
      * @var string|null
      */
     private $clientRequestToken;
+
+    /**
+     * The Elemental Inference settings used in this job.
+     *
+     * @var ElementalInferenceSettings|null
+     */
+    private $elementalInferenceSettings;
 
     /**
      * Optional. Use queue hopping to avoid overly long waits in the backlog of the queue that you submit your job to.
@@ -151,6 +159,7 @@ final class CreateJobRequest extends Input
      *   AccelerationSettings?: AccelerationSettings|array|null,
      *   BillingTagsSource?: BillingTagsSource::*|null,
      *   ClientRequestToken?: string|null,
+     *   ElementalInferenceSettings?: ElementalInferenceSettings|array|null,
      *   HopDestinations?: array<HopDestination|array>|null,
      *   JobEngineVersion?: string|null,
      *   JobTemplate?: string|null,
@@ -170,6 +179,7 @@ final class CreateJobRequest extends Input
         $this->accelerationSettings = isset($input['AccelerationSettings']) ? AccelerationSettings::create($input['AccelerationSettings']) : null;
         $this->billingTagsSource = $input['BillingTagsSource'] ?? null;
         $this->clientRequestToken = $input['ClientRequestToken'] ?? null;
+        $this->elementalInferenceSettings = isset($input['ElementalInferenceSettings']) ? ElementalInferenceSettings::create($input['ElementalInferenceSettings']) : null;
         $this->hopDestinations = isset($input['HopDestinations']) ? array_map([HopDestination::class, 'create'], $input['HopDestinations']) : null;
         $this->jobEngineVersion = $input['JobEngineVersion'] ?? null;
         $this->jobTemplate = $input['JobTemplate'] ?? null;
@@ -189,6 +199,7 @@ final class CreateJobRequest extends Input
      *   AccelerationSettings?: AccelerationSettings|array|null,
      *   BillingTagsSource?: BillingTagsSource::*|null,
      *   ClientRequestToken?: string|null,
+     *   ElementalInferenceSettings?: ElementalInferenceSettings|array|null,
      *   HopDestinations?: array<HopDestination|array>|null,
      *   JobEngineVersion?: string|null,
      *   JobTemplate?: string|null,
@@ -224,6 +235,11 @@ final class CreateJobRequest extends Input
     public function getClientRequestToken(): ?string
     {
         return $this->clientRequestToken;
+    }
+
+    public function getElementalInferenceSettings(): ?ElementalInferenceSettings
+    {
+        return $this->elementalInferenceSettings;
     }
 
     /**
@@ -345,6 +361,13 @@ final class CreateJobRequest extends Input
         return $this;
     }
 
+    public function setElementalInferenceSettings(?ElementalInferenceSettings $value): self
+    {
+        $this->elementalInferenceSettings = $value;
+
+        return $this;
+    }
+
     /**
      * @param HopDestination[] $value
      */
@@ -454,6 +477,9 @@ final class CreateJobRequest extends Input
             $v = uuid_create(\UUID_TYPE_RANDOM);
         }
         $payload['clientRequestToken'] = $v;
+        if (null !== $v = $this->elementalInferenceSettings) {
+            $payload['elementalInferenceSettings'] = $v->requestBody();
+        }
         if (null !== $v = $this->hopDestinations) {
             $index = -1;
             $payload['hopDestinations'] = [];

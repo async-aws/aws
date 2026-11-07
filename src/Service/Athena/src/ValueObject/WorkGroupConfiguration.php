@@ -141,6 +141,14 @@ final class WorkGroupConfiguration
     private $queryResultsS3AccessGrantsConfiguration;
 
     /**
+     * The read-only enablement status of each system table for the account. This field is returned by GetWorkGroup and is
+     * ignored on write.
+     *
+     * @var SystemTableStatus[]|null
+     */
+    private $systemTableStatuses;
+
+    /**
      * @param array{
      *   ResultConfiguration?: ResultConfiguration|array|null,
      *   ManagedQueryResultsConfiguration?: ManagedQueryResultsConfiguration|array|null,
@@ -157,6 +165,7 @@ final class WorkGroupConfiguration
      *   EnableMinimumEncryptionConfiguration?: bool|null,
      *   IdentityCenterConfiguration?: IdentityCenterConfiguration|array|null,
      *   QueryResultsS3AccessGrantsConfiguration?: QueryResultsS3AccessGrantsConfiguration|array|null,
+     *   SystemTableStatuses?: array<SystemTableStatus|array>|null,
      * } $input
      */
     public function __construct(array $input)
@@ -176,6 +185,7 @@ final class WorkGroupConfiguration
         $this->enableMinimumEncryptionConfiguration = $input['EnableMinimumEncryptionConfiguration'] ?? null;
         $this->identityCenterConfiguration = isset($input['IdentityCenterConfiguration']) ? IdentityCenterConfiguration::create($input['IdentityCenterConfiguration']) : null;
         $this->queryResultsS3AccessGrantsConfiguration = isset($input['QueryResultsS3AccessGrantsConfiguration']) ? QueryResultsS3AccessGrantsConfiguration::create($input['QueryResultsS3AccessGrantsConfiguration']) : null;
+        $this->systemTableStatuses = isset($input['SystemTableStatuses']) ? array_map([SystemTableStatus::class, 'create'], $input['SystemTableStatuses']) : null;
     }
 
     /**
@@ -195,6 +205,7 @@ final class WorkGroupConfiguration
      *   EnableMinimumEncryptionConfiguration?: bool|null,
      *   IdentityCenterConfiguration?: IdentityCenterConfiguration|array|null,
      *   QueryResultsS3AccessGrantsConfiguration?: QueryResultsS3AccessGrantsConfiguration|array|null,
+     *   SystemTableStatuses?: array<SystemTableStatus|array>|null,
      * }|WorkGroupConfiguration $input
      */
     public static function create($input): self
@@ -275,5 +286,13 @@ final class WorkGroupConfiguration
     public function getResultConfiguration(): ?ResultConfiguration
     {
         return $this->resultConfiguration;
+    }
+
+    /**
+     * @return SystemTableStatus[]
+     */
+    public function getSystemTableStatuses(): array
+    {
+        return $this->systemTableStatuses ?? [];
     }
 }

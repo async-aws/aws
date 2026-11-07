@@ -85,6 +85,13 @@ final class Job
     private $elementalInferenceConfiguration;
 
     /**
+     * The Elemental Inference settings used in this job.
+     *
+     * @var ElementalInferenceSettings|null
+     */
+    private $elementalInferenceSettings;
+
+    /**
      * Error code for the job.
      *
      * @var int|null
@@ -280,6 +287,7 @@ final class Job
      *   CreatedAt?: \DateTimeImmutable|null,
      *   CurrentPhase?: JobPhase::*|null,
      *   ElementalInferenceConfiguration?: ElementalInferenceConfiguration|array|null,
+     *   ElementalInferenceSettings?: ElementalInferenceSettings|array|null,
      *   ErrorCode?: int|null,
      *   ErrorMessage?: string|null,
      *   HopDestinations?: array<HopDestination|array>|null,
@@ -316,6 +324,7 @@ final class Job
         $this->createdAt = $input['CreatedAt'] ?? null;
         $this->currentPhase = $input['CurrentPhase'] ?? null;
         $this->elementalInferenceConfiguration = isset($input['ElementalInferenceConfiguration']) ? ElementalInferenceConfiguration::create($input['ElementalInferenceConfiguration']) : null;
+        $this->elementalInferenceSettings = isset($input['ElementalInferenceSettings']) ? ElementalInferenceSettings::create($input['ElementalInferenceSettings']) : null;
         $this->errorCode = $input['ErrorCode'] ?? null;
         $this->errorMessage = $input['ErrorMessage'] ?? null;
         $this->hopDestinations = isset($input['HopDestinations']) ? array_map([HopDestination::class, 'create'], $input['HopDestinations']) : null;
@@ -352,6 +361,7 @@ final class Job
      *   CreatedAt?: \DateTimeImmutable|null,
      *   CurrentPhase?: JobPhase::*|null,
      *   ElementalInferenceConfiguration?: ElementalInferenceConfiguration|array|null,
+     *   ElementalInferenceSettings?: ElementalInferenceSettings|array|null,
      *   ErrorCode?: int|null,
      *   ErrorMessage?: string|null,
      *   HopDestinations?: array<HopDestination|array>|null,
@@ -430,6 +440,11 @@ final class Job
     public function getElementalInferenceConfiguration(): ?ElementalInferenceConfiguration
     {
         return $this->elementalInferenceConfiguration;
+    }
+
+    public function getElementalInferenceSettings(): ?ElementalInferenceSettings
+    {
+        return $this->elementalInferenceSettings;
     }
 
     public function getErrorCode(): ?int

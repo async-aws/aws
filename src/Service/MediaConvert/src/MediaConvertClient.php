@@ -31,6 +31,7 @@ use AsyncAws\MediaConvert\Result\DescribeEndpointsResponse;
 use AsyncAws\MediaConvert\Result\GetJobResponse;
 use AsyncAws\MediaConvert\Result\ListJobsResponse;
 use AsyncAws\MediaConvert\ValueObject\AccelerationSettings;
+use AsyncAws\MediaConvert\ValueObject\ElementalInferenceSettings;
 use AsyncAws\MediaConvert\ValueObject\HopDestination;
 use AsyncAws\MediaConvert\ValueObject\JobSettings;
 
@@ -82,6 +83,7 @@ class MediaConvertClient extends AbstractApi
      *   AccelerationSettings?: AccelerationSettings|array|null,
      *   BillingTagsSource?: BillingTagsSource::*|null,
      *   ClientRequestToken?: string|null,
+     *   ElementalInferenceSettings?: ElementalInferenceSettings|array|null,
      *   HopDestinations?: array<HopDestination|array>|null,
      *   JobEngineVersion?: string|null,
      *   JobTemplate?: string|null,

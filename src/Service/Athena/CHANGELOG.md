@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added support for Athena System Tables which writes Athena usage data to AWS S3 managed tables in Apache Iceberg format.
+
 ## 3.5.2
 
 ### Fixed

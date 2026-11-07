@@ -8,6 +8,7 @@ namespace AsyncAws\MediaConvert\Enum;
 final class ElementalInferenceFeature
 {
     public const SMART_CROP = 'SMART_CROP';
+    public const SMART_SUBTITLE = 'SMART_SUBTITLE';
     public const UNKNOWN_TO_SDK = 'UNKNOWN_TO_SDK';
 
     /**
@@ -17,6 +18,7 @@ final class ElementalInferenceFeature
     {
         return isset([
             self::SMART_CROP => true,
+            self::SMART_SUBTITLE => true,
         ][$value]);
     }
 }
