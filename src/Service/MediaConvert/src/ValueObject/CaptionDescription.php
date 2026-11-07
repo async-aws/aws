@@ -3,6 +3,7 @@
 namespace AsyncAws\MediaConvert\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\MediaConvert\Enum\CaptionSource;
 use AsyncAws\MediaConvert\Enum\LanguageCode;
 
 /**
@@ -11,6 +12,15 @@ use AsyncAws\MediaConvert\Enum\LanguageCode;
  */
 final class CaptionDescription
 {
+    /**
+     * Specifies the audio selector or audio selector group that MediaConvert uses to generate Smart subtitles. The audio
+     * selector you choose must exist in all inputs for the job. If MediaConvert can't detect speech in the audio, it can't
+     * generate subtitles. Required when source is SMART_SUBTITLE; not allowed otherwise.
+     *
+     * @var string[]|null
+     */
+    private $audioSourceNames;
+
     /**
      * Specifies which "Caption Selector":#inputs-caption_selector to use from each input when generating captions. The name
      * should be of the format "Caption Selector <N>", which denotes that the Nth Caption Selector will be used from each
@@ -60,35 +70,58 @@ final class CaptionDescription
     private $languageDescription;
 
     /**
+     * Specify the source of the captions for this caption description. Choose Captions input source
+     * (INPUT_CAPTION_SELECTOR) to use a caption selector from your input. Choose Smart subtitling (SMART_SUBTITLE) to have
+     * MediaConvert and Elemental Inference generate subtitles automatically from an audio source that you specify.
+     *
+     * @var CaptionSource::*|null
+     */
+    private $source;
+
+    /**
      * @param array{
+     *   AudioSourceNames?: string[]|null,
      *   CaptionSelectorName?: string|null,
      *   CustomLanguageCode?: string|null,
      *   DestinationSettings?: CaptionDestinationSettings|array|null,
      *   LanguageCode?: LanguageCode::*|null,
      *   LanguageDescription?: string|null,
+     *   Source?: CaptionSource::*|null,
      * } $input
      */
     public function __construct(array $input)
     {
+        $this->audioSourceNames = $input['AudioSourceNames'] ?? null;
         $this->captionSelectorName = $input['CaptionSelectorName'] ?? null;
         $this->customLanguageCode = $input['CustomLanguageCode'] ?? null;
         $this->destinationSettings = isset($input['DestinationSettings']) ? CaptionDestinationSettings::create($input['DestinationSettings']) : null;
         $this->languageCode = $input['LanguageCode'] ?? null;
         $this->languageDescription = $input['LanguageDescription'] ?? null;
+        $this->source = $input['Source'] ?? null;
     }
 
     /**
      * @param array{
+     *   AudioSourceNames?: string[]|null,
      *   CaptionSelectorName?: string|null,
      *   CustomLanguageCode?: string|null,
      *   DestinationSettings?: CaptionDestinationSettings|array|null,
      *   LanguageCode?: LanguageCode::*|null,
      *   LanguageDescription?: string|null,
+     *   Source?: CaptionSource::*|null,
      * }|CaptionDescription $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAudioSourceNames(): array
+    {
+        return $this->audioSourceNames ?? [];
     }
 
     public function getCaptionSelectorName(): ?string
@@ -120,11 +153,27 @@ final class CaptionDescription
     }
 
     /**
+     * @return CaptionSource::*|null
+     */
+    public function getSource(): ?string
+    {
+        return $this->source;
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
     {
         $payload = [];
+        if (null !== $v = $this->audioSourceNames) {
+            $index = -1;
+            $payload['audioSourceNames'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['audioSourceNames'][$index] = $listValue;
+            }
+        }
         if (null !== $v = $this->captionSelectorName) {
             $payload['captionSelectorName'] = $v;
         }
@@ -143,6 +192,13 @@ final class CaptionDescription
         }
         if (null !== $v = $this->languageDescription) {
             $payload['languageDescription'] = $v;
+        }
+        if (null !== $v = $this->source) {
+            if (!CaptionSource::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "source" for "%s". The value "%s" is not a valid "CaptionSource".', __CLASS__, $v));
+            }
+            $payload['source'] = $v;
         }
 
         return $payload;

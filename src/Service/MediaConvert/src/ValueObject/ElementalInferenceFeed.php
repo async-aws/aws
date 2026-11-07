@@ -5,12 +5,12 @@ namespace AsyncAws\MediaConvert\ValueObject;
 use AsyncAws\MediaConvert\Enum\ElementalInferenceFeedManagementState;
 
 /**
- * Elemental Inference Feed.
+ * An AWS Elemental Inference Feed.
  */
 final class ElementalInferenceFeed
 {
     /**
-     * Feed ARN.
+     * The ARN of an AWS Elemental Inference Feed.
      *
      * @var string|null
      */

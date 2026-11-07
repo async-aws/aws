@@ -52,6 +52,12 @@ class SsmClient extends AbstractApi
      * Delete a parameter from the system. After deleting a parameter, wait for at least 30 seconds to create a parameter
      * with the same name.
      *
+     * > This operation is authorized against the `ssm:DeleteParameter` action. Denying that action alone doesn't restrict
+     * > DeleteParameters, which is authorized against its own action. For more information, see Restricting access to
+     * > specific parameters and paths [^1] in the *Amazon Web Services Systems Manager User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-restrict-parameter-access.html
+     *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_DeleteParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#deleteparameter
      *
@@ -77,6 +83,13 @@ class SsmClient extends AbstractApi
     /**
      * Delete a list of parameters. After deleting a parameter, wait for at least 30 seconds to create a parameter with the
      * same name.
+     *
+     * ! This operation is authorized against the `ssm:DeleteParameters` action, not against `ssm:DeleteParameter`. Denying
+     * ! `ssm:DeleteParameter` for a parameter doesn't prevent a principal from deleting that parameter with this operation.
+     * ! For more information, see Restricting access to specific parameters and paths [^1] in the *Amazon Web Services
+     * ! Systems Manager User Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-restrict-parameter-access.html
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_DeleteParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#deleteparameters
@@ -107,6 +120,11 @@ class SsmClient extends AbstractApi
      *
      * > To get information about more than one parameter at a time, use the GetParameters operation.
      *
+     * > This operation is authorized against the `ssm:GetParameter` action. Denying that action alone doesn't restrict
+     * > GetParameters, GetParameterHistory, or GetParametersByPath, each of which is authorized against its own action. For
+     * > more information, see How Parameter Store authorizes parameter retrieval [^1] in the *Amazon Web Services Systems
+     * > Manager User Guide*.
+     *
      * > Parameter Store throughput defines the number of API transactions per second (TPS) that Systems Manager can
      * > process. This applies to `GetParameter`, `GetParameters`, and `PutParameter` API calls for your Amazon Web Services
      * > account and Amazon Web Services Region. By default, Parameter Store is configured with a standard throughput quota
@@ -116,9 +134,10 @@ class SsmClient extends AbstractApi
      * > For higher-volume workloads, you can enable higher throughput. This increases the maximum number of supported
      * > transactions per second for your account and Region. Increased throughput supports applications and workloads that
      * > need concurrent access to multiple parameters. If you experience `ThrottlingException: Rate exceeded` errors,
-     * > enable higher throughput. For more information, see Changing Parameter Store throughput [^1].
+     * > enable higher throughput. For more information, see Changing Parameter Store throughput [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-retrieval-authorization.html
+     * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameter
@@ -152,6 +171,11 @@ class SsmClient extends AbstractApi
      *
      * > To get information about a single parameter, you can use the GetParameter operation instead.
      *
+     * ! This operation is authorized against the `ssm:GetParameters` action, not against `ssm:GetParameter`. Denying
+     * ! `ssm:GetParameter` for a parameter doesn't prevent a principal from retrieving that parameter with this operation.
+     * ! To restrict access to a parameter value, deny every action that can return it. For more information, see How
+     * ! Parameter Store authorizes parameter retrieval [^1] in the *Amazon Web Services Systems Manager User Guide*.
+     *
      * Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a
      * parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a
      * `ValidationException` error.
@@ -165,9 +189,10 @@ class SsmClient extends AbstractApi
      * > For higher-volume workloads, you can enable higher throughput. This increases the maximum number of supported
      * > transactions per second for your account and Region. Increased throughput supports applications and workloads that
      * > need concurrent access to multiple parameters. If you experience `ThrottlingException: Rate exceeded` errors,
-     * > enable higher throughput. For more information, see Changing Parameter Store throughput [^1].
+     * > enable higher throughput. For more information, see Changing Parameter Store throughput [^2].
      *
-     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-retrieval-authorization.html
+     * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameters
@@ -195,6 +220,16 @@ class SsmClient extends AbstractApi
     /**
      * Retrieve information about one or more parameters under a specified level in a hierarchy.
      *
+     * ! This operation is authorized against the `ssm:GetParametersByPath` action for the path that you specify in the
+     * ! request. It isn't authorized against the individual parameters that it returns, and it isn't authorized against
+     * ! `ssm:GetParameter`. A principal who is allowed to call this operation for the path `/a` with `Recursive` set to
+     * ! `true` receives every parameter under that path, including `/a/b`, even if a policy explicitly denies access to
+     * ! `/a/b`.
+     * !
+     * ! To prevent a parameter from being returned by this operation, deny the `ssm:GetParametersByPath` action on every
+     * ! ancestor path that could include the parameter in its results. For more information, see Restricting access to
+     * ! specific parameters and paths [^1] in the *Amazon Web Services Systems Manager User Guide*.
+     *
      * Request results are returned on a best-effort basis. If you specify `MaxResults` in the request, the response
      * includes information up to the limit specified. The number of items returned, however, can be between zero and the
      * value of `MaxResults`. If the service reaches an internal limit while processing the results, it stops the operation
@@ -204,6 +239,8 @@ class SsmClient extends AbstractApi
      * Parameter names can't contain spaces. The service removes any spaces specified for the beginning or end of a
      * parameter name. If the specified name for a parameter contains spaces between characters, the request fails with a
      * `ValidationException` error.
+     *
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-restrict-parameter-access.html
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparametersbypath

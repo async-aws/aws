@@ -17,7 +17,7 @@ final class ElementalInferenceConfiguration
     private $features;
 
     /**
-     * A list of Elemental Inference feeds used by this job.
+     * A list of Elemental Inference feeds created during this job.
      *
      * @var ElementalInferenceFeed[]|null
      */

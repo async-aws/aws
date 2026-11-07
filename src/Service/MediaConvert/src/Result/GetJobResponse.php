@@ -75,6 +75,7 @@ use AsyncAws\MediaConvert\Enum\BurninSubtitleShadowColor;
 use AsyncAws\MediaConvert\Enum\BurnInSubtitleStylePassthrough;
 use AsyncAws\MediaConvert\Enum\BurninSubtitleTeletextSpacing;
 use AsyncAws\MediaConvert\Enum\CaptionDestinationType;
+use AsyncAws\MediaConvert\Enum\CaptionSource;
 use AsyncAws\MediaConvert\Enum\CaptionSourceByteRateLimit;
 use AsyncAws\MediaConvert\Enum\CaptionSourceConvertPaintOnToPopOn;
 use AsyncAws\MediaConvert\Enum\CaptionSourceType;
@@ -524,6 +525,8 @@ use AsyncAws\MediaConvert\ValueObject\Eac3AtmosSettings;
 use AsyncAws\MediaConvert\ValueObject\Eac3Settings;
 use AsyncAws\MediaConvert\ValueObject\ElementalInferenceConfiguration;
 use AsyncAws\MediaConvert\ValueObject\ElementalInferenceFeed;
+use AsyncAws\MediaConvert\ValueObject\ElementalInferenceFeedConfigurationSource;
+use AsyncAws\MediaConvert\ValueObject\ElementalInferenceSettings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedDestinationSettings;
 use AsyncAws\MediaConvert\ValueObject\EmbeddedSourceSettings;
 use AsyncAws\MediaConvert\ValueObject\EncryptionContractConfiguration;
@@ -1002,11 +1005,13 @@ class GetJobResponse extends Result
     private function populateResultCaptionDescription(array $json): CaptionDescription
     {
         return new CaptionDescription([
+            'AudioSourceNames' => !isset($json['audioSourceNames']) ? null : $this->populateResult__listOf__stringMin1($json['audioSourceNames']),
             'CaptionSelectorName' => isset($json['captionSelectorName']) ? (string) $json['captionSelectorName'] : null,
             'CustomLanguageCode' => isset($json['customLanguageCode']) ? (string) $json['customLanguageCode'] : null,
             'DestinationSettings' => empty($json['destinationSettings']) ? null : $this->populateResultCaptionDestinationSettings($json['destinationSettings']),
             'LanguageCode' => isset($json['languageCode']) ? (!LanguageCode::exists((string) $json['languageCode']) ? LanguageCode::UNKNOWN_TO_SDK : (string) $json['languageCode']) : null,
             'LanguageDescription' => isset($json['languageDescription']) ? (string) $json['languageDescription'] : null,
+            'Source' => isset($json['source']) ? (!CaptionSource::exists((string) $json['source']) ? CaptionSource::UNKNOWN_TO_SDK : (string) $json['source']) : null,
         ]);
     }
 
@@ -1479,6 +1484,20 @@ class GetJobResponse extends Result
         return new ElementalInferenceFeed([
             'Arn' => isset($json['arn']) ? (string) $json['arn'] : null,
             'FeedManagementState' => isset($json['feedManagementState']) ? (!ElementalInferenceFeedManagementState::exists((string) $json['feedManagementState']) ? ElementalInferenceFeedManagementState::UNKNOWN_TO_SDK : (string) $json['feedManagementState']) : null,
+        ]);
+    }
+
+    private function populateResultElementalInferenceFeedConfigurationSource(array $json): ElementalInferenceFeedConfigurationSource
+    {
+        return new ElementalInferenceFeedConfigurationSource([
+            'FeedArn' => isset($json['feedArn']) ? (string) $json['feedArn'] : null,
+        ]);
+    }
+
+    private function populateResultElementalInferenceSettings(array $json): ElementalInferenceSettings
+    {
+        return new ElementalInferenceSettings([
+            'FeedConfigurationSource' => empty($json['feedConfigurationSource']) ? null : $this->populateResultElementalInferenceFeedConfigurationSource($json['feedConfigurationSource']),
         ]);
     }
 
@@ -2016,6 +2035,7 @@ class GetJobResponse extends Result
             'CreatedAt' => isset($json['createdAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['createdAt']))) ? $d : null,
             'CurrentPhase' => isset($json['currentPhase']) ? (!JobPhase::exists((string) $json['currentPhase']) ? JobPhase::UNKNOWN_TO_SDK : (string) $json['currentPhase']) : null,
             'ElementalInferenceConfiguration' => empty($json['elementalInferenceConfiguration']) ? null : $this->populateResultElementalInferenceConfiguration($json['elementalInferenceConfiguration']),
+            'ElementalInferenceSettings' => empty($json['elementalInferenceSettings']) ? null : $this->populateResultElementalInferenceSettings($json['elementalInferenceSettings']),
             'ErrorCode' => isset($json['errorCode']) ? (int) $json['errorCode'] : null,
             'ErrorMessage' => isset($json['errorMessage']) ? (string) $json['errorMessage'] : null,
             'HopDestinations' => !isset($json['hopDestinations']) ? null : $this->populateResult__listOfHopDestination($json['hopDestinations']),

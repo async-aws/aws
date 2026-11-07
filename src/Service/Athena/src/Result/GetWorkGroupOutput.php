@@ -5,6 +5,7 @@ namespace AsyncAws\Athena\Result;
 use AsyncAws\Athena\Enum\AuthenticationType;
 use AsyncAws\Athena\Enum\EncryptionOption;
 use AsyncAws\Athena\Enum\S3AclOption;
+use AsyncAws\Athena\Enum\SystemTableType;
 use AsyncAws\Athena\Enum\WorkGroupState;
 use AsyncAws\Athena\ValueObject\AclConfiguration;
 use AsyncAws\Athena\ValueObject\Classification;
@@ -21,6 +22,7 @@ use AsyncAws\Athena\ValueObject\MonitoringConfiguration;
 use AsyncAws\Athena\ValueObject\QueryResultsS3AccessGrantsConfiguration;
 use AsyncAws\Athena\ValueObject\ResultConfiguration;
 use AsyncAws\Athena\ValueObject\S3LoggingConfiguration;
+use AsyncAws\Athena\ValueObject\SystemTableStatus;
 use AsyncAws\Athena\ValueObject\WorkGroup;
 use AsyncAws\Athena\ValueObject\WorkGroupConfiguration;
 use AsyncAws\Core\Response;
@@ -232,6 +234,27 @@ class GetWorkGroupOutput extends Result
         ]);
     }
 
+    private function populateResultSystemTableStatus(array $json): SystemTableStatus
+    {
+        return new SystemTableStatus([
+            'TableName' => !SystemTableType::exists((string) $json['TableName']) ? SystemTableType::UNKNOWN_TO_SDK : (string) $json['TableName'],
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
+
+    /**
+     * @return SystemTableStatus[]
+     */
+    private function populateResultSystemTableStatusList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultSystemTableStatus($item);
+        }
+
+        return $items;
+    }
+
     private function populateResultWorkGroup(array $json): WorkGroup
     {
         return new WorkGroup([
@@ -262,6 +285,7 @@ class GetWorkGroupOutput extends Result
             'EnableMinimumEncryptionConfiguration' => isset($json['EnableMinimumEncryptionConfiguration']) ? filter_var($json['EnableMinimumEncryptionConfiguration'], \FILTER_VALIDATE_BOOLEAN) : null,
             'IdentityCenterConfiguration' => empty($json['IdentityCenterConfiguration']) ? null : $this->populateResultIdentityCenterConfiguration($json['IdentityCenterConfiguration']),
             'QueryResultsS3AccessGrantsConfiguration' => empty($json['QueryResultsS3AccessGrantsConfiguration']) ? null : $this->populateResultQueryResultsS3AccessGrantsConfiguration($json['QueryResultsS3AccessGrantsConfiguration']),
+            'SystemTableStatuses' => !isset($json['SystemTableStatuses']) ? null : $this->populateResultSystemTableStatusList($json['SystemTableStatuses']),
         ]);
     }
 }

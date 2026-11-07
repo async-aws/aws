@@ -25,11 +25,6 @@ final class GetParametersByPathRequest extends Input
     /**
      * Retrieve all parameters within a hierarchy.
      *
-     * ! If a user has access to a path, then the user can access all levels of that path. For example, if a user has
-     * ! permission to access path `/a`, then the user can also access `/a/b`. Even if a user has explicitly been denied
-     * ! access in IAM for parameter `/a/b`, they can still call the GetParametersByPath API operation recursively for `/a`
-     * ! and view `/a/b`.
-     *
      * @var bool|null
      */
     private $recursive;
