@@ -6,6 +6,7 @@ use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
 use AsyncAws\CognitoIdentityProvider\Enum\ChallengeNameType;
 use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 use AsyncAws\CognitoIdentityProvider\Enum\MessageActionType;
+use AsyncAws\CognitoIdentityProvider\Enum\RevokeAssociatedSessionsType;
 use AsyncAws\CognitoIdentityProvider\Exception\AliasExistsException;
 use AsyncAws\CognitoIdentityProvider\Exception\CodeDeliveryFailureException;
 use AsyncAws\CognitoIdentityProvider\Exception\CodeMismatchException;
@@ -1853,6 +1854,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Token: string,
      *   ClientId: string,
      *   ClientSecret?: string|null,
+     *   RevokeAssociatedSessions?: RevokeAssociatedSessionsType::*|null,
      *   '@region'?: string|null,
      * }|RevokeTokenRequest $input
      *
