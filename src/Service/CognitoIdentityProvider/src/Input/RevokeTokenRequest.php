@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Input;
 
+use AsyncAws\CognitoIdentityProvider\Enum\RevokeAssociatedSessionsType;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -35,10 +36,22 @@ final class RevokeTokenRequest extends Input
     private $clientSecret;
 
     /**
+     * Specifies whether to also revoke the SSO session that is linked to the token session being revoked. `NONE`, the
+     * default, revokes only the token session that is associated with the refresh token. `LINKED` also revokes the parent
+     * SSO session that the token session came through; the other token sessions that came through that SSO session aren't
+     * revoked. `LINKED` has no effect when session tracking is disabled or when the token session has no parent SSO
+     * session.
+     *
+     * @var RevokeAssociatedSessionsType::*|null
+     */
+    private $revokeAssociatedSessions;
+
+    /**
      * @param array{
      *   Token?: string,
      *   ClientId?: string,
      *   ClientSecret?: string|null,
+     *   RevokeAssociatedSessions?: RevokeAssociatedSessionsType::*|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -47,6 +60,7 @@ final class RevokeTokenRequest extends Input
         $this->token = $input['Token'] ?? null;
         $this->clientId = $input['ClientId'] ?? null;
         $this->clientSecret = $input['ClientSecret'] ?? null;
+        $this->revokeAssociatedSessions = $input['RevokeAssociatedSessions'] ?? null;
         parent::__construct($input);
     }
 
@@ -55,6 +69,7 @@ final class RevokeTokenRequest extends Input
      *   Token?: string,
      *   ClientId?: string,
      *   ClientSecret?: string|null,
+     *   RevokeAssociatedSessions?: RevokeAssociatedSessionsType::*|null,
      *   '@region'?: string|null,
      * }|RevokeTokenRequest $input
      */
@@ -71,6 +86,14 @@ final class RevokeTokenRequest extends Input
     public function getClientSecret(): ?string
     {
         return $this->clientSecret;
+    }
+
+    /**
+     * @return RevokeAssociatedSessionsType::*|null
+     */
+    public function getRevokeAssociatedSessions(): ?string
+    {
+        return $this->revokeAssociatedSessions;
     }
 
     public function getToken(): ?string
@@ -118,6 +141,16 @@ final class RevokeTokenRequest extends Input
         return $this;
     }
 
+    /**
+     * @param RevokeAssociatedSessionsType::*|null $value
+     */
+    public function setRevokeAssociatedSessions(?string $value): self
+    {
+        $this->revokeAssociatedSessions = $value;
+
+        return $this;
+    }
+
     public function setToken(?string $value): self
     {
         $this->token = $value;
@@ -138,6 +171,13 @@ final class RevokeTokenRequest extends Input
         $payload['ClientId'] = $v;
         if (null !== $v = $this->clientSecret) {
             $payload['ClientSecret'] = $v;
+        }
+        if (null !== $v = $this->revokeAssociatedSessions) {
+            if (!RevokeAssociatedSessionsType::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "RevokeAssociatedSessions" for "%s". The value "%s" is not a valid "RevokeAssociatedSessionsType".', __CLASS__, $v));
+            }
+            $payload['RevokeAssociatedSessions'] = $v;
         }
 
         return $payload;

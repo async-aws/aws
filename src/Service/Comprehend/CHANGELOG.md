@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Fix `InternalServerException` base exception from `ClientException` to `ServerException`
+
 ## 1.5.1
 
 ### Changed

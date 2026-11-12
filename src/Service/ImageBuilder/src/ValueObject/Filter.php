@@ -18,6 +18,9 @@ final class Filter
     /**
      * The filter values. Filter values are case-sensitive.
      *
+     * The `name` filter can use a wildcard: `web*` matches names that begin with `web`, and `*web*` matches names that
+     * contain `web`. The wildcard isn't supported in other positions or in other filters.
+     *
      * @var string[]|null
      */
     private $values;

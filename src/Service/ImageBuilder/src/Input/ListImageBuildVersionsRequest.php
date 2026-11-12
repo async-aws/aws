@@ -32,7 +32,9 @@ final class ListImageBuildVersionsRequest extends Input
     private $filters;
 
     /**
-     * The maximum number of items to return in a single request.
+     * The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to
+     * 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum,
+     * with a `nextToken` to continue paging.
      *
      * @var int|null
      */
