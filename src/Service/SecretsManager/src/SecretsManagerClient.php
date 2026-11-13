@@ -41,8 +41,9 @@ class SecretsManagerClient extends AbstractApi
     /**
      * Creates a new secret. A *secret* can be a password, a set of credentials such as a user name and password, an OAuth
      * token, or other secret information that you store in an encrypted form in Secrets Manager. The secret also includes
-     * the connection information to access a database or other service, which Secrets Manager doesn't encrypt. A secret in
-     * Secrets Manager consists of both the protected secret data and the important information needed to manage the secret.
+     * the connection information to access a database or other service. Secrets Manager does not encrypt this connection
+     * information. A secret in Secrets Manager consists of both the encrypted secret versions and the metadata that Secrets
+     * Manager uses to manage the secret.
      *
      * For secrets that use *managed rotation*, you need to create the secret through the managing service. For more
      * information, see Secrets Manager secrets managed by other Amazon Web Services services [^1].
@@ -50,7 +51,7 @@ class SecretsManagerClient extends AbstractApi
      * For information about creating a secret in the console, see Create a secret [^2].
      *
      * To create a secret, you can provide the secret value to be encrypted in either the `SecretString` parameter or the
-     * `SecretBinary` parameter, but not both. If you include `SecretString` or `SecretBinary` then Secrets Manager creates
+     * `SecretBinary` parameter, but not both. If you include `SecretString` or `SecretBinary`, then Secrets Manager creates
      * an initial secret version and automatically attaches the staging label `AWSCURRENT` to it.
      *
      * For database credentials you want to rotate, for Secrets Manager to be able to rotate the secret, you must make sure
@@ -59,11 +60,13 @@ class SecretsManagerClient extends AbstractApi
      * If you don't specify an KMS encryption key, Secrets Manager uses the Amazon Web Services managed key
      * `aws/secretsmanager`. If this key doesn't already exist in your account, then Secrets Manager creates it for you
      * automatically. All users and roles in the Amazon Web Services account automatically have access to use
-     * `aws/secretsmanager`. Creating `aws/secretsmanager` can result in a one-time significant delay in returning the
-     * result.
+     * `aws/secretsmanager`. Creating `aws/secretsmanager` can result in a one-time delay to complete the secret creation.
      *
      * If the secret is in a different Amazon Web Services account from the credentials calling the API, then you can't use
      * `aws/secretsmanager` to encrypt the secret, and you must create and use a customer managed KMS key.
+     *
+     * To create a cross-account replica secret, include `CrossAccountPrimaryARN`. The replica must use a customer managed
+     * KMS key, and can't include `AddReplicaRegions`, `Description`, `SecretBinary`, `SecretString`, or `Type`.
      *
      * Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in
      * request parameters except `SecretBinary` or `SecretString` because it might be logged. For more information, see
@@ -71,8 +74,9 @@ class SecretsManagerClient extends AbstractApi
      *
      * **Required permissions: **`secretsmanager:CreateSecret`. If you include tags in the secret, you also need
      * `secretsmanager:TagResource`. To add replica Regions, you must also have `secretsmanager:ReplicateSecretToRegions`.
-     * For more information, see IAM policy actions for Secrets Manager [^5] and Authentication and access control in
-     * Secrets Manager [^6].
+     * To create a cross-account replica secret, you must also have `secretsmanager:PutResourcePolicy` permissions. For more
+     * information, see IAM policy actions for Secrets Manager [^5] and Authentication and access control in Secrets Manager
+     * [^6].
      *
      * To encrypt the secret with a KMS key other than `aws/secretsmanager`, you need `kms:GenerateDataKey` and
      * `kms:Decrypt` permission to the key.
@@ -103,6 +107,7 @@ class SecretsManagerClient extends AbstractApi
      *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
      *   ForceOverwriteReplicaSecret?: bool|null,
      *   Type?: string|null,
+     *   CrossAccountPrimaryARN?: string|null,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      *
@@ -145,6 +150,11 @@ class SecretsManagerClient extends AbstractApi
      * You can't delete a primary secret that is replicated to other Regions. You must first delete the replicas using
      * RemoveRegionsFromReplication, and then delete the primary secret. When you delete a replica, it is deleted
      * immediately.
+     *
+     * You can't delete a cross-account primary secret that is associated with a cross-account replica secret. You must
+     * first disassociate each of the replicas using DisassociateCrossAccountReplica, before deleting the primary secret.
+     * Similarly, you can't delete a cross-account replica secret without first stopping replication. Call
+     * StopReplicationToReplica to stop replication, and then you can delete the secret.
      *
      * You can't directly delete a version of a secret. Instead, you remove all staging labels from the version using
      * UpdateSecretVersionStage. This marks the version as deprecated, and then Secrets Manager can automatically delete the

@@ -8,6 +8,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * This exception contains a list of messages that might contain one or more error messages. Each error message
  * indicates one error in the change batch.
+ *
+ * Route 53 also returns this error when the change batch creates, updates, or deletes a resource record set whose name
+ * and type have a resource record set protection. To make the change, first delete the protection by using
+ * `DeleteResourceRecordSetProtections`.
  */
 final class InvalidChangeBatchException extends ClientException
 {
