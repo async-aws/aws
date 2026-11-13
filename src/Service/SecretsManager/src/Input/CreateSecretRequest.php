@@ -171,6 +171,16 @@ final class CreateSecretRequest extends Input
     private $type;
 
     /**
+     * The ARN of a primary secret in another Amazon Web Services account. Include this field to create a cross-account
+     * replica secret that receives replicated data from that primary secret. The primary secret must be in the same Amazon
+     * Web Services Region and partition as the replica, and you must specify a customer managed KMS key in `KmsKeyId`. You
+     * can't include `SecretString`, `SecretBinary`, `Description`, `AddReplicaRegions`, or `Type`.
+     *
+     * @var string|null
+     */
+    private $crossAccountPrimaryArn;
+
+    /**
      * @param array{
      *   Name?: string,
      *   ClientRequestToken?: string|null,
@@ -182,6 +192,7 @@ final class CreateSecretRequest extends Input
      *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
      *   ForceOverwriteReplicaSecret?: bool|null,
      *   Type?: string|null,
+     *   CrossAccountPrimaryARN?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -197,6 +208,7 @@ final class CreateSecretRequest extends Input
         $this->addReplicaRegions = isset($input['AddReplicaRegions']) ? array_map([ReplicaRegionType::class, 'create'], $input['AddReplicaRegions']) : null;
         $this->forceOverwriteReplicaSecret = $input['ForceOverwriteReplicaSecret'] ?? null;
         $this->type = $input['Type'] ?? null;
+        $this->crossAccountPrimaryArn = $input['CrossAccountPrimaryARN'] ?? null;
         parent::__construct($input);
     }
 
@@ -212,6 +224,7 @@ final class CreateSecretRequest extends Input
      *   AddReplicaRegions?: array<ReplicaRegionType|array>|null,
      *   ForceOverwriteReplicaSecret?: bool|null,
      *   Type?: string|null,
+     *   CrossAccountPrimaryARN?: string|null,
      *   '@region'?: string|null,
      * }|CreateSecretRequest $input
      */
@@ -231,6 +244,11 @@ final class CreateSecretRequest extends Input
     public function getClientRequestToken(): ?string
     {
         return $this->clientRequestToken;
+    }
+
+    public function getCrossAccountPrimaryArn(): ?string
+    {
+        return $this->crossAccountPrimaryArn;
     }
 
     public function getDescription(): ?string
@@ -315,6 +333,13 @@ final class CreateSecretRequest extends Input
     public function setClientRequestToken(?string $value): self
     {
         $this->clientRequestToken = $value;
+
+        return $this;
+    }
+
+    public function setCrossAccountPrimaryArn(?string $value): self
+    {
+        $this->crossAccountPrimaryArn = $value;
 
         return $this;
     }
@@ -422,6 +447,9 @@ final class CreateSecretRequest extends Input
         }
         if (null !== $v = $this->type) {
             $payload['Type'] = $v;
+        }
+        if (null !== $v = $this->crossAccountPrimaryArn) {
+            $payload['CrossAccountPrimaryARN'] = $v;
         }
 
         return $payload;
