@@ -280,6 +280,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
             'DeletionMode' => (null !== $v = $xml->DeletionMode[0]) ? (!DeletionMode::exists((string) $xml->DeletionMode) ? DeletionMode::UNKNOWN_TO_SDK : (string) $xml->DeletionMode) : null,
             'DetailedStatus' => (null !== $v = $xml->DetailedStatus[0]) ? (!DetailedStatus::exists((string) $xml->DetailedStatus) ? DetailedStatus::UNKNOWN_TO_SDK : (string) $xml->DetailedStatus) : null,
             'LastOperations' => (0 === ($v = $xml->LastOperations)->count()) ? null : $this->populateResultLastOperations($v),
+            'AliasName' => (null !== $v = $xml->AliasName[0]) ? (string) $v : null,
         ]);
     }
 

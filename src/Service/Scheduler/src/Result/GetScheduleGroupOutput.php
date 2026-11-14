@@ -16,20 +16,6 @@ class GetScheduleGroupOutput extends Result
     private $arn;
 
     /**
-     * The time at which the schedule group was created.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $creationDate;
-
-    /**
-     * The time at which the schedule group was last modified.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $lastModificationDate;
-
-    /**
      * The name of the schedule group.
      *
      * @var string|null
@@ -42,6 +28,20 @@ class GetScheduleGroupOutput extends Result
      * @var ScheduleGroupState::*|null
      */
     private $state;
+
+    /**
+     * The time at which the schedule group was created.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $creationDate;
+
+    /**
+     * The time at which the schedule group was last modified.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $lastModificationDate;
 
     public function getArn(): ?string
     {
@@ -86,9 +86,9 @@ class GetScheduleGroupOutput extends Result
         $data = $response->toArray();
 
         $this->arn = isset($data['Arn']) ? (string) $data['Arn'] : null;
-        $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreationDate']))) ? $d : null;
-        $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
         $this->state = isset($data['State']) ? (!ScheduleGroupState::exists((string) $data['State']) ? ScheduleGroupState::UNKNOWN_TO_SDK : (string) $data['State']) : null;
+        $this->creationDate = isset($data['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['CreationDate']))) ? $d : null;
+        $this->lastModificationDate = isset($data['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['LastModificationDate']))) ? $d : null;
     }
 }

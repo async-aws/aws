@@ -12,12 +12,12 @@ use AsyncAws\Scheduler\Enum\AssignPublicIp;
 final class AwsVpcConfiguration
 {
     /**
-     * Specifies whether the task's elastic network interface receives a public IP address. You can specify `ENABLED` only
-     * when `LaunchType` in `EcsParameters` is set to `FARGATE`.
+     * Specifies the subnets associated with the task. These subnets must all be in the same VPC. You can specify as many as
+     * 16 subnets.
      *
-     * @var AssignPublicIp::*|null
+     * @var string[]
      */
-    private $assignPublicIp;
+    private $subnets;
 
     /**
      * Specifies the security groups associated with the task. These security groups must all be in the same VPC. You can
@@ -29,32 +29,32 @@ final class AwsVpcConfiguration
     private $securityGroups;
 
     /**
-     * Specifies the subnets associated with the task. These subnets must all be in the same VPC. You can specify as many as
-     * 16 subnets.
+     * Specifies whether the task's elastic network interface receives a public IP address. You can specify `ENABLED` only
+     * when `LaunchType` in `EcsParameters` is set to `FARGATE`.
      *
-     * @var string[]
+     * @var AssignPublicIp::*|null
      */
-    private $subnets;
+    private $assignPublicIp;
 
     /**
      * @param array{
-     *   AssignPublicIp?: AssignPublicIp::*|null,
-     *   SecurityGroups?: string[]|null,
      *   Subnets: string[],
+     *   SecurityGroups?: string[]|null,
+     *   AssignPublicIp?: AssignPublicIp::*|null,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->assignPublicIp = $input['AssignPublicIp'] ?? null;
-        $this->securityGroups = $input['SecurityGroups'] ?? null;
         $this->subnets = $input['Subnets'] ?? $this->throwException(new InvalidArgument('Missing required field "Subnets".'));
+        $this->securityGroups = $input['SecurityGroups'] ?? null;
+        $this->assignPublicIp = $input['AssignPublicIp'] ?? null;
     }
 
     /**
      * @param array{
-     *   AssignPublicIp?: AssignPublicIp::*|null,
-     *   SecurityGroups?: string[]|null,
      *   Subnets: string[],
+     *   SecurityGroups?: string[]|null,
+     *   AssignPublicIp?: AssignPublicIp::*|null,
      * }|AwsVpcConfiguration $input
      */
     public static function create($input): self
@@ -92,13 +92,15 @@ final class AwsVpcConfiguration
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->assignPublicIp) {
-            if (!AssignPublicIp::exists($v)) {
-                /** @psalm-suppress NoValue */
-                throw new InvalidArgument(\sprintf('Invalid parameter "AssignPublicIp" for "%s". The value "%s" is not a valid "AssignPublicIp".', __CLASS__, $v));
-            }
-            $payload['AssignPublicIp'] = $v;
+        $v = $this->subnets;
+
+        $index = -1;
+        $payload['Subnets'] = [];
+        foreach ($v as $listValue) {
+            ++$index;
+            $payload['Subnets'][$index] = $listValue;
         }
+
         if (null !== $v = $this->securityGroups) {
             $index = -1;
             $payload['SecurityGroups'] = [];
@@ -107,13 +109,12 @@ final class AwsVpcConfiguration
                 $payload['SecurityGroups'][$index] = $listValue;
             }
         }
-        $v = $this->subnets;
-
-        $index = -1;
-        $payload['Subnets'] = [];
-        foreach ($v as $listValue) {
-            ++$index;
-            $payload['Subnets'][$index] = $listValue;
+        if (null !== $v = $this->assignPublicIp) {
+            if (!AssignPublicIp::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "AssignPublicIp" for "%s". The value "%s" is not a valid "AssignPublicIp".', __CLASS__, $v));
+            }
+            $payload['AssignPublicIp'] = $v;
         }
 
         return $payload;

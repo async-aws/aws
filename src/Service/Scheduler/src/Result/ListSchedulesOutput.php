@@ -116,11 +116,11 @@ class ListSchedulesOutput extends Result implements \IteratorAggregate
     {
         return new ScheduleSummary([
             'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
-            'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate']))) ? $d : null,
-            'GroupName' => isset($json['GroupName']) ? (string) $json['GroupName'] : null,
-            'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'GroupName' => isset($json['GroupName']) ? (string) $json['GroupName'] : null,
             'State' => isset($json['State']) ? (!ScheduleState::exists((string) $json['State']) ? ScheduleState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
+            'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate']))) ? $d : null,
+            'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
             'Target' => empty($json['Target']) ? null : $this->populateResultTargetSummary($json['Target']),
         ]);
     }

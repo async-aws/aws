@@ -17,20 +17,6 @@ final class ScheduleGroupSummary
     private $arn;
 
     /**
-     * The time at which the schedule group was created.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $creationDate;
-
-    /**
-     * The time at which the schedule group was last modified.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $lastModificationDate;
-
-    /**
      * The name of the schedule group.
      *
      * @var string|null
@@ -45,30 +31,44 @@ final class ScheduleGroupSummary
     private $state;
 
     /**
+     * The time at which the schedule group was created.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $creationDate;
+
+    /**
+     * The time at which the schedule group was last modified.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $lastModificationDate;
+
+    /**
      * @param array{
      *   Arn?: string|null,
-     *   CreationDate?: \DateTimeImmutable|null,
-     *   LastModificationDate?: \DateTimeImmutable|null,
      *   Name?: string|null,
      *   State?: ScheduleGroupState::*|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->arn = $input['Arn'] ?? null;
-        $this->creationDate = $input['CreationDate'] ?? null;
-        $this->lastModificationDate = $input['LastModificationDate'] ?? null;
         $this->name = $input['Name'] ?? null;
         $this->state = $input['State'] ?? null;
+        $this->creationDate = $input['CreationDate'] ?? null;
+        $this->lastModificationDate = $input['LastModificationDate'] ?? null;
     }
 
     /**
      * @param array{
      *   Arn?: string|null,
-     *   CreationDate?: \DateTimeImmutable|null,
-     *   LastModificationDate?: \DateTimeImmutable|null,
      *   Name?: string|null,
      *   State?: ScheduleGroupState::*|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
      * }|ScheduleGroupSummary $input
      */
     public static function create($input): self

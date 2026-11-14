@@ -10,21 +10,6 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DeleteScheduleInput extends Input
 {
     /**
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
-     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
-     *
-     * @var string|null
-     */
-    private $clientToken;
-
-    /**
-     * The name of the schedule group associated with this schedule. If you omit this, the default schedule group is used.
-     *
-     * @var string|null
-     */
-    private $groupName;
-
-    /**
      * The name of the schedule to delete.
      *
      * @required
@@ -34,26 +19,41 @@ final class DeleteScheduleInput extends Input
     private $name;
 
     /**
+     * The name of the schedule group associated with this schedule. If you omit this, the default schedule group is used.
+     *
+     * @var string|null
+     */
+    private $groupName;
+
+    /**
+     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
+     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
+     *
+     * @var string|null
+     */
+    private $clientToken;
+
+    /**
      * @param array{
-     *   ClientToken?: string|null,
-     *   GroupName?: string|null,
      *   Name?: string,
+     *   GroupName?: string|null,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->clientToken = $input['ClientToken'] ?? null;
-        $this->groupName = $input['GroupName'] ?? null;
         $this->name = $input['Name'] ?? null;
+        $this->groupName = $input['GroupName'] ?? null;
+        $this->clientToken = $input['ClientToken'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   ClientToken?: string|null,
-     *   GroupName?: string|null,
      *   Name?: string,
+     *   GroupName?: string|null,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * }|DeleteScheduleInput $input
      */
@@ -90,11 +90,11 @@ final class DeleteScheduleInput extends Input
 
         // Prepare query
         $query = [];
-        if (null !== $this->clientToken) {
-            $query['clientToken'] = $this->clientToken;
-        }
         if (null !== $this->groupName) {
             $query['groupName'] = $this->groupName;
+        }
+        if (null !== $this->clientToken) {
+            $query['clientToken'] = $this->clientToken;
         }
 
         // Prepare URI

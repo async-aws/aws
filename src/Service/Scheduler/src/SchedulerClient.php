@@ -46,19 +46,19 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#createschedule
      *
      * @param array{
-     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
-     *   ClientToken?: string|null,
-     *   Description?: string|null,
-     *   EndDate?: \DateTimeImmutable|string|null,
-     *   FlexibleTimeWindow: FlexibleTimeWindow|array,
-     *   GroupName?: string|null,
-     *   KmsKeyArn?: string|null,
      *   Name: string,
+     *   GroupName?: string|null,
      *   ScheduleExpression: string,
-     *   ScheduleExpressionTimezone?: string|null,
      *   StartDate?: \DateTimeImmutable|string|null,
+     *   EndDate?: \DateTimeImmutable|string|null,
+     *   Description?: string|null,
+     *   ScheduleExpressionTimezone?: string|null,
      *   State?: ScheduleState::*|null,
+     *   KmsKeyArn?: string|null,
      *   Target: Target|array,
+     *   FlexibleTimeWindow: FlexibleTimeWindow|array,
+     *   ClientToken?: string|null,
+     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
      *   '@region'?: string|null,
      * }|CreateScheduleInput $input
      *
@@ -91,9 +91,9 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#createschedulegroup
      *
      * @param array{
-     *   ClientToken?: string|null,
      *   Name: string,
      *   Tags?: array<Tag|array>|null,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * }|CreateScheduleGroupInput $input
      *
@@ -124,15 +124,16 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#deleteschedule
      *
      * @param array{
-     *   ClientToken?: string|null,
-     *   GroupName?: string|null,
      *   Name: string,
+     *   GroupName?: string|null,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * }|DeleteScheduleInput $input
      *
      * @throws ConflictException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws ThrottlingException
      * @throws ValidationException
      */
@@ -143,6 +144,7 @@ class SchedulerClient extends AbstractApi
             'ConflictException' => ConflictException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
         ]]));
@@ -163,8 +165,8 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#deleteschedulegroup
      *
      * @param array{
-     *   ClientToken?: string|null,
      *   Name: string,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * }|DeleteScheduleGroupInput $input
      *
@@ -195,13 +197,14 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#getschedule
      *
      * @param array{
-     *   GroupName?: string|null,
      *   Name: string,
+     *   GroupName?: string|null,
      *   '@region'?: string|null,
      * }|GetScheduleInput $input
      *
      * @throws InternalServerException
      * @throws ResourceNotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws ThrottlingException
      * @throws ValidationException
      */
@@ -211,6 +214,7 @@ class SchedulerClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetSchedule', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
         ]]));
@@ -254,9 +258,9 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#listschedulegroups
      *
      * @param array{
-     *   MaxResults?: int|null,
      *   NamePrefix?: string|null,
      *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListScheduleGroupsInput $input
      *
@@ -284,10 +288,10 @@ class SchedulerClient extends AbstractApi
      *
      * @param array{
      *   GroupName?: string|null,
-     *   MaxResults?: int|null,
      *   NamePrefix?: string|null,
-     *   NextToken?: string|null,
      *   State?: ScheduleState::*|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListSchedulesInput $input
      *
@@ -321,25 +325,26 @@ class SchedulerClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-scheduler-2021-06-30.html#updateschedule
      *
      * @param array{
-     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
-     *   ClientToken?: string|null,
-     *   Description?: string|null,
-     *   EndDate?: \DateTimeImmutable|string|null,
-     *   FlexibleTimeWindow: FlexibleTimeWindow|array,
-     *   GroupName?: string|null,
-     *   KmsKeyArn?: string|null,
      *   Name: string,
+     *   GroupName?: string|null,
      *   ScheduleExpression: string,
-     *   ScheduleExpressionTimezone?: string|null,
      *   StartDate?: \DateTimeImmutable|string|null,
+     *   EndDate?: \DateTimeImmutable|string|null,
+     *   Description?: string|null,
+     *   ScheduleExpressionTimezone?: string|null,
      *   State?: ScheduleState::*|null,
+     *   KmsKeyArn?: string|null,
      *   Target: Target|array,
+     *   FlexibleTimeWindow: FlexibleTimeWindow|array,
+     *   ClientToken?: string|null,
+     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
      *   '@region'?: string|null,
      * }|UpdateScheduleInput $input
      *
      * @throws ConflictException
      * @throws InternalServerException
      * @throws ResourceNotFoundException
+     * @throws ServiceQuotaExceededException
      * @throws ThrottlingException
      * @throws ValidationException
      */
@@ -350,6 +355,7 @@ class SchedulerClient extends AbstractApi
             'ConflictException' => ConflictException::class,
             'InternalServerException' => InternalServerException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
         ]]));

@@ -78,7 +78,8 @@ final class Parameter
     private $arn;
 
     /**
-     * The data type of the parameter, such as `text` or `aws:ec2:image`. The default is `text`.
+     * The data type of the parameter, such as `text`, `aws:ec2:image`, or `json`. The default is `text`. For the list of
+     * data types, see the `DataType` parameter of `PutParameter`.
      *
      * @var string|null
      */

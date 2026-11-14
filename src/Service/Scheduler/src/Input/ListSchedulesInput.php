@@ -18,26 +18,11 @@ final class ListSchedulesInput extends Input
     private $groupName;
 
     /**
-     * If specified, limits the number of results returned by this operation. The operation also returns a `NextToken` which
-     * you can use in a subsequent operation to retrieve the next set of results.
-     *
-     * @var int|null
-     */
-    private $maxResults;
-
-    /**
      * Schedule name prefix to return the filtered list of resources.
      *
      * @var string|null
      */
     private $namePrefix;
-
-    /**
-     * The token returned by a previous call to retrieve the next set of results.
-     *
-     * @var string|null
-     */
-    private $nextToken;
 
     /**
      * If specified, only lists the schedules whose current state matches the given filter.
@@ -47,32 +32,47 @@ final class ListSchedulesInput extends Input
     private $state;
 
     /**
+     * The token returned by a previous call to retrieve the next set of results.
+     *
+     * @var string|null
+     */
+    private $nextToken;
+
+    /**
+     * If specified, limits the number of results returned by this operation. The operation also returns a `NextToken` which
+     * you can use in a subsequent operation to retrieve the next set of results.
+     *
+     * @var int|null
+     */
+    private $maxResults;
+
+    /**
      * @param array{
      *   GroupName?: string|null,
-     *   MaxResults?: int|null,
      *   NamePrefix?: string|null,
-     *   NextToken?: string|null,
      *   State?: ScheduleState::*|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->groupName = $input['GroupName'] ?? null;
-        $this->maxResults = $input['MaxResults'] ?? null;
         $this->namePrefix = $input['NamePrefix'] ?? null;
-        $this->nextToken = $input['NextToken'] ?? null;
         $this->state = $input['State'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
+        $this->maxResults = $input['MaxResults'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
      *   GroupName?: string|null,
-     *   MaxResults?: int|null,
      *   NamePrefix?: string|null,
-     *   NextToken?: string|null,
      *   State?: ScheduleState::*|null,
+     *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListSchedulesInput $input
      */
@@ -125,14 +125,8 @@ final class ListSchedulesInput extends Input
         if (null !== $this->groupName) {
             $query['ScheduleGroup'] = $this->groupName;
         }
-        if (null !== $this->maxResults) {
-            $query['MaxResults'] = (string) $this->maxResults;
-        }
         if (null !== $this->namePrefix) {
             $query['NamePrefix'] = $this->namePrefix;
-        }
-        if (null !== $this->nextToken) {
-            $query['NextToken'] = $this->nextToken;
         }
         if (null !== $this->state) {
             if (!ScheduleState::exists($this->state)) {
@@ -140,6 +134,12 @@ final class ListSchedulesInput extends Input
                 throw new InvalidArgument(\sprintf('Invalid parameter "State" for "%s". The value "%s" is not a valid "ScheduleState".', __CLASS__, $this->state));
             }
             $query['State'] = $this->state;
+        }
+        if (null !== $this->nextToken) {
+            $query['NextToken'] = $this->nextToken;
+        }
+        if (null !== $this->maxResults) {
+            $query['MaxResults'] = (string) $this->maxResults;
         }
 
         // Prepare URI

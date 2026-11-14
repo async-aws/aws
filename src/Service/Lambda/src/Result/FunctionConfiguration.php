@@ -26,6 +26,7 @@ use AsyncAws\Lambda\ValueObject\EnvironmentError;
 use AsyncAws\Lambda\ValueObject\EnvironmentResponse;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
+use AsyncAws\Lambda\ValueObject\FunctionRuntimeConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
@@ -373,6 +374,14 @@ class FunctionConfiguration extends Result
     private $durableConfig;
 
     /**
+     * The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime
+     * alias that your function uses.
+     *
+     * @var FunctionRuntimeConfig|null
+     */
+    private $runtimeConfig;
+
+    /**
      * @return list<Architecture::*>
      */
     public function getArchitectures(): array
@@ -589,6 +598,13 @@ class FunctionConfiguration extends Result
         return $this->runtime;
     }
 
+    public function getRuntimeConfig(): ?FunctionRuntimeConfig
+    {
+        $this->initialize();
+
+        return $this->runtimeConfig;
+    }
+
     public function getRuntimeVersionConfig(): ?RuntimeVersionConfig
     {
         $this->initialize();
@@ -723,6 +739,7 @@ class FunctionConfiguration extends Result
         $this->capacityProviderConfig = empty($data['CapacityProviderConfig']) ? null : $this->populateResultCapacityProviderConfig($data['CapacityProviderConfig']);
         $this->configSha256 = isset($data['ConfigSha256']) ? (string) $data['ConfigSha256'] : null;
         $this->durableConfig = empty($data['DurableConfig']) ? null : $this->populateResultDurableConfig($data['DurableConfig']);
+        $this->runtimeConfig = empty($data['RuntimeConfig']) ? null : $this->populateResultFunctionRuntimeConfig($data['RuntimeConfig']);
     }
 
     /**
@@ -823,6 +840,14 @@ class FunctionConfiguration extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultFunctionRuntimeConfig(array $json): FunctionRuntimeConfig
+    {
+        return new FunctionRuntimeConfig([
+            'RuntimeArn' => (string) $json['RuntimeArn'],
+            'RuntimeAlias' => (string) $json['RuntimeAlias'],
+        ]);
     }
 
     private function populateResultImageConfig(array $json): ImageConfig

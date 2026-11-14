@@ -10,15 +10,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class CapacityProviderStrategyItem
 {
     /**
-     * The base value designates how many tasks, at a minimum, to run on the specified capacity provider. Only one capacity
-     * provider in a capacity provider strategy can have a base defined. If no value is specified, the default value of `0`
-     * is used.
-     *
-     * @var int|null
-     */
-    private $base;
-
-    /**
      * The short name of the capacity provider.
      *
      * @var string
@@ -35,24 +26,33 @@ final class CapacityProviderStrategyItem
     private $weight;
 
     /**
+     * The base value designates how many tasks, at a minimum, to run on the specified capacity provider. Only one capacity
+     * provider in a capacity provider strategy can have a base defined. If no value is specified, the default value of `0`
+     * is used.
+     *
+     * @var int|null
+     */
+    private $base;
+
+    /**
      * @param array{
-     *   base?: int|null,
      *   capacityProvider: string,
      *   weight?: int|null,
+     *   base?: int|null,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->base = $input['base'] ?? null;
         $this->capacityProvider = $input['capacityProvider'] ?? $this->throwException(new InvalidArgument('Missing required field "capacityProvider".'));
         $this->weight = $input['weight'] ?? null;
+        $this->base = $input['base'] ?? null;
     }
 
     /**
      * @param array{
-     *   base?: int|null,
      *   capacityProvider: string,
      *   weight?: int|null,
+     *   base?: int|null,
      * }|CapacityProviderStrategyItem $input
      */
     public static function create($input): self
@@ -81,13 +81,13 @@ final class CapacityProviderStrategyItem
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->base) {
-            $payload['base'] = $v;
-        }
         $v = $this->capacityProvider;
         $payload['capacityProvider'] = $v;
         if (null !== $v = $this->weight) {
             $payload['weight'] = $v;
+        }
+        if (null !== $v = $this->base) {
+            $payload['base'] = $v;
         }
 
         return $payload;
