@@ -48,6 +48,8 @@ use AsyncAws\Lambda\Exception\RequestTooLargeException;
 use AsyncAws\Lambda\Exception\ResourceConflictException;
 use AsyncAws\Lambda\Exception\ResourceNotFoundException;
 use AsyncAws\Lambda\Exception\ResourceNotReadyException;
+use AsyncAws\Lambda\Exception\RuntimeAliasDeletedException;
+use AsyncAws\Lambda\Exception\RuntimeVersionDeletedException;
 use AsyncAws\Lambda\Exception\S3FilesMountConnectivityException;
 use AsyncAws\Lambda\Exception\S3FilesMountFailureException;
 use AsyncAws\Lambda\Exception\S3FilesMountTimeoutException;
@@ -92,6 +94,7 @@ use AsyncAws\Lambda\ValueObject\DurableConfig;
 use AsyncAws\Lambda\ValueObject\Environment;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
+use AsyncAws\Lambda\ValueObject\FunctionRuntimeConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 use AsyncAws\Lambda\ValueObject\LoggingConfig;
@@ -343,6 +346,8 @@ class LambdaClient extends AbstractApi
      * @throws ResourceConflictException
      * @throws ResourceNotFoundException
      * @throws ResourceNotReadyException
+     * @throws RuntimeAliasDeletedException
+     * @throws RuntimeVersionDeletedException
      * @throws S3FilesMountConnectivityException
      * @throws S3FilesMountFailureException
      * @throws S3FilesMountTimeoutException
@@ -391,6 +396,8 @@ class LambdaClient extends AbstractApi
             'ResourceConflictException' => ResourceConflictException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'ResourceNotReadyException' => ResourceNotReadyException::class,
+            'RuntimeAliasDeletedException' => RuntimeAliasDeletedException::class,
+            'RuntimeVersionDeletedException' => RuntimeVersionDeletedException::class,
             'S3FilesMountConnectivityException' => S3FilesMountConnectivityException::class,
             'S3FilesMountFailureException' => S3FilesMountFailureException::class,
             'S3FilesMountTimeoutException' => S3FilesMountTimeoutException::class,
@@ -713,6 +720,7 @@ class LambdaClient extends AbstractApi
      *   LoggingConfig?: LoggingConfig|array|null,
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
+     *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      *

@@ -14,62 +14,6 @@ use AsyncAws\Scheduler\ValueObject\Target;
 final class CreateScheduleInput extends Input
 {
     /**
-     * Specifies the action that EventBridge Scheduler applies to the schedule after the schedule completes invoking the
-     * target.
-     *
-     * @var ActionAfterCompletion::*|null
-     */
-    private $actionAfterCompletion;
-
-    /**
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
-     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
-     *
-     * @var string|null
-     */
-    private $clientToken;
-
-    /**
-     * The description you specify for the schedule.
-     *
-     * @var string|null
-     */
-    private $description;
-
-    /**
-     * The date, in UTC, before which the schedule can invoke its target. Depending on the schedule's recurrence expression,
-     * invocations might stop on, or before, the `EndDate` you specify. EventBridge Scheduler ignores `EndDate` for one-time
-     * schedules.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $endDate;
-
-    /**
-     * Allows you to configure a time window during which EventBridge Scheduler invokes the schedule.
-     *
-     * @required
-     *
-     * @var FlexibleTimeWindow|null
-     */
-    private $flexibleTimeWindow;
-
-    /**
-     * The name of the schedule group to associate with this schedule. If you omit this, the default schedule group is used.
-     *
-     * @var string|null
-     */
-    private $groupName;
-
-    /**
-     * The Amazon Resource Name (ARN) for the customer managed KMS key that EventBridge Scheduler will use to encrypt and
-     * decrypt your data.
-     *
-     * @var string|null
-     */
-    private $kmsKeyArn;
-
-    /**
      * The name of the schedule that you are creating.
      *
      * @required
@@ -77,6 +21,13 @@ final class CreateScheduleInput extends Input
      * @var string|null
      */
     private $name;
+
+    /**
+     * The name of the schedule group to associate with this schedule. If you omit this, the default schedule group is used.
+     *
+     * @var string|null
+     */
+    private $groupName;
 
     /**
      * The expression that defines when the schedule runs. The following formats are supported.
@@ -109,13 +60,6 @@ final class CreateScheduleInput extends Input
     private $scheduleExpression;
 
     /**
-     * The timezone in which the scheduling expression is evaluated.
-     *
-     * @var string|null
-     */
-    private $scheduleExpressionTimezone;
-
-    /**
      * The date, in UTC, after which the schedule can begin invoking its target. Depending on the schedule's recurrence
      * expression, invocations might occur on, or after, the `StartDate` you specify. EventBridge Scheduler ignores
      * `StartDate` for one-time schedules.
@@ -125,11 +69,42 @@ final class CreateScheduleInput extends Input
     private $startDate;
 
     /**
+     * The date, in UTC, before which the schedule can invoke its target. Depending on the schedule's recurrence expression,
+     * invocations might stop on, or before, the `EndDate` you specify. EventBridge Scheduler ignores `EndDate` for one-time
+     * schedules.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $endDate;
+
+    /**
+     * The description you specify for the schedule.
+     *
+     * @var string|null
+     */
+    private $description;
+
+    /**
+     * The timezone in which the scheduling expression is evaluated.
+     *
+     * @var string|null
+     */
+    private $scheduleExpressionTimezone;
+
+    /**
      * Specifies whether the schedule is enabled or disabled.
      *
      * @var ScheduleState::*|null
      */
     private $state;
+
+    /**
+     * The Amazon Resource Name (ARN) for the customer managed KMS key that EventBridge Scheduler will use to encrypt and
+     * decrypt your data.
+     *
+     * @var string|null
+     */
+    private $kmsKeyArn;
 
     /**
      * The schedule's target.
@@ -141,56 +116,81 @@ final class CreateScheduleInput extends Input
     private $target;
 
     /**
+     * Allows you to configure a time window during which EventBridge Scheduler invokes the schedule.
+     *
+     * @required
+     *
+     * @var FlexibleTimeWindow|null
+     */
+    private $flexibleTimeWindow;
+
+    /**
+     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
+     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
+     *
+     * @var string|null
+     */
+    private $clientToken;
+
+    /**
+     * Specifies the action that EventBridge Scheduler applies to the schedule after the schedule completes invoking the
+     * target.
+     *
+     * @var ActionAfterCompletion::*|null
+     */
+    private $actionAfterCompletion;
+
+    /**
      * @param array{
-     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
-     *   ClientToken?: string|null,
-     *   Description?: string|null,
-     *   EndDate?: \DateTimeImmutable|string|null,
-     *   FlexibleTimeWindow?: FlexibleTimeWindow|array,
-     *   GroupName?: string|null,
-     *   KmsKeyArn?: string|null,
      *   Name?: string,
+     *   GroupName?: string|null,
      *   ScheduleExpression?: string,
-     *   ScheduleExpressionTimezone?: string|null,
      *   StartDate?: \DateTimeImmutable|string|null,
+     *   EndDate?: \DateTimeImmutable|string|null,
+     *   Description?: string|null,
+     *   ScheduleExpressionTimezone?: string|null,
      *   State?: ScheduleState::*|null,
+     *   KmsKeyArn?: string|null,
      *   Target?: Target|array,
+     *   FlexibleTimeWindow?: FlexibleTimeWindow|array,
+     *   ClientToken?: string|null,
+     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->actionAfterCompletion = $input['ActionAfterCompletion'] ?? null;
-        $this->clientToken = $input['ClientToken'] ?? null;
-        $this->description = $input['Description'] ?? null;
-        $this->endDate = !isset($input['EndDate']) ? null : ($input['EndDate'] instanceof \DateTimeImmutable ? $input['EndDate'] : new \DateTimeImmutable($input['EndDate']));
-        $this->flexibleTimeWindow = isset($input['FlexibleTimeWindow']) ? FlexibleTimeWindow::create($input['FlexibleTimeWindow']) : null;
-        $this->groupName = $input['GroupName'] ?? null;
-        $this->kmsKeyArn = $input['KmsKeyArn'] ?? null;
         $this->name = $input['Name'] ?? null;
+        $this->groupName = $input['GroupName'] ?? null;
         $this->scheduleExpression = $input['ScheduleExpression'] ?? null;
-        $this->scheduleExpressionTimezone = $input['ScheduleExpressionTimezone'] ?? null;
         $this->startDate = !isset($input['StartDate']) ? null : ($input['StartDate'] instanceof \DateTimeImmutable ? $input['StartDate'] : new \DateTimeImmutable($input['StartDate']));
+        $this->endDate = !isset($input['EndDate']) ? null : ($input['EndDate'] instanceof \DateTimeImmutable ? $input['EndDate'] : new \DateTimeImmutable($input['EndDate']));
+        $this->description = $input['Description'] ?? null;
+        $this->scheduleExpressionTimezone = $input['ScheduleExpressionTimezone'] ?? null;
         $this->state = $input['State'] ?? null;
+        $this->kmsKeyArn = $input['KmsKeyArn'] ?? null;
         $this->target = isset($input['Target']) ? Target::create($input['Target']) : null;
+        $this->flexibleTimeWindow = isset($input['FlexibleTimeWindow']) ? FlexibleTimeWindow::create($input['FlexibleTimeWindow']) : null;
+        $this->clientToken = $input['ClientToken'] ?? null;
+        $this->actionAfterCompletion = $input['ActionAfterCompletion'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
-     *   ClientToken?: string|null,
-     *   Description?: string|null,
-     *   EndDate?: \DateTimeImmutable|string|null,
-     *   FlexibleTimeWindow?: FlexibleTimeWindow|array,
-     *   GroupName?: string|null,
-     *   KmsKeyArn?: string|null,
      *   Name?: string,
+     *   GroupName?: string|null,
      *   ScheduleExpression?: string,
-     *   ScheduleExpressionTimezone?: string|null,
      *   StartDate?: \DateTimeImmutable|string|null,
+     *   EndDate?: \DateTimeImmutable|string|null,
+     *   Description?: string|null,
+     *   ScheduleExpressionTimezone?: string|null,
      *   State?: ScheduleState::*|null,
+     *   KmsKeyArn?: string|null,
      *   Target?: Target|array,
+     *   FlexibleTimeWindow?: FlexibleTimeWindow|array,
+     *   ClientToken?: string|null,
+     *   ActionAfterCompletion?: ActionAfterCompletion::*|null,
      *   '@region'?: string|null,
      * }|CreateScheduleInput $input
      */
@@ -400,43 +400,25 @@ final class CreateScheduleInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->actionAfterCompletion) {
-            if (!ActionAfterCompletion::exists($v)) {
-                /** @psalm-suppress NoValue */
-                throw new InvalidArgument(\sprintf('Invalid parameter "ActionAfterCompletion" for "%s". The value "%s" is not a valid "ActionAfterCompletion".', __CLASS__, $v));
-            }
-            $payload['ActionAfterCompletion'] = $v;
-        }
-        if (null === $v = $this->clientToken) {
-            $v = uuid_create(\UUID_TYPE_RANDOM);
-        }
-        $payload['ClientToken'] = $v;
-        if (null !== $v = $this->description) {
-            $payload['Description'] = $v;
-        }
-        if (null !== $v = $this->endDate) {
-            $payload['EndDate'] = $v->getTimestamp();
-        }
-        if (null === $v = $this->flexibleTimeWindow) {
-            throw new InvalidArgument(\sprintf('Missing parameter "FlexibleTimeWindow" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['FlexibleTimeWindow'] = $v->requestBody();
+
         if (null !== $v = $this->groupName) {
             $payload['GroupName'] = $v;
         }
-        if (null !== $v = $this->kmsKeyArn) {
-            $payload['KmsKeyArn'] = $v;
-        }
-
         if (null === $v = $this->scheduleExpression) {
             throw new InvalidArgument(\sprintf('Missing parameter "ScheduleExpression" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ScheduleExpression'] = $v;
-        if (null !== $v = $this->scheduleExpressionTimezone) {
-            $payload['ScheduleExpressionTimezone'] = $v;
-        }
         if (null !== $v = $this->startDate) {
             $payload['StartDate'] = $v->getTimestamp();
+        }
+        if (null !== $v = $this->endDate) {
+            $payload['EndDate'] = $v->getTimestamp();
+        }
+        if (null !== $v = $this->description) {
+            $payload['Description'] = $v;
+        }
+        if (null !== $v = $this->scheduleExpressionTimezone) {
+            $payload['ScheduleExpressionTimezone'] = $v;
         }
         if (null !== $v = $this->state) {
             if (!ScheduleState::exists($v)) {
@@ -445,10 +427,28 @@ final class CreateScheduleInput extends Input
             }
             $payload['State'] = $v;
         }
+        if (null !== $v = $this->kmsKeyArn) {
+            $payload['KmsKeyArn'] = $v;
+        }
         if (null === $v = $this->target) {
             throw new InvalidArgument(\sprintf('Missing parameter "Target" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Target'] = $v->requestBody();
+        if (null === $v = $this->flexibleTimeWindow) {
+            throw new InvalidArgument(\sprintf('Missing parameter "FlexibleTimeWindow" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['FlexibleTimeWindow'] = $v->requestBody();
+        if (null === $v = $this->clientToken) {
+            $v = uuid_create(\UUID_TYPE_RANDOM);
+        }
+        $payload['ClientToken'] = $v;
+        if (null !== $v = $this->actionAfterCompletion) {
+            if (!ActionAfterCompletion::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "ActionAfterCompletion" for "%s". The value "%s" is not a valid "ActionAfterCompletion".', __CLASS__, $v));
+            }
+            $payload['ActionAfterCompletion'] = $v;
+        }
 
         return $payload;
     }

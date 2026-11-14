@@ -13,6 +13,7 @@ use AsyncAws\Lambda\ValueObject\DurableConfig;
 use AsyncAws\Lambda\ValueObject\Environment;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
+use AsyncAws\Lambda\ValueObject\FunctionRuntimeConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\LoggingConfig;
 use AsyncAws\Lambda\ValueObject\SnapStart;
@@ -244,6 +245,14 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $durableConfig;
 
     /**
+     * The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime
+     * alias that your function uses.
+     *
+     * @var FunctionRuntimeConfig|null
+     */
+    private $runtimeConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string,
      *   Role?: string|null,
@@ -266,6 +275,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   LoggingConfig?: LoggingConfig|array|null,
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
+     *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -292,6 +302,7 @@ final class UpdateFunctionConfigurationRequest extends Input
         $this->loggingConfig = isset($input['LoggingConfig']) ? LoggingConfig::create($input['LoggingConfig']) : null;
         $this->capacityProviderConfig = isset($input['CapacityProviderConfig']) ? CapacityProviderConfig::create($input['CapacityProviderConfig']) : null;
         $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
+        $this->runtimeConfig = isset($input['RuntimeConfig']) ? FunctionRuntimeConfig::create($input['RuntimeConfig']) : null;
         parent::__construct($input);
     }
 
@@ -318,6 +329,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   LoggingConfig?: LoggingConfig|array|null,
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
+     *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      */
@@ -418,6 +430,11 @@ final class UpdateFunctionConfigurationRequest extends Input
     public function getRuntime(): ?string
     {
         return $this->runtime;
+    }
+
+    public function getRuntimeConfig(): ?FunctionRuntimeConfig
+    {
+        return $this->runtimeConfig;
     }
 
     public function getSnapStart(): ?SnapStart
@@ -598,6 +615,13 @@ final class UpdateFunctionConfigurationRequest extends Input
         return $this;
     }
 
+    public function setRuntimeConfig(?FunctionRuntimeConfig $value): self
+    {
+        $this->runtimeConfig = $value;
+
+        return $this;
+    }
+
     public function setSnapStart(?SnapStart $value): self
     {
         $this->snapStart = $value;
@@ -703,6 +727,9 @@ final class UpdateFunctionConfigurationRequest extends Input
         }
         if (null !== $v = $this->durableConfig) {
             $payload['DurableConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->runtimeConfig) {
+            $payload['RuntimeConfig'] = $v->requestBody();
         }
 
         return $payload;

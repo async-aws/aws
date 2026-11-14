@@ -10,14 +10,6 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DeleteScheduleGroupInput extends Input
 {
     /**
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
-     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
-     *
-     * @var string|null
-     */
-    private $clientToken;
-
-    /**
      * The name of the schedule group to delete.
      *
      * @required
@@ -27,23 +19,31 @@ final class DeleteScheduleGroupInput extends Input
     private $name;
 
     /**
+     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
+     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
+     *
+     * @var string|null
+     */
+    private $clientToken;
+
+    /**
      * @param array{
-     *   ClientToken?: string|null,
      *   Name?: string,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->clientToken = $input['ClientToken'] ?? null;
         $this->name = $input['Name'] ?? null;
+        $this->clientToken = $input['ClientToken'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   ClientToken?: string|null,
      *   Name?: string,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * }|DeleteScheduleGroupInput $input
      */

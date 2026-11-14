@@ -115,10 +115,10 @@ class ListScheduleGroupsOutput extends Result implements \IteratorAggregate
     {
         return new ScheduleGroupSummary([
             'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
-            'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate']))) ? $d : null,
-            'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
             'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
             'State' => isset($json['State']) ? (!ScheduleGroupState::exists((string) $json['State']) ? ScheduleGroupState::UNKNOWN_TO_SDK : (string) $json['State']) : null,
+            'CreationDate' => isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['CreationDate']))) ? $d : null,
+            'LastModificationDate' => isset($json['LastModificationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $json['LastModificationDate']))) ? $d : null,
         ]);
     }
 }

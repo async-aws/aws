@@ -343,6 +343,14 @@ final class FunctionConfiguration
     private $durableConfig;
 
     /**
+     * The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime
+     * alias that your function uses.
+     *
+     * @var FunctionRuntimeConfig|null
+     */
+    private $runtimeConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string|null,
      *   FunctionArn?: string|null,
@@ -384,6 +392,7 @@ final class FunctionConfiguration
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   ConfigSha256?: string|null,
      *   DurableConfig?: DurableConfig|array|null,
+     *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -428,6 +437,7 @@ final class FunctionConfiguration
         $this->capacityProviderConfig = isset($input['CapacityProviderConfig']) ? CapacityProviderConfig::create($input['CapacityProviderConfig']) : null;
         $this->configSha256 = $input['ConfigSha256'] ?? null;
         $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
+        $this->runtimeConfig = isset($input['RuntimeConfig']) ? FunctionRuntimeConfig::create($input['RuntimeConfig']) : null;
     }
 
     /**
@@ -472,6 +482,7 @@ final class FunctionConfiguration
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   ConfigSha256?: string|null,
      *   DurableConfig?: DurableConfig|array|null,
+     *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
      * }|FunctionConfiguration $input
      */
     public static function create($input): self
@@ -638,6 +649,11 @@ final class FunctionConfiguration
     public function getRuntime(): ?string
     {
         return $this->runtime;
+    }
+
+    public function getRuntimeConfig(): ?FunctionRuntimeConfig
+    {
+        return $this->runtimeConfig;
     }
 
     public function getRuntimeVersionConfig(): ?RuntimeVersionConfig

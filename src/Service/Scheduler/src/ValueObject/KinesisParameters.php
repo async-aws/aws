@@ -7,7 +7,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * The templated target type for the Amazon Kinesis `PutRecord` [^1] API operation.
  *
- * [^1]: kinesis/latest/APIReference/API_PutRecord.html
+ * [^1]: https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecord.html
  */
 final class KinesisParameters
 {

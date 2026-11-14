@@ -17,11 +17,11 @@ final class ScheduleSummary
     private $arn;
 
     /**
-     * The time at which the schedule was created.
+     * The name of the schedule.
      *
-     * @var \DateTimeImmutable|null
+     * @var string|null
      */
-    private $creationDate;
+    private $name;
 
     /**
      * The name of the schedule group associated with this schedule.
@@ -31,25 +31,25 @@ final class ScheduleSummary
     private $groupName;
 
     /**
-     * The time at which the schedule was last modified.
-     *
-     * @var \DateTimeImmutable|null
-     */
-    private $lastModificationDate;
-
-    /**
-     * The name of the schedule.
-     *
-     * @var string|null
-     */
-    private $name;
-
-    /**
      * Specifies whether the schedule is enabled or disabled.
      *
      * @var ScheduleState::*|null
      */
     private $state;
+
+    /**
+     * The time at which the schedule was created.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $creationDate;
+
+    /**
+     * The time at which the schedule was last modified.
+     *
+     * @var \DateTimeImmutable|null
+     */
+    private $lastModificationDate;
 
     /**
      * The schedule's target details.
@@ -61,33 +61,33 @@ final class ScheduleSummary
     /**
      * @param array{
      *   Arn?: string|null,
-     *   CreationDate?: \DateTimeImmutable|null,
-     *   GroupName?: string|null,
-     *   LastModificationDate?: \DateTimeImmutable|null,
      *   Name?: string|null,
+     *   GroupName?: string|null,
      *   State?: ScheduleState::*|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
      *   Target?: TargetSummary|array|null,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->arn = $input['Arn'] ?? null;
-        $this->creationDate = $input['CreationDate'] ?? null;
-        $this->groupName = $input['GroupName'] ?? null;
-        $this->lastModificationDate = $input['LastModificationDate'] ?? null;
         $this->name = $input['Name'] ?? null;
+        $this->groupName = $input['GroupName'] ?? null;
         $this->state = $input['State'] ?? null;
+        $this->creationDate = $input['CreationDate'] ?? null;
+        $this->lastModificationDate = $input['LastModificationDate'] ?? null;
         $this->target = isset($input['Target']) ? TargetSummary::create($input['Target']) : null;
     }
 
     /**
      * @param array{
      *   Arn?: string|null,
-     *   CreationDate?: \DateTimeImmutable|null,
-     *   GroupName?: string|null,
-     *   LastModificationDate?: \DateTimeImmutable|null,
      *   Name?: string|null,
+     *   GroupName?: string|null,
      *   State?: ScheduleState::*|null,
+     *   CreationDate?: \DateTimeImmutable|null,
+     *   LastModificationDate?: \DateTimeImmutable|null,
      *   Target?: TargetSummary|array|null,
      * }|ScheduleSummary $input
      */

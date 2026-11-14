@@ -11,14 +11,6 @@ use AsyncAws\Scheduler\ValueObject\Tag;
 final class CreateScheduleGroupInput extends Input
 {
     /**
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
-     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
-     *
-     * @var string|null
-     */
-    private $clientToken;
-
-    /**
      * The name of the schedule group that you are creating.
      *
      * @required
@@ -35,26 +27,34 @@ final class CreateScheduleGroupInput extends Input
     private $tags;
 
     /**
+     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a
+     * client token, EventBridge Scheduler uses a randomly generated token for the request to ensure idempotency.
+     *
+     * @var string|null
+     */
+    private $clientToken;
+
+    /**
      * @param array{
-     *   ClientToken?: string|null,
      *   Name?: string,
      *   Tags?: array<Tag|array>|null,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->clientToken = $input['ClientToken'] ?? null;
         $this->name = $input['Name'] ?? null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->clientToken = $input['ClientToken'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   ClientToken?: string|null,
      *   Name?: string,
      *   Tags?: array<Tag|array>|null,
+     *   ClientToken?: string|null,
      *   '@region'?: string|null,
      * }|CreateScheduleGroupInput $input
      */
@@ -138,10 +138,6 @@ final class CreateScheduleGroupInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->clientToken) {
-            $v = uuid_create(\UUID_TYPE_RANDOM);
-        }
-        $payload['ClientToken'] = $v;
 
         if (null !== $v = $this->tags) {
             $index = -1;
@@ -151,6 +147,10 @@ final class CreateScheduleGroupInput extends Input
                 $payload['Tags'][$index] = $listValue->requestBody();
             }
         }
+        if (null === $v = $this->clientToken) {
+            $v = uuid_create(\UUID_TYPE_RANDOM);
+        }
+        $payload['ClientToken'] = $v;
 
         return $payload;
     }
