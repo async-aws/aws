@@ -9,14 +9,6 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class ListScheduleGroupsInput extends Input
 {
     /**
-     * If specified, limits the number of results returned by this operation. The operation also returns a `NextToken` which
-     * you can use in a subsequent operation to retrieve the next set of results.
-     *
-     * @var int|null
-     */
-    private $maxResults;
-
-    /**
      * The name prefix that you can use to return a filtered list of your schedule groups.
      *
      * @var string|null
@@ -31,26 +23,34 @@ final class ListScheduleGroupsInput extends Input
     private $nextToken;
 
     /**
+     * If specified, limits the number of results returned by this operation. The operation also returns a `NextToken` which
+     * you can use in a subsequent operation to retrieve the next set of results.
+     *
+     * @var int|null
+     */
+    private $maxResults;
+
+    /**
      * @param array{
-     *   MaxResults?: int|null,
      *   NamePrefix?: string|null,
      *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->maxResults = $input['MaxResults'] ?? null;
         $this->namePrefix = $input['NamePrefix'] ?? null;
         $this->nextToken = $input['NextToken'] ?? null;
+        $this->maxResults = $input['MaxResults'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   MaxResults?: int|null,
      *   NamePrefix?: string|null,
      *   NextToken?: string|null,
+     *   MaxResults?: int|null,
      *   '@region'?: string|null,
      * }|ListScheduleGroupsInput $input
      */
@@ -87,14 +87,14 @@ final class ListScheduleGroupsInput extends Input
 
         // Prepare query
         $query = [];
-        if (null !== $this->maxResults) {
-            $query['MaxResults'] = (string) $this->maxResults;
-        }
         if (null !== $this->namePrefix) {
             $query['NamePrefix'] = $this->namePrefix;
         }
         if (null !== $this->nextToken) {
             $query['NextToken'] = $this->nextToken;
+        }
+        if (null !== $this->maxResults) {
+            $query['MaxResults'] = (string) $this->maxResults;
         }
 
         // Prepare URI

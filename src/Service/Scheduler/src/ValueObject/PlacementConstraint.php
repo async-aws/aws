@@ -11,17 +11,6 @@ use AsyncAws\Scheduler\Enum\PlacementConstraintType;
 final class PlacementConstraint
 {
     /**
-     * A cluster query language expression to apply to the constraint. You cannot specify an expression if the constraint
-     * type is `distinctInstance`. For more information, see Cluster query language [^1] in the *Amazon ECS Developer
-     * Guide*.
-     *
-     * [^1]: https://docs.aws.amazon.com/latest/developerguide/cluster-query-language.html
-     *
-     * @var string|null
-     */
-    private $expression;
-
-    /**
      * The type of constraint. Use `distinctInstance` to ensure that each task in a particular group is running on a
      * different container instance. Use `memberOf` to restrict the selection to a group of valid candidates.
      *
@@ -30,21 +19,32 @@ final class PlacementConstraint
     private $type;
 
     /**
+     * A cluster query language expression to apply to the constraint. You cannot specify an expression if the constraint
+     * type is `distinctInstance`. For more information, see Cluster query language [^1] in the *Amazon ECS Developer
+     * Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html
+     *
+     * @var string|null
+     */
+    private $expression;
+
+    /**
      * @param array{
-     *   expression?: string|null,
      *   type?: PlacementConstraintType::*|null,
+     *   expression?: string|null,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->expression = $input['expression'] ?? null;
         $this->type = $input['type'] ?? null;
+        $this->expression = $input['expression'] ?? null;
     }
 
     /**
      * @param array{
-     *   expression?: string|null,
      *   type?: PlacementConstraintType::*|null,
+     *   expression?: string|null,
      * }|PlacementConstraint $input
      */
     public static function create($input): self
@@ -71,15 +71,15 @@ final class PlacementConstraint
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->expression) {
-            $payload['expression'] = $v;
-        }
         if (null !== $v = $this->type) {
             if (!PlacementConstraintType::exists($v)) {
                 /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "PlacementConstraintType".', __CLASS__, $v));
             }
             $payload['type'] = $v;
+        }
+        if (null !== $v = $this->expression) {
+            $payload['expression'] = $v;
         }
 
         return $payload;

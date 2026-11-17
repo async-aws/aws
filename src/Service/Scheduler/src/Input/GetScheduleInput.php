@@ -10,14 +10,6 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetScheduleInput extends Input
 {
     /**
-     * The name of the schedule group associated with this schedule. If you omit this, EventBridge Scheduler assumes that
-     * the schedule is associated with the default group.
-     *
-     * @var string|null
-     */
-    private $groupName;
-
-    /**
      * The name of the schedule to retrieve.
      *
      * @required
@@ -27,23 +19,31 @@ final class GetScheduleInput extends Input
     private $name;
 
     /**
+     * The name of the schedule group associated with this schedule. If you omit this, EventBridge Scheduler assumes that
+     * the schedule is associated with the default group.
+     *
+     * @var string|null
+     */
+    private $groupName;
+
+    /**
      * @param array{
-     *   GroupName?: string|null,
      *   Name?: string,
+     *   GroupName?: string|null,
      *   '@region'?: string|null,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->groupName = $input['GroupName'] ?? null;
         $this->name = $input['Name'] ?? null;
+        $this->groupName = $input['GroupName'] ?? null;
         parent::__construct($input);
     }
 
     /**
      * @param array{
-     *   GroupName?: string|null,
      *   Name?: string,
+     *   GroupName?: string|null,
      *   '@region'?: string|null,
      * }|GetScheduleInput $input
      */

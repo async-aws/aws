@@ -239,6 +239,14 @@ final class Stack
     private $lastOperations;
 
     /**
+     * The alias assigned to the stack, if one has been set. An alias is an alternative name that can be used in place of
+     * the stack name in any CloudFormation API call that accepts the `StackName` parameter.
+     *
+     * @var string|null
+     */
+    private $aliasName;
+
+    /**
      * @param array{
      *   StackId?: string|null,
      *   StackName: string,
@@ -267,6 +275,7 @@ final class Stack
      *   DeletionMode?: DeletionMode::*|null,
      *   DetailedStatus?: DetailedStatus::*|null,
      *   LastOperations?: array<OperationEntry|array>|null,
+     *   AliasName?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -298,6 +307,7 @@ final class Stack
         $this->deletionMode = $input['DeletionMode'] ?? null;
         $this->detailedStatus = $input['DetailedStatus'] ?? null;
         $this->lastOperations = isset($input['LastOperations']) ? array_map([OperationEntry::class, 'create'], $input['LastOperations']) : null;
+        $this->aliasName = $input['AliasName'] ?? null;
     }
 
     /**
@@ -329,11 +339,17 @@ final class Stack
      *   DeletionMode?: DeletionMode::*|null,
      *   DetailedStatus?: DetailedStatus::*|null,
      *   LastOperations?: array<OperationEntry|array>|null,
+     *   AliasName?: string|null,
      * }|Stack $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getAliasName(): ?string
+    {
+        return $this->aliasName;
     }
 
     /**

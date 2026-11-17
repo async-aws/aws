@@ -179,6 +179,7 @@ final class PutParameterRequest extends Input
      *
      * - The content size of the parameter is more than 4 KB.
      * - The parameter uses a parameter policy.
+     * - The parameter uses the `url`, `json`, or `jsonc` data type.
      * - More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
      *   Region.
      *
@@ -218,13 +219,34 @@ final class PutParameterRequest extends Input
     private $policies;
 
     /**
-     * The data type for a `String` parameter. Supported data types include plain text and Amazon Machine Image (AMI) IDs.
+     * The data type of the parameter value. Parameter Store validates the value against the data type when you create or
+     * update the parameter. The default is `text`, which performs no validation.
      *
      * **The following data type values are supported.**
      *
      * - `text`
      * - `aws:ec2:image`
      * - `aws:ssm:integration`
+     * - `aws:region`
+     * - `aws:account:id`
+     * - `boolean`
+     * - `integer`
+     * - `float`
+     * - `binary`
+     * - `hostname`
+     * - `email`
+     * - `ipv4-address`
+     * - `ipv6-address`
+     * - `url`
+     * - `json`
+     * - `jsonc`
+     *
+     * For more information about the supported data types, see Working with parameter data types in Parameter Store [^1].
+     *
+     * > Regardless of a parameter's data type, the Parameter Store API operations that retrieve parameters, such as
+     * > `GetParameter`, `GetParameters`, and `GetParametersByPath`, return the parameter value as a string. For example, if
+     * > a parameter has the data type `integer` and the value `443`, `GetParameter` returns the value as the string
+     * > `"443"`. Convert the value to the type your application needs after you retrieve it.
      *
      * When you create a `String` parameter and specify `aws:ec2:image`, Amazon Web Services Systems Manager validates the
      * parameter value is in the required format, such as `ami-12345abcdeEXAMPLE`, and that the specified AMI is available
@@ -237,11 +259,12 @@ final class PutParameterRequest extends Input
      * > before the validation is complete. If you submit an invalid AMI value, the PutParameter operation will return
      * > success, but the asynchronous validation will fail and the parameter will not be created or updated. To monitor
      * > whether your `aws:ec2:image` parameters are created successfully, see Setting up notifications or trigger actions
-     * > based on Parameter Store events [^1]. For more information about AMI format validation , see Native parameter
-     * > support for Amazon Machine Image IDs [^2].
+     * > based on Parameter Store events [^2]. For more information about AMI format validation , see Native parameter
+     * > support for Amazon Machine Image IDs [^3].
      *
-     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html
-     * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html
+     * [^1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-data-types.html
+     * [^2]: https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html
+     * [^3]: https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html
      *
      * @var string|null
      */

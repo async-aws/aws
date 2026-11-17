@@ -15,8 +15,9 @@ final class ImageScanningConfiguration
      * For container output, Amazon Inspector scans the container image that Image Builder pushes to the Amazon ECR
      * repository from your `ecrConfiguration` settings.
      *
-     * To use container image scans, you must activate Amazon Inspector for Amazon ECR scanning in your account. The Image
-     * Builder `ListImageScanFindings` operation returns the findings of these scans.
+     * To use container image scans, you must activate Amazon Inspector for Amazon ECR scanning in the account and Amazon
+     * Web Services Region where the build runs. Amazon Inspector activation is Regional. The Image Builder
+     * `ListImageScanFindings` operation returns the findings of these scans.
      *
      * @var bool|null
      */
@@ -35,8 +36,8 @@ final class ImageScanningConfiguration
      * follows:
      *
      * - With `TEST_INSTANCE_CVE`, Amazon Inspector scans the test instance during image tests. To use this scan, you must
-     *   activate Amazon Inspector for Amazon EC2 scanning in your account. The Image Builder `ListImageScanFindings`
-     *   operation returns the findings.
+     *   activate Amazon Inspector for Amazon EC2 scanning in the account and Amazon Web Services Region where the build
+     *   runs. The Image Builder `ListImageScanFindings` operation returns the findings.
      * - With `ON_DEMAND_AMI_CVE`, Amazon Inspector starts an on-demand scan of the output AMI during image tests. To use
      *   this scan, you must build from an image recipe, but you do not need to activate Amazon Inspector in your account.
      *   The Amazon EC2 GetImageFindings [^1] operation returns the findings.

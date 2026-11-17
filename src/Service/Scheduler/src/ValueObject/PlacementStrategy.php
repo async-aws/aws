@@ -11,16 +11,6 @@ use AsyncAws\Scheduler\Enum\PlacementStrategyType;
 final class PlacementStrategy
 {
     /**
-     * The field to apply the placement strategy against. For the spread placement strategy, valid values are `instanceId`
-     * (or `instanceId`, which has the same effect), or any platform or custom attribute that is applied to a container
-     * instance, such as `attribute:ecs.availability-zone`. For the binpack placement strategy, valid values are `cpu` and
-     * `memory`. For the random placement strategy, this field is not used.
-     *
-     * @var string|null
-     */
-    private $field;
-
-    /**
      * The type of placement strategy. The random placement strategy randomly places tasks on available candidates. The
      * spread placement strategy spreads placement across available candidates evenly based on the field parameter. The
      * binpack strategy places tasks on available candidates that have the least available amount of the resource that is
@@ -32,21 +22,31 @@ final class PlacementStrategy
     private $type;
 
     /**
+     * The field to apply the placement strategy against. For the spread placement strategy, valid values are `instanceId`
+     * (or `instanceId`, which has the same effect), or any platform or custom attribute that is applied to a container
+     * instance, such as `attribute:ecs.availability-zone`. For the binpack placement strategy, valid values are `cpu` and
+     * `memory`. For the random placement strategy, this field is not used.
+     *
+     * @var string|null
+     */
+    private $field;
+
+    /**
      * @param array{
-     *   field?: string|null,
      *   type?: PlacementStrategyType::*|null,
+     *   field?: string|null,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->field = $input['field'] ?? null;
         $this->type = $input['type'] ?? null;
+        $this->field = $input['field'] ?? null;
     }
 
     /**
      * @param array{
-     *   field?: string|null,
      *   type?: PlacementStrategyType::*|null,
+     *   field?: string|null,
      * }|PlacementStrategy $input
      */
     public static function create($input): self
@@ -73,15 +73,15 @@ final class PlacementStrategy
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->field) {
-            $payload['field'] = $v;
-        }
         if (null !== $v = $this->type) {
             if (!PlacementStrategyType::exists($v)) {
                 /** @psalm-suppress NoValue */
                 throw new InvalidArgument(\sprintf('Invalid parameter "type" for "%s". The value "%s" is not a valid "PlacementStrategyType".', __CLASS__, $v));
             }
             $payload['type'] = $v;
+        }
+        if (null !== $v = $this->field) {
+            $payload['field'] = $v;
         }
 
         return $payload;

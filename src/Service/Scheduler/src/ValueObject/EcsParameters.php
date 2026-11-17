@@ -14,6 +14,54 @@ use AsyncAws\Scheduler\Enum\PropagateTags;
 final class EcsParameters
 {
     /**
+     * The Amazon Resource Name (ARN) of the task definition to use if the event target is an Amazon ECS task.
+     *
+     * @var string
+     */
+    private $taskDefinitionArn;
+
+    /**
+     * The number of tasks to create based on `TaskDefinition`. The default is `1`.
+     *
+     * @var int|null
+     */
+    private $taskCount;
+
+    /**
+     * Specifies the launch type on which your task is running. The launch type that you specify here must match one of the
+     * launch type (compatibilities) of the target task. The `FARGATE` value is supported only in the Regions where Fargate
+     * with Amazon ECS is supported. For more information, see Amazon Web Services Fargate on Amazon ECS [^1] in the *Amazon
+     * ECS Developer Guide*.
+     *
+     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html
+     *
+     * @var LaunchType::*|null
+     */
+    private $launchType;
+
+    /**
+     * This structure specifies the network configuration for an ECS task.
+     *
+     * @var NetworkConfiguration|null
+     */
+    private $networkConfiguration;
+
+    /**
+     * Specifies the platform version for the task. Specify only the numeric portion of the platform version, such as
+     * `1.1.0`.
+     *
+     * @var string|null
+     */
+    private $platformVersion;
+
+    /**
+     * Specifies an ECS task group for the task. The maximum length is 255 characters.
+     *
+     * @var string|null
+     */
+    private $group;
+
+    /**
      * The capacity provider strategy to use for the task.
      *
      * @var CapacityProviderStrategyItem[]|null
@@ -39,32 +87,6 @@ final class EcsParameters
     private $enableExecuteCommand;
 
     /**
-     * Specifies an ECS task group for the task. The maximum length is 255 characters.
-     *
-     * @var string|null
-     */
-    private $group;
-
-    /**
-     * Specifies the launch type on which your task is running. The launch type that you specify here must match one of the
-     * launch type (compatibilities) of the target task. The `FARGATE` value is supported only in the Regions where Fargate
-     * with Amazon ECS is supported. For more information, see AWS Fargate on Amazon ECS [^1] in the *Amazon ECS Developer
-     * Guide*.
-     *
-     * [^1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html
-     *
-     * @var LaunchType::*|null
-     */
-    private $launchType;
-
-    /**
-     * This structure specifies the network configuration for an ECS task.
-     *
-     * @var NetworkConfiguration|null
-     */
-    private $networkConfiguration;
-
-    /**
      * An array of placement constraint objects to use for the task. You can specify up to 10 constraints per task
      * (including constraints in the task definition and those specified at runtime).
      *
@@ -78,14 +100,6 @@ final class EcsParameters
      * @var PlacementStrategy[]|null
      */
     private $placementStrategy;
-
-    /**
-     * Specifies the platform version for the task. Specify only the numeric portion of the platform version, such as
-     * `1.1.0`.
-     *
-     * @var string|null
-     */
-    private $platformVersion;
 
     /**
      * Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags are
@@ -116,71 +130,57 @@ final class EcsParameters
     private $tags;
 
     /**
-     * The number of tasks to create based on `TaskDefinition`. The default is `1`.
-     *
-     * @var int|null
-     */
-    private $taskCount;
-
-    /**
-     * The Amazon Resource Name (ARN) of the task definition to use if the event target is an Amazon ECS task.
-     *
-     * @var string
-     */
-    private $taskDefinitionArn;
-
-    /**
      * @param array{
+     *   TaskDefinitionArn: string,
+     *   TaskCount?: int|null,
+     *   LaunchType?: LaunchType::*|null,
+     *   NetworkConfiguration?: NetworkConfiguration|array|null,
+     *   PlatformVersion?: string|null,
+     *   Group?: string|null,
      *   CapacityProviderStrategy?: array<CapacityProviderStrategyItem|array>|null,
      *   EnableECSManagedTags?: bool|null,
      *   EnableExecuteCommand?: bool|null,
-     *   Group?: string|null,
-     *   LaunchType?: LaunchType::*|null,
-     *   NetworkConfiguration?: NetworkConfiguration|array|null,
      *   PlacementConstraints?: array<PlacementConstraint|array>|null,
      *   PlacementStrategy?: array<PlacementStrategy|array>|null,
-     *   PlatformVersion?: string|null,
      *   PropagateTags?: PropagateTags::*|null,
      *   ReferenceId?: string|null,
      *   Tags?: array[]|null,
-     *   TaskCount?: int|null,
-     *   TaskDefinitionArn: string,
      * } $input
      */
     public function __construct(array $input)
     {
+        $this->taskDefinitionArn = $input['TaskDefinitionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "TaskDefinitionArn".'));
+        $this->taskCount = $input['TaskCount'] ?? null;
+        $this->launchType = $input['LaunchType'] ?? null;
+        $this->networkConfiguration = isset($input['NetworkConfiguration']) ? NetworkConfiguration::create($input['NetworkConfiguration']) : null;
+        $this->platformVersion = $input['PlatformVersion'] ?? null;
+        $this->group = $input['Group'] ?? null;
         $this->capacityProviderStrategy = isset($input['CapacityProviderStrategy']) ? array_map([CapacityProviderStrategyItem::class, 'create'], $input['CapacityProviderStrategy']) : null;
         $this->enableEcsManagedTags = $input['EnableECSManagedTags'] ?? null;
         $this->enableExecuteCommand = $input['EnableExecuteCommand'] ?? null;
-        $this->group = $input['Group'] ?? null;
-        $this->launchType = $input['LaunchType'] ?? null;
-        $this->networkConfiguration = isset($input['NetworkConfiguration']) ? NetworkConfiguration::create($input['NetworkConfiguration']) : null;
         $this->placementConstraints = isset($input['PlacementConstraints']) ? array_map([PlacementConstraint::class, 'create'], $input['PlacementConstraints']) : null;
         $this->placementStrategy = isset($input['PlacementStrategy']) ? array_map([PlacementStrategy::class, 'create'], $input['PlacementStrategy']) : null;
-        $this->platformVersion = $input['PlatformVersion'] ?? null;
         $this->propagateTags = $input['PropagateTags'] ?? null;
         $this->referenceId = $input['ReferenceId'] ?? null;
         $this->tags = $input['Tags'] ?? null;
-        $this->taskCount = $input['TaskCount'] ?? null;
-        $this->taskDefinitionArn = $input['TaskDefinitionArn'] ?? $this->throwException(new InvalidArgument('Missing required field "TaskDefinitionArn".'));
     }
 
     /**
      * @param array{
+     *   TaskDefinitionArn: string,
+     *   TaskCount?: int|null,
+     *   LaunchType?: LaunchType::*|null,
+     *   NetworkConfiguration?: NetworkConfiguration|array|null,
+     *   PlatformVersion?: string|null,
+     *   Group?: string|null,
      *   CapacityProviderStrategy?: array<CapacityProviderStrategyItem|array>|null,
      *   EnableECSManagedTags?: bool|null,
      *   EnableExecuteCommand?: bool|null,
-     *   Group?: string|null,
-     *   LaunchType?: LaunchType::*|null,
-     *   NetworkConfiguration?: NetworkConfiguration|array|null,
      *   PlacementConstraints?: array<PlacementConstraint|array>|null,
      *   PlacementStrategy?: array<PlacementStrategy|array>|null,
-     *   PlatformVersion?: string|null,
      *   PropagateTags?: PropagateTags::*|null,
      *   ReferenceId?: string|null,
      *   Tags?: array[]|null,
-     *   TaskCount?: int|null,
-     *   TaskDefinitionArn: string,
      * }|EcsParameters $input
      */
     public static function create($input): self
@@ -282,6 +282,27 @@ final class EcsParameters
     public function requestBody(): array
     {
         $payload = [];
+        $v = $this->taskDefinitionArn;
+        $payload['TaskDefinitionArn'] = $v;
+        if (null !== $v = $this->taskCount) {
+            $payload['TaskCount'] = $v;
+        }
+        if (null !== $v = $this->launchType) {
+            if (!LaunchType::exists($v)) {
+                /** @psalm-suppress NoValue */
+                throw new InvalidArgument(\sprintf('Invalid parameter "LaunchType" for "%s". The value "%s" is not a valid "LaunchType".', __CLASS__, $v));
+            }
+            $payload['LaunchType'] = $v;
+        }
+        if (null !== $v = $this->networkConfiguration) {
+            $payload['NetworkConfiguration'] = $v->requestBody();
+        }
+        if (null !== $v = $this->platformVersion) {
+            $payload['PlatformVersion'] = $v;
+        }
+        if (null !== $v = $this->group) {
+            $payload['Group'] = $v;
+        }
         if (null !== $v = $this->capacityProviderStrategy) {
             $index = -1;
             $payload['CapacityProviderStrategy'] = [];
@@ -295,19 +316,6 @@ final class EcsParameters
         }
         if (null !== $v = $this->enableExecuteCommand) {
             $payload['EnableExecuteCommand'] = (bool) $v;
-        }
-        if (null !== $v = $this->group) {
-            $payload['Group'] = $v;
-        }
-        if (null !== $v = $this->launchType) {
-            if (!LaunchType::exists($v)) {
-                /** @psalm-suppress NoValue */
-                throw new InvalidArgument(\sprintf('Invalid parameter "LaunchType" for "%s". The value "%s" is not a valid "LaunchType".', __CLASS__, $v));
-            }
-            $payload['LaunchType'] = $v;
-        }
-        if (null !== $v = $this->networkConfiguration) {
-            $payload['NetworkConfiguration'] = $v->requestBody();
         }
         if (null !== $v = $this->placementConstraints) {
             $index = -1;
@@ -324,9 +332,6 @@ final class EcsParameters
                 ++$index;
                 $payload['PlacementStrategy'][$index] = $listValue->requestBody();
             }
-        }
-        if (null !== $v = $this->platformVersion) {
-            $payload['PlatformVersion'] = $v;
         }
         if (null !== $v = $this->propagateTags) {
             if (!PropagateTags::exists($v)) {
@@ -354,11 +359,6 @@ final class EcsParameters
                 }
             }
         }
-        if (null !== $v = $this->taskCount) {
-            $payload['TaskCount'] = $v;
-        }
-        $v = $this->taskDefinitionArn;
-        $payload['TaskDefinitionArn'] = $v;
 
         return $payload;
     }

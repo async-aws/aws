@@ -11,6 +11,11 @@ final class Filter
     /**
      * The name of the filter. Filter names are case-sensitive.
      *
+     * The `name` filter matches the name that you gave the resource when you created it, exactly as you entered it. It
+     * doesn't match the name segment of the resource ARN, which Image Builder converts to lowercase with hyphens in place
+     * of spaces and underscores. For example, a resource named `My Image` has an ARN that contains `my-image` – filter on
+     * `My Image` to find it.
+     *
      * @var string|null
      */
     private $name;

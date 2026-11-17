@@ -30,6 +30,7 @@ use AsyncAws\Lambda\ValueObject\EnvironmentResponse;
 use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
 use AsyncAws\Lambda\ValueObject\FunctionConfiguration;
+use AsyncAws\Lambda\ValueObject\FunctionRuntimeConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
 use AsyncAws\Lambda\ValueObject\ImageConfigError;
 use AsyncAws\Lambda\ValueObject\ImageConfigResponse;
@@ -277,6 +278,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             'CapacityProviderConfig' => empty($json['CapacityProviderConfig']) ? null : $this->populateResultCapacityProviderConfig($json['CapacityProviderConfig']),
             'ConfigSha256' => isset($json['ConfigSha256']) ? (string) $json['ConfigSha256'] : null,
             'DurableConfig' => empty($json['DurableConfig']) ? null : $this->populateResultDurableConfig($json['DurableConfig']),
+            'RuntimeConfig' => empty($json['RuntimeConfig']) ? null : $this->populateResultFunctionRuntimeConfig($json['RuntimeConfig']),
         ]);
     }
 
@@ -291,6 +293,14 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         }
 
         return $items;
+    }
+
+    private function populateResultFunctionRuntimeConfig(array $json): FunctionRuntimeConfig
+    {
+        return new FunctionRuntimeConfig([
+            'RuntimeArn' => (string) $json['RuntimeArn'],
+            'RuntimeAlias' => (string) $json['RuntimeAlias'],
+        ]);
     }
 
     private function populateResultImageConfig(array $json): ImageConfig

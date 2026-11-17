@@ -11,13 +11,6 @@ use AsyncAws\Scheduler\Enum\FlexibleTimeWindowMode;
 final class FlexibleTimeWindow
 {
     /**
-     * The maximum time window during which a schedule can be invoked.
-     *
-     * @var int|null
-     */
-    private $maximumWindowInMinutes;
-
-    /**
      * Determines whether the schedule is invoked within a flexible time window.
      *
      * @var FlexibleTimeWindowMode::*
@@ -25,21 +18,28 @@ final class FlexibleTimeWindow
     private $mode;
 
     /**
+     * The maximum time window during which a schedule can be invoked.
+     *
+     * @var int|null
+     */
+    private $maximumWindowInMinutes;
+
+    /**
      * @param array{
-     *   MaximumWindowInMinutes?: int|null,
      *   Mode: FlexibleTimeWindowMode::*,
+     *   MaximumWindowInMinutes?: int|null,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->maximumWindowInMinutes = $input['MaximumWindowInMinutes'] ?? null;
         $this->mode = $input['Mode'] ?? $this->throwException(new InvalidArgument('Missing required field "Mode".'));
+        $this->maximumWindowInMinutes = $input['MaximumWindowInMinutes'] ?? null;
     }
 
     /**
      * @param array{
-     *   MaximumWindowInMinutes?: int|null,
      *   Mode: FlexibleTimeWindowMode::*,
+     *   MaximumWindowInMinutes?: int|null,
      * }|FlexibleTimeWindow $input
      */
     public static function create($input): self
@@ -66,15 +66,15 @@ final class FlexibleTimeWindow
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->maximumWindowInMinutes) {
-            $payload['MaximumWindowInMinutes'] = $v;
-        }
         $v = $this->mode;
         if (!FlexibleTimeWindowMode::exists($v)) {
             /** @psalm-suppress NoValue */
             throw new InvalidArgument(\sprintf('Invalid parameter "Mode" for "%s". The value "%s" is not a valid "FlexibleTimeWindowMode".', __CLASS__, $v));
         }
         $payload['Mode'] = $v;
+        if (null !== $v = $this->maximumWindowInMinutes) {
+            $payload['MaximumWindowInMinutes'] = $v;
+        }
 
         return $payload;
     }

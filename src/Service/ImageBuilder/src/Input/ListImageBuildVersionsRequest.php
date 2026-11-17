@@ -14,6 +14,9 @@ final class ListImageBuildVersionsRequest extends Input
      * an exact version (`<major>.<minor>.<patch>`) - wildcards aren't allowed. This parameter is
      * optional. If you don't specify it, Image Builder returns build versions for all of the images in your account.
      *
+     * If the ARN that you specify doesn't exist, Image Builder returns an empty list rather than a
+     * `ResourceNotFoundException` error.
+     *
      * @var string|null
      */
     private $imageVersionArn;
