@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Amazon S3 Vectors now supports metadata prefiltering, providing higher recall on filtered queries.
+- AWS api-change: Amazon S3 Vectors now supports hybrid search, providing metadata text search along with vector search.
 
 ### Changed
 

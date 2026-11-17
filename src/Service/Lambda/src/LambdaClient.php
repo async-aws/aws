@@ -88,6 +88,7 @@ use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use AsyncAws\Lambda\ValueObject\AcceleratorConfig;
 use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
 use AsyncAws\Lambda\ValueObject\DurableConfig;
@@ -721,6 +722,7 @@ class LambdaClient extends AbstractApi
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
+     *   AcceleratorConfig?: AcceleratorConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      *

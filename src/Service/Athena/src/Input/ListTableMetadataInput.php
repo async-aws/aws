@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena\Input;
 
+use AsyncAws\Athena\Enum\TableAttributes;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -58,6 +59,20 @@ final class ListTableMetadataInput extends Input
     private $workGroup;
 
     /**
+     * Specifies the table properties returned by the `ListTableMetadata` call. This parameter doesn't accept an empty list,
+     * and the request must include `NAME`. The valid combinations of values are `NAME`, which returns the name of each
+     * table, and `NAME` and `TABLE_TYPE`, which return the name and table type of each table. The remaining properties are
+     * omitted. If you omit this parameter, all table properties are returned.
+     *
+     * Requesting only the properties you need can reduce response time for databases that contain many tables.
+     *
+     * This parameter applies only to the Glue Data Catalog. For other data catalog types, it is ignored.
+     *
+     * @var list<TableAttributes::*>|null
+     */
+    private $attributesToGet;
+
+    /**
      * @param array{
      *   CatalogName?: string,
      *   DatabaseName?: string,
@@ -65,6 +80,7 @@ final class ListTableMetadataInput extends Input
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
+     *   AttributesToGet?: array<TableAttributes::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -76,6 +92,7 @@ final class ListTableMetadataInput extends Input
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->workGroup = $input['WorkGroup'] ?? null;
+        $this->attributesToGet = $input['AttributesToGet'] ?? null;
         parent::__construct($input);
     }
 
@@ -87,12 +104,21 @@ final class ListTableMetadataInput extends Input
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
+     *   AttributesToGet?: array<TableAttributes::*>|null,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<TableAttributes::*>
+     */
+    public function getAttributesToGet(): array
+    {
+        return $this->attributesToGet ?? [];
     }
 
     public function getCatalogName(): ?string
@@ -149,6 +175,16 @@ final class ListTableMetadataInput extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    /**
+     * @param list<TableAttributes::*> $value
+     */
+    public function setAttributesToGet(array $value): self
+    {
+        $this->attributesToGet = $value;
+
+        return $this;
     }
 
     public function setCatalogName(?string $value): self
@@ -215,6 +251,18 @@ final class ListTableMetadataInput extends Input
         }
         if (null !== $v = $this->workGroup) {
             $payload['WorkGroup'] = $v;
+        }
+        if (null !== $v = $this->attributesToGet) {
+            $index = -1;
+            $payload['AttributesToGet'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!TableAttributes::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
+                    throw new InvalidArgument(\sprintf('Invalid parameter "AttributesToGet" for "%s". The value "%s" is not a valid "TableAttributes".', __CLASS__, $listValue));
+                }
+                $payload['AttributesToGet'][$index] = $listValue;
+            }
         }
 
         return $payload;

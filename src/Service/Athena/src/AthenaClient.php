@@ -2,7 +2,9 @@
 
 namespace AsyncAws\Athena;
 
+use AsyncAws\Athena\Enum\DatabaseAttributes;
 use AsyncAws\Athena\Enum\QueryResultType;
+use AsyncAws\Athena\Enum\TableAttributes;
 use AsyncAws\Athena\Exception\InternalServerException;
 use AsyncAws\Athena\Exception\InvalidRequestException;
 use AsyncAws\Athena\Exception\MetadataException;
@@ -389,6 +391,7 @@ class AthenaClient extends AbstractApi
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
+     *   AttributesToGet?: array<DatabaseAttributes::*>|null,
      *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      *
@@ -479,6 +482,7 @@ class AthenaClient extends AbstractApi
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
+     *   AttributesToGet?: array<TableAttributes::*>|null,
      *   '@region'?: string|null,
      * }|ListTableMetadataInput $input
      *

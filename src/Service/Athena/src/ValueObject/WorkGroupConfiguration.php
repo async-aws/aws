@@ -69,8 +69,7 @@ final class WorkGroupConfiguration
     private $requesterPaysEnabled;
 
     /**
-     * The engine version that all queries running on the workgroup use. Queries on the `AmazonAthenaPreviewFunctionality`
-     * workgroup run on the preview engine regardless of this setting.
+     * The engine version that all queries running on the workgroup use.
      *
      * @var EngineVersion|null
      */

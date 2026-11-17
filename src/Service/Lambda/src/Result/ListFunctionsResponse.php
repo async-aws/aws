@@ -22,6 +22,7 @@ use AsyncAws\Lambda\Enum\TenantIsolationMode;
 use AsyncAws\Lambda\Enum\TracingMode;
 use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\Lambda\ValueObject\AcceleratorConfig;
 use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
 use AsyncAws\Lambda\ValueObject\DurableConfig;
@@ -133,6 +134,13 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
 
         $this->nextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
         $this->functions = empty($data['Functions']) ? [] : $this->populateResultFunctionList($data['Functions']);
+    }
+
+    private function populateResultAcceleratorConfig(array $json): AcceleratorConfig
+    {
+        return new AcceleratorConfig([
+            'AcceleratorMemorySize' => (int) $json['AcceleratorMemorySize'],
+        ]);
     }
 
     /**
@@ -279,6 +287,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             'ConfigSha256' => isset($json['ConfigSha256']) ? (string) $json['ConfigSha256'] : null,
             'DurableConfig' => empty($json['DurableConfig']) ? null : $this->populateResultDurableConfig($json['DurableConfig']),
             'RuntimeConfig' => empty($json['RuntimeConfig']) ? null : $this->populateResultFunctionRuntimeConfig($json['RuntimeConfig']),
+            'AcceleratorConfig' => empty($json['AcceleratorConfig']) ? null : $this->populateResultAcceleratorConfig($json['AcceleratorConfig']),
         ]);
     }
 

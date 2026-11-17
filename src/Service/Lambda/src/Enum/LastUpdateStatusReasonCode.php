@@ -25,6 +25,7 @@ final class LastUpdateStatusReasonCode
     public const FUNCTION_ERROR_TOO_MANY_EXTENSIONS = 'FunctionError.TooManyExtensions';
     public const IMAGE_ACCESS_DENIED = 'ImageAccessDenied';
     public const IMAGE_DELETED = 'ImageDeleted';
+    public const INCOMPATIBLE_ACCELERATOR_INSTANCE_TYPES = 'IncompatibleAcceleratorInstanceTypes';
     public const INSUFFICIENT_CAPACITY = 'InsufficientCapacity';
     public const INSUFFICIENT_ROLE_PERMISSIONS = 'InsufficientRolePermissions';
     public const INTERNAL_ERROR = 'InternalError';
@@ -69,6 +70,7 @@ final class LastUpdateStatusReasonCode
             self::FUNCTION_ERROR_TOO_MANY_EXTENSIONS => true,
             self::IMAGE_ACCESS_DENIED => true,
             self::IMAGE_DELETED => true,
+            self::INCOMPATIBLE_ACCELERATOR_INSTANCE_TYPES => true,
             self::INSUFFICIENT_CAPACITY => true,
             self::INSUFFICIENT_ROLE_PERMISSIONS => true,
             self::INTERNAL_ERROR => true,

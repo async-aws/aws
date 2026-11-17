@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Athena\Input;
 
+use AsyncAws\Athena\Enum\DatabaseAttributes;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
@@ -43,11 +44,26 @@ final class ListDatabasesInput extends Input
     private $workGroup;
 
     /**
+     * Specifies the database properties returned by the `ListDatabases` call. The only valid value is `NAME`, which returns
+     * only the name of each database and omits the remaining properties. If you omit this parameter or specify an empty
+     * list, all database properties are returned.
+     *
+     * Requesting only names can reduce response time for catalogs that contain many databases, especially resource links to
+     * databases shared from other accounts.
+     *
+     * This parameter applies only to the Glue Data Catalog. For other data catalog types, it is ignored.
+     *
+     * @var list<DatabaseAttributes::*>|null
+     */
+    private $attributesToGet;
+
+    /**
      * @param array{
      *   CatalogName?: string,
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
+     *   AttributesToGet?: array<DatabaseAttributes::*>|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -57,6 +73,7 @@ final class ListDatabasesInput extends Input
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->workGroup = $input['WorkGroup'] ?? null;
+        $this->attributesToGet = $input['AttributesToGet'] ?? null;
         parent::__construct($input);
     }
 
@@ -66,12 +83,21 @@ final class ListDatabasesInput extends Input
      *   NextToken?: string|null,
      *   MaxResults?: int|null,
      *   WorkGroup?: string|null,
+     *   AttributesToGet?: array<DatabaseAttributes::*>|null,
      *   '@region'?: string|null,
      * }|ListDatabasesInput $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<DatabaseAttributes::*>
+     */
+    public function getAttributesToGet(): array
+    {
+        return $this->attributesToGet ?? [];
     }
 
     public function getCatalogName(): ?string
@@ -120,6 +146,16 @@ final class ListDatabasesInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    /**
+     * @param list<DatabaseAttributes::*> $value
+     */
+    public function setAttributesToGet(array $value): self
+    {
+        $this->attributesToGet = $value;
+
+        return $this;
+    }
+
     public function setCatalogName(?string $value): self
     {
         $this->catalogName = $value;
@@ -163,6 +199,18 @@ final class ListDatabasesInput extends Input
         }
         if (null !== $v = $this->workGroup) {
             $payload['WorkGroup'] = $v;
+        }
+        if (null !== $v = $this->attributesToGet) {
+            $index = -1;
+            $payload['AttributesToGet'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!DatabaseAttributes::exists($listValue)) {
+                    /** @psalm-suppress NoValue */
+                    throw new InvalidArgument(\sprintf('Invalid parameter "AttributesToGet" for "%s". The value "%s" is not a valid "DatabaseAttributes".', __CLASS__, $listValue));
+                }
+                $payload['AttributesToGet'][$index] = $listValue;
+            }
         }
 
         return $payload;

@@ -6,7 +6,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The size of the function's `/tmp` directory in MB. The default value is 512, but can be any whole number between 512
- * and 10,240 MB. For more information, see Configuring ephemeral storage (console) [^1].
+ * and 10,240 MB. For functions that use `AcceleratorConfig`, the maximum is 32,768 MB. For more information, see
+ * Configuring ephemeral storage (console) [^1].
  *
  * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage
  */

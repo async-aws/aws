@@ -19,6 +19,7 @@ use AsyncAws\Lambda\Enum\StateReasonCode;
 use AsyncAws\Lambda\Enum\SystemLogLevel;
 use AsyncAws\Lambda\Enum\TenantIsolationMode;
 use AsyncAws\Lambda\Enum\TracingMode;
+use AsyncAws\Lambda\ValueObject\AcceleratorConfig;
 use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
 use AsyncAws\Lambda\ValueObject\DurableConfig;
@@ -312,7 +313,8 @@ class FunctionConfiguration extends Result
 
     /**
      * The size of the function's `/tmp` directory in MB. The default value is 512, but can be any whole number between 512
-     * and 10,240 MB. For more information, see Configuring ephemeral storage (console) [^1].
+     * and 10,240 MB. For functions that use `AcceleratorConfig`, the maximum is 32,768 MB. For more information, see
+     * Configuring ephemeral storage (console) [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage
      *
@@ -380,6 +382,20 @@ class FunctionConfiguration extends Result
      * @var FunctionRuntimeConfig|null
      */
     private $runtimeConfig;
+
+    /**
+     * The accelerator resource settings for a Lambda execution environment.
+     *
+     * @var AcceleratorConfig|null
+     */
+    private $acceleratorConfig;
+
+    public function getAcceleratorConfig(): ?AcceleratorConfig
+    {
+        $this->initialize();
+
+        return $this->acceleratorConfig;
+    }
 
     /**
      * @return list<Architecture::*>
@@ -740,6 +756,14 @@ class FunctionConfiguration extends Result
         $this->configSha256 = isset($data['ConfigSha256']) ? (string) $data['ConfigSha256'] : null;
         $this->durableConfig = empty($data['DurableConfig']) ? null : $this->populateResultDurableConfig($data['DurableConfig']);
         $this->runtimeConfig = empty($data['RuntimeConfig']) ? null : $this->populateResultFunctionRuntimeConfig($data['RuntimeConfig']);
+        $this->acceleratorConfig = empty($data['AcceleratorConfig']) ? null : $this->populateResultAcceleratorConfig($data['AcceleratorConfig']);
+    }
+
+    private function populateResultAcceleratorConfig(array $json): AcceleratorConfig
+    {
+        return new AcceleratorConfig([
+            'AcceleratorMemorySize' => (int) $json['AcceleratorMemorySize'],
+        ]);
     }
 
     /**

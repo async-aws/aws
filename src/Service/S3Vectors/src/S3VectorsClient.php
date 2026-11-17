@@ -52,6 +52,7 @@ use AsyncAws\S3Vectors\Result\QueryVectorsOutput;
 use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\MetadataConfiguration;
 use AsyncAws\S3Vectors\ValueObject\PutInputVector;
+use AsyncAws\S3Vectors\ValueObject\QueryText;
 use AsyncAws\S3Vectors\ValueObject\VectorData;
 
 class S3VectorsClient extends AbstractApi
@@ -637,9 +638,14 @@ class S3VectorsClient extends AbstractApi
     }
 
     /**
-     * Performs an approximate nearest neighbor search query in a vector index using a query vector. By default, it returns
-     * the keys of approximate nearest neighbors. You can optionally include the computed distance (between the query vector
-     * and each vector in the response) and metadata of each vector in the response.
+     * Returns matching vector keys from a vector index ranked by vector similarity, full-text relevance, or both. Specify
+     * `queryVector` to perform a vector search, specify `queryTexts` to perform a full-text search, or specify both to
+     * perform a hybrid search. Full-text search ranks results using BM25. Hybrid search combines the vector and full-text
+     * rankings using Reciprocal Rank Fusion (RRF).
+     *
+     * Amazon S3 Vectors ranks results by distance for a vector-only search, by BM25 score for a full-text-only search, and
+     * by RRF score for a hybrid search. You can optionally include computed distances, relevance scores, and vector
+     * metadata in the response. Full-text and hybrid searches require a vector index in `ENHANCED` mode.
      *
      * To specify the vector index, you can either use both the vector bucket name and the vector index name, or use the
      * vector index Amazon Resource Name (ARN).
@@ -650,11 +656,12 @@ class S3VectorsClient extends AbstractApi
      *   based on the request parameters you specify:
      *
      *   - With only `s3vectors:QueryVectors` permission, you can retrieve vector keys of approximate nearest neighbors and
-     *     computed distances between these vectors. This permission is sufficient only when you don't set any metadata
-     *     filters and don't request metadata (by keeping the `returnMetadata` parameter set to `false` or not specified).
-     *   - If you specify a metadata filter or set `returnMetadata` to true, you must have both `s3vectors:QueryVectors` and
-     *     `s3vectors:GetVectors` permissions. The request fails with a `403 Forbidden error` if you request metadata
-     *     filtering or metadata without the `s3vectors:GetVectors` permission.
+     *     computed distances between these vectors. This permission is sufficient only when you don't set `queryTexts`,
+     *     don't set any metadata filters, and don't request metadata (by keeping the `returnMetadata` parameter set to
+     *     `false` or not specified).
+     *   - To use `queryTexts`, a metadata filter, or `returnMetadata` set to `true` with this operation, you must have both
+     *     the `s3vectors:QueryVectors` and `s3vectors:GetVectors` permissions. If you use any of these options without the
+     *     `s3vectors:GetVectors` permission, Amazon S3 Vectors returns an `AccessDeniedException`.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations_Amazon_S3_Vectors.html/API_QueryVectors.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3vectors-2025-07-15.html#queryvectors
@@ -664,11 +671,13 @@ class S3VectorsClient extends AbstractApi
      *   indexName?: string|null,
      *   indexArn?: string|null,
      *   topK: int,
-     *   queryVector: VectorData|array,
+     *   queryVector?: VectorData|array|null,
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      *   queryMode?: IndexMode::*|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
+     *   queryTexts?: array<QueryText|array>|null,
+     *   returnScores?: bool|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
      * }|QueryVectorsInput $input

@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3Vectors\Enum\IndexMode;
+use AsyncAws\S3Vectors\ValueObject\QueryText;
 use AsyncAws\S3Vectors\ValueObject\VectorData;
 
 final class QueryVectorsInput extends Input
@@ -42,11 +43,10 @@ final class QueryVectorsInput extends Input
     private $topK;
 
     /**
-     * The query vector. Ensure that the query vector has the same dimension as the dimension of the vector index that's
-     * being queried. For example, if your vector index contains vectors with 384 dimensions, your query vector must also
-     * have 384 dimensions.
-     *
-     * @required
+     * The query vector for vector similarity search. The query vector must have the same dimension as the vector index. For
+     * example, if the vector index has 384 dimensions, the query vector must also have 384 dimensions. You can omit this
+     * parameter when you supply `queryTexts` to perform a full-text-only search. A request must include `queryVector`,
+     * `queryTexts`, or both.
      *
      * @var VectorData|null
      */
@@ -90,6 +90,23 @@ final class QueryVectorsInput extends Input
     private $returnDistance;
 
     /**
+     * Full-text queries for searchable metadata keys. Omit `queryVector` to run a full-text-only search, or provide both
+     * fields to run a hybrid search. Each entry must target a distinct searchable metadata key.
+     *
+     * @var QueryText[]|null
+     */
+    private $queryTexts;
+
+    /**
+     * Indicates whether to include relevance scores in the response. Full-text-only results can include BM25 scores. Hybrid
+     * results can also include a Reciprocal Rank Fusion (RRF) score and vector distance. This setting doesn't add scores to
+     * vector-only requests. The default value is `false`.
+     *
+     * @var bool|null
+     */
+    private $returnScores;
+
+    /**
      * Pagination token from a previous request. The value of this field is empty for an initial request.
      *
      * @var string|null
@@ -102,11 +119,13 @@ final class QueryVectorsInput extends Input
      *   indexName?: string|null,
      *   indexArn?: string|null,
      *   topK?: int,
-     *   queryVector?: VectorData|array,
+     *   queryVector?: VectorData|array|null,
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      *   queryMode?: IndexMode::*|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
+     *   queryTexts?: array<QueryText|array>|null,
+     *   returnScores?: bool|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
      * } $input
@@ -122,6 +141,8 @@ final class QueryVectorsInput extends Input
         $this->queryMode = $input['queryMode'] ?? null;
         $this->returnMetadata = $input['returnMetadata'] ?? null;
         $this->returnDistance = $input['returnDistance'] ?? null;
+        $this->queryTexts = isset($input['queryTexts']) ? array_map([QueryText::class, 'create'], $input['queryTexts']) : null;
+        $this->returnScores = $input['returnScores'] ?? null;
         $this->nextToken = $input['nextToken'] ?? null;
         parent::__construct($input);
     }
@@ -132,11 +153,13 @@ final class QueryVectorsInput extends Input
      *   indexName?: string|null,
      *   indexArn?: string|null,
      *   topK?: int,
-     *   queryVector?: VectorData|array,
+     *   queryVector?: VectorData|array|null,
      *   filter?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      *   queryMode?: IndexMode::*|null,
      *   returnMetadata?: bool|null,
      *   returnDistance?: bool|null,
+     *   queryTexts?: array<QueryText|array>|null,
+     *   returnScores?: bool|null,
      *   nextToken?: string|null,
      *   '@region'?: string|null,
      * }|QueryVectorsInput $input
@@ -177,6 +200,14 @@ final class QueryVectorsInput extends Input
         return $this->queryMode;
     }
 
+    /**
+     * @return QueryText[]
+     */
+    public function getQueryTexts(): array
+    {
+        return $this->queryTexts ?? [];
+    }
+
     public function getQueryVector(): ?VectorData
     {
         return $this->queryVector;
@@ -190,6 +221,11 @@ final class QueryVectorsInput extends Input
     public function getReturnMetadata(): ?bool
     {
         return $this->returnMetadata;
+    }
+
+    public function getReturnScores(): ?bool
+    {
+        return $this->returnScores;
     }
 
     public function getTopK(): ?int
@@ -268,6 +304,16 @@ final class QueryVectorsInput extends Input
         return $this;
     }
 
+    /**
+     * @param QueryText[] $value
+     */
+    public function setQueryTexts(array $value): self
+    {
+        $this->queryTexts = $value;
+
+        return $this;
+    }
+
     public function setQueryVector(?VectorData $value): self
     {
         $this->queryVector = $value;
@@ -285,6 +331,13 @@ final class QueryVectorsInput extends Input
     public function setReturnMetadata(?bool $value): self
     {
         $this->returnMetadata = $value;
+
+        return $this;
+    }
+
+    public function setReturnScores(?bool $value): self
+    {
+        $this->returnScores = $value;
 
         return $this;
     }
@@ -319,10 +372,9 @@ final class QueryVectorsInput extends Input
             throw new InvalidArgument(\sprintf('Missing parameter "topK" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['topK'] = $v;
-        if (null === $v = $this->queryVector) {
-            throw new InvalidArgument(\sprintf('Missing parameter "queryVector" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->queryVector) {
+            $payload['queryVector'] = $v->requestBody();
         }
-        $payload['queryVector'] = $v->requestBody();
         if (null !== $v = $this->filter) {
             $payload['filter'] = $v;
         }
@@ -338,6 +390,17 @@ final class QueryVectorsInput extends Input
         }
         if (null !== $v = $this->returnDistance) {
             $payload['returnDistance'] = (bool) $v;
+        }
+        if (null !== $v = $this->queryTexts) {
+            $index = -1;
+            $payload['queryTexts'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['queryTexts'][$index] = $listValue->requestBody();
+            }
+        }
+        if (null !== $v = $this->returnScores) {
+            $payload['returnScores'] = (bool) $v;
         }
         if (null !== $v = $this->nextToken) {
             $payload['nextToken'] = $v;

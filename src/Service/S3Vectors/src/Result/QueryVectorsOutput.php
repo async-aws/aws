@@ -8,7 +8,9 @@ use AsyncAws\Core\Result;
 use AsyncAws\S3Vectors\Enum\DistanceMetric;
 use AsyncAws\S3Vectors\Input\QueryVectorsInput;
 use AsyncAws\S3Vectors\S3VectorsClient;
+use AsyncAws\S3Vectors\ValueObject\Bm25Score;
 use AsyncAws\S3Vectors\ValueObject\QueryOutputVector;
+use AsyncAws\S3Vectors\ValueObject\QueryScores;
 
 /**
  * @implements \IteratorAggregate<QueryOutputVector>
@@ -16,7 +18,8 @@ use AsyncAws\S3Vectors\ValueObject\QueryOutputVector;
 class QueryVectorsOutput extends Result implements \IteratorAggregate
 {
     /**
-     * The vectors in the approximate nearest neighbor search.
+     * The matching vector results in ranked order. Results are ranked by vector distance for a vector-only search, by BM25
+     * relevance for a full-text-only search, and by RRF score for a hybrid search.
      *
      * @var QueryOutputVector[]
      */
@@ -117,12 +120,43 @@ class QueryVectorsOutput extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 
+    private function populateResultBm25Score(array $json): Bm25Score
+    {
+        return new Bm25Score([
+            'metadataKey' => (string) $json['metadataKey'],
+            'score' => (float) $json['score'],
+        ]);
+    }
+
+    /**
+     * @return Bm25Score[]
+     */
+    private function populateResultBm25ScoreList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultBm25Score($item);
+        }
+
+        return $items;
+    }
+
     private function populateResultQueryOutputVector(array $json): QueryOutputVector
     {
         return new QueryOutputVector([
             'distance' => isset($json['distance']) ? (float) $json['distance'] : null,
+            'scores' => empty($json['scores']) ? null : $this->populateResultQueryScores($json['scores']),
             'key' => (string) $json['key'],
             'metadata' => $json['metadata'] ?? null,
+        ]);
+    }
+
+    private function populateResultQueryScores(array $json): QueryScores
+    {
+        return new QueryScores([
+            'fused' => isset($json['fused']) ? (float) $json['fused'] : null,
+            'bm25Scores' => !isset($json['bm25Scores']) ? null : $this->populateResultBm25ScoreList($json['bm25Scores']),
+            'vectorDistance' => isset($json['vectorDistance']) ? (float) $json['vectorDistance'] : null,
         ]);
     }
 

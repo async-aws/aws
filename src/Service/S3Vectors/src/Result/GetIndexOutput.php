@@ -5,13 +5,16 @@ namespace AsyncAws\S3Vectors\Result;
 use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3Vectors\Enum\AnalyzerStatus;
 use AsyncAws\S3Vectors\Enum\DataType;
 use AsyncAws\S3Vectors\Enum\DistanceMetric;
 use AsyncAws\S3Vectors\Enum\IndexMode;
+use AsyncAws\S3Vectors\Enum\LanguageCode;
 use AsyncAws\S3Vectors\Enum\SseType;
 use AsyncAws\S3Vectors\ValueObject\EncryptionConfiguration;
 use AsyncAws\S3Vectors\ValueObject\Index;
 use AsyncAws\S3Vectors\ValueObject\MetadataConfiguration;
+use AsyncAws\S3Vectors\ValueObject\TextSearchConfiguration;
 
 class GetIndexOutput extends Result
 {
@@ -63,8 +66,22 @@ class GetIndexOutput extends Result
     private function populateResultMetadataConfiguration(array $json): MetadataConfiguration
     {
         return new MetadataConfiguration([
-            'nonFilterableMetadataKeys' => $this->populateResultNonFilterableMetadataKeys($json['nonFilterableMetadataKeys']),
+            'nonFilterableMetadataKeys' => !isset($json['nonFilterableMetadataKeys']) ? null : $this->populateResultNonFilterableMetadataKeys($json['nonFilterableMetadataKeys']),
+            'textSearchConfigurations' => !isset($json['textSearchConfigurations']) ? null : $this->populateResultMetadataConfigurationTextSearchConfigurationsList($json['textSearchConfigurations']),
         ]);
+    }
+
+    /**
+     * @return TextSearchConfiguration[]
+     */
+    private function populateResultMetadataConfigurationTextSearchConfigurationsList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultTextSearchConfiguration($item);
+        }
+
+        return $items;
     }
 
     /**
@@ -81,5 +98,14 @@ class GetIndexOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultTextSearchConfiguration(array $json): TextSearchConfiguration
+    {
+        return new TextSearchConfiguration([
+            'metadataKey' => (string) $json['metadataKey'],
+            'language' => isset($json['language']) ? (!LanguageCode::exists((string) $json['language']) ? LanguageCode::UNKNOWN_TO_SDK : (string) $json['language']) : null,
+            'status' => isset($json['status']) ? (!AnalyzerStatus::exists((string) $json['status']) ? AnalyzerStatus::UNKNOWN_TO_SDK : (string) $json['status']) : null,
+        ]);
     }
 }
