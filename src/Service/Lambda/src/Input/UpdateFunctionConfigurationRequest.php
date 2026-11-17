@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\ValueObject\AcceleratorConfig;
 use AsyncAws\Lambda\ValueObject\CapacityProviderConfig;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
 use AsyncAws\Lambda\ValueObject\DurableConfig;
@@ -202,7 +203,8 @@ final class UpdateFunctionConfigurationRequest extends Input
 
     /**
      * The size of the function's `/tmp` directory in MB. The default value is 512, but can be any whole number between 512
-     * and 10,240 MB. For more information, see Configuring ephemeral storage (console) [^1].
+     * and 10,240 MB. For functions that use `AcceleratorConfig`, the maximum is 32,768 MB. For more information, see
+     * Configuring ephemeral storage (console) [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage
      *
@@ -253,6 +255,13 @@ final class UpdateFunctionConfigurationRequest extends Input
     private $runtimeConfig;
 
     /**
+     * The accelerator resource settings for a Lambda execution environment.
+     *
+     * @var AcceleratorConfig|null
+     */
+    private $acceleratorConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string,
      *   Role?: string|null,
@@ -276,6 +285,7 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
+     *   AcceleratorConfig?: AcceleratorConfig|array|null,
      *   '@region'?: string|null,
      * } $input
      */
@@ -303,6 +313,7 @@ final class UpdateFunctionConfigurationRequest extends Input
         $this->capacityProviderConfig = isset($input['CapacityProviderConfig']) ? CapacityProviderConfig::create($input['CapacityProviderConfig']) : null;
         $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
         $this->runtimeConfig = isset($input['RuntimeConfig']) ? FunctionRuntimeConfig::create($input['RuntimeConfig']) : null;
+        $this->acceleratorConfig = isset($input['AcceleratorConfig']) ? AcceleratorConfig::create($input['AcceleratorConfig']) : null;
         parent::__construct($input);
     }
 
@@ -330,12 +341,18 @@ final class UpdateFunctionConfigurationRequest extends Input
      *   CapacityProviderConfig?: CapacityProviderConfig|array|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
+     *   AcceleratorConfig?: AcceleratorConfig|array|null,
      *   '@region'?: string|null,
      * }|UpdateFunctionConfigurationRequest $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getAcceleratorConfig(): ?AcceleratorConfig
+    {
+        return $this->acceleratorConfig;
     }
 
     public function getCapacityProviderConfig(): ?CapacityProviderConfig
@@ -485,6 +502,13 @@ final class UpdateFunctionConfigurationRequest extends Input
 
         // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setAcceleratorConfig(?AcceleratorConfig $value): self
+    {
+        $this->acceleratorConfig = $value;
+
+        return $this;
     }
 
     public function setCapacityProviderConfig(?CapacityProviderConfig $value): self
@@ -730,6 +754,9 @@ final class UpdateFunctionConfigurationRequest extends Input
         }
         if (null !== $v = $this->runtimeConfig) {
             $payload['RuntimeConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->acceleratorConfig) {
+            $payload['AcceleratorConfig'] = $v->requestBody();
         }
 
         return $payload;

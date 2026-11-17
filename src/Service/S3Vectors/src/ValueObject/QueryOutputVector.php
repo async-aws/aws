@@ -5,7 +5,8 @@ namespace AsyncAws\S3Vectors\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The attributes of a vector in the approximate nearest neighbor search.
+ * Contains the key and optional distance, relevance scores, and metadata for a vector returned by the `QueryVectors`
+ * operation.
  */
 final class QueryOutputVector
 {
@@ -17,7 +18,14 @@ final class QueryOutputVector
     private $distance;
 
     /**
-     * The key of the vector in the approximate nearest neighbor search.
+     * The relevance scores for a full-text-only or hybrid result, when requested through `returnScores`.
+     *
+     * @var QueryScores|null
+     */
+    private $scores;
+
+    /**
+     * The key of the matching vector.
      *
      * @var string
      */
@@ -33,6 +41,7 @@ final class QueryOutputVector
     /**
      * @param array{
      *   distance?: float|null,
+     *   scores?: QueryScores|array|null,
      *   key: string,
      *   metadata?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      * } $input
@@ -40,6 +49,7 @@ final class QueryOutputVector
     public function __construct(array $input)
     {
         $this->distance = $input['distance'] ?? null;
+        $this->scores = isset($input['scores']) ? QueryScores::create($input['scores']) : null;
         $this->key = $input['key'] ?? $this->throwException(new InvalidArgument('Missing required field "key".'));
         $this->metadata = $input['metadata'] ?? null;
     }
@@ -47,6 +57,7 @@ final class QueryOutputVector
     /**
      * @param array{
      *   distance?: float|null,
+     *   scores?: QueryScores|array|null,
      *   key: string,
      *   metadata?: bool|string|int|float|list<mixed>|array<string, mixed>|null|null,
      * }|QueryOutputVector $input
@@ -72,6 +83,11 @@ final class QueryOutputVector
     public function getMetadata(): bool|string|int|float|array|null
     {
         return $this->metadata;
+    }
+
+    public function getScores(): ?QueryScores
+    {
+        return $this->scores;
     }
 
     /**

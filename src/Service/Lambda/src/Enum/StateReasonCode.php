@@ -28,6 +28,7 @@ final class StateReasonCode
     public const IDLE = 'Idle';
     public const IMAGE_ACCESS_DENIED = 'ImageAccessDenied';
     public const IMAGE_DELETED = 'ImageDeleted';
+    public const INCOMPATIBLE_ACCELERATOR_INSTANCE_TYPES = 'IncompatibleAcceleratorInstanceTypes';
     public const INSUFFICIENT_CAPACITY = 'InsufficientCapacity';
     public const INSUFFICIENT_ROLE_PERMISSIONS = 'InsufficientRolePermissions';
     public const INTERNAL_ERROR = 'InternalError';
@@ -76,6 +77,7 @@ final class StateReasonCode
             self::IDLE => true,
             self::IMAGE_ACCESS_DENIED => true,
             self::IMAGE_DELETED => true,
+            self::INCOMPATIBLE_ACCELERATOR_INSTANCE_TYPES => true,
             self::INSUFFICIENT_CAPACITY => true,
             self::INSUFFICIENT_ROLE_PERMISSIONS => true,
             self::INTERNAL_ERROR => true,

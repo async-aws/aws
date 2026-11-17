@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added support for Athena System Tables which writes Athena usage data to AWS S3 managed tables in Apache Iceberg format.
+- AWS api-change: Adds an optional AttributesToGet parameter to ListDatabases and ListTableMetadata to return only requested database or table names (and table types) from the AWS Glue Data Catalog, reducing response time for large catalogs.
 
 ## 3.5.2
 

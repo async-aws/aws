@@ -281,7 +281,8 @@ final class FunctionConfiguration
 
     /**
      * The size of the function's `/tmp` directory in MB. The default value is 512, but can be any whole number between 512
-     * and 10,240 MB. For more information, see Configuring ephemeral storage (console) [^1].
+     * and 10,240 MB. For functions that use `AcceleratorConfig`, the maximum is 32,768 MB. For more information, see
+     * Configuring ephemeral storage (console) [^1].
      *
      * [^1]: https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage
      *
@@ -351,6 +352,13 @@ final class FunctionConfiguration
     private $runtimeConfig;
 
     /**
+     * The accelerator resource settings for a Lambda execution environment.
+     *
+     * @var AcceleratorConfig|null
+     */
+    private $acceleratorConfig;
+
+    /**
      * @param array{
      *   FunctionName?: string|null,
      *   FunctionArn?: string|null,
@@ -393,6 +401,7 @@ final class FunctionConfiguration
      *   ConfigSha256?: string|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
+     *   AcceleratorConfig?: AcceleratorConfig|array|null,
      * } $input
      */
     public function __construct(array $input)
@@ -438,6 +447,7 @@ final class FunctionConfiguration
         $this->configSha256 = $input['ConfigSha256'] ?? null;
         $this->durableConfig = isset($input['DurableConfig']) ? DurableConfig::create($input['DurableConfig']) : null;
         $this->runtimeConfig = isset($input['RuntimeConfig']) ? FunctionRuntimeConfig::create($input['RuntimeConfig']) : null;
+        $this->acceleratorConfig = isset($input['AcceleratorConfig']) ? AcceleratorConfig::create($input['AcceleratorConfig']) : null;
     }
 
     /**
@@ -483,11 +493,17 @@ final class FunctionConfiguration
      *   ConfigSha256?: string|null,
      *   DurableConfig?: DurableConfig|array|null,
      *   RuntimeConfig?: FunctionRuntimeConfig|array|null,
+     *   AcceleratorConfig?: AcceleratorConfig|array|null,
      * }|FunctionConfiguration $input
      */
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getAcceleratorConfig(): ?AcceleratorConfig
+    {
+        return $this->acceleratorConfig;
     }
 
     /**
