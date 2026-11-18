@@ -129,6 +129,13 @@ Full Uri to the endpoint of the Pod Identity agent, which should already be inje
 
 Path to the file that contains the Pod Identity access token, which should already be injected by the Pod Identity agent when using the [PodIdentity Provider](/authentication/pod-identity.md)
 
+### containerAuthorizationToken
+
+The authorization token for the container credentials endpoint. AsyncAws sends it in the
+`Authorization` header, but only when `podIdentityAuthorizationTokenFile` is not set.
+AWS Lambda sets it with the `AWS_CONTAINER_AUTHORIZATION_TOKEN` environment variable for
+functions with [SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-activate.html#snapstart-credentials).
+
 ## S3 specific Configuration reference
 
 ### pathStyleEndpoint

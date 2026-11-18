@@ -77,6 +77,10 @@ class ConfigurationTest extends TestCase
         yield 'mix config and env' => [['accessKeyId' => 'key'], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => 'key', 'sessionToken' => null]];
         yield 'null config with env group' => [['accessKeyId' => null], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => null, 'sessionToken' => 'token']];
 
+        yield 'container authorization env' => [[], ['AWS_CONTAINER_AUTHORIZATION_TOKEN_FILE' => '/token', 'AWS_CONTAINER_AUTHORIZATION_TOKEN' => 'token'], ['podIdentityAuthorizationTokenFile' => '/token', 'containerAuthorizationToken' => 'token']];
+        yield 'container authorization token config with env group' => [['containerAuthorizationToken' => 'config'], ['AWS_CONTAINER_AUTHORIZATION_TOKEN_FILE' => '/token'], ['containerAuthorizationToken' => 'config', 'podIdentityAuthorizationTokenFile' => null]];
+        yield 'container authorization token file config with env group' => [['podIdentityAuthorizationTokenFile' => '/config'], ['AWS_CONTAINER_AUTHORIZATION_TOKEN' => 'token'], ['podIdentityAuthorizationTokenFile' => '/config', 'containerAuthorizationToken' => null]];
+
         yield 'boolean value' => [['pathStyleEndpoint' => true], [], ['pathStyleEndpoint' => '1']];
     }
 

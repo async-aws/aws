@@ -14,8 +14,9 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Provides Credentials for containers running in EKS with Pod Identity or ECS.
+ * Provides Credentials for containers running in EKS with Pod Identity or ECS, and for Lambda functions with SnapStart.
  *
+ * @see https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html
  * @see https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/auth/ContainerCredentialsProvider.html
  * @see https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html
  */
@@ -75,9 +76,17 @@ final class ContainerProvider implements CredentialProvider
             }
         }
 
+        $token = $tokenFileContent ?? $configuration->get(Configuration::OPTION_CONTAINER_AUTHORIZATION_TOKEN);
+        if (null !== $token && false !== strpbrk($token, "\r\n\0")) {
+            // do not pass the token to the HTTP client: its exception message would contain the token
+            $this->logger->warning('Invalid container authorization token: it must not contain CR, LF or NUL characters.');
+
+            return null;
+        }
+
         // fetch credentials from ecs endpoint
         try {
-            $response = $this->httpClient->request('GET', $fullUri, ['headers' => $this->getHeaders($tokenFileContent ?? null), 'timeout' => $this->timeout]);
+            $response = $this->httpClient->request('GET', $fullUri, ['headers' => $this->getHeaders($token), 'timeout' => $this->timeout]);
             $result = $response->toArray();
         } catch (DecodingExceptionInterface $e) {
             $this->logger->info('Failed to decode Credentials.', ['exception' => $e]);
@@ -147,9 +156,9 @@ final class ContainerProvider implements CredentialProvider
         return $configuration->get(Configuration::OPTION_POD_IDENTITY_CREDENTIALS_FULL_URI);
     }
 
-    private function getHeaders(?string $tokenFileContent): array
+    private function getHeaders(?string $token): array
     {
-        return $tokenFileContent ? ['Authorization' => $tokenFileContent] : [];
+        return $token ? ['Authorization' => $token] : [];
     }
 
     private function isUriValid(string $uri): bool
