@@ -76,6 +76,17 @@ class UploadPartCopyOutput extends Result
      */
     private $requestCharged;
 
+    /**
+     * Version ID of the object.
+     *
+     * Returns the Version ID of the object for the copied part, if bucket versioning is enabled.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var string|null
+     */
+    private $versionId;
+
     public function getBucketKeyEnabled(): ?bool
     {
         $this->initialize();
@@ -138,6 +149,13 @@ class UploadPartCopyOutput extends Result
         return $this->sseKmsKeyId;
     }
 
+    public function getVersionId(): ?string
+    {
+        $this->initialize();
+
+        return $this->versionId;
+    }
+
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
@@ -149,6 +167,7 @@ class UploadPartCopyOutput extends Result
         $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
         $this->copyPartResult = $this->populateResultCopyPartResult($data);

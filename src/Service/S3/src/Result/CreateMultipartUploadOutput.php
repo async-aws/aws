@@ -137,6 +137,17 @@ class CreateMultipartUploadOutput extends Result
      */
     private $checksumType;
 
+    /**
+     * Version ID of the object.
+     *
+     * Returns the Version ID of the object for the initiated multipart upload, if bucket versioning is enabled.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var string|null
+     */
+    private $versionId;
+
     public function getAbortDate(): ?\DateTimeImmutable
     {
         $this->initialize();
@@ -247,6 +258,13 @@ class CreateMultipartUploadOutput extends Result
         return $this->uploadId;
     }
 
+    public function getVersionId(): ?string
+    {
+        $this->initialize();
+
+        return $this->versionId;
+    }
+
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
@@ -262,6 +280,7 @@ class CreateMultipartUploadOutput extends Result
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
         $this->checksumAlgorithm = $headers['x-amz-checksum-algorithm'][0] ?? null;
         $this->checksumType = $headers['x-amz-checksum-type'][0] ?? null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
         $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;

@@ -413,6 +413,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
             'Initiator' => 0 === $xml->Initiator->count() ? null : $this->populateResultInitiator($xml->Initiator),
             'ChecksumAlgorithm' => (null !== $v = $xml->ChecksumAlgorithm[0]) ? (!ChecksumAlgorithm::exists((string) $xml->ChecksumAlgorithm) ? ChecksumAlgorithm::UNKNOWN_TO_SDK : (string) $xml->ChecksumAlgorithm) : null,
             'ChecksumType' => (null !== $v = $xml->ChecksumType[0]) ? (!ChecksumType::exists((string) $xml->ChecksumType) ? ChecksumType::UNKNOWN_TO_SDK : (string) $xml->ChecksumType) : null,
+            'VersionId' => (null !== $v = $xml->VersionId[0]) ? (string) $v : null,
         ]);
     }
 

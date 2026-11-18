@@ -159,6 +159,17 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      */
     private $checksumType;
 
+    /**
+     * Version ID of the object.
+     *
+     * Returns the Version ID of the object for the listed parts, if bucket versioning is enabled.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var string|null
+     */
+    private $versionId;
+
     public function getAbortDate(): ?\DateTimeImmutable
     {
         $this->initialize();
@@ -330,6 +341,13 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         return $this->uploadId;
     }
 
+    public function getVersionId(): ?string
+    {
+        $this->initialize();
+
+        return $this->versionId;
+    }
+
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
@@ -337,6 +355,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->abortDate = isset($headers['x-amz-abort-date'][0]) ? new \DateTimeImmutable($headers['x-amz-abort-date'][0]) : null;
         $this->abortRuleId = $headers['x-amz-abort-rule-id'][0] ?? null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
         $this->bucket = (null !== $v = $data->Bucket[0]) ? (string) $v : null;

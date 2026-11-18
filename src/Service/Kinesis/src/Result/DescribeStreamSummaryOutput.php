@@ -96,6 +96,7 @@ class DescribeStreamSummaryOutput extends Result
             'MaxRecordSizeInKiB' => isset($json['MaxRecordSizeInKiB']) ? (int) $json['MaxRecordSizeInKiB'] : null,
             'ChannelCount' => isset($json['ChannelCount']) ? (int) $json['ChannelCount'] : null,
             'RecordDistributionStrategy' => isset($json['RecordDistributionStrategy']) ? (!RecordDistributionStrategy::exists((string) $json['RecordDistributionStrategy']) ? RecordDistributionStrategy::UNKNOWN_TO_SDK : (string) $json['RecordDistributionStrategy']) : null,
+            'QueueCount' => isset($json['QueueCount']) ? (int) $json['QueueCount'] : null,
         ]);
     }
 
