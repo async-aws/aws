@@ -261,6 +261,8 @@ class KinesisClient extends AbstractApi
      *
      * When you delete a stream, any shards in that stream are also deleted, and any tags are dissociated from the stream.
      *
+     * Before you can delete a data stream that has queues, you must delete every queue on the stream with DeleteQueue.
+     *
      * You can use the DescribeStreamSummary operation to check the state of the stream, which is returned in
      * `StreamStatus`.
      *
@@ -1233,11 +1235,13 @@ class KinesisClient extends AbstractApi
      * you must also have the `kinesis:TagResource` permission for the consumer that will be registered. Tags will take
      * effect from the `CREATING` status of the consumer.
      *
-     * With On-demand Advantage streams, you can register up to 50 consumers per stream to use Enhanced Fan-out. With
-     * On-demand Standard and Provisioned streams, you can register up to 20 consumers per stream to use Enhanced Fan-out. A
-     * given consumer can only be registered with one stream at a time.
+     * With On-demand Advantage streams, you can register up to 50 consumers per stream to use enhanced fan-out. With
+     * On-demand Standard and Provisioned streams, you can register up to 20 consumers per stream to use enhanced fan-out.
+     * Queues share this limit with enhanced fan-out consumers: both count as registered consumers on the stream. A given
+     * consumer can only be registered with one stream at a time.
      *
-     * For an example of how to use this operation, see Enhanced Fan-Out Using the Kinesis Data Streams API [^1].
+     * For an example of how to use this operation, see Develop enhanced fan-out consumers with the Amazon Web Services SDK
+     * for Java [^1].
      *
      * The use of this operation has a limit of five transactions per second per account. Also, only 5 consumers can be
      * created simultaneously. In other words, you cannot have more than 5 consumers in a `CREATING` status at the same

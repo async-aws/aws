@@ -763,22 +763,28 @@ class S3Client extends AbstractApi
      * upload request. For more information about multipart uploads, see Multipart Upload Overview [^2] in the *Amazon S3
      * User Guide*.
      *
-     * > After you initiate a multipart upload and upload one or more parts, to stop being charged for storing the uploaded
-     * > parts, you must either complete or abort the multipart upload. Amazon S3 frees up the space used to store the parts
-     * > and stops charging you for storing them only after you either complete or abort a multipart upload.
+     * > - After you initiate a multipart upload and upload one or more parts, to stop being charged for storing the
+     * >   uploaded parts, you must either complete or abort the multipart upload. Amazon S3 frees up the space used to
+     * >   store the parts and stops charging you for storing them only after you either complete or abort a multipart
+     * >   upload.
+     * > - When you initiate a multipart upload, Amazon S3 records the bucket configuration in place at that time and uses
+     * >   it for the rest of the upload. Changes that you make to the bucket configuration after you initiate the upload
+     * >   don't apply to that upload. To apply new bucket configuration to uploads in progress, use ListMultipartUploads
+     * >   [^3] to find them and AbortMultipartUpload [^4] to stop them. Then start the uploads again.
+     * >
      *
      * If you have configured a lifecycle rule to abort incomplete multipart uploads, the created multipart upload must be
      * completed within the number of days specified in the bucket lifecycle configuration. Otherwise, the incomplete
      * multipart upload becomes eligible for an abort action and Amazon S3 aborts the multipart upload. For more
-     * information, see Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration [^3].
+     * information, see Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration [^5].
      *
      * > - **Directory buckets ** - S3 Lifecycle is not supported by directory buckets.
      * > - **Directory buckets ** - For directory buckets, you must make requests for this API operation to the Zonal
      * >   endpoint. These endpoints support virtual-hosted-style requests in the format
      * >   `https://*amzn-s3-demo-bucket*.s3express-*zone-id*.*region-code*.amazonaws.com/*key-name*`. Path-style requests
      * >   are not supported. For more information about endpoints in Availability Zones, see Regional and Zonal endpoints
-     * >   for directory buckets in Availability Zones [^4] in the *Amazon S3 User Guide*. For more information about
-     * >   endpoints in Local Zones, see Concepts for directory buckets in Local Zones [^5] in the *Amazon S3 User Guide*.
+     * >   for directory buckets in Availability Zones [^6] in the *Amazon S3 User Guide*. For more information about
+     * >   endpoints in Local Zones, see Concepts for directory buckets in Local Zones [^7] in the *Amazon S3 User Guide*.
      * >
      *
      * - `Request signing`:
@@ -786,7 +792,7 @@ class S3Client extends AbstractApi
      *   For request signing, multipart upload is just a series of regular requests. You initiate a multipart upload, send
      *   one or more requests to upload parts, and then complete the multipart upload process. You sign each request
      *   individually. There is nothing special about signing multipart upload requests. For more information about signing,
-     *   see Authenticating Requests (Amazon Web Services Signature Version 4) [^6] in the *Amazon S3 User Guide*.
+     *   see Authenticating Requests (Amazon Web Services Signature Version 4) [^8] in the *Amazon S3 User Guide*.
      * - `Permissions`:
      *
      *   - **General purpose bucket permissions** - To perform a multipart upload with encryption using an Key Management
@@ -795,16 +801,16 @@ class S3Client extends AbstractApi
      *     `CreateMultipartUpload` API. Then, the requester needs permissions for the `kms:Decrypt` action on the
      *     `UploadPart` and `UploadPartCopy` APIs. These permissions are required because Amazon S3 must decrypt and read
      *     data from the encrypted file parts before it completes the multipart upload. For more information, see Multipart
-     *     upload API and permissions [^7] and Protecting data using server-side encryption with Amazon Web Services KMS
-     *     [^8] in the *Amazon S3 User Guide*.
+     *     upload API and permissions [^9] and Protecting data using server-side encryption with Amazon Web Services KMS
+     *     [^10] in the *Amazon S3 User Guide*.
      *   - **Directory bucket permissions** - To grant access to this API operation on a directory bucket, we recommend that
-     *     you use the `CreateSession` [^9] API operation for session-based authorization. Specifically, you grant the
+     *     you use the `CreateSession` [^11] API operation for session-based authorization. Specifically, you grant the
      *     `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy.
      *     Then, you make the `CreateSession` API call on the bucket to obtain a session token. With the session token in
      *     your request header, you can make API requests to this operation. After the session token expires, you make
      *     another `CreateSession` API call to generate a new session token for use. Amazon Web Services CLI or SDKs create
      *     session and refresh the session token automatically to avoid service interruptions when a session expires. For
-     *     more information about authorization, see `CreateSession` [^10].
+     *     more information about authorization, see `CreateSession` [^12].
      *
      * - `Encryption`:
      *
@@ -821,7 +827,7 @@ class S3Client extends AbstractApi
      *     different encryption key (such as an Amazon S3 managed key, a KMS key, or a customer-provided key). When the
      *     encryption setting in your request is different from the default encryption configuration of the destination
      *     bucket, the encryption setting in your request takes precedence. If you choose to provide your own encryption
-     *     key, the request headers you provide in UploadPart [^11] and UploadPartCopy [^12] requests must match the headers
+     *     key, the request headers you provide in UploadPart [^13] and UploadPartCopy [^14] requests must match the headers
      *     you used in the `CreateMultipartUpload` request.
      *
      *     - Use KMS keys (SSE-KMS) that include the Amazon Web Services managed key (`aws/s3`) and KMS customer managed
@@ -838,19 +844,19 @@ class S3Client extends AbstractApi
      *       > - To perform a multipart upload with encryption by using an Amazon Web Services KMS key, the requester must
      *       >   have permission to the `kms:Decrypt` and `kms:GenerateDataKey*` actions on the key. These permissions are
      *       >   required because Amazon S3 must decrypt and read data from the encrypted file parts before it completes the
-     *       >   multipart upload. For more information, see Multipart upload API and permissions [^13] and Protecting data
-     *       >   using server-side encryption with Amazon Web Services KMS [^14] in the *Amazon S3 User Guide*.
+     *       >   multipart upload. For more information, see Multipart upload API and permissions [^15] and Protecting data
+     *       >   using server-side encryption with Amazon Web Services KMS [^16] in the *Amazon S3 User Guide*.
      *       > - If your Identity and Access Management (IAM) user or role is in the same Amazon Web Services account as the
      *       >   KMS key, then you must have these permissions on the key policy. If your IAM user or role is in a different
      *       >   account from the key, then you must have the permissions on both the key policy and your IAM user or role.
      *       > - All `GET` and `PUT` requests for an object protected by KMS fail if you don't make them by using Secure
      *       >   Sockets Layer (SSL), Transport Layer Security (TLS), or Signature Version 4. For information about
      *       >   configuring any of the officially supported Amazon Web Services SDKs and Amazon Web Services CLI, see
-     *       >   Specifying the Signature Version in Request Authentication [^15] in the *Amazon S3 User Guide*.
+     *       >   Specifying the Signature Version in Request Authentication [^17] in the *Amazon S3 User Guide*.
      *       >
      *
      *       For more information about server-side encryption with KMS keys (SSE-KMS), see Protecting Data Using
-     *       Server-Side Encryption with KMS keys [^16] in the *Amazon S3 User Guide*.
+     *       Server-Side Encryption with KMS keys [^18] in the *Amazon S3 User Guide*.
      *     - Use customer-provided encryption keys (SSE-C) – If you want to manage your own encryption keys, provide all
      *       the following headers in the request.
      *
@@ -859,7 +865,7 @@ class S3Client extends AbstractApi
      *       - `x-amz-server-side-encryption-customer-key-MD5`
      *
      *       For more information about server-side encryption with customer-provided encryption keys (SSE-C), see
-     *       Protecting data using server-side encryption with customer-provided encryption keys (SSE-C) [^17] in the
+     *       Protecting data using server-side encryption with customer-provided encryption keys (SSE-C) [^19] in the
      *       *Amazon S3 User Guide*.
      *
      *   - **Directory buckets** - For directory buckets, there are only two supported options for server-side encryption:
@@ -867,11 +873,11 @@ class S3Client extends AbstractApi
      *     (SSE-KMS) (`aws:kms`). We recommend that the bucket's default encryption uses the desired encryption
      *     configuration and you don't override the bucket default encryption in your `CreateSession` requests or `PUT`
      *     object requests. Then, new objects are automatically encrypted with the desired encryption settings. For more
-     *     information, see Protecting data with server-side encryption [^18] in the *Amazon S3 User Guide*. For more
+     *     information, see Protecting data with server-side encryption [^20] in the *Amazon S3 User Guide*. For more
      *     information about the encryption overriding behaviors in directory buckets, see Specifying server-side encryption
-     *     with KMS for new object uploads [^19].
+     *     with KMS for new object uploads [^21].
      *
-     *     In the Zonal endpoint API calls (except CopyObject [^20] and UploadPartCopy [^21]) using the REST API, the
+     *     In the Zonal endpoint API calls (except CopyObject [^22] and UploadPartCopy [^23]) using the REST API, the
      *     encryption request headers must match the encryption settings that are specified in the `CreateSession` request.
      *     You can't override the values of the encryption settings (`x-amz-server-side-encryption`,
      *     `x-amz-server-side-encryption-aws-kms-key-id`, `x-amz-server-side-encryption-context`, and
@@ -883,7 +889,7 @@ class S3Client extends AbstractApi
      *     > automatically to avoid service interruptions when a session expires. The CLI or the Amazon Web Services SDKs
      *     > use the bucket's default encryption configuration for the `CreateSession` request. It's not supported to
      *     > override the encryption settings values in the `CreateSession` request. So in the Zonal endpoint API calls
-     *     > (except CopyObject [^22] and UploadPartCopy [^23]), the encryption request headers must match the default
+     *     > (except CopyObject [^24] and UploadPartCopy [^25]), the encryption request headers must match the default
      *     > encryption configuration of the directory bucket.
      *
      *     > For directory buckets, when you perform a `CreateMultipartUpload` operation and an `UploadPartCopy` operation,
@@ -898,43 +904,45 @@ class S3Client extends AbstractApi
      *
      * The following operations are related to `CreateMultipartUpload`:
      *
-     * - UploadPart [^24]
-     * - CompleteMultipartUpload [^25]
-     * - AbortMultipartUpload [^26]
-     * - ListParts [^27]
-     * - ListMultipartUploads [^28]
+     * - UploadPart [^26]
+     * - CompleteMultipartUpload [^27]
+     * - AbortMultipartUpload [^28]
+     * - ListParts [^29]
+     * - ListMultipartUploads [^30]
      *
      * ! You must URL encode any signed header values that contain spaces. For example, if your header value is `my
      * ! file.txt`, containing two spaces after `my`, you must URL encode this value to `my%20%20file.txt`.
      *
      * [^1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * [^2]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html
-     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
-     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
-     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
-     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html
-     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html#mpuAndPermissions
-     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
-     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
-     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
-     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
-     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html#mpuAndPermissions
-     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
-     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+     * [^3]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
+     * [^4]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
+     * [^5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
+     * [^6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/endpoint-directory-buckets-AZ.html
+     * [^7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-lzs-for-directory-buckets.html
+     * [^8]: https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html
+     * [^9]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html#mpuAndPermissions
+     * [^10]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
+     * [^11]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
+     * [^12]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html
+     * [^13]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
+     * [^14]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
+     * [^15]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html#mpuAndPermissions
      * [^16]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
-     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html
-     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
-     * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-specifying-kms-encryption.html
-     * [^20]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
-     * [^21]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
+     * [^17]: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+     * [^18]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
+     * [^19]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html
+     * [^20]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-serv-side-encryption.html
+     * [^21]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-specifying-kms-encryption.html
      * [^22]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
      * [^23]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
-     * [^24]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
-     * [^25]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
-     * [^26]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
-     * [^27]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
-     * [^28]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
+     * [^24]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
+     * [^25]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html
+     * [^26]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
+     * [^27]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
+     * [^28]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
+     * [^29]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
+     * [^30]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createmultipartupload
@@ -1516,7 +1524,6 @@ class S3Client extends AbstractApi
      *
      *   - Description: The lifecycle configuration does not exist.
      *   - HTTP Status Code: 404 Not Found
-     *   - SOAP Fault Code Prefix: Client
      *
      *
      * The following operations are related to `GetBucketLifecycleConfiguration`:
@@ -3477,7 +3484,6 @@ class S3Client extends AbstractApi
      *     - Description: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart
      *       upload might have been aborted or completed.
      *     - HTTP Status Code: 404 Not Found
-     *     - SOAP Fault Code Prefix: Client
      *
      *
      * - `HTTP Host header syntax`:
