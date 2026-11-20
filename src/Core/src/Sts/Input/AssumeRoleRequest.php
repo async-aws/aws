@@ -54,11 +54,6 @@ final class AssumeRoleRequest extends Input
      * both inline and managed session policies can't exceed 2,048 characters. For more information about ARNs, see Amazon
      * Resource Names (ARNs) and Amazon Web Services Service Namespaces [^1] in the Amazon Web Services General Reference.
      *
-     * > An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session
-     * > tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your
-     * > plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close
-     * > the policies and tags for your request are to the upper size limit.
-     *
      * Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the
      * intersection of the role's identity-based policy and the session policies. You can use the role's temporary
      * credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You
@@ -84,11 +79,6 @@ final class AssumeRoleRequest extends Input
      * The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. The JSON
      * policy characters can be any ASCII character from the space character to the end of the valid character list (\u0020
      * through \u00FF). It can also include the tab (\u0009), linefeed (\u000A), and carriage return (\u000D) characters.
-     *
-     * > An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session
-     * > tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your
-     * > plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close
-     * > the policies and tags for your request are to the upper size limit.
      *
      * For more information about role session permissions, see Session policies [^2].
      *
@@ -134,11 +124,6 @@ final class AssumeRoleRequest extends Input
      * This parameter is optional. You can pass up to 50 session tags. The plaintext session tag keys can’t exceed 128
      * characters, and the values can’t exceed 256 characters. For these and additional limits, see IAM and STS Character
      * Limits [^2] in the *IAM User Guide*.
-     *
-     * > An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session
-     * > tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your
-     * > plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close
-     * > the policies and tags for your request are to the upper size limit.
      *
      * You can pass a session tag with the same key as a tag that is already attached to the role. When you do, session tags
      * override a role tag with the same key.
