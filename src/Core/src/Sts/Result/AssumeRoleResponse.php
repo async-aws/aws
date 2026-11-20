@@ -35,9 +35,9 @@ class AssumeRoleResponse extends Result
     private $assumedRoleUser;
 
     /**
-     * A percentage value that indicates the packed size of the session policies and session tags combined passed in the
-     * request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded
-     * the allowed space.
+     * The percentage (0-100) of the maximum allowed session token size that the returned session token consumes.
+     *
+     * This field is deprecated. Use `SessionTokenUtilization` instead.
      *
      * @var int|null
      */

@@ -6,6 +6,7 @@
 
 - AWS api-change: Increases the maximum session token size to 4,096 bytes and removes the packed policy size limit. Adds SessionTokenSize and SessionTokenUtilization fields and a new MinimumSessionTokenSize parameter. PackedPolicySize is deprecated.
 - Added the `responseBufferMaxSize` option to read large response bodies once instead of buffering them
+- AWS api-change: AWS STS expands Trusted Identity Propagation (TIP) to IAM federation and IAM Roles Anywhere. TIP carries verified user or workload identity for authorization and CloudTrail auditing.
 
 ### Fixed
 

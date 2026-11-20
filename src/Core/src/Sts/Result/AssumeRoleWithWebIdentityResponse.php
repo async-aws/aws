@@ -6,6 +6,9 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Sts\ValueObject\AssumedRoleUser;
 use AsyncAws\Core\Sts\ValueObject\Credentials;
+use AsyncAws\Core\Sts\ValueObject\OriginIdentity;
+use AsyncAws\Core\Sts\ValueObject\TransactionContext;
+use AsyncAws\Core\Sts\ValueObject\TrustedIdentityPropagationContext;
 
 /**
  * Contains the response to a successful AssumeRoleWithWebIdentity request, including temporary Amazon Web Services
@@ -44,9 +47,9 @@ class AssumeRoleWithWebIdentityResponse extends Result
     private $assumedRoleUser;
 
     /**
-     * A percentage value that indicates the packed size of the session policies and session tags combined passed in the
-     * request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded
-     * the allowed space.
+     * The percentage (0-100) of the maximum allowed session token size that the returned session token consumes.
+     *
+     * This field is deprecated. Use `SessionTokenUtilization` instead.
      *
      * @var int|null
      */
@@ -102,6 +105,21 @@ class AssumeRoleWithWebIdentityResponse extends Result
      * @var int|null
      */
     private $sessionTokenSize;
+
+    /**
+     * The trusted identity propagation context that Amazon Web Services STS set in the session from the web identity token,
+     * through the context provider attached to the OpenID Connect identity provider. It is present only when Amazon Web
+     * Services STS set such context in the session. It contains the `aws:OriginIdentity/Subject`,
+     * `aws:OriginIdentity/SubjectType`, `aws:OriginIdentity/Issuer` and `aws:OriginIdentity/FederatedProviderArn` keys and
+     * the `aws:TransactionContext/IdentityProvider/*` keys that Amazon Web Services STS set in the session. Other keys in
+     * the session, such as `aws:IdentityCenterInstanceArn` and `aws:IdentityStoreArn` for an identity provider with an
+     * Identity Center instance attached, are not returned.
+     *
+     * This element contains information about the end user. Do not log it.
+     *
+     * @var TrustedIdentityPropagationContext|null
+     */
+    private $trustedIdentityPropagationContext;
 
     public function getAssumedRoleUser(): ?AssumedRoleUser
     {
@@ -170,6 +188,13 @@ class AssumeRoleWithWebIdentityResponse extends Result
         return $this->subjectFromWebIdentityToken;
     }
 
+    public function getTrustedIdentityPropagationContext(): ?TrustedIdentityPropagationContext
+    {
+        $this->initialize();
+
+        return $this->trustedIdentityPropagationContext;
+    }
+
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
@@ -184,6 +209,7 @@ class AssumeRoleWithWebIdentityResponse extends Result
         $this->sourceIdentity = (null !== $v = $data->SourceIdentity[0]) ? (string) $v : null;
         $this->sessionTokenUtilization = (null !== $v = $data->SessionTokenUtilization[0]) ? (int) (string) $v : null;
         $this->sessionTokenSize = (null !== $v = $data->SessionTokenSize[0]) ? (int) (string) $v : null;
+        $this->trustedIdentityPropagationContext = 0 === $data->TrustedIdentityPropagationContext->count() ? null : $this->populateResultTrustedIdentityPropagationContext($data->TrustedIdentityPropagationContext);
     }
 
     private function populateResultAssumedRoleUser(\SimpleXMLElement $xml): AssumedRoleUser
@@ -201,6 +227,45 @@ class AssumeRoleWithWebIdentityResponse extends Result
             'SecretAccessKey' => (string) $xml->SecretAccessKey,
             'SessionToken' => (string) $xml->SessionToken,
             'Expiration' => new \DateTimeImmutable((string) $xml->Expiration),
+        ]);
+    }
+
+    private function populateResultOriginIdentity(\SimpleXMLElement $xml): OriginIdentity
+    {
+        return new OriginIdentity([
+            'Subject' => (null !== $v = $xml->Subject[0]) ? (string) $v : null,
+            'SubjectType' => (null !== $v = $xml->SubjectType[0]) ? (string) $v : null,
+            'Issuer' => (null !== $v = $xml->Issuer[0]) ? (string) $v : null,
+            'FederatedProviderArn' => (null !== $v = $xml->FederatedProviderArn[0]) ? (string) $v : null,
+        ]);
+    }
+
+    private function populateResultTransactionContext(\SimpleXMLElement $xml): TransactionContext
+    {
+        return new TransactionContext([
+            'IdentityProvider' => (0 === ($v = $xml->IdentityProvider)->count()) ? null : $this->populateResultTransactionContextIdentityProviderMapType($v),
+        ]);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function populateResultTransactionContextIdentityProviderMapType(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->entry as $item) {
+            $a = $item->value;
+            $items[$item->key->__toString()] = (string) $a;
+        }
+
+        return $items;
+    }
+
+    private function populateResultTrustedIdentityPropagationContext(\SimpleXMLElement $xml): TrustedIdentityPropagationContext
+    {
+        return new TrustedIdentityPropagationContext([
+            'OriginIdentity' => 0 === $xml->OriginIdentity->count() ? null : $this->populateResultOriginIdentity($xml->OriginIdentity),
+            'TransactionContext' => 0 === $xml->TransactionContext->count() ? null : $this->populateResultTransactionContext($xml->TransactionContext),
         ]);
     }
 }
