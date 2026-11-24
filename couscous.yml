@@ -241,6 +241,9 @@ menu:
             hard-coded:
                 text: Hard-Coded values
                 url: /authentication/hard-coded.html
+            lambda-snapstart:
+                text: Lambda SnapStart
+                url: /authentication/lambda-snapstart.html
             web-identity:
                 text: WebIdentity
                 url: /authentication/web-identity.html

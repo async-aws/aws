@@ -131,10 +131,8 @@ Path to the file that contains the Pod Identity access token, which should alrea
 
 ### containerAuthorizationToken
 
-The authorization token for the container credentials endpoint. AsyncAws sends it in the
-`Authorization` header, but only when `podIdentityAuthorizationTokenFile` is not set.
-AWS Lambda sets it with the `AWS_CONTAINER_AUTHORIZATION_TOKEN` environment variable for
-functions with [SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-activate.html#snapstart-credentials).
+The authorization token sent to the container credentials endpoint. It is ignored when `podIdentityAuthorizationTokenFile` is set.
+It is injected by Lambda when using [SnapStart](/authentication/lambda-snapstart.md).
 
 ## S3 specific Configuration reference
 
