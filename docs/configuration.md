@@ -129,6 +129,11 @@ Full Uri to the endpoint of the Pod Identity agent, which should already be inje
 
 Path to the file that contains the Pod Identity access token, which should already be injected by the Pod Identity agent when using the [PodIdentity Provider](/authentication/pod-identity.md)
 
+### containerAuthorizationToken
+
+The authorization token sent to the container credentials endpoint. It is ignored when `podIdentityAuthorizationTokenFile` is set.
+It is injected by Lambda when using [SnapStart](/authentication/lambda-snapstart.md).
+
 ## S3 specific Configuration reference
 
 ### pathStyleEndpoint

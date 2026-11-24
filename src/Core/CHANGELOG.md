@@ -7,11 +7,13 @@
 - AWS api-change: Increases the maximum session token size to 4,096 bytes and removes the packed policy size limit. Adds SessionTokenSize and SessionTokenUtilization fields and a new MinimumSessionTokenSize parameter. PackedPolicySize is deprecated.
 - Added the `responseBufferMaxSize` option to read large response bodies once instead of buffering them
 - AWS api-change: AWS STS expands Trusted Identity Propagation (TIP) to IAM federation and IAM Roles Anywhere. TIP carries verified user or workload identity for authorization and CloudTrail auditing.
+- Added the `containerAuthorizationToken` option and support for the `AWS_CONTAINER_AUTHORIZATION_TOKEN` environment variable, used by AWS Lambda SnapStart
 
 ### Fixed
 
 - Sign `Content-Type` on requests using header-based Signature V4 authentication, fixing compatibility with Ceph RGW 19.2.6. Preserve its exclusion from presigned URLs.
 - Fix `Result::wait()` with `$downloadBody` skipping error responses from plain clients, or throwing a `LogicException` for 400 and 403 through `RetryableHttpClient`.
+- Do not write the container authorization token to the logs when it contains CR, LF or NUL characters
 
 ## 1.30.0
 
