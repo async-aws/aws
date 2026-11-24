@@ -51,7 +51,7 @@ final class StreamDescriptionSummary
 
     /**
      * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can
-     * choose between an **on-demand** ycapacity mode and a **provisioned** capacity mode for your data streams.
+     * choose between an **on-demand** capacity mode and a **provisioned** capacity mode for your data streams.
      *
      * @var StreamModeDetails|null
      */
@@ -111,7 +111,9 @@ final class StreamDescriptionSummary
     private $openShardCount;
 
     /**
-     * The number of enhanced fan-out consumers registered with the stream.
+     * The number of enhanced fan-out consumers registered with the stream. Queues are not included in this count, even
+     * though they share the stream's registered consumer limit with enhanced fan-out consumers. `QueueCount` reports the
+     * number of queues.
      *
      * @var int|null
      */
@@ -150,6 +152,13 @@ final class StreamDescriptionSummary
     private $recordDistributionStrategy;
 
     /**
+     * The number of queues created on the data stream.
+     *
+     * @var int|null
+     */
+    private $queueCount;
+
+    /**
      * @param array{
      *   StreamName: string,
      *   StreamARN: string,
@@ -167,6 +176,7 @@ final class StreamDescriptionSummary
      *   MaxRecordSizeInKiB?: int|null,
      *   ChannelCount?: int|null,
      *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
+     *   QueueCount?: int|null,
      * } $input
      */
     public function __construct(array $input)
@@ -187,6 +197,7 @@ final class StreamDescriptionSummary
         $this->maxRecordSizeInKiB = $input['MaxRecordSizeInKiB'] ?? null;
         $this->channelCount = $input['ChannelCount'] ?? null;
         $this->recordDistributionStrategy = $input['RecordDistributionStrategy'] ?? null;
+        $this->queueCount = $input['QueueCount'] ?? null;
     }
 
     /**
@@ -207,6 +218,7 @@ final class StreamDescriptionSummary
      *   MaxRecordSizeInKiB?: int|null,
      *   ChannelCount?: int|null,
      *   RecordDistributionStrategy?: RecordDistributionStrategy::*|null,
+     *   QueueCount?: int|null,
      * }|StreamDescriptionSummary $input
      */
     public static function create($input): self
@@ -253,6 +265,11 @@ final class StreamDescriptionSummary
     public function getOpenShardCount(): int
     {
         return $this->openShardCount;
+    }
+
+    public function getQueueCount(): ?int
+    {
+        return $this->queueCount;
     }
 
     /**

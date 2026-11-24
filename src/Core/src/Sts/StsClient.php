@@ -9,6 +9,7 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Sts\Exception\ExpiredTokenException;
 use AsyncAws\Core\Sts\Exception\IDPCommunicationErrorException;
 use AsyncAws\Core\Sts\Exception\IDPRejectedClaimException;
+use AsyncAws\Core\Sts\Exception\InvalidContextAssertionException;
 use AsyncAws\Core\Sts\Exception\InvalidIdentityTokenException;
 use AsyncAws\Core\Sts\Exception\MalformedPolicyDocumentException;
 use AsyncAws\Core\Sts\Exception\PackedPolicyTooLargeException;
@@ -127,6 +128,7 @@ class StsClient extends AbstractApi
      * }|AssumeRoleRequest $input
      *
      * @throws ExpiredTokenException
+     * @throws InvalidContextAssertionException
      * @throws MalformedPolicyDocumentException
      * @throws PackedPolicyTooLargeException
      * @throws RegionDisabledException
@@ -136,6 +138,7 @@ class StsClient extends AbstractApi
         $input = AssumeRoleRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRole', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ExpiredTokenException' => ExpiredTokenException::class,
+            'InvalidContextAssertion' => InvalidContextAssertionException::class,
             'MalformedPolicyDocument' => MalformedPolicyDocumentException::class,
             'PackedPolicyTooLarge' => PackedPolicyTooLargeException::class,
             'RegionDisabledException' => RegionDisabledException::class,
@@ -202,11 +205,6 @@ class StsClient extends AbstractApi
      * You can pass up to 50 session tags. The plaintext session tag keys can’t exceed 128 characters and the values
      * can’t exceed 256 characters. For these and additional limits, see IAM and STS Character Limits [^12] in the *IAM
      * User Guide*.
-     *
-     * > An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session
-     * > tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your
-     * > plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close
-     * > the policies and tags for your request are to the upper size limit.
      *
      * You can pass a session tag with the same key as a tag that is attached to the role. When you do, the session tag
      * overrides the role tag with the same key.

@@ -76,6 +76,17 @@ final class MultipartUpload
     private $checksumType;
 
     /**
+     * Version ID of the object.
+     *
+     * Returns the Version ID of the object for the multipart upload, if bucket versioning is enabled.
+     *
+     * > This functionality is not supported for directory buckets.
+     *
+     * @var string|null
+     */
+    private $versionId;
+
+    /**
      * @param array{
      *   UploadId?: string|null,
      *   Key?: string|null,
@@ -85,6 +96,7 @@ final class MultipartUpload
      *   Initiator?: Initiator|array|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
+     *   VersionId?: string|null,
      * } $input
      */
     public function __construct(array $input)
@@ -97,6 +109,7 @@ final class MultipartUpload
         $this->initiator = isset($input['Initiator']) ? Initiator::create($input['Initiator']) : null;
         $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->checksumType = $input['ChecksumType'] ?? null;
+        $this->versionId = $input['VersionId'] ?? null;
     }
 
     /**
@@ -109,6 +122,7 @@ final class MultipartUpload
      *   Initiator?: Initiator|array|null,
      *   ChecksumAlgorithm?: ChecksumAlgorithm::*|null,
      *   ChecksumType?: ChecksumType::*|null,
+     *   VersionId?: string|null,
      * }|MultipartUpload $input
      */
     public static function create($input): self
@@ -163,5 +177,10 @@ final class MultipartUpload
     public function getUploadId(): ?string
     {
         return $this->uploadId;
+    }
+
+    public function getVersionId(): ?string
+    {
+        return $this->versionId;
     }
 }
